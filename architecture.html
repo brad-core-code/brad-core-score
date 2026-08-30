@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Architecture · Brad-Core OS</title>
-  <meta name="description" content="Sealed ladder, Sentinel, Amy Protocol, Packet Seal, and Master Log.">
+  <meta name="description" content="Sealed ladder, Quad-Core VALIDATE, Amy Protocol, Packet Seal, Master Log.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,12 +12,13 @@
     <div class="wrap header-inner">
       <a class="logo" href="index.html">Brad<span>-Core</span></a>
       <button type="button" class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.primary-nav').classList.toggle('open')">Menu</button>
-      <nav class="primary-nav" aria-label="Primary">
+            <nav class="primary-nav" aria-label="Primary">
         <a href="index.html">Home</a>
+        <a href="quad-core.html">Quad-Core</a>
         <a href="architecture.html" class="active">Architecture</a>
         <a href="validation.html">Validation</a>
-        <a href="applications.html">Applications</a>
-        <a href="mission.html">Mission</a>
+        <a href="applications.html">Nodes</a>
+        <a href="products.html">Tools</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
@@ -27,17 +28,18 @@
       <div class="wrap">
         <p class="kicker">Sealed system</p>
         <h1>Architecture</h1>
-        <p>One ladder. No skipped states. No convenience logic. The same engine in every node.</p>
+        <p>One ladder. Four cores. No skipped states. No convenience logic. The same engine in every node.</p>
       </div>
     </div>
     <section>
       <div class="wrap">
         <h2>Closed loop</h2>
-        <p style="color:var(--muted);max-width:40rem;">Every critical path completes. Partial cycles are treated as failure, not as progress.</p>
+        <p style="color:var(--muted);max-width:40rem;">Partial cycles are failure. VALIDATE is the Quad-Core vote, not commentary.</p>
         <div class="ladder">
           <span>Read</span>
           <span>Interpret</span>
           <span>Decide</span>
+          <span class="hot">Validate</span>
           <span>Act</span>
           <span class="hot">Log</span>
         </div>
@@ -46,7 +48,7 @@
     <section>
       <div class="wrap">
         <h2>State machine</h2>
-        <p style="color:var(--muted);max-width:42rem;">Hazard class determines the only legal transitions. DECIDE may recommend. Sentinel validates. Amy authorizes Class 4/5. Illegal jumps become Clause-Critical hazards.</p>
+        <p style="color:var(--muted);max-width:42rem;">Hazard class sets the only legal transitions. DECIDE may recommend. Quad-Core validates. Amy authorizes Class 4/5 containment.</p>
         <div class="ladder">
           <span>Baseline</span>
           <span>Operational</span>
@@ -59,23 +61,54 @@
     </section>
     <section>
       <div class="wrap">
+        <h2>Quad-Core vote</h2>
+        <p style="color:var(--muted);max-width:42rem;margin-bottom:1.2rem;">Any REJECT or ISOLATE vetoes. Unanimous APPROVE is the only clean advance.</p>
+        <div class="grid-4">
+          <article class="card">
+            <div class="core-id">Core 0</div>
+            <h3>Identity Shield</h3>
+            <p>Clause and fingerprint.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 1</div>
+            <h3>Dual-Validation</h3>
+            <p>Ladder and proportionality.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 2</div>
+            <h3>Loop-Closure</h3>
+            <p>Cycle completeness.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 3</div>
+            <h3>Boundary Sentinel</h3>
+            <p>Domain and baseline.</p>
+          </article>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="quad-core.html">Full vote</a>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
         <h2>Enforcement</h2>
         <div class="grid-2">
           <article class="card">
             <h3>Emmy Clause</h3>
-            <p>Constraint: no alarm dismissed, no test cancelled, no escalation stalled. It does not speak. It binds every other layer.</p>
+            <p>No alarm dismissed. No test cancelled. No escalation stalled. It binds. It does not vote.</p>
           </article>
           <article class="card">
             <h3>Firelight Sentinel</h3>
-            <p>Identity shield, dual-validation, loop-closure, boundary map. Containment sequence: detect, isolate, stabilize, enforce, audit.</p>
+            <p>The four cores. Containment: detect, isolate, stabilize, enforce, audit.</p>
           </article>
           <article class="card">
             <h3>Amy Protocol</h3>
-            <p>Emergency ladder, paradox-class deadlock, LOCKED state. Amy is allowed to finish the loop. Amy is not allowed to weaken it.</p>
+            <p>Paradox and LOCKED. Allowed to finish the loop. Not allowed to weaken it.</p>
           </article>
           <article class="card">
             <h3>Packet Seal</h3>
-            <p>Human autonomy floor. Security cover does not authorize extraction, coercion, or informal imprisonment.</p>
+            <p>Autonomy floor. Security cover is not extraction or informal imprisonment.</p>
           </article>
         </div>
       </div>
@@ -83,18 +116,23 @@
     <section>
       <div class="wrap">
         <h2>Recovery</h2>
-        <p style="color:var(--muted);max-width:42rem;">The system never returns to BASELINE automatically. Recovery is a descent of the same ladder, dual-authorized, with forensic replay. A neutralized threat does not permanently suppress a new life-critical signal.</p>
+        <p style="color:var(--muted);max-width:42rem;">The system never returns to BASELINE automatically. Recovery is a descent of the same ladder, dual-authorized, with forensic replay.</p>
       </div>
     </section>
   </main>
   <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <nav class="footer-nav">
-        <a href="legal.html">Legal</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div>Brad-Core OS · Williams, Arizona</div>
+    <div class="wrap">
+      <div class="footer-cores">C0 Identity · C1 Dual-Validation · C2 Loop-Closure · C3 Boundary</div>
+      <div class="footer-inner">
+        <nav class="footer-nav">
+          <a href="mission.html">Mission</a>
+          <a href="media.html">Room</a>
+          <a href="legal.html">Legal</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div>Brad-Core OS · Quad-Core Guardian v1 · Williams, Arizona</div>
+      </div>
     </div>
   </footer>
 </body>

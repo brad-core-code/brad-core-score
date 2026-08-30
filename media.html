@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Media Room · Brad-Core OS</title>
+  <meta name="description" content="Password-gated counterparties room.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">Brad<span>-Core</span></a>
+      <button type="button" class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.primary-nav').classList.toggle('open')">Menu</button>
+            <nav class="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="quad-core.html">Quad-Core</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="validation.html">Validation</a>
+        <a href="applications.html">Nodes</a>
+        <a href="products.html">Tools</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="page-hero">
+      <div class="wrap">
+        <p class="kicker">Counterparties</p>
+        <h1>Media room</h1>
+        <p>Stills, one-pagers, and validation extracts for people who already have the key. This is a courtesy gate on a static host — it is not a vault.</p>
+      </div>
+    </div>
+
+    <section id="lock">
+      <div class="wrap gate">
+        <h2>Enter</h2>
+        <form id="gate-form" autocomplete="off">
+          <label for="key" class="kicker">Key</label>
+          <input id="key" name="key" type="password" required>
+          <p class="err" id="gate-err" role="alert"></p>
+          <button class="btn btn-solid" type="submit">Open</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="room" class="hidden">
+      <div class="wrap">
+        <h2>Available</h2>
+        <p style="color:var(--muted);max-width:40rem;margin-bottom:1.4rem;">Nothing sensitive lives here until you drop approved files into the repo. Use this list as the inventory. Send the actual decks and harness PDFs by email unless you later move the host behind real access control.</p>
+        <div class="media-list">
+          <div class="media-item">
+            <div>
+              <h3>Press stills</h3>
+              <p>Founder / place / hardware frames. Empty until you send photographs.</p>
+            </div>
+            <span class="kicker">Hold</span>
+          </div>
+          <div class="media-item">
+            <div>
+              <h3>Validation extract</h3>
+              <p>Public numbers only: 10/10, 27/27, NR-SH 7/7, Starship L5. Spec-level.</p>
+            </div>
+            <a href="validation.html">Open</a>
+          </div>
+          <div class="media-item">
+            <div>
+              <h3>Architecture summary</h3>
+              <p>Ladder, Quad-Core Sentinel, Amy, Packet Seal. Same copy as the public site.</p>
+            </div>
+            <a href="quad-core.html">Open</a>
+          </div>
+          <div class="media-item">
+            <div>
+              <h3>Workshop tools</h3>
+              <p>TrailerForge and AIR-Pro. Public product page. Screenshots only.</p>
+            </div>
+            <a href="products.html">Open</a>
+          </div>
+          <div class="media-item">
+            <div>
+              <h3>Full decks and harness PDFs</h3>
+              <p>Not hosted here. Request from brad-core@outlook.com.</p>
+            </div>
+            <a href="mailto:brad-core@outlook.com">Request</a>
+          </div>
+        </div>
+        <p class="note">If a file is in this GitHub repo, its URL is public even when this page is locked. Do not upload the pitch deck or red-team PDFs to Pages.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cores">C0 Identity · C1 Dual-Validation · C2 Loop-Closure · C3 Boundary</div>
+      <div class="footer-inner">
+        <nav class="footer-nav">
+          <a href="mission.html">Mission</a>
+          <a href="media.html">Room</a>
+          <a href="legal.html">Legal</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div>Brad-Core OS · Quad-Core Guardian v1 · Williams, Arizona</div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const HASH = "d8e14776deb5d36d9a9f53e6e3a9121bf68b21bb82308ccf63ca7726ca05f341";
+    const form = document.getElementById("gate-form");
+    const err = document.getElementById("gate-err");
+    const lock = document.getElementById("lock");
+    const room = document.getElementById("room");
+
+    async function digest(text) {
+      const data = new TextEncoder().encode(text);
+      const buf = await crypto.subtle.digest("SHA-256", data);
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function openRoom() {
+      lock.classList.add("hidden");
+      room.classList.remove("hidden");
+      sessionStorage.setItem("bc-room", "1");
+    }
+
+    if (sessionStorage.getItem("bc-room") === "1") openRoom();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      err.textContent = "";
+      const hex = await digest(document.getElementById("key").value);
+      if (hex === HASH) openRoom();
+      else err.textContent = "Key rejected.";
+    });
+  </script>
+</body>
+</html>

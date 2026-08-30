@@ -14,7 +14,7 @@
   --ember: #e85d04;
   --ember-2: #ff7a1a;
   --ember-dim: rgba(232, 93, 4, 0.16);
-  --max: 1080px;
+  --max: 1140px;
   --nav-h: 72px;
   --sans: "Barlow", system-ui, sans-serif;
   --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
@@ -69,16 +69,30 @@ a:hover { text-decoration: underline; }
 }
 .logo:hover { text-decoration: none; color: var(--text); }
 .logo span { color: var(--ember); }
+.logo::before {
+  content: "";
+  display: inline-block;
+  width: 0.62rem;
+  height: 0.62rem;
+  margin-right: 0.55rem;
+  margin-bottom: 0.08rem;
+  vertical-align: middle;
+  background:
+    radial-gradient(circle at 20% 20%, var(--ember) 1.4px, transparent 1.6px),
+    radial-gradient(circle at 80% 20%, var(--ember) 1.4px, transparent 1.6px),
+    radial-gradient(circle at 20% 80%, var(--ember) 1.4px, transparent 1.6px),
+    radial-gradient(circle at 80% 80%, var(--ember) 1.4px, transparent 1.6px);
+}
 
 .primary-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 0.15rem 1.15rem;
+  gap: 0.15rem 1.05rem;
 }
 .primary-nav a {
   font-family: var(--cond);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -111,10 +125,22 @@ a:hover { text-decoration: underline; }
 .hero-visual {
   position: absolute;
   inset: 0;
+  background: var(--bg);
+}
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 70% 40%, rgba(232, 93, 4, 0.18), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(232, 93, 4, 0.08), transparent 50%),
-    var(--bg);
+    linear-gradient(90deg, rgba(5, 5, 6, 0.92) 0%, rgba(5, 5, 6, 0.72) 38%, rgba(5, 5, 6, 0.18) 68%, rgba(5, 5, 6, 0.35) 100%),
+    linear-gradient(180deg, rgba(5, 5, 6, 0.15) 0%, rgba(5, 5, 6, 0.55) 100%);
+  pointer-events: none;
+}
+.hero-render {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 48%;
 }
 .rings {
   position: absolute;
@@ -142,6 +168,13 @@ a:hover { text-decoration: underline; }
   inset: 34%;
   border-color: rgba(232, 93, 4, 0.45);
   background: radial-gradient(circle at 50% 50%, rgba(232, 93, 4, 0.35), transparent 58%);
+}
+.rings-quad {
+  box-shadow:
+    0 0 0 28px rgba(232, 93, 4, 0.05),
+    0 0 0 72px rgba(255, 255, 255, 0.012),
+    0 0 0 118px rgba(232, 93, 4, 0.035),
+    inset 0 0 80px rgba(232, 93, 4, 0.08);
 }
 .hero-copy {
   position: relative;
@@ -199,8 +232,10 @@ a:hover { text-decoration: underline; }
 main { flex: 1; }
 
 .page-hero {
-  padding: 4.2rem 0 2.4rem;
+  padding: 4.4rem 0 2.6rem;
   border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse 50% 80% at 92% 10%, rgba(232, 93, 4, 0.12), transparent 55%);
 }
 .page-hero h1 {
   font-family: var(--cond);
@@ -234,18 +269,30 @@ section p + p { margin-top: 0.9rem; }
   max-width: 40rem;
 }
 
-.grid-3, .grid-2 {
+.grid-4, .grid-3, .grid-2 {
   display: grid;
   gap: 1.1rem;
 }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.core-id {
+  font-family: var(--cond);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--ember);
+  margin-bottom: 0.45rem;
+}
 
 .card {
   background: var(--bg-2);
   border: 1px solid var(--line);
   padding: 1.35rem 1.3rem 1.45rem;
+  transition: border-color 0.18s ease, transform 0.18s ease;
 }
+.card:hover { border-color: rgba(232, 93, 4, 0.45); }
 .card h3 {
   font-family: var(--cond);
   letter-spacing: 0.1em;
@@ -314,8 +361,81 @@ td:last-child { color: var(--ember-2); font-weight: 600; }
   color: var(--ember-2);
 }
 
+.gate {
+  max-width: 26rem;
+}
+.gate form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+.gate input[type="password"] {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;
+  padding: 0.85rem 0.9rem;
+}
+.gate input[type="password"]:focus {
+  outline: 1px solid var(--ember);
+  border-color: var(--ember);
+}
+.gate .err {
+  color: #e07070;
+  font-size: 0.92rem;
+  min-height: 1.2em;
+}
+.media-list {
+  display: grid;
+  gap: 0.85rem;
+}
+.media-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+  border: 1px solid var(--line);
+  padding: 1rem 1.1rem;
+  background: var(--bg-2);
+}
+.media-item h3 {
+  font-family: var(--cond);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+.media-item p { color: var(--muted); font-size: 0.92rem; margin-top: 0.3rem; }
+.hidden { display: none; }
+
+.shot {
+  margin-top: 1.4rem;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+}
+.shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #0b0c0e;
+}
+.shot figcaption {
+  padding: 0.75rem 1rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.footer-cores {
+  font-family: var(--cond);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--dim);
+  width: 100%;
+  margin-bottom: 0.35rem;
+}
 .site-footer {
-  padding: 2.2rem 0 2.6rem;
+  padding: 2.4rem 0 2.8rem;
   color: var(--dim);
   font-size: 0.88rem;
 }
@@ -329,8 +449,11 @@ td:last-child { color: var(--ember-2); font-weight: 600; }
 .footer-nav a { color: var(--dim); }
 .footer-nav a:hover { color: var(--text); }
 
+@media (max-width: 1100px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 860px) {
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .nav-toggle { display: inline-flex; }
   .primary-nav {
     display: none;
@@ -347,4 +470,10 @@ td:last-child { color: var(--ember-2); font-weight: 600; }
   .primary-nav.open { display: flex; }
   .hero { align-items: center; }
   .rings { opacity: 0.55; right: -28%; }
+  .hero-render { object-position: 80% 50%; }
+  .hero-visual::after {
+    background:
+      linear-gradient(180deg, rgba(5, 5, 6, 0.35) 0%, rgba(5, 5, 6, 0.78) 70%, rgba(5, 5, 6, 0.92) 100%),
+      linear-gradient(90deg, rgba(5, 5, 6, 0.55) 0%, rgba(5, 5, 6, 0.2) 100%);
+  }
 }

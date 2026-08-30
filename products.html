@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products · Brad-Core OS</title>
+  <meta name="description" content="Workshop tools from the same shop: TrailerForge deterministic trailer planner and AIR-Pro receptionist with sealed intake packets. Not the Guardian OS.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="index.html">Brad<span>-Core</span></a>
+      <button type="button" class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.primary-nav').classList.toggle('open')">Menu</button>
+            <nav class="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="quad-core.html">Quad-Core</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="validation.html">Validation</a>
+        <a href="applications.html">Nodes</a>
+        <a href="products.html" class="active">Tools</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="page-hero">
+      <div class="wrap">
+        <p class="kicker">Workshop tools</p>
+        <h1>Products</h1>
+        <p>Two commercial tools from the same shop. They share a habit: replayable numbers and sealed packets. They are not Brad-Core OS. They do not run the Quad-Core vote.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="grid-2">
+          <article class="card">
+            <p class="core-id">Planner</p>
+            <h3>TrailerForge</h3>
+            <p>Deterministic trailer geometry, weight, and cut list. DIY canvas or Pro rail. Same spec reprints the same blueprint.</p>
+            <div class="hero-actions">
+              <a class="btn btn-solid" href="#trailerforge">Open TrailerForge</a>
+            </div>
+          </article>
+          <article class="card">
+            <p class="core-id">Reception</p>
+            <h3>AIR-Pro</h3>
+            <p>Answers the line, runs structured intake, stores the transcript, and emits a SHA-256 sealed PDF packet.</p>
+            <div class="hero-actions">
+              <a class="btn btn-solid" href="#air-pro">Open AIR-Pro</a>
+            </div>
+          </article>
+        </div>
+        <p class="note">Brad-Core OS is the sealed guardian. These two are tools you can run this week. Do not treat a tongue-weight flag or a clinic packet as a Class-5 aerospace result.</p>
+      </div>
+    </section>
+
+    <section id="trailerforge">
+      <div class="wrap">
+        <p class="kicker">TrailerForge 1.0</p>
+        <h2>Build the trailer on paper before you cut steel</h2>
+        <p style="color:var(--muted);max-width:42rem;">Closed-form weight and station math. No sampled simulator. Textbook tongue band 10–15% (ideal 12%). Hitch envelope is a second band so a light SUV can disagree with the textbook on purpose.</p>
+
+        <figure class="shot">
+          <img src="products/trailerforge-forester.png" alt="TrailerForge Pro mode, Forester 4x10 fulcrum preset with envelope flags">
+          <figcaption>Forester 4×10 fulcrum preset. Red frame means hitch-tongue is over the 150 lb cap. The number is the point.</figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top:1.4rem;">
+          <article class="card">
+            <h3>DIY</h3>
+            <p>Plan-view canvas. Length, width, axle, ramp, doors. Geometry is derived from the spec so the drawing cannot drift from the numbers.</p>
+          </article>
+          <article class="card">
+            <h3>Pro</h3>
+            <p>Same engine, exposed rail: empty / GVWR / payload, tongue, hitch cap, span utilization, sway-bar length, BOM, blueprint PDF.</p>
+          </article>
+          <article class="card">
+            <h3>Presets</h3>
+            <p>4×8 utility, 6×10 enclosed, off-road expedition, Forester 4×10 fulcrum. The last one is a real tow envelope: 1,500 / 150.</p>
+          </article>
+          <article class="card">
+            <h3>What it will not do</h3>
+            <p>It is not a PE stamp, a weld procedure, or a scale. GREEN means inside the amateur thresholds we locked. Weigh the finished trailer.</p>
+          </article>
+        </div>
+
+        <figure class="shot">
+          <img src="products/trailerforge-diy.png" alt="TrailerForge DIY plan view of a 4x8 utility trailer">
+          <figcaption>DIY 4×8. Coupler, axle, ramp. One document feeds both the picture and the cut list.</figcaption>
+        </figure>
+
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="mailto:brad-core@outlook.com?subject=TrailerForge">Ask for TrailerForge</a>
+          <a class="btn btn-ghost" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="air-pro">
+      <div class="wrap">
+        <p class="kicker">AIR-Pro</p>
+        <h2>The call ends as a sealed packet, not a voicemail</h2>
+        <p style="color:var(--muted);max-width:42rem;">Built for clinics, shops, and property desks that lose the first five minutes of a caller. The intake ladder is deterministic. Language sits behind a swappable LLM adapter. The packet hash is of the file bytes.</p>
+
+        <figure class="shot">
+          <img src="products/airpro-calls.png" alt="AIR-Pro call history dashboard">
+          <figcaption>Call history. Clinic, auto, and property verticals in one queue. Urgency and next step stay on the row.</figcaption>
+        </figure>
+
+        <div class="grid-3" style="margin-top:1.4rem;">
+          <article class="card">
+            <h3>Phone agent</h3>
+            <p>Twilio-compatible. Provider is an interface. Mock adapter for a desk demo without a live number.</p>
+          </article>
+          <article class="card">
+            <h3>Intake + profile</h3>
+            <p>Structured turns, transcript, customer record. Replay audio with the packet when a recording exists.</p>
+          </article>
+          <article class="card">
+            <h3>Sealed PDF</h3>
+            <p>Branded intake sheet. SHA-256 stored on the packet and in a sibling file. Same inputs, same hash.</p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top:1.1rem;">
+          <figure class="shot">
+            <img src="products/airpro-transcript.png" alt="AIR-Pro transcript and summary view">
+            <figcaption>Transcript with summary and next steps. The ladder does not rewrite itself mid-call.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="products/airpro-packets.png" alt="AIR-Pro sealed packet list with SHA-256">
+            <figcaption>Sealed packets. Compare the header hash to sha256sum on the file.</figcaption>
+          </figure>
+        </div>
+
+        <div class="grid-2" style="margin-top:1.4rem;">
+          <article class="card">
+            <h3>Demo verticals</h3>
+            <p>Northridge Family Clinic. Desert Line Auto. Cinder &amp; Key Properties. One seeder writes all three.</p>
+          </article>
+          <article class="card">
+            <h3>What it will not do</h3>
+            <p>It is not a clinician. It is not Brad-Core. Language understanding is probabilistic by vendor. The state machine and the packet seal are not.</p>
+          </article>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="mailto:brad-core@outlook.com?subject=AIR-Pro">Ask for AIR-Pro</a>
+          <a class="btn btn-ghost" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>How to ask</h2>
+        <p style="color:var(--muted);max-width:42rem;">Write <a href="mailto:brad-core@outlook.com">brad-core@outlook.com</a>. Name the product in the subject. Say whether you want a local Docker walkthrough, a Windows build of TrailerForge, or a clinic / shop / property demo of AIR-Pro. Bradley W. Holmes, Williams, Arizona.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cores">C0 Identity · C1 Dual-Validation · C2 Loop-Closure · C3 Boundary</div>
+      <div class="footer-inner">
+        <nav class="footer-nav">
+          <a href="mission.html">Mission</a>
+          <a href="media.html">Room</a>
+          <a href="legal.html">Legal</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div>Brad-Core OS · Quad-Core Guardian v1 · Williams, Arizona</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

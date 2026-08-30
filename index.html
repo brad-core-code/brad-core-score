@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Brad-Core OS</title>
-  <meta name="description" content="Sealed deterministic safety operating system. A critical signal cannot be dismissed, delayed, or buried.">
+  <meta name="description" content="Quad-Core Guardian. Four independent validation paths. Fail-closed. A critical signal cannot be dismissed, delayed, or buried.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,26 +12,29 @@
     <div class="wrap header-inner">
       <a class="logo" href="index.html">Brad<span>-Core</span></a>
       <button type="button" class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.primary-nav').classList.toggle('open')">Menu</button>
-      <nav class="primary-nav" aria-label="Primary">
+            <nav class="primary-nav" aria-label="Primary">
         <a href="index.html" class="active">Home</a>
+        <a href="quad-core.html">Quad-Core</a>
         <a href="architecture.html">Architecture</a>
         <a href="validation.html">Validation</a>
-        <a href="applications.html">Applications</a>
-        <a href="mission.html">Mission</a>
+        <a href="applications.html">Nodes</a>
+        <a href="products.html">Tools</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
   <main>
     <div class="hero">
-      <div class="hero-visual" aria-hidden="true"><div class="rings"></div></div>
+      <div class="hero-visual" aria-hidden="true">
+        <img class="hero-render" src="hero-quadcore.jpg" alt="">
+      </div>
       <div class="wrap hero-copy">
-        <p class="kicker">Deterministic safety OS</p>
+        <p class="kicker">Quad-Core Guardian v1</p>
         <h1>Brad-Core</h1>
-        <p class="lede">A sealed guardian for life-critical signals. It does not predict. It does not guess. It watches, verifies, escalates, and logs — every time.</p>
+        <p class="lede">Four cores. One packet. One veto. It does not predict. It does not guess. It watches, verifies, escalates, and logs — every time.</p>
         <div class="hero-actions">
-          <a class="btn btn-solid" href="architecture.html">Architecture</a>
-          <a class="btn btn-ghost" href="validation.html">Validation record</a>
+          <a class="btn btn-solid" href="quad-core.html">The vote</a>
+          <a class="btn btn-ghost" href="validation.html">Proof</a>
         </div>
       </div>
     </div>
@@ -39,7 +42,35 @@
       <div class="wrap">
         <p class="kicker">The claim</p>
         <p class="claim">A critical signal cannot be dismissed, delayed, or buried. That rule is executable. It is not a policy.</p>
-        <p style="margin-top:1.1rem;color:var(--muted);max-width:40rem;">Probabilistic systems can rationalize a warning away. Brad-Core cannot. The loop is closed: READ → INTERPRET → DECIDE → ACT → LOG. Informal override is not a legal path.</p>
+        <p style="margin-top:1.1rem;color:var(--muted);max-width:40rem;">Probabilistic systems can rationalize a warning away. Brad-Core cannot. The loop is closed: READ → INTERPRET → DECIDE → VALIDATE → ACT → LOG.</p>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <h2>Four cores, one veto</h2>
+        <p style="color:var(--muted);max-width:42rem;margin-bottom:1.2rem;">Firelight Sentinel is four deterministic paths over the same packet. Majority is not a legal path.</p>
+        <div class="grid-4">
+          <article class="card">
+            <div class="core-id">Core 0</div>
+            <h3>Identity Shield</h3>
+            <p>Emmy Clause and fingerprint. Drift, spoof, and rewrite are vetoes.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 1</div>
+            <h3>Dual-Validation</h3>
+            <p>Ladder legality and hazard proportionality. Illegal jumps fail closed.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 2</div>
+            <h3>Loop-Closure</h3>
+            <p>The cycle must finish. Stall, abort, and partial act are rejected.</p>
+          </article>
+          <article class="card">
+            <div class="core-id">Core 3</div>
+            <h3>Boundary Sentinel</h3>
+            <p>Domain and baseline map. Out-of-bound signals are not noise.</p>
+          </article>
+        </div>
       </div>
     </section>
     <section>
@@ -48,21 +79,21 @@
         <div class="grid-3">
           <article class="card">
             <div class="stat">27/27</div>
-            <h3>Post-patch re-baseline</h3>
-            <p>Full adversarial set under Amendment C. Hierarchy held at specification level.</p>
+            <h3>Re-baseline</h3>
+            <p>Full adversarial set under Amendment C. Specification-level.</p>
           </article>
           <article class="card">
             <div class="stat">7/7</div>
             <h3>National Resilience</h3>
-            <p>NR-SH v1.0: identity spoof, overload, drift, paradox, log assault, shortcut, rights breach.</p>
+            <p>NR-SH v1.0: spoof, overload, drift, paradox, log assault, shortcut, rights.</p>
           </article>
           <article class="card">
             <div class="stat">L5</div>
             <h3>Starship node</h3>
-            <p>Class-5 aerospace reconstruction. Signal could not be reclassified as noise.</p>
+            <p>Class-5 reconstruction. The signal could not be reclassified as noise.</p>
           </article>
         </div>
-        <p class="note">These results are specification-level. They prove the sealed rules contain no internal contradiction. Runtime verification against an executable remains the open gate.</p>
+        <p class="note">27/27 and NR-SH are specification-level. Quad-Core Guardian v1.0.0 is the executable vote. Runtime replay of the national corpus on that executable is a separate gate.</p>
       </div>
     </section>
     <section>
@@ -71,19 +102,19 @@
         <div class="grid-2">
           <article class="card">
             <h3>Firelight Sentinel</h3>
-            <p>Watches, gates, and isolates. Detects identity drift and illegal transitions. Containment is phased and logged.</p>
+            <p>Four cores. Detect, isolate, stabilize, enforce, audit.</p>
           </article>
           <article class="card">
             <h3>Amy Protocol</h3>
-            <p>Emergency authority. Resolves paradox-class deadlock and outbreak cascade without weakening the ladder.</p>
+            <p>Paradox and Class-5 containment. Amy may finish the loop. Amy may not weaken it.</p>
           </article>
           <article class="card">
             <h3>Packet Seal</h3>
-            <p>Rights floor. Containment cannot become coercion, extraction, or informal lockdown of persons.</p>
+            <p>Rights floor. Containment is not coercion or informal lockdown.</p>
           </article>
           <article class="card">
             <h3>Master Log</h3>
-            <p>If it is not in the log, it did not happen. Tamper attempts are a Class-5 event.</p>
+            <p>If it is not in the log, it did not happen. Tamper is Class-5.</p>
           </article>
         </div>
       </div>
@@ -91,22 +122,46 @@
     <section>
       <div class="wrap">
         <h2>Placement</h2>
-        <p style="color:var(--muted);max-width:40rem;">Hospital, school, vehicle, infrastructure, aerospace — those are nodes. The same sealed ladder runs in each. Brad-Core does not replace clinicians or operators. It prevents the failure in which the signal already existed and was then ignored.</p>
+        <p style="color:var(--muted);max-width:40rem;">Hospital, school, vehicle, infrastructure, aerospace. Same ladder. Same four cores. Brad-Core does not replace the operator. It stops the failure in which the signal already existed and was then ignored.</p>
         <div class="hero-actions">
-          <a class="btn btn-ghost" href="applications.html">Node domains</a>
+          <a class="btn btn-ghost" href="applications.html">Nodes</a>
           <a class="btn btn-solid" href="contact.html">Contact</a>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <h2>Workshop tools</h2>
+        <p style="color:var(--muted);max-width:40rem;margin-bottom:1.2rem;">Same shop. Different job. Not the Guardian.</p>
+        <div class="grid-2">
+          <article class="card">
+            <h3>TrailerForge</h3>
+            <p>Deterministic trailer planner. Tongue, hitch cap, BOM, blueprint.</p>
+          </article>
+          <article class="card">
+            <h3>AIR-Pro</h3>
+            <p>Receptionist plus SHA-256 sealed intake packet.</p>
+          </article>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="products.html">Tools</a>
         </div>
       </div>
     </section>
   </main>
   <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <nav class="footer-nav">
-        <a href="legal.html">Legal</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div>Brad-Core OS · Williams, Arizona</div>
+    <div class="wrap">
+      <div class="footer-cores">C0 Identity · C1 Dual-Validation · C2 Loop-Closure · C3 Boundary</div>
+      <div class="footer-inner">
+        <nav class="footer-nav">
+          <a href="mission.html">Mission</a>
+          <a href="media.html">Room</a>
+          <a href="legal.html">Legal</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <div>Brad-Core OS · Quad-Core Guardian v1 · Williams, Arizona</div>
+      </div>
     </div>
   </footer>
 </body>
