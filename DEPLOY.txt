@@ -1,25 +1,8 @@
-Brad-Core OS — Quad-Core public site pack
-Drop these files at the root of the GitHub Pages repo (or any static host).
-Relative links only. Do not nest this folder under another public path unless
-you want every href broken.
+Unzip INTO the GitHub repo root (same folder as the existing index.html).
+Overwrite. Keep CNAME if GitHub already has one — do not delete it.
 
-Required at site root:
-  index.html
-  quad-core.html
-  architecture.html
-  validation.html
-  applications.html
-  products.html
-  contact.html
-  mission.html
-  media.html
-  legal.html
-  privacy.html
-  styles.css
-  hero-quadcore.jpg
-  diagrams/
-  products/
+Required at root:
+  index.html  styles.css  hero-quadcore.jpg  CNAME
+  diagrams/   products/
 
-Redirect stubs (about, team, investors, ...) can stay so old URLs still resolve.
-
-Contact on the pages: brad-core@outlook.com
+Then commit and push origin main.
