@@ -3,144 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brad-Core OS | Deterministic Safety Kernel</title>
+    <title>Brad-Core OS | High-Assurance Deterministic Safety Kernel</title>
     <style>
         :root {
-            --bg-color: #0a0c10;
-            --panel-bg: #121620;
-            --text-main: #c9d1d9;
-            --text-bright: #ffffff;
-            --accent: #2ea043;
-            --accent-dim: #1f6feb;
-            --border: #30363d;
+            --bg-base: #030712;
+            --bg-surface: #0b0f19;
+            --border-color: #1f2937;
+            --text-main: #9ca3af;
+            --text-heading: #f3f4f6;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background-color: var(--bg-base);
             color: var(--text-main);
             line-height: 1.6;
-            margin: 0;
             padding: 40px 20px;
         }
-        .container {
+        .wrapper {
             max-width: 900px;
             margin: 0 auto;
         }
         header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
             margin-bottom: 40px;
         }
+        .sys-id {
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
         h1 {
-            color: var(--text-bright);
-            font-size: 2.2rem;
-            margin: 0 0 10px 0;
+            color: var(--text-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
-        .subtitle {
-            color: var(--accent);
-            font-family: monospace;
-            font-size: 1.1rem;
+        .tagline {
+            color: var(--text-main);
+            font-size: 1rem;
         }
-        .card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border);
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 24px;
-            margin-bottom: 24px;
         }
-        h2 {
-            color: var(--text-bright);
-            font-size: 1.4rem;
-            margin-top: 0;
-            border-bottom: 1px solid var(--border);
+        .panel h2 {
+            color: var(--text-heading);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
         ul {
-            padding-left: 20px;
+            list-style-type: none;
         }
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 0.92rem;
         }
-        .badge {
-            display: inline-block;
-            background-color: rgba(46, 160, 67, 0.15);
-            color: var(--accent);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            border: 1px solid rgba(46, 160, 67, 0.4);
+        li strong {
+            color: var(--text-heading);
         }
-        .metrics-grid {
+        .metrics-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
         }
-        .metric-box {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
+        .metric-card {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border-color);
             padding: 16px;
-            border-radius: 4px;
             text-align: center;
+            border-radius: 4px;
         }
-        .metric-value {
-            font-size: 1.5rem;
-            color: var(--text-bright);
+        .metric-num {
+            color: var(--text-heading);
+            font-size: 1.4rem;
             font-weight: bold;
-            font-family: monospace;
         }
         .metric-label {
-            font-size: 0.85rem;
-            color: #8b949e;
+            font-size: 0.75rem;
+            color: var(--text-main);
             margin-top: 4px;
+            text-transform: uppercase;
         }
-    5/style>
+        footer {
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: #4b5563;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="wrapper">
         <header>
+            <div class="sys-id">[SECURE ARTIFACT // TR 7 VERIFIED]</div>
             <h1>Brad-Core OS v4 Unified</h1>
-            <div class="subtitle">Deterministic, Zero-Dynamic-Memory Safety Kernel for Autonomous Edge Systems</div>
+            <div class="tagline">Deterministic, zero-dynamic-memory safety core engineered for mission-critical autonomous defense platforms.</div>
         </header>
 
-        <div class="card">
-            <h2>System Architecture Profile</h2>
-            <p>Brad-Core OS is an institution-grade, deterministic execution and safety supervisor designed specifically to eliminate probabilistic software faults, memory corruption, and unhandled exception cascades in high-assurance defense and autonomous applications.</p>
-            <p><span class="badge">Status: Production Binary Frozen &bull; TRL 7 Verified</span></p>
+        <div class="grid">
+            <div class="panel">
+                <h2>Architecture Invariants</h2>
+                <ul>
+                    <li><strong>Malloc Policy:</strong> Strictly <code style="color: #ef4444;">malloc = 0</code>. Zero heap allocation runtime drift.</li>
+                    <li><strong>Timing Engine:</strong> Hard-frozen 100 Hz Sentinel loop with proven Worst-Case Execution Time bounds.</li>
+                    <li><strong>Memory Domain:</strong> Absolute hardware-enforced MPU segmentation mapped via static <code style="color: #60a5fa;">.rodata</code> structures.</li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <h2>Compliance & Standards</h2>
+                <ul>
+                    <li><strong>Interoperability:</strong> Built natively for Modular Open Systems Architecture (MOSA/SOSA).</li>
+                    <li><strong>Security Profile:</strong> Zero Critical/High CVE footprint; full NIST SP 800-171 alignment.</li>
+                    <li><strong>State Machine:</strong> Governed by the Six-State Sealed Ladder fail-closed safety framework.</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="card">
-            <h2>Core Technical Specifications</h2>
-            <ul>
-                <li><strong>Zero Dynamic Memory:</strong> Strictly enforced <code style="color: #ff7b72;">malloc() = 0</code> policy eliminating heap fragmentation and unpredictable memory leaks.</li>
-                <li><strong>Deterministic Sentinel Loop:</strong> Hard-frozen $100\text{ Hz}$ execution framework with proven Worst-Case Execution Time (WCET) bounds ($545\ \mu\text{s}$).</li>
-                <li><strong>Memory Isolation:</strong> Absolute hardware-enforced MPU domain segmentation mapped entirely via static <code style="color: #79c0ff;">.rodata</code> data structures.</li>
-                <li><strong>Six-State Sealed Ladder:</strong> Deterministic state-transition safety engine preventing illegal execution paths under sensor duress.</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Empirical Validation & Compliance</h2>
-            <div class="metrics-grid">
-                <div class="metric-box">
-                    <div class="metric-value">72 / 72</div>
-                    <div class="metric-label">Adversarial Red-Team Vectors Cleared</div>
+        <div class="panel">
+            <h2>Empirical Verification Metrics</h2>
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <div class="metric-num">72/72</div>
+                    <div class="metric-label">Fault Vectors Cleared</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-value">0 CVEs</div>
-                    <div class="metric-label">Zero-Trust Memory Vulnerability Profile</div>
+                <div class="metric-card">
+                    <div class="metric-num">545 &mu;s</div>
+                    <div class="metric-label">WCET Sentinel Bound</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-value">100 Hz</div>
-                    <div class="metric-label">Hard-Realtime Deterministic Loop</div>
+                <div class="metric-card">
+                    <div class="metric-num">0 CVE</div>
+                    <div class="metric-label">Vulnerability Profile</div>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="text-align: center; color: #8b949e; font-size: 0.9rem;">
-            <p>For technical integration briefs, MOSA/SOSA interface specifications, and defense acquisition inquiries, contact via official intake channels.</p>
-        </div>
+        <footer>
+            Brad-Core OS Technical Repository &bull; Institutional Defense Validation Asset
+        </footer>
     </div>
 </body>
 </html>
