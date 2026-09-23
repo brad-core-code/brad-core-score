@@ -13,25 +13,17 @@
             theme: {
                 extend: {
                     colors: {
-                        cyan: {
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                        },
-                        emerald: {
-                            400: '#34d399',
-                            500: '#10b981',
-                        }
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' },
+                        emerald: { 400: '#34d399', 500: '#10b981' }
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Base Fallback Styles */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        html { scroll-behavior: smooth; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
         body { background-color: #020617; color: #f8fafc; line-height: 1.6; }
-        a { color: inherit; text-decoration: none; }
         .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
         .max-w-7xl { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
     </style>
@@ -185,31 +177,34 @@
         <div class="max-w-7xl">
             <div class="mb-12">
                 <span class="font-mono text-xs font-semibold text-cyan-400 uppercase tracking-widest">Hardware & System Blueprints</span>
-                <h2 class="text-3xl font-bold text-white mt-2">Architecture Gallery</h2>
+                <h2 class="text-3xl font-bold text-white mt-2">Architecture & Hardware Gallery</h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1: Tesseract -->
                 <div class="rounded-xl bg-slate-900 border border-slate-800 overflow-hidden hover:border-cyan-500/50 transition-all">
-                    <img src="tesseract.jpg" alt="Guardian Tesseract Visual Architecture" class="w-full h-52 object-cover border-b border-slate-800">
+                    <img src="tesseract.jpg" alt="Guardian Tesseract Visual Architecture" class="w-full h-52 object-cover border-b border-slate-800" onerror="this.onerror=null; this.src='Gemini_Generated_Image_wjdur8wjdur8wjdu.jpg';">
                     <div class="p-5 font-mono">
                         <h4 class="font-bold text-white mb-1">Guardian Tesseract Lattice</h4>
                         <p class="text-xs text-slate-400">3D architectural rendering of the decoupled quad-core safety and governance substrate.</p>
                     </div>
                 </div>
 
+                <!-- Card 2: Mission Computer -->
                 <div class="rounded-xl bg-slate-900 border border-slate-800 overflow-hidden hover:border-cyan-500/50 transition-all">
-                    <img src="mission-computer.jpg" alt="System Mission Computer Substrate" class="w-full h-52 object-cover border-b border-slate-800">
+                    <img src="mission-computer.jpg" alt="System Mission Computer Substrate" class="w-full h-52 object-cover border-b border-slate-800" onerror="this.onerror=null; this.src='download (1).jpg';">
                     <div class="p-5 font-mono">
                         <h4 class="font-bold text-white mb-1">Mission Computer Integration</h4>
                         <p class="text-xs text-slate-400">SOSA-aligned OpenVPX chassis hardware interface and high-density telemetry bridge.</p>
                     </div>
                 </div>
 
+                <!-- Card 3: Sheriff MPU Circuitry -->
                 <div class="rounded-xl bg-slate-900 border border-slate-800 overflow-hidden hover:border-cyan-500/50 transition-all">
-                    <img src="mpu-circuit.jpg" alt="Bare-Metal MPU Isolation Board" class="w-full h-52 object-cover border-b border-slate-800">
+                    <img src="mpu-circuit.jpg" alt="Sheriff Bare-Metal MPU Isolation Board" class="w-full h-52 object-cover border-b border-slate-800" onerror="this.onerror=null; this.src='download.jpg';">
                     <div class="p-5 font-mono">
                         <h4 class="font-bold text-white mb-1">Sheriff MPU Circuitry</h4>
-                        <p class="text-xs text-slate-400">Bare-metal memory protection unit fencing and zero-dynamic-allocation memory bus.</p>
+                        <p class="text-xs text-slate-400">Bare-metal memory protection unit (MPU) page fencing and 86-microsecond circuit breaker.</p>
                     </div>
                 </div>
             </div>
@@ -226,24 +221,30 @@
                     <p class="text-xs text-slate-400 mt-2">1,000,000-run Monte Carlo verified: 87.03% win rate, $445.9k downside floor, $972.1k expected mean.</p>
                 </div>
 
-                <form class="space-y-5" onsubmit="event.preventDefault(); alert('Thank you for your request. The executive summary packet will be sent to your email.');">
+                <!-- FormSubmit Integration -->
+                <form class="space-y-5" action="https://formsubmit.co/brad-core@outlook.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_next" value="https://bradcoreos.com/#contact">
+                    <input type="hidden" name="_subject" value="New Brad-Core OS Investor/Defense Inquiry!">
+                    <input type="hidden" name="_captcha" value="false">
+
                     <div class="grid sm:grid-cols-2 gap-5">
                         <div>
                             <label class="block text-xs font-mono font-semibold text-slate-300 uppercase mb-2">Full Name</label>
-                            <input type="text" required placeholder="Dr. Alex Vance" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
+                            <input type="text" name="Name" required placeholder="Dr. Alex Vance" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-mono font-semibold text-slate-300 uppercase mb-2">Work Email</label>
-                            <input type="email" required placeholder="a.vance@defense-syndicate.com" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
+                            <input type="email" name="Email" required placeholder="a.vance@defense-syndicate.com" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-mono font-semibold text-slate-300 uppercase mb-2">Organization / Syndicate</label>
-                        <input type="text" required placeholder="Angel Syndicate / Defense Prime / CISO Network" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
+                        <input type="text" name="Organization" required placeholder="Angel Syndicate / Defense Prime / CISO Network" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-mono font-semibold text-slate-300 uppercase mb-2">Request Type</label>
-                        <select class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
+                        <select name="Request_Type" class="w-full px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 focus:outline-none focus:border-cyan-400 text-sm">
                             <option>2-Page Executive Summary PDF & Term Sheet</option>
                             <option>15-Slide DIU Phase 2 Briefing Deck</option>
                             <option>Technical SDD v5 Engineering Spec</option>
