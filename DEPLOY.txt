@@ -1,8 +1,0 @@
-Unzip INTO the GitHub repo root (same folder as the existing index.html).
-Overwrite. Keep CNAME if GitHub already has one — do not delete it.
-
-Required at root:
-  index.html  styles.css  hero-quadcore.jpg  CNAME
-  diagrams/   products/
-
-Then commit and push origin main.
