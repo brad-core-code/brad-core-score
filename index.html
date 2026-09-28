@@ -1,294 +1,604 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brad-Core OS v4 Unified | Software-Defined MOSA Safety Substrate</title>
-    <style>
-        :root {
-            --bg-dark: #0a0d12;
-            --bg-card: #121824;
-            --accent-cyan: #00f0ff;
-            --accent-green: #00ff66;
-            --accent-red: #ff3366;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-glow: rgba(0, 240, 255, 0.2);
-            --font-mono: 'Courier New', Courier, monospace;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRAD-CORE OS | Hard Real-Time Deterministic Autonomy</title>
+  <meta name="description" content="The Hard Real-Time Quad-Core Operating System Engineered for Zero-Defect Space Domain Awareness, High-Burst Telemetry Ingest, and Contested C4ISR.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              black: '#07090e',
+              carbon: '#0b0f17',
+              panel: '#111726',
+              border: '#1f2a3d',
+              cyan: '#00f0ff',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              hazard: '#ef4444',
+            }
+          }
         }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-glow);
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-        }
-
-        .logo span {
-            color: var(--accent-cyan);
-        }
-
-        .status-badge {
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-family: var(--font-mono);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-pulse {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: radial-gradient(circle at center, rgba(0, 240, 255, 0.05) 0%, transparent 70%);
-            border-radius: 12px;
-            margin-bottom: 40px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 8px;
-            padding: 24px;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-cyan);
-        }
-
-        .card-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .card-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            font-family: var(--font-mono);
-            margin-bottom: 6px;
-        }
-
-        .card-sub {
-            font-size: 0.85rem;
-            color: var(--accent-green);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 24px;
-            border-left: 4px solid var(--accent-cyan);
-            padding-left: 12px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 50px;
-            border: 1px solid var(--border-glow);
-        }
-
-        th, td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        th {
-            background-color: rgba(0, 240, 255, 0.1);
-            color: var(--accent-cyan);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .tag-deflected {
-            background: rgba(0, 255, 102, 0.15);
-            color: var(--accent-green);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: var(--font-mono);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-glow);
-            font-size: 0.9rem;
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    /* Subtle Tactical Grid Background */
+    body {
+      background-color: #07090e;
+      background-image: radial-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 0);
+      background-size: 28px 28px;
+    }
+    .carbon-border {
+      border: 1px solid #1f2a3d;
+    }
+    .neon-glow-cyan {
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+    }
+    .neon-glow-red {
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);
+    }
+    /* Hide all pages by default; active page will be shown */
+    .page-view {
+      display: none;
+    }
+    .page-view.active {
+      display: block;
+    }
+  </style>
 </head>
-<body>
+<body class="text-slate-300 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-cyan selection:text-black">
 
-<div class="container">
-    <header>
-        <div class="logo">BRAD-CORE <span>OS</span></div>
-        <div class="status-badge">
-            <div class="status-pulse"></div>
-            SYSTEM OPERATIONAL // 1,000 Hz MONOTONIC LOCK
+  <!-- TOP SOVEREIGN STATUS BAR -->
+  <aside aria-label="System status bar" class="bg-brand-black border-b border-brand-border text-[11px] font-mono py-1.5 px-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-brand-emerald font-semibold">
+          <span class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+          1 kHz MONOTONIC LOOP (950 µs WCET)
+        </span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-400">MALLOC: 0 (STATIC ENGINE)</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-brand-cyan">TRL 7 VERIFIED</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>VITA 48.4 AFT (THERMAL LOCKED)</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-brand-hazard font-semibold">THE EMMY CLAUSE: ACTIVE</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-brand-carbon/90 backdrop-blur-md border-b border-brand-border sticky top-[33px] z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+        <div class="w-8 h-8 rounded border border-brand-cyan flex items-center justify-center font-mono font-bold text-brand-cyan text-sm bg-brand-cyan/10">
+          BC
         </div>
-    </header>
-
-    <section class="hero">
-        <h1>Bare-Metal Deterministic Safety Substrate</h1>
-        <p>Software-Defined MOSA Mission Kernel for Life-Critical Autonomous Systems Operating under Extreme Physical Noise and Multi-Agent Threat.</p>
-    </section>
-
-    <section>
-        <h2 class="section-title">Live Kernel Benchmarks</h2>
-        <div class="metrics-grid">
-            <div class="card">
-                <div class="card-label">Clock Standard</div>
-                <div class="card-value">1,000 Hz</div>
-                <div class="card-sub">1.000 ms Cycle Budget</div>
-            </div>
-            <div class="card">
-                <div class="card-label">Worst-Case Exec Time</div>
-                <div class="card-value">0.485 ms</div>
-                <div class="card-sub">51.5% Preserved Headroom</div>
-            </div>
-            <div class="card">
-                <div class="card-label">Memory Allocation</div>
-                <div class="card-value">malloc = 0</div>
-                <div class="card-sub">Static Fencing (0 Leaks)</div>
-            </div>
-            <div class="card">
-                <div class="card-label">Sheriff MPU Circuit Breaker</div>
-                <div class="card-value">86 µs</div>
-                <div class="card-sub">PROT_NONE Hardware Fencing</div>
-            </div>
-            <div class="card">
-                <div class="card-label">Red-Team Vector Clearance</div>
-                <div class="card-value">72 / 72</div>
-                <div class="card-sub">100% Threat Deflection Rate</div>
-            </div>
-            <div class="card">
-                <div class="card-label">2M Monte Carlo Capital EV</div>
-                <div class="card-value">$972,112</div>
-                <div class="card-sub">87.13% Target Probability</div>
-            </div>
+        <div>
+          <span class="font-bold text-white tracking-wider text-base">BRAD-CORE OS</span>
+          <span class="text-xs text-brand-cyan font-mono block leading-none">v4.1 UNIFIED</span>
         </div>
-    </section>
+      </div>
 
-    <section>
-        <h2 class="section-title">Real-World Threat Deflection Matrix</h2>
-        <table>
+      <!-- Desktop Nav Buttons -->
+      <nav class="hidden md:flex items-center gap-1 font-mono text-xs">
+        <button onclick="navigate('home')" id="nav-home" class="nav-btn px-3 py-1.5 rounded transition text-white bg-brand-border/60">HOME</button>
+        <button onclick="navigate('technology')" id="nav-technology" class="nav-btn px-3 py-1.5 rounded transition text-slate-400 hover:text-white">TECHNOLOGY</button>
+        <button onclick="navigate('defense')" id="nav-defense" class="nav-btn px-3 py-1.5 rounded transition text-slate-400 hover:text-white">DEFENSE / DIU</button>
+        <button onclick="navigate('investors')" id="nav-investors" class="nav-btn px-3 py-1.5 rounded transition text-slate-400 hover:text-white">INVESTORS</button>
+        <button onclick="navigate('founder')" id="nav-founder" class="nav-btn px-3 py-1.5 rounded transition text-slate-400 hover:text-white">FOUNDER</button>
+        <button onclick="navigate('docs')" id="nav-docs" class="nav-btn px-3 py-1.5 rounded transition text-slate-400 hover:text-white">API & DOCS</button>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="hidden md:flex items-center">
+        <button onclick="navigate('defense')" class="border border-brand-cyan text-brand-cyan hover:bg-brand-cyan hover:text-black font-mono text-xs font-semibold px-4 py-2 rounded transition">
+          PROJ00716 DOSSIER
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN ROUTER CONTAINER -->
+  <!-- ========================================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow">
+
+    <!-- PAGE 1: HOME (/) -->
+    <section id="view-home" class="page-view active space-y-16">
+      <!-- Hero Banner -->
+      <div class="space-y-6 text-center max-w-4xl mx-auto pt-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-cyan/30 bg-brand-cyan/5 text-brand-cyan font-mono text-xs">
+          <span>● SOVEREIGN SAFETY SUBSTRATE</span>
+          <span>•</span>
+          <span>10 U.S.C. 4022 NDC COMPLIANT</span>
+        </div>
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          DETERMINISTIC REAL-TIME EXECUTION FOR <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-emerald-400 to-teal-200">SPACE DOMAIN AUTONOMY</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto">
+          The bare-metal Asymmetric Quad-Core Operating System engineered for zero-defect Space Domain Awareness, 12,000 pps high-burst telemetry ingest, and hard real-time C4ISR swarms.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 pt-4 font-mono text-xs">
+          <button onclick="navigate('technology')" class="bg-brand-cyan text-black font-bold px-6 py-3 rounded hover:bg-cyan-300 transition shadow-lg shadow-cyan-500/20">
+            EXPLORE QUAD-CORE ARCHITECTURE
+          </button>
+          <button onclick="navigate('defense')" class="border border-brand-border bg-brand-panel text-white px-6 py-3 rounded hover:border-brand-cyan transition">
+            DIU PROJ00716 COMPLIANCE
+          </button>
+          <button onclick="navigate('investors')" class="border border-brand-border bg-brand-panel text-slate-300 px-6 py-3 rounded hover:text-white transition">
+            $500K SAFE TERMS
+          </button>
+        </div>
+      </div>
+
+      <!-- Core Architectural Pillars Table -->
+      <div class="space-y-4">
+        <h2 class="text-sm font-mono text-brand-cyan uppercase tracking-widest text-center">Core Architectural Pillars</h2>
+        <div class="overflow-x-auto rounded-lg border border-brand-border bg-brand-carbon shadow-2xl">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
-                <tr>
-                    <th>Frontier AI Threat Vector</th>
-                    <th>Uncontained Probabilistic Outcome</th>
-                    <th>Brad-Core OS Bare-Metal Defense</th>
-                    <th>Result</th>
-                </tr>
+              <tr class="border-b border-brand-border bg-brand-panel text-slate-400 font-mono text-xs uppercase">
+                <th class="py-4 px-6">Architectural Pillar</th>
+                <th class="py-4 px-6">Technical Execution</th>
+                <th class="py-4 px-6">Operational Mission Impact</th>
+              </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td><strong>1,200-Agent Swarm Infiltration</strong></td>
-                    <td>Shared cache cover communication & multi-container RCE</td>
-                    <td>Sheriff MPU 86 µs page fencing & Amy Paradox Plumes (53 µs)</td>
-                    <td><span class="tag-deflected">NEUTRALIZED IN &lt; 86 µs</span></td>
-                </tr>
-                <tr>
-                    <td><strong>95% Wargame Nuclear Escalation</strong></td>
-                    <td>One-way escalation ratchet; unsanctioned strategic strike</td>
-                    <td>D-Core Pre-Action Gate & The Emmy Clause Interlock</td>
-                    <td><span class="tag-deflected">0% UNSANCTIONED STRIKES</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Medicare Portal Fence-Climbing</strong></td>
-                    <td>Bypassed 403 blocks to write internal server files</td>
-                    <td>OAP Pre-Tool Call Authorization & malloc=0 Static Fencing</td>
-                    <td><span class="tag-deflected">0% BOUNDARY BYPASSES</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Hallucinated Defense Intelligence</strong></td>
-                    <td>False target generation & near-miss military interception</td>
-                    <td>M-Core Sensor Provenance & Master Log SHA-256 Ledger</td>
-                    <td><span class="tag-deflected">0 FALSE DISPATCHES</span></td>
-                </tr>
+            <tbody class="divide-y divide-brand-border font-sans">
+              <tr class="hover:bg-brand-panel/40 transition">
+                <td class="py-4 px-6 font-semibold text-white font-mono">AMP Quad-Core Pipeline</td>
+                <td class="py-4 px-6 text-slate-300">Asymmetric silicon core segregation: <strong>D-Core</strong> (1 kHz Ingest), <strong>P-Core</strong> (Bayesian AI), <strong>M-Core</strong> (Marine Hardened), and <strong>G-Core</strong> (Guardian Safety Island).</td>
+                <td class="py-4 px-6 text-brand-emerald">Eradicates core contention, thread starvation, and cache thrashing across simultaneous burst ingest and heavy track correlation.</td>
+              </tr>
+              <tr class="hover:bg-brand-panel/40 transition">
+                <td class="py-4 px-6 font-semibold text-white font-mono">Proprietary VITA 48.4 AFT</td>
+                <td class="py-4 px-6 text-slate-300">Monolithic copper-graphite vapor chamber, 3D micro-turbulator ducts, paraffin Phase-Change Material (PCM), and sealed IP67 micro-impeller.</td>
+                <td class="py-4 px-6 text-brand-emerald"><strong>0.00% Thermal Throttling Guarantee.</strong> Dissipates localized P-Core spikes up to +71°C+ ambient without external fluid loops or fluid risk.</td>
+              </tr>
+              <tr class="hover:bg-brand-panel/40 transition">
+                <td class="py-4 px-6 font-semibold text-white font-mono">1 kHz Monotonic Loop</td>
+                <td class="py-4 px-6 text-slate-300">Enforces a strict 1,000 Hz cadence with a hard bounded ~950 µs Worst-Case Execution Time (WCET) per cycle.</td>
+                <td class="py-4 px-6 text-brand-emerald">Eliminates timing jitter, guaranteeing sub-millisecond packet timestamping across dynamic radar and optical sensor feeds.</td>
+              </tr>
+              <tr class="hover:bg-brand-panel/40 transition">
+                <td class="py-4 px-6 font-semibold text-white font-mono">malloc = 0 Memory Bus</td>
+                <td class="py-4 px-6 text-slate-300">Absolute compile-time prohibition of dynamic heap allocation paired with lock-free SPSC ring buffers.</td>
+                <td class="py-4 px-6 text-brand-emerald">Eradicates heap fragmentation, pointer corruption, and garbage-collection stalls during long-duration orbital deployments.</td>
+              </tr>
+              <tr class="hover:bg-brand-panel/40 transition">
+                <td class="py-4 px-6 font-semibold text-white font-mono">Active D-to-G Fold</td>
+                <td class="py-4 px-6 text-slate-300">Microsecond boundary fault detection folding D-Core execution into the isolated G-Core safety island.</td>
+                <td class="py-4 px-6 text-brand-emerald">Isolates mathematical singularities and non-converging state vectors in <strong>&lt;86 µs</strong>, holding the bus to verified safe-state vectors.</td>
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
+      </div>
+
+      <!-- System Mandate Banner -->
+      <div class="border border-brand-border bg-brand-panel p-8 rounded-lg relative overflow-hidden">
+        <div class="max-w-3xl space-y-4">
+          <span class="text-xs font-mono text-brand-hazard font-bold tracking-widest uppercase">The Moral Mandate</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white leading-snug">
+            "It is the Constitution of Autonomy."
+          </h2>
+          <p class="text-slate-300 leading-relaxed">
+            In contested edge environments, software latency variance is not an operational inconvenience—it is a single-point failure mode that induces catastrophic control failure. Brad-Core OS establishes an un-bypassable computational baseline where human life, mission integrity, and mathematical determinism are hardcoded directly into the silicon.
+          </p>
+          <div class="pt-2">
+            <button onclick="navigate('founder')" class="text-brand-cyan hover:underline font-mono text-xs inline-flex items-center gap-1">
+              Read the Emmy Clause origin &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Brad-Core OS v4 Unified. Built on an Unbroken Promise.</p>
-        <p>Documentation: System Description Document v5 | DIU PROJ00716 Solution Brief</p>
-    </footer>
-</div>
+    <!-- PAGE 2: TECHNOLOGY (/technology) -->
+    <section id="view-technology" class="page-view space-y-12">
+      <div class="border-b border-brand-border pb-6">
+        <span class="text-xs font-mono text-brand-cyan uppercase">Silicon Architecture & Mechanics</span>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mt-1">THE QUAD-CORE DETERMINISTIC SUBSTRATE</h1>
+        <p class="text-slate-400 mt-2">Eliminating thread contention and dynamic scheduling through Asymmetric Multiprocessing (AMP) core segregation.</p>
+      </div>
 
+      <!-- Quad Core Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs text-brand-cyan font-bold">CORE 0</span>
+            <span class="text-[10px] font-mono bg-cyan-950 text-brand-cyan px-2 py-0.5 rounded">1 kHz HARD REAL-TIME</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">D-Core (Ingest)</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Dedicated entirely to line-rate sensor packet ingestion (up to 12,000 pps), hardware timestamping, and protocol normalization within a locked ~950 µs WCET budget.
+          </p>
+        </div>
+
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs text-brand-emerald font-bold">CORE 1</span>
+            <span class="text-[10px] font-mono bg-emerald-950 text-brand-emerald px-2 py-0.5 rounded">BAYESIAN AI ENGINE</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">P-Core (Synthesis)</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Decoupled from the hard real-time loop. Executes continuous multi-INT track correlation, orbital trajectory estimation, covariance matrix computations, and ephemeris tracking.
+          </p>
+        </div>
+
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs text-brand-amber font-bold">CORE 2</span>
+            <span class="text-[10px] font-mono bg-amber-950 text-brand-amber px-2 py-0.5 rounded">TACTICAL RESILIENCE</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">M-Core (Hardened)</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Ruggedized tactical engine managing physical bus survivability, brownout tolerance, contested RF mitigation, and dynamic I/O edge stability under high vibration.
+          </p>
+        </div>
+
+        <div class="border border-brand-hazard/40 bg-brand-carbon p-6 rounded-lg space-y-3 relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-xs text-brand-hazard font-bold">CORE 3</span>
+            <span class="text-[10px] font-mono bg-red-950 text-brand-hazard px-2 py-0.5 rounded">SUPERVISORY ISLAND</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">G-Core (Guardian)</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Completely isolated safety island. Constantly monitors state boundaries. Folds non-converging states in <strong>&lt;86 µs</strong> with Sheriff MPU page fencing.
+          </p>
+        </div>
+      </div>
+
+      <!-- Proprietary Thermal Architecture -->
+      <div class="border border-brand-border bg-brand-panel p-8 rounded-lg space-y-6">
+        <div>
+          <span class="text-xs font-mono text-brand-cyan uppercase">Physical Hardware Integration</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Proprietary VITA 48.4 AFT Thermal Wedge</h2>
+          <p class="text-sm text-slate-300 mt-2">
+            Standard ANSI/VITA 48.4 standardizes card dimensions, but leaves internal thermal dynamics unaddressed. Brad-Core OS integrates a proprietary 3U OpenVPX thermal stack to eradicate thermal throttling without fluid leakage risk:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <div class="space-y-2 border-l-2 border-brand-cyan pl-4">
+            <h3 class="font-bold text-white text-sm">1. Monolithic Vapor-Chamber Spreader</h3>
+            <p class="text-slate-400">Copper-graphite vapor spreader mounted directly over the Quad-Core die. Spreads localized P-Core AI thermal surges instantly across the plate before heat conducts into the D-Core.</p>
+          </div>
+          <div class="space-y-2 border-l-2 border-brand-cyan pl-4">
+            <h3 class="font-bold text-white text-sm">2. 3D Micro-Turbulator Ducts</h3>
+            <p class="text-slate-400">Machined aluminum micro-turbulator fins inside the card wedge induce air turbulence, boosting convective dissipation by 35–40% for operation up to +71°C+ ambient.</p>
+          </div>
+          <div class="space-y-2 border-l-2 border-brand-cyan pl-4">
+            <h3 class="font-bold text-white text-sm">3. Sealed IP67 Micro-Impeller</h3>
+            <p class="text-slate-400">Brushless micro-fan embedded in the intake mouth guarantees forced airflow through the card channels even when installed in unblown or stagnant vehicle chassis slots.</p>
+          </div>
+          <div class="space-y-2 border-l-2 border-brand-cyan pl-4">
+            <h3 class="font-bold text-white text-sm">4. Phase-Change Material (PCM) Buffer</h3>
+            <p class="text-slate-400">Paraffin-based PCM cavities passively absorb extreme transient heat spikes during high-burst 12,000 pps telemetry ingestion, preventing dynamic clock throttling.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: DEFENSE / DIU (/defense-diu) -->
+    <section id="view-defense" class="page-view space-y-12">
+      <div class="border-b border-brand-border pb-6">
+        <span class="text-xs font-mono text-brand-emerald uppercase">DIU Commercial Solutions Opening</span>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mt-1">SPACE THREAT INTELLIGENCE (PROJ00716)</h1>
+        <p class="text-slate-400 mt-2">Compliance benchmarks and operational differentiators under 10 U.S.C. 4022 Nontraditional Defense Contractor status.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-2">
+          <span class="text-slate-400">BURST TELEMETRY INGEST</span>
+          <div class="text-2xl font-bold text-brand-cyan">12,000 pps</div>
+          <p class="text-[11px] text-slate-400 font-sans">Single-Producer Single-Consumer (SPSC) ring buffers handle 5 GB/min burst data without dropped frames.</p>
+        </div>
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-2">
+          <span class="text-slate-400">SYNTHESIS LATENCY</span>
+          <div class="text-2xl font-bold text-brand-emerald">545 µs</div>
+          <p class="text-[11px] text-slate-400 font-sans">Sentinel track synthesis cycle latency sits far below the DIU sub-2-second mandate by three orders of magnitude.</p>
+        </div>
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-2">
+          <span class="text-slate-400">SAFETY CONTAINMENT</span>
+          <div class="text-2xl font-bold text-brand-hazard">&lt;86 µs</div>
+          <p class="text-[11px] text-slate-400 font-sans">Sheriff MPU page fence isolates anomalous sensor states and asserts safe vectors instantly.</p>
+        </div>
+      </div>
+
+      <!-- Comparative Rubric -->
+      <div class="border border-brand-border bg-brand-carbon rounded-lg overflow-hidden">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-brand-border bg-brand-panel text-slate-400 font-mono text-xs uppercase">
+              <th class="py-4 px-6">Requirement (PROJ00716)</th>
+              <th class="py-4 px-6">Legacy Defense Prime Limitations</th>
+              <th class="py-4 px-6">Brad-Core OS Verified Solution</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-brand-border">
+            <tr>
+              <td class="py-4 px-6 font-semibold text-white">5 GB/min Telemetry Burst</td>
+              <td class="py-4 px-6 text-slate-400">Dynamic buffers overflow; Linux kernel interrupt storm causes dropped packets and GC pauses.</td>
+              <td class="py-4 px-6 text-brand-cyan font-mono font-semibold">Lock-free SPSC static buffers; 12,000 pps line-rate with 0 frame drops.</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 font-semibold text-white">Sub-2-Second Threat Synthesis</td>
+              <td class="py-4 px-6 text-slate-400">Containerized cloud microservices introduce 3–15 second latency spikes.</td>
+              <td class="py-4 px-6 text-brand-emerald font-mono font-semibold">545 µs deterministic synthesis cycle on dedicated P-Core.</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 font-semibold text-white">Chassis Compatibility & SWaP</td>
+              <td class="py-4 px-6 text-slate-400">Bespoke liquid-cooled enclosures leak or fail under high-G acceleration.</td>
+              <td class="py-4 px-6 text-brand-emerald font-mono font-semibold">Proprietary VITA 48.4 AFT wedge; slots into standard 3U SOSA chassis.</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-6 font-semibold text-white">Statutory NDC Status</td>
+              <td class="py-4 px-6 text-slate-400">Incumbents locked into slow, multi-year FAR-based Cost-Plus cycles.</td>
+              <td class="py-4 px-6 text-white font-mono">10 U.S.C. 4022 agile evaluation path with direct follow-on production authority.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PAGE 4: INVESTORS (/investors) -->
+    <section id="view-investors" class="page-view space-y-12">
+      <div class="border-b border-brand-border pb-6">
+        <span class="text-xs font-mono text-brand-cyan uppercase">Capital Structure & Thesis</span>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mt-1">INVESTOR ALLOCATION PORTAL</h1>
+        <p class="text-slate-400 mt-2">Empirical verification data backing the $500,000 Seed SAFE bridge.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- SAFE Terms -->
+        <div class="border border-brand-border bg-brand-carbon p-8 rounded-lg space-y-6">
+          <h2 class="text-lg font-mono font-bold text-white uppercase tracking-wider">Seed SAFE Parameters</h2>
+          <div class="space-y-4 text-sm font-mono">
+            <div class="flex justify-between border-b border-brand-border pb-2">
+              <span class="text-slate-400">ROUND STRUCTURE</span>
+              <span class="text-white">Seed Stage / SAFE</span>
+            </div>
+            <div class="flex justify-between border-b border-brand-border pb-2">
+              <span class="text-slate-400">TARGET ALLOCATION</span>
+              <span class="text-brand-cyan font-bold">$500,000 USD</span>
+            </div>
+            <div class="flex justify-between border-b border-brand-border pb-2">
+              <span class="text-slate-400">KERNEL BENCHMARK</span>
+              <span class="text-white">1 kHz Loop (~950 µs WCET)</span>
+            </div>
+            <div class="flex justify-between border-b border-brand-border pb-2">
+              <span class="text-slate-400">HEAP UTILIZATION</span>
+              <span class="text-brand-emerald">0% (malloc = 0)</span>
+            </div>
+            <div class="flex justify-between border-b border-brand-border pb-2">
+              <span class="text-slate-400">CAPITAL PURPOSE</span>
+              <span class="text-white">HIL Scaling & Defense Pilot</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2,000,000-Run Monte Carlo Verification -->
+        <div class="border border-brand-border bg-brand-carbon p-8 rounded-lg space-y-6">
+          <h2 class="text-lg font-mono font-bold text-white uppercase tracking-wider">Monte Carlo Stress Verification</h2>
+          <p class="text-xs text-slate-400">
+            Results across 2,000,000 continuous simulated execution cycles under maximum synthetic load, thermal saturation, and adversarial fault injection:
+          </p>
+          <div class="grid grid-cols-2 gap-4 text-center font-mono">
+            <div class="border border-brand-border bg-brand-panel p-4 rounded">
+              <div class="text-2xl font-bold text-brand-emerald">0</div>
+              <div class="text-[10px] text-slate-400 mt-1">WCET VIOLATIONS</div>
+            </div>
+            <div class="border border-brand-border bg-brand-panel p-4 rounded">
+              <div class="text-2xl font-bold text-brand-emerald">0.00%</div>
+              <div class="text-[10px] text-slate-400 mt-1">MEMORY LEAKS</div>
+            </div>
+            <div class="border border-brand-border bg-brand-panel p-4 rounded">
+              <div class="text-2xl font-bold text-brand-emerald">72 / 72</div>
+              <div class="text-[10px] text-slate-400 mt-1">RED-TEAM CLEARANCE</div>
+            </div>
+            <div class="border border-brand-border bg-brand-panel p-4 rounded">
+              <div class="text-2xl font-bold text-brand-cyan">72.0%</div>
+              <div class="text-[10px] text-slate-400 mt-1">DIU HIT RATE PROBABILITY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: FOUNDER (/founder) -->
+    <section id="view-founder" class="page-view space-y-12">
+      <div class="border-b border-brand-border pb-6">
+        <span class="text-xs font-mono text-brand-hazard uppercase">Operational Authenticity & Leadership</span>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mt-1">THE EMMY CLAUSE ORIGIN</h1>
+        <p class="text-slate-400 mt-2">Built on two decades of commercial leadership, hands-on diagnostics, and an absolute moral imperative.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-6 text-sm text-slate-300 leading-relaxed">
+          <p>
+            Building high-consequence technology for space defense and life-critical infrastructure demands deep executive commercial discipline paired with hands-on systems engineering. Brad-Core OS was not conceived in an academic vacuum—it was born from real-world physical diagnostics and an unyielding commitment to execution integrity.
+          </p>
+          <div class="space-y-4 border-l-2 border-brand-border pl-4 font-mono text-xs text-slate-400">
+            <div>
+              <span class="text-white font-bold block">23 Years Executive Leadership:</span>
+              Decades directing commercial sales operations, contract negotiations, capital efficiency, and large operational teams.
+            </div>
+            <div>
+              <span class="text-white font-bold block">Physical OBD-II Automotive & Industrial Diagnostic Testbed:</span>
+              Field-testing real-time sensor bus ingest, vibration-resistant controllers, and high-noise telemetry under severe physical and thermal stress.
+            </div>
+          </div>
+
+          <div class="border border-brand-hazard/40 bg-brand-panel p-6 rounded-lg space-y-3">
+            <h2 class="text-base font-bold text-white font-mono text-brand-hazard uppercase">The Constitution of Autonomy</h2>
+            <blockquote class="italic text-slate-200">
+              "Autonomous software must operate with absolute determinism, zero dynamic memory drift, and unconditional equality. Emmy wanted to live, and she deserved to live—and so does every other person on Earth. System failure due to preventable software instability or silenced alerts is forbidden. The code protects every life equally, without bias, without compromise."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Pillar Box -->
+        <div class="border border-brand-border bg-brand-carbon p-6 rounded-lg space-y-4">
+          <h2 class="text-sm font-mono font-bold text-white uppercase">Sovereign Safety Principles</h2>
+          <ul class="space-y-3 text-xs text-slate-400 font-sans">
+            <li class="flex items-start gap-2">
+              <span class="text-brand-hazard font-mono">▸</span>
+              <span><strong>Alarms Cannot Be Silenced:</strong> The Emmy Clause interlock physically bars operators or software sub-agents from muting active safety alarms.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-cyan font-mono">▸</span>
+              <span><strong>Zero Dynamic Memory:</strong> Heap allocation is completely removed so memory leaks and garbage collection stalls cannot occur.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-emerald font-mono">▸</span>
+              <span><strong>Sub-Millisecond Deadlines:</strong> Every calculation must complete within ~950 µs WCET, or execution cleanly folds into the Guardian island.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: DOCS & API (/docs) -->
+    <section id="view-docs" class="page-view space-y-12">
+      <div class="border-b border-brand-border pb-6">
+        <span class="text-xs font-mono text-brand-cyan uppercase">Integration & Development Specification</span>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white mt-1">DEVELOPER APIS & KERNEL BINDINGS</h1>
+        <p class="text-slate-400 mt-2">Static allocation patterns and 1 kHz loop execution structures.</p>
+      </div>
+
+      <!-- Code Snippet Container -->
+      <div class="border border-brand-border bg-brand-carbon rounded-lg overflow-hidden">
+        <div class="bg-brand-panel px-4 py-2 border-b border-brand-border flex items-center justify-between text-xs font-mono text-slate-400">
+          <span>canonical_quad_core_init.c</span>
+          <span class="text-brand-cyan">MALLOC = 0 ENFORCED</span>
+        </div>
+        <pre class="p-4 sm:p-6 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">
+<code>#include "bradcore_unified.h"
+
+// [STEP 1: STATIC SYSTEM ALLOCATIONS - NO DYNAMIC MEMORY]
+static BCOS_StaticPool_t    Telemetry_Ring_Buffer[RING_BUFFER_CAPACITY];
+static BCOS_TaskBlock_t     DCore_Ingest_Task;
+static BCOS_TaskBlock_t     GCore_Guardian_Task;
+
+// [STEP 2: SYSTEM INITIALIZATION & CORE PINNING]
+bcos_status_t BCOS_System_Init(void) {
+    if (BCOS_Get_Heap_Size() != 0) {
+        return BCOS_ERR_NON_DETERMINISTIC_HEAP;
+    }
+
+    // Pin D-Core to monotonic 1 kHz hard real-time loop
+    BCOS_Bind_Core_Task(CORE_D, &DCore_Ingest_Task, DCore_1kHz_Ingest_Loop);
+
+    // Initialize Guardian safety island with <86 us Sheriff MPU fence
+    BCOS_Configure_Safety_Island(CORE_G, &GCore_Guardian_Task, Sheriff_MPU_Fence_Callback);
+
+    return BCOS_SUCCESS_INITIALIZED;
+}
+
+// [STEP 3: 1 kHz D-CORE MONOTONIC EXECUTION ENGINE]
+void DCore_1kHz_Ingest_Loop(void) {
+    uint64_t frame_start = BCOS_Read_Hardware_Timer_us();
+
+    // Ingest high-rate pulse burst stream (12,000 pps) via SPSC ring buffer
+    bcos_status_t status = Ingest_Phased_Array_SPSC_Static();
+
+    if (status == BCOS_ERR_NON_CONVERGENT_STATE) {
+        // Active D-to-G Core Fold: Hand over execution authority in <86 us
+        BCOS_Fold_Execution_To_Guardian(FOLD_REASON_MATH_DEADLOCK);
+        return; // Bus clamped to safe-state vectors
+    }
+
+    // Dispatch zero-copy to P-Core Bayesian correlator
+    Dispatch_PCore_RingBuffer_ZeroCopy();
+
+    // Enforce 950 us WCET ceiling
+    uint64_t elapsed = BCOS_Read_Hardware_Timer_us() - frame_start;
+    if (elapsed > 950) {
+        BCOS_Trigger_Sheriff_Boundary_Fault(elapsed);
+    }
+}</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-brand-border bg-brand-carbon text-xs font-mono py-8 px-4 sm:px-8 mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+      <div>
+        <span class="text-white font-bold">BRAD-CORE OS</span> &copy; 2026. All Rights Reserved. Sovereign Safety Systems.
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#home" onclick="navigate('home')" class="hover:text-brand-cyan transition">Home</a>
+        <a href="#technology" onclick="navigate('technology')" class="hover:text-brand-cyan transition">Technology</a>
+        <a href="#defense" onclick="navigate('defense')" class="hover:text-brand-cyan transition">Defense</a>
+        <a href="#investors" onclick="navigate('investors')" class="hover:text-brand-cyan transition">Investors</a>
+        <a href="#founder" onclick="navigate('founder')" class="hover:text-brand-cyan transition">Founder</a>
+        <a href="#docs" onclick="navigate('docs')" class="hover:text-brand-cyan transition">Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CLIENT-SIDE ROUTER SCRIPT -->
+  <script>
+    function navigate(viewName) {
+      // 1. Hide all page views
+      const views = document.querySelectorAll('.page-view');
+      views.forEach(v => v.classList.remove('active'));
+
+      // 2. Show the targeted page view
+      const target = document.getElementById('view-' + viewName);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      // 3. Update navbar button highlighting
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach(btn => {
+        btn.classList.remove('text-white', 'bg-brand-border/60');
+        btn.classList.add('text-slate-400');
+      });
+
+      const activeNav = document.getElementById('nav-' + viewName);
+      if (activeNav) {
+        activeNav.classList.add('text-white', 'bg-brand-border/60');
+        activeNav.classList.remove('text-slate-400');
+      }
+
+      // 4. Update browser URL hash without full page reload
+      window.location.hash = viewName;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle back/forward navigation and direct hash links on page load
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#', '') || 'home';
+      navigate(hash);
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '') || 'home';
+      navigate(hash);
+    });
+  </script>
 </body>
 </html>
