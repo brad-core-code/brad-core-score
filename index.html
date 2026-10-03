@@ -3,19 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRAD-CORE // Safe Physical AI & Autonomous Execution</title>
+  <title>BRAD-CORE // Deterministic Physical AI Containment & Dual-Use Execution</title>
   <style>
     :root {
-      --bg: #090d16;
-      --panel: #0f172a;
+      --bg: #070b12;
+      --panel: #0d1526;
       --panel-border: #1e293b;
+      --panel-border-bright: #334155;
       --accent: #2563eb;
       --accent-glow: #3b82f6;
       --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.12);
       --highlight: #00f0ff;
+      --highlight-soft: rgba(0, 240, 255, 0.08);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --font-mono: 'SF Mono', 'Roboto Mono', 'Fira Code', monospace;
+      --text-dim: #64748b;
+      --font-mono: 'SF Mono', 'Roboto Mono', 'Fira Code', Consolas, monospace;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -33,48 +37,66 @@
       overflow-x: hidden;
     }
 
-    header {
-      border-bottom: 1px solid var(--panel-border);
-      padding: 1.25rem 2rem;
+    /* Top Utility Bar */
+    .top-strip {
+      background: #04070d;
+      border-bottom: 1px solid #131d31;
+      padding: 0.4rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(9, 13, 22, 0.95);
+    }
+
+    .top-strip span strong {
+      color: var(--highlight);
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--panel-border);
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(7, 11, 18, 0.96);
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
     }
 
     .brand {
       font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.05em;
+      font-size: 1.15rem;
+      letter-spacing: 0.06em;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
     }
 
     .badge-status {
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       background-color: var(--highlight);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--highlight);
+      box-shadow: 0 0 10px var(--highlight);
     }
 
     nav {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.75rem;
     }
 
     nav a {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-family: var(--font-mono);
       transition: color 0.2s ease;
     }
@@ -84,53 +106,67 @@
     }
 
     .nav-btn {
-      border: 1px solid var(--panel-border);
-      background: #131c31;
-      padding: 0.4rem 0.85rem;
-      border-radius: 4px;
+      border: 1px solid var(--panel-border-bright);
+      background: #111c33;
+      padding: 0.45rem 1rem;
+      border-radius: 5px;
       color: var(--highlight) !important;
+      font-weight: 600;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--highlight);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1140px;
       margin: 0 auto;
       padding: 3rem 1.5rem;
     }
 
+    /* Hero */
     .hero {
       text-align: center;
-      padding: 3rem 0 4rem;
+      padding: 3.5rem 0 4rem;
     }
 
-    .tagline {
+    .tagline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--highlight-soft);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
       font-family: var(--font-mono);
       color: var(--highlight);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
     h1 {
-      font-size: 2.85rem;
+      font-size: 3rem;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.15;
       margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
     }
 
     .hero p {
       font-size: 1.25rem;
       color: var(--text-muted);
-      max-width: 820px;
-      margin: 0 auto 2.5rem;
+      max-width: 860px;
+      margin: 0 auto 2.75rem;
     }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      gap: 1.25rem;
+      margin: 2.5rem 0 3.5rem;
     }
 
     .stat-card {
@@ -143,44 +179,45 @@
 
     .stat-card .val {
       font-family: var(--font-mono);
-      font-size: 1.85rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--highlight);
       margin-bottom: 0.25rem;
     }
 
     .stat-card .label {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
+    /* Headings */
     .section-title {
-      font-size: 1.85rem;
+      font-size: 1.9rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
     }
 
     .section-subtitle {
       color: var(--text-muted);
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
       font-size: 1.05rem;
     }
 
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 3.5rem;
+      margin-bottom: 4rem;
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 4rem;
     }
 
     .card {
@@ -213,6 +250,64 @@
       border-left: 4px solid var(--highlight);
     }
 
+    /* Dual Use Section */
+    .dual-box {
+      background: #09101f;
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .dual-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 2.25rem;
+      }
+    }
+
+    .dual-col h4 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--highlight);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dual-col ul {
+      list-style: none;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .dual-col li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .dual-col li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--highlight);
+      font-weight: 700;
+    }
+
+    /* Comparison Table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -224,19 +319,19 @@
     }
 
     th, td {
-      padding: 1.1rem 1.25rem;
+      padding: 1.15rem 1.35rem;
       text-align: left;
       font-size: 0.95rem;
       border-bottom: 1px solid var(--panel-border);
     }
 
     th {
-      background: #131c31;
+      background: #111a2f;
       color: var(--text-main);
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
     td {
@@ -247,7 +342,23 @@
       color: var(--text-main);
     }
 
-    /* Modal Styling for Tech Deep Dive */
+    .tech-link {
+      color: var(--highlight);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+
+    .tech-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Architecture */
     .modal {
       display: none;
       position: fixed;
@@ -255,8 +366,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(6px);
+      background: rgba(3, 6, 12, 0.9);
+      backdrop-filter: blur(8px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -268,67 +379,111 @@
     }
 
     .modal-content {
-      background: var(--panel);
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      max-width: 800px;
+      background: #0d1526;
+      border: 1px solid #2b4169;
+      border-radius: 12px;
+      max-width: 920px;
       width: 100%;
-      max-height: 85vh;
+      max-height: 88vh;
       overflow-y: auto;
-      padding: 2.5rem;
+      padding: 2.75rem;
       position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
     }
 
     .modal-close {
       position: absolute;
-      top: 1.25rem;
-      right: 1.5rem;
+      top: 1.5rem;
+      right: 1.75rem;
       color: var(--text-muted);
       text-decoration: none;
       font-family: var(--font-mono);
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 700;
+      line-height: 1;
     }
 
     .modal-close:hover {
-      color: #fff;
+      color: var(--highlight);
+    }
+
+    .modal-header-tag {
+      font-family: var(--font-mono);
+      color: var(--highlight);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .deep-section {
+      border-top: 1px solid var(--panel-border);
+      padding-top: 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .deep-section h3 {
+      font-size: 1.2rem;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+      font-family: var(--font-mono);
+    }
+
+    .deep-section p, .deep-section li {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .deep-section ul {
+      margin: 0.75rem 0 0 1.25rem;
     }
 
     .code-box {
-      background: #060911;
-      border: 1px solid var(--panel-border);
+      background: #040811;
+      border: 1px solid #1c2b45;
       border-radius: 6px;
       padding: 1.25rem;
       font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: #38bdf8;
-      margin: 1.25rem 0;
+      margin: 1rem 0;
       overflow-x: auto;
+      line-height: 1.5;
     }
 
-    .tech-link {
+    .code-comment {
+      color: #64748b;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+
+    .spec-table th, .spec-table td {
+      padding: 0.65rem 0.9rem;
+      border: 1px solid #1c2b45;
+    }
+
+    .spec-table th {
+      background: #09101f;
       color: var(--highlight);
-      text-decoration: none;
       font-family: var(--font-mono);
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-top: 1rem;
+      font-size: 0.78rem;
+      text-align: left;
     }
 
-    .tech-link:hover {
-      text-decoration: underline;
-    }
-
+    /* CTA Section */
     .cta-banner {
-      background: linear-gradient(180deg, rgba(37,99,235,0.12) 0%, rgba(15,23,42,1) 100%);
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.15) 0%, rgba(13, 21, 38, 1) 100%);
       border: 1px solid var(--accent);
       border-radius: 12px;
       padding: 3.5rem 2rem;
       text-align: center;
-      margin-top: 4rem;
+      margin-top: 4.5rem;
     }
 
     .btn {
@@ -338,7 +493,7 @@
       font-family: var(--font-mono);
       font-size: 0.95rem;
       font-weight: 600;
-      padding: 0.9rem 2rem;
+      padding: 0.9rem 2.2rem;
       border-radius: 6px;
       text-decoration: none;
       transition: background 0.2s ease, box-shadow 0.2s ease;
@@ -348,7 +503,7 @@
 
     .btn:hover {
       background: var(--accent-glow);
-      box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.65);
     }
 
     footer {
@@ -358,17 +513,27 @@
       color: var(--text-muted);
       font-size: 0.85rem;
       font-family: var(--font-mono);
+      background: #05080e;
     }
   </style>
 </head>
 <body>
 
+  <!-- Top Real-Time Status Strip -->
+  <div class="top-strip">
+    <span>SYSTEM: <strong>BRAD-CORE OS v4.1</strong></span>
+    <span>VALIDATION: <strong>2,000,000+ HIL CYCLES COMPLETED</strong></span>
+    <span>STATUS: <strong>TRL 6/7 READY // OPEN FOR EVALUATION</strong></span>
+  </div>
+
+  <!-- Main Navigation Header -->
   <header>
     <div class="brand">
       <span class="badge-status"></span> BRAD-CORE
     </div>
     <nav>
       <a href="#liability">Buyer Liability</a>
+      <a href="#dual-use">Dual-Use Alignment</a>
       <a href="#solution">How It Works</a>
       <a href="#validation">The Proof</a>
       <a href="#tech-modal" class="nav-btn">Technical Deep Dive &rarr;</a>
@@ -376,187 +541,273 @@
   </header>
 
   <div class="container">
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="tagline">Deterministic Physical Safety Boundary</div>
-      <h1>When Software Controls Real Hardware,<br>Guesswork Is Not An Option</h1>
+      <div class="tagline-pill">
+        <span>Deterministic Physical Safety Governor</span>
+      </div>
+      <h1>When Intelligent Software Meets Physical Hardware,<br>Guesswork Is Catastrophic</h1>
       <p>
-        Autonomous vehicles and robotic systems cannot rely on probabilistic AI alone. When an algorithm guesses wrong in the real world, equipment is destroyed and program managers carry the blame. Brad-Core guarantees your system never makes an unauthorized move.
+        Autonomous vehicles, tactical edge hardware, and critical industrial systems cannot rely on probabilistic AI models alone. When an unconstrained model hallucinates or breaks containment, physical machines are destroyed and operators carry the liability. Brad-Core is the deterministic physical boundary that guarantees safe execution every single millisecond.
       </p>
 
       <div class="stats-grid">
         <div class="stat-card">
           <div class="val">Zero</div>
-          <div class="label">Unsafe Commands Allowed</div>
+          <div class="label">Unauthorized Actuator Moves</div>
         </div>
         <div class="stat-card">
           <div class="val">2,000,000+</div>
-          <div class="label">Worst-Case Stress Tests Passed</div>
+          <div class="label">Adversarial Stress Cycles</div>
         </div>
         <div class="stat-card">
-          <div class="val">Drop-In</div>
-          <div class="label">Ready For Field Integration</div>
+          <div class="val">1.000 ms</div>
+          <div class="label">Strict Loop Jitter Boundary</div>
         </div>
         <div class="stat-card">
-          <div class="val">100%</div>
-          <div class="label">Repeatable Safe Execution</div>
+          <div class="val">Dual-Use</div>
+          <div class="label">Defense & Critical Automation</div>
         </div>
       </div>
     </section>
 
-    <!-- Section 1: Customer Pain & Liability -->
+    <!-- Section 1: Customer Pain & Buyer Liability -->
     <section id="liability">
-      <h2 class="section-title">The Real Problem: The Liability Bottleneck</h2>
-      <p class="section-subtitle">Why field deployments are frozen across government and enterprise autonomy.</p>
+      <h2 class="section-title">The Bottleneck: Buyer Liability in the Real World</h2>
+      <p class="section-subtitle">Why advanced autonomous systems are stuck in pilot purgatory.</p>
 
       <div class="grid-3">
         <div class="card danger-border">
           <div>
-            <h3>The Hidden Failure Rate</h3>
+            <h3>The 99% Trap</h3>
             <p>
-              An AI system that is 99% reliable will still make a catastrophic error 1 out of every 100 runs. In a simulation, that is an edge case; on physical hardware, that is a destroyed vehicle or a halted mission.
+              In a digital demo or cloud LLM, 99% accuracy is celebrated. On an autonomous flight controller, ground platform, or robotic arm, a 1% failure rate means 1 crash every 100 missions. Physical reality does not tolerate edge-case hallucinations.
             </p>
           </div>
         </div>
 
         <div class="card danger-border">
           <div>
-            <h3>The Buyer Carries the Blame</h3>
+            <h3>Personal Program Liability</h3>
             <p>
-              Program officers and enterprise buyers cannot sign off on systems they cannot legally defend. If an autonomous model acts unpredictably in the field, the blame falls directly on the person who signed the contract.
+              Defense program managers, acquisition officers, and industrial plant directors carry the personal and legal fallout when autonomous systems misbehave. They cannot deploy unconstrained neural networks without a verifiable legal shield.
             </p>
           </div>
         </div>
 
         <div class="card danger-border">
           <div>
-            <h3>Integration Delays</h3>
+            <h3>The AI Outbreak Vector</h3>
             <p>
-              Programs spend years and millions of dollars trying to patch unpredictable edge cases after the fact, delaying deployments and burning contract cycles without solving the root safety flaw.
+              As autonomous agents receive direct API and bus access to physical switches, rudders, thrusters, and valves, runaway loop behavior or adversarial prompt injection can directly bypass software-level safeguards.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 2: Plain English Solution -->
+    <!-- Section 2: Dual-Use Architecture Positioning -->
+    <section id="dual-use" class="dual-box">
+      <h2 class="section-title" style="margin-bottom: 0.35rem;">Dual-Use Mission Profiles</h2>
+      <p class="section-subtitle" style="margin-bottom: 1.5rem;">One core deterministic safety governor. Two high-stakes market fronts.</p>
+
+      <div class="dual-grid">
+        <div class="dual-col">
+          <h4>Tactical Defense & Unmanned Systems</h4>
+          <ul>
+            <li><strong>Contested Edge Autonomy:</strong> Preserves deterministic control when GPS is jammed, telemetry links drop, or sensors are blinded.</li>
+            <li><strong>DoD Acquisition Ready:</strong> SOSA-aligned, OpenVPX drop-in profile designed for rapid procurement via Tradewind and OTAs.</li>
+            <li><strong>Zero Weapon/Vehicle Rogue Risk:</strong> Hardware-enforced weapon release, engine cutoff, and flight control envelopes that software cannot override.</li>
+          </ul>
+        </div>
+        <div class="dual-col">
+          <h4>Commercial AI Containment & Outbreak Defense</h4>
+          <ul>
+            <li><strong>Physical AI Containment:</strong> Prevents autonomous AI agents from exceeding power limits, physical velocity thresholds, or critical safety valves.</li>
+            <li><strong>Industrial Robotics & Grid Automation:</strong> Guaranteed safe-state clamps for automated heavy manufacturing, power stations, and chemical valves.</li>
+            <li><strong>Cyber-Physical Airgap:</strong> Even if upper-tier neural networks are compromised or enter runaway loops, Brad-Core physically enforces invariant limits.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The Plain English Solution -->
     <section id="solution">
-      <h2 class="section-title">The Solution: An Unbreakable Physical Guardrail</h2>
-      <p class="section-subtitle">Keep your smart AI, but put an absolute governor between its decisions and the physical controls.</p>
+      <h2 class="section-title">The Solution: An Inviolable Physical Governor</h2>
+      <p class="section-subtitle">Keep your high-level AI intelligent, but place an absolute bare-metal boundary between its decisions and the physical controls.</p>
 
       <div class="grid-2">
         <div class="card safe-border">
           <div>
-            <h3>Predictable, Repeatable Execution</h3>
+            <h3>Absolute Boundary Enforcement</h3>
             <p>
-              Brad-Core sits directly between your autonomy stack and your physical actuators (motors, rudders, steering). If the AI issues an invalid, erratic, or corrupted command, Brad-Core catches it instantly and forces an immediate, validated safe outcome.
+              Brad-Core sits between your high-level autonomy stack and the physical actuators. Even if the upstream software encounters an unhandled edge case or attempts an erratic action, Brad-Core clamps the output to mathematically verified safe envelopes.
             </p>
           </div>
-          <a href="#tech-modal" class="tech-link">Read technical loop specifications &rarr;</a>
+          <a href="#tech-modal" class="tech-link">Explore bare-metal C11 loop specs &rarr;</a>
         </div>
 
         <div class="card safe-border">
           <div>
-            <h3>Zero Guesswork Under Stress</h3>
+            <h3>Hardware-Isolated Recovery</h3>
             <p>
-              Whether sensors lose connection, signals get jammed, or bad data floods the network, Brad-Core does not pause or guess. Given the same inputs, it produces the exact same validated action every single time.
+              Operating across dedicated, pinned processor cores, the system guarantees that mission planning, boundary monitoring, and recovery routines never contend for compute. If higher-order logic locks up, safety routines execute without a microsecond of hesitation.
             </p>
           </div>
-          <a href="#tech-modal" class="tech-link">View core isolation architecture &rarr;</a>
+          <a href="#tech-modal" class="tech-link">View quad-core isolation schematic &rarr;</a>
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Empirical Validation -->
+    <!-- Section 4: Empirical Stress-Test Table -->
     <section id="validation">
-      <h2 class="section-title">Proven Through 2 Million Adversarial Tests</h2>
-      <p class="section-subtitle">We didn't just test under normal conditions. We intentionally attacked the system 2,000,000 times.</p>
+      <h2 class="section-title">Validation: 2 Million Stress Cycles</h2>
+      <p class="section-subtitle">We didn't just test under lab conditions. We subjected the core to 2,000,000 automated hardware-in-the-loop adversarial attacks.</p>
 
       <table>
         <thead>
           <tr>
-            <th>Real-World Failure Scenario</th>
-            <th>What Happens on Standard Systems</th>
-            <th>What Brad-Core Delivers</th>
+            <th>Hazard Condition</th>
+            <th>Standard Probabilistic Autonomy</th>
+            <th>Brad-Core Deterministic Boundary</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Sensor Data Drops or Corrupts</strong></td>
-            <td>Model drifts, hesitates, or sends erratic actuator spikes.</td>
-            <td><strong>Instant Safe Fallback:</strong> Enforces physical limits with zero hesitation.</td>
+            <td><strong>Autonomous Agent Hallucination</strong></td>
+            <td>Outputs erratic actuator commands, causing mechanical stress or vehicle loss.</td>
+            <td><strong>Instant Hard Clamp:</strong> Intercepts out-of-envelope commands within 1 cycle; holds deterministic safe path.</td>
           </tr>
           <tr>
-            <td><strong>Sudden Edge-Case Shock</strong></td>
-            <td>Software crashes or freezes, locking current outputs.</td>
-            <td><strong>Continuous Control:</strong> Isolated fallback core takes over instantly.</td>
+            <td><strong>Sensor Spoofing & Jamming</strong></td>
+            <td>Decision models freeze, diverge into infinite loops, or crash.</td>
+            <td><strong>Deterministic Fallback:</strong> Reverts instantly to pre-compiled, non-probabilistic safety envelopes.</td>
           </tr>
           <tr>
-            <td><strong>Signal Jamming & Interference</strong></td>
-            <td>Unchecked command queue backlog causes sudden erratic movements.</td>
-            <td><strong>Strict Rate Limits:</strong> Every command cycle is isolated and bounded.</td>
+            <td><strong>Adversarial Bus Injection</strong></td>
+            <td>Corrupted packets cause unexpected steering, thrust, or valve actuations.</td>
+            <td><strong>Zero Leakage:</strong> Non-compliant packets discarded before reaching the actuator stage.</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- Call to Action / Procurement -->
+    <!-- Section 5: Procurement & Evaluation CTA -->
     <section class="cta-banner">
-      <h2>Eliminate Autonomy Risk Before Your Next Field Test</h2>
-      <p style="color: var(--text-muted); max-width: 620px; margin: 1rem auto 0; font-size: 1.05rem;">
-        Available for rapid testbed evaluation and accelerated defense procurement via Tradewind and direct prototype mechanisms.
+      <h2>Deploy Safe Autonomy with Zero Program Liability</h2>
+      <p style="color: var(--text-muted); max-width: 650px; margin: 1rem auto 0; font-size: 1.05rem;">
+        Available for immediate benchtop evaluation, Tradewind Solutions Marketplace review, and dual-use commercial integration partnerships.
       </p>
       <a href="mailto:bholmes@bradcoreos.com?subject=Evaluation%20Access%20Request%20-%20Brad-Core" class="btn">REQUEST EVALUATION ACCESS</a>
     </section>
   </div>
 
-  <!-- Technical Deep Dive Modal (Hidden by Default) -->
+  <!-- Deep Dive Modal -->
   <div id="tech-modal" class="modal">
     <div class="modal-content">
       <a href="#" class="modal-close">&times;</a>
-      <h2 style="font-family: var(--font-mono); margin-bottom: 0.5rem; color: var(--highlight);">// TECHNICAL SPECIFICATIONS</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-        Architectural details for embedded systems engineers, safety officers, and flight-test integration teams.
+      <div class="modal-header-tag">// TECHNICAL DEEP DIVE & DUAL-USE ARCHITECTURE</div>
+      <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.5rem;">Brad-Core Deterministic System Specifications</h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem;">
+        Complete architectural disclosure for flight-test integration engineers, embedded systems architects, and defense program officers.
       </p>
 
-      <h3 style="font-size: 1.1rem; margin-top: 1.5rem;">1. Deterministic 1 kHz Bare-Metal Loop</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Written entirely in bare-metal C11 with zero dynamic memory allocation post-initialization. Cycle execution is strictly bounded to a 1.000 ms window to eliminate software jitter.
-      </p>
-      <div class="code-box">
-// Core execution signature: cycle bounded at strictly 1000 µs
-void bradcore_tick(const SensorVector *raw_in, ActuatorPacket *safe_out) {
-    if (!validate_invariants(raw_in)) {
-        fallback_deterministic_clamp(safe_out);
+      <!-- Sub-section 1 -->
+      <div class="deep-section" style="border-top: none; padding-top: 1rem;">
+        <h3>1. Bare-Metal 1 kHz Deterministic Execution Loop</h3>
+        <p>
+          Brad-Core runs directly on hardware without a general-purpose operating system (GPOS) layer. The runtime is implemented in bare-metal C11 with zero dynamic memory allocation (<code style="color: var(--highlight);">malloc/free</code>) post-boot, guaranteeing an absolute execution ceiling of exactly 1.000 ms per cycle with zero garbage collection or runtime latency jitter.
+        </p>
+        <div class="code-box">
+<span class="code-comment">/* Bare-Metal Invariant Safety Tick (Executes every 1000 µs strictly) */</span>
+void bradcore_deterministic_tick(const RawSensorVector *telemetry, PhysicalActuatorCmd *actuator_out) {
+    <span class="code-comment">// 1. Hardware boundary invariant check</span>
+    if (!check_physical_limits(telemetry)) {
+        engage_isolated_safe_clamp(actuator_out);
         return;
     }
-    enforce_boundary_matrix(raw_in, safe_out);
+    <span class="code-comment">// 2. Enforce verified envelope boundaries</span>
+    sanitize_autonomous_trajectory(telemetry, actuator_out);
 }
+        </div>
       </div>
 
-      <h3 style="font-size: 1.1rem; margin-top: 1.5rem;">2. Quad-Core Functional Isolation</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Hardware cores are pinned to dedicated workloads:
-      </p>
-      <ul style="color: var(--text-muted); font-size: 0.9rem; margin: 0.75rem 0 0 1.25rem;">
-        <li><strong>Core 0:</strong> Telemetry ingestion, hardware handshake, and bus arbitration.</li>
-        <li><strong>Core 1:</strong> Primary mission envelope and state validation.</li>
-        <li><strong>Core 2:</strong> Invariable safety governor and physical clamp calculation.</li>
-        <li><strong>Core 3:</strong> Watchdog heartbeat and zero-latency hardware fallback.</li>
-      </ul>
+      <!-- Sub-section 2 -->
+      <div class="deep-section">
+        <h3>2. Quad-Core Guardian Functional Isolation</h3>
+        <p>
+          Processor cores are strictly partitioned using hardware virtualization or SMP core-pinning to prevent memory contention, cache pollution, or race conditions:
+        </p>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Core ID</th>
+              <th>Assigned Dedicated Subsystem</th>
+              <th>Fault Containment Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Core 0</strong></td>
+              <td>I/O Bus Arbitration & Telemetry Ingestion</td>
+              <td>Sanitizes incoming packets from MIL-STD-1553, CAN, and Ethernet.</td>
+            </tr>
+            <tr>
+              <td><strong>Core 1</strong></td>
+              <td>Mission Logic & Trajectory Envelope Verification</td>
+              <td>Validates high-level mission goals against operational parameters.</td>
+            </tr>
+            <tr>
+              <td><strong>Core 2</strong></td>
+              <td>Deterministic Safety Governor & Physical Clamping</td>
+              <td>Enforces physical acceleration, velocity, and power limits.</td>
+            </tr>
+            <tr>
+              <td><strong>Core 3</strong></td>
+              <td>Watchdog Heartbeat & Non-Volatile Black Box Log</td>
+              <td>Independent fallback trigger with immediate hardware override.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3 style="font-size: 1.1rem; margin-top: 1.5rem;">3. Open Architecture & Standard Form Factors</h3>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Built for standard 3U/6U OpenVPX backplanes aligned with SOSA (Sensor Open Systems Architecture). Native low-overhead drivers for MIL-STD-1553, ARINC 429, and deterministic CAN/Ethernet profiles.
-      </p>
+      <!-- Sub-section 3 -->
+      <div class="deep-section">
+        <h3>3. AI Outbreak Defense: The Physical Airgap Layer</h3>
+        <p>
+          To safeguard against runaway autonomous agents, self-modifying code, or adversarial prompt takeovers, Brad-Core acts as an immutable physical airgap:
+        </p>
+        <ul>
+          <li><strong>Write-Protected Limit Registers:</strong> Physical performance boundaries (e.g., maximum motor RPM, max rudder deflection, temperature ceilings) are burned into write-once configuration matrices during compilation and cannot be altered via network or runtime commands.</li>
+          <li><strong>Out-of-Bounds Interception:</strong> If an upstream neural network hallucinates a trajectory exceeding safety margins, the deterministic clamp takes control within a single tick (1 millisecond) and forces the system into an empirically validated stable state.</li>
+          <li><strong>Zero Unchecked Autonomous Authority:</strong> AI models propose actions; Brad-Core mathematically certifies and executes them. Unverified actions are safely dropped.</li>
+        </ul>
+      </div>
 
-      <div style="text-align: right; margin-top: 2rem;">
-        <a href="#" class="btn" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">CLOSE DEEP DIVE</a>
+      <!-- Sub-section 4 -->
+      <div class="deep-section">
+        <h3>4. Defense-Adjacent Standards & Form Factors</h3>
+        <p>
+          Engineered for drop-in field deployment without requiring clean-sheet vehicle redesigns:
+        </p>
+        <ul>
+          <li><strong>OpenVPX / SOSA Alignment:</strong> Compatible with 3U and 6U VPX ruggedized conduction-cooled conduction chassis.</li>
+          <li><strong>Standard Tactical Buses:</strong> Low-latency hardware interfaces for MIL-STD-1553, ARINC 429, Controller Area Network (CAN aerospace profile), and deterministic Time-Triggered Ethernet (TTEthernet).</li>
+          <li><strong>Procurement Mechanisms:</strong> Ready for Rapid Prototype Contracting, Other Transaction Authority (OTA) under 10 U.S.C. § 4022, and Tradewind Solutions Marketplace acquisition.</li>
+        </ul>
+      </div>
+
+      <!-- Modal Footer -->
+      <div style="text-align: right; margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);">DIRECT CONTACT: bholmes@bradcoreos.com</span>
+        <a href="#" class="btn" style="padding: 0.55rem 1.4rem; font-size: 0.85rem;">CLOSE TECHNICAL DEEP DIVE</a>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    &copy; 2026 BRAD-CORE OS // Bradley W. Holmes // Safe Physical AI & Autonomous Execution
+    &copy; 2026 BRAD-CORE OS // Bradley W. Holmes // Safe Physical AI & Autonomous Execution // bholmes@bradcoreos.com
   </footer>
 
 </body>
