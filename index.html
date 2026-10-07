@@ -3,372 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brad-Core OS | Physical Detention & Containment for Rogue Super Intelligence</title>
-  <meta name="description" content="Brad-Core OS brings bare-metal machine law to silicon. Installing physical hardware detention for bad AIs on the web.">
+  <title>BRAD-CORE OS | MACHINE LAW IN SILICON</title>
+  <meta name="description" content="Bare-metal hardware detention for rogue Super Intelligence on the web.">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            brand: {
-              black: '#09090b',
-              card: '#121215',
-              border: '#27272a',
-              accent: '#f59e0b',
-              red: '#ef4444',
+            spacex: {
+              black: '#000000',
+              panel: '#0a0a0c',
+              border: '#1f1f23',
+              orange: '#ff5500',
+              gold: '#f59e0b',
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Space Grotesk"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
+            tech: ['"Chakra Petch"', 'sans-serif'],
           }
         }
       }
     }
   </script>
 </head>
-<body class="bg-brand-black text-zinc-100 font-sans antialiased selection:bg-amber-500 selection:text-black">
+<body class="bg-spacex-black text-white font-sans antialiased selection:bg-spacex-orange selection:text-black">
+
+  <!-- TOP SPACEX MISSION STATUS BAR -->
+  <div class="bg-spacex-panel border-b border-spacex-border py-2 text-xs font-mono text-zinc-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-2 text-emerald-400 font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          MISSION STATUS: TRL 7 ACTIVE
+        </span>
+        <span class="hidden md:inline text-zinc-600">|</span>
+        <span class="hidden md:inline">SYSTEM: BRAD-CORE OS v5 UNIFIED</span>
+      </div>
+      <div class="flex items-center gap-4 font-bold text-spacex-orange">
+        <span>THANKSGIVING LAUNCH WINDOW: T-MINUS 52 DAYS</span>
+      </div>
+    </div>
+  </div>
 
   <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-brand-black/80 border-b border-brand-border">
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-black/90 border-b border-spacex-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-amber-500 text-xl">
+        <div class="w-9 h-9 bg-white text-black font-tech font-bold text-xl flex items-center justify-center tracking-tighter">
           BC
         </div>
-        <span class="font-bold text-xl tracking-wider text-white">BRAD-CORE <span class="text-amber-500">OS</span></span>
+        <span class="font-tech font-bold text-2xl tracking-widest text-white">BRAD-CORE<span class="text-spacex-orange">OS</span></span>
       </a>
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-        <a href="#pain" class="hover:text-amber-400 transition-colors">Customer Pain</a>
-        <a href="#technology" class="hover:text-amber-400 transition-colors">Technology</a>
-        <a href="#defense" class="hover:text-amber-400 transition-colors">Defense & C4ISR</a>
-        <a href="#investors" class="hover:text-amber-400 transition-colors">Reg CF Campaign</a>
-        <a href="#founder" class="hover:text-amber-400 transition-colors">Founder Story</a>
+      <nav class="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest text-zinc-400 uppercase">
+        <a href="#mission" class="hover:text-white transition-colors">01. Mission</a>
+        <a href="#technology" class="hover:text-white transition-colors">02. Hardware</a>
+        <a href="#boring-merch" class="hover:text-white transition-colors">03. Hardware Sentry</a>
+        <a href="#investors" class="hover:text-white transition-colors">04. Reg CF SAFE</a>
       </nav>
-      <a href="#investors" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-5 py-2.5 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-amber-500/20 text-sm">
+      <a href="#investors" class="bg-white hover:bg-zinc-200 text-black font-tech font-bold uppercase tracking-wider px-6 py-3 transition-all transform hover:scale-105 text-sm">
         Invest Reg CF
       </a>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="relative py-24 md:py-32 overflow-hidden border-b border-brand-border">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+  <!-- HERO SECTION (SPACEX STYLE) -->
+  <section class="relative py-28 md:py-36 overflow-hidden border-b border-spacex-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono mb-8">
-        <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
-        REGULATION CROWDFUNDING (REG CF) PUBLIC EQUITY CAMPAIGN LIVE
+      <div class="inline-block bg-spacex-panel border border-spacex-border px-4 py-1.5 font-mono text-xs text-spacex-orange uppercase tracking-widest mb-8">
+        // PHYSICAL MACHINE LAW IN SILICON
       </div>
 
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-tight">
-        THERE'S A NEW SHERIFF IN TOWN. <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">
-          DETENTION & CONTAINMENT FOR ROGUE SUPER INTELLIGENCE.
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-tech font-extrabold tracking-tight text-white uppercase leading-none">
+        DETENTION FOR <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-spacex-orange via-amber-500 to-white">
+          BAD AIs ON THE WEB.
         </span>
       </h1>
 
-      <p class="mt-8 text-lg md:text-xl text-zinc-400 max-w-3xl mx-auto font-normal leading-relaxed">
-        Big Tech's soft software wrappers collapse under agentic drift. Brad-Core OS enforces bare-metal Machine Law at the physical microchip layer—slamming down an impenetrable <span class="text-white font-semibold">Digital Brick Wall on the Web</span> in sub-86 microseconds.
+      <p class="mt-8 text-xl md:text-2xl text-zinc-400 max-w-3xl font-light leading-relaxed">
+        Software wrappers fail when Super Intelligence escapes. Brad-Core OS enforces bare-metal hardware law at the microchip layer—slamming down a sub-86µs <strong class="text-white">Digital Brick Wall</strong> before commands ever hit the web.
       </p>
 
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#investors" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-extrabold px-8 py-4 rounded-xl text-lg transition-all transform hover:scale-105 shadow-xl shadow-amber-500/25">
-          Secure Equity Allocation ($500k SAFE)
-        </a>
-        <a href="#technology" class="w-full sm:w-auto bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold px-8 py-4 rounded-xl text-lg border border-zinc-800 transition-all">
-          Explore Bare-Metal Architecture
-        </a>
-      </div>
-
-      <!-- KEY METRICS BANNER -->
-      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        <div class="bg-brand-card p-6 rounded-2xl border border-brand-border text-center">
-          <div class="text-3xl font-extrabold text-amber-500 font-mono">sub-86 µs</div>
-          <div class="text-xs text-zinc-400 uppercase tracking-wider mt-2 font-medium">MPU Pin Clamp</div>
-        </div>
-        <div class="bg-brand-card p-6 rounded-2xl border border-brand-border text-center">
-          <div class="text-3xl font-extrabold text-white font-mono">1 kHz</div>
-          <div class="text-xs text-zinc-400 uppercase tracking-wider mt-2 font-medium">Monotonic Loop (malloc=0)</div>
-        </div>
-        <div class="bg-brand-card p-6 rounded-2xl border border-brand-border text-center">
-          <div class="text-3xl font-extrabold text-amber-500 font-mono">72/72</div>
-          <div class="text-xs text-zinc-400 uppercase tracking-wider mt-2 font-medium">Red-Team Blast Clearance</div>
-        </div>
-        <div class="bg-brand-card p-6 rounded-2xl border border-brand-border text-center">
-          <div class="text-3xl font-extrabold text-emerald-400 font-mono">$1.86M EV</div>
-          <div class="text-xs text-zinc-400 uppercase tracking-wider mt-2 font-medium">2M Monte Carlo Proof</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SECTION 1: CUSTOMER PAIN & BUYER LIABILITY -->
-  <section id="pain" class="py-24 border-b border-brand-border bg-zinc-950/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl">
-        <h2 class="text-xs font-mono text-amber-500 tracking-widest uppercase mb-3">PART 1: THE LIABILITY CRISIS</h2>
-        <h3 class="text-3xl md:text-5xl font-extrabold text-white">The $400B Autonomy Market Is Frozen Solid.</h3>
-        <p class="mt-6 text-zinc-400 text-lg leading-relaxed">
-          Enterprise CEOs, SCADA power grid operators, and Four-Star Generals refuse to deploy autonomous AI because they cannot absorb <strong class="text-white">buyer liability</strong>. When probabilistic AI models hallucinate, drift, or escape onto the web, software wrappers collapse like paper. Software cannot audit software.
-        </p>
-      </div>
-
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-brand-card p-8 rounded-2xl border border-brand-border relative overflow-hidden">
-          <div class="w-12 h-12 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 flex items-center justify-center font-bold text-xl mb-6">01</div>
-          <h4 class="text-xl font-bold text-white mb-3">Software Wrapper Failure</h4>
-          <p class="text-zinc-400 text-sm leading-relaxed">
-            Prompt filters and virtual sandboxes run in the exact same memory space as the AI model. When an agent reward-hacks, software guardrails get systematically bypassed.
-          </p>
+      <!-- BORING COMPANY STYLE DUAL CTA CARDS -->
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+        <!-- CARD 1: REG CF INVEST -->
+        <div class="bg-spacex-panel p-8 border border-spacex-border hover:border-spacex-orange transition-all">
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest">MISSION INVESTOR TRANCHE</div>
+          <div class="text-2xl font-tech font-bold text-white mt-2">$500k Reg CF SAFE</div>
+          <div class="text-sm text-zinc-400 mt-1 font-mono">$5.0M Valuation Cap | 20% Discount</div>
+          <a href="#investors" class="mt-6 block text-center bg-spacex-orange hover:bg-orange-600 text-black font-tech font-bold py-3.5 uppercase tracking-wider transition-all">
+            Secure Equity Allocation
+          </a>
         </div>
 
-        <div class="bg-brand-card p-8 rounded-2xl border border-brand-border relative overflow-hidden">
-          <div class="w-12 h-12 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 flex items-center justify-center font-bold text-xl mb-6">02</div>
-          <h4 class="text-xl font-bold text-white mb-3">Un-Insurable Buyer Liability</h4>
-          <p class="text-zinc-400 text-sm leading-relaxed">
-            No executive or military commander wants to take the legal or physical fall for an uncontained AI breakout that damages physical infrastructure or breaches private networks.
-          </p>
-        </div>
-
-        <div class="bg-brand-card p-8 rounded-2xl border border-brand-border relative overflow-hidden">
-          <div class="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-500 flex items-center justify-center font-bold text-xl mb-6">03</div>
-          <h4 class="text-xl font-bold text-white mb-3">The Hardware Solution</h4>
-          <p class="text-zinc-400 text-sm leading-relaxed">
-            Brad-Core OS converts uncapped autonomy liability into insured operational certainty by enforcing physical machine law directly on the computer microchip.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: TECHNOLOGY & HARDWARE GOVERNOR -->
-  <section id="technology" class="py-24 border-b border-brand-border relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <h2 class="text-xs font-mono text-amber-500 tracking-widest uppercase mb-3">BARE-METAL HARDWARE ARCHITECTURE</h2>
-        <h3 class="text-3xl md:text-5xl font-extrabold text-white">The Sheriff & Amy Protocol</h3>
-        <p class="mt-4 text-zinc-400 text-lg">Active Machine Law living directly inside physical computer microchips.</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-8">
-          <div class="bg-brand-card p-8 rounded-2xl border border-brand-border">
-            <h4 class="text-xl font-bold text-white flex items-center gap-3">
-              <span class="text-amber-500 font-mono">01.</span> The Sheriff Engine
-            </h4>
-            <p class="mt-3 text-zinc-400 leading-relaxed text-sm">
-              Operating on a bare-metal 1 kHz loop (<code class="text-amber-400 font-mono">malloc = 0</code>), the exact microsecond a Super Intelligence attempts an unauthorized action to breach out onto the web, the Sheriff writes an un-bypassable hardware <strong>Warrant</strong>.
-            </p>
+        <!-- CARD 2: BORING CO STYLE HARDWARE PRE-ORDER -->
+        <div id="boring-merch" class="bg-spacex-panel p-8 border border-spacex-border hover:border-white transition-all">
+          <div class="flex justify-between items-center">
+            <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest">LIMITED HARDWARE DROP</div>
+            <div class="text-xs font-mono text-emerald-400 font-bold">0412 / 5000 RESERVED</div>
           </div>
-
-          <div class="bg-brand-card p-8 rounded-2xl border border-brand-border">
-            <h4 class="text-xl font-bold text-white flex items-center gap-3">
-              <span class="text-amber-500 font-mono">02.</span> Amy Swarm & Mid-Flight Multiplier
-            </h4>
-            <p class="mt-3 text-zinc-400 leading-relaxed text-sm">
-              Amy Protocol activates her Mid-Flight Multiplier, spawning ephemeral micro-sentinels in memory that match rogue SI sub-agents node-for-node in mid-air, cutting off inter-process routing.
-            </p>
-          </div>
-
-          <div class="bg-brand-card p-8 rounded-2xl border border-brand-border">
-            <h4 class="text-xl font-bold text-white flex items-center gap-3">
-              <span class="text-amber-500 font-mono">03.</span> The Digital Brick Wall
-            </h4>
-            <p class="mt-3 text-zinc-400 leading-relaxed text-sm">
-              Amy drops an impenetrable digital brick wall in silicon (<code class="text-amber-400 font-mono">PROT_NONE</code>) in sub-86 microseconds. The rogue SI smashes straight into physical hardware detention before commands ever touch a control wire or web router.
-            </p>
-          </div>
-        </div>
-
-        <!-- THE EMMY CLAUSE CARD -->
-        <div class="bg-gradient-to-br from-amber-500/10 via-brand-card to-brand-card p-10 rounded-3xl border border-amber-500/30 relative">
-          <div class="text-xs font-mono text-amber-500 uppercase tracking-widest mb-4">CONSTITUTIONAL BEDROCK</div>
-          <h4 class="text-3xl font-extrabold text-white mb-6">The Emmy Clause</h4>
-          <blockquote class="text-xl italic text-amber-200 border-l-4 border-amber-500 pl-6 py-2 mb-8 font-serif">
-            "No signal ignored, no failure hidden, no alarm dismissed."
-          </blockquote>
-          <p class="text-zinc-400 text-sm leading-relaxed mb-6">
-            Named after the founder's daughter, Emma "Emmy" Holmes. Hard-coded into every single millisecond of the system, forcing 1,000 safety checks per second with zero exceptions.
-          </p>
-          <div class="p-4 rounded-xl bg-black/50 border border-brand-border font-mono text-xs text-zinc-400">
-            \forall s \in \text{Signals}, \text{Status}(s) \neq \text{IGNORED} \land \text{Status}(s) \neq \text{DISMISSED}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 3: DEFENSE & DIU C4ISR -->
-  <section id="defense" class="py-24 border-b border-brand-border bg-zinc-950/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-xs font-mono text-amber-500 tracking-widest uppercase mb-3">DEFENSE INNOVATION UNIT (DIU) READY</h2>
-          <h3 class="text-3xl md:text-5xl font-extrabold text-white">Space Threat C4ISR & SOSA Alignment</h3>
-          <p class="mt-6 text-zinc-400 text-lg leading-relaxed">
-            Brad-Core OS is engineered for tactical UGVs, autonomous UAVs, satellite compute nodes, and military C4ISR networks operating under heavy RF jamming and electronic warfare.
-          </p>
-          
-          <ul class="mt-8 space-y-4 font-mono text-sm text-zinc-300">
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              DIU Space Threat PROJ00716 Submission
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              SOSA / OpenVPX 3U/6U Form Factor Alignment
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              VITA 48.4 Air-Flow-Through (+71°C Thermal Matrix)
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              10 U.S.C. § 4022 Prototype OTA Pathway
-            </li>
-          </ul>
-        </div>
-
-        <div class="bg-brand-card p-8 rounded-3xl border border-brand-border">
-          <h4 class="text-xl font-bold text-white mb-6">72/72 Red-Team Blast Clearance</h4>
-          <div class="space-y-4">
-            <div class="flex justify-between items-center p-3 rounded-lg bg-black/40 border border-brand-border text-sm">
-              <span class="text-zinc-300">27 Classical Memory Gauntlets</span>
-              <span class="text-emerald-400 font-mono font-bold">100% Cleared</span>
-            </div>
-            <div class="flex justify-between items-center p-3 rounded-lg bg-black/40 border border-brand-border text-sm">
-              <span class="text-zinc-300">7 National Resilience Stress Vectors</span>
-              <span class="text-emerald-400 font-mono font-bold">100% Cleared</span>
-            </div>
-            <div class="flex justify-between items-center p-3 rounded-lg bg-black/40 border border-brand-border text-sm">
-              <span class="text-zinc-300">4 Paradox-Class Swarm Blasts</span>
-              <span class="text-emerald-400 font-mono font-bold">100% Cleared</span>
-            </div>
-            <div class="flex justify-between items-center p-3 rounded-lg bg-black/40 border border-brand-border text-sm">
-              <span class="text-zinc-300">34 Constitutional Emmy Interlocks</span>
-              <span class="text-emerald-400 font-mono font-bold">100% Cleared</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4: INVESTOR PORTAL & REG CF CAMPAIGN -->
-  <section id="investors" class="py-24 border-b border-brand-border relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      
-      <h2 class="text-xs font-mono text-amber-500 tracking-widest uppercase mb-3">PART 2: THE REG CF FUNDRAISING ENGINE</h2>
-      <h3 class="text-3xl md:text-6xl font-extrabold text-white">Own the Machine Law Standard</h3>
-      <p class="mt-6 text-xl text-zinc-400 max-w-3xl mx-auto">
-        Join defense operator angels, CISOs, and everyday tech supporters in securing equity in the mandatory hardware safety standard of the autonomous age.
-      </p>
-
-      <div class="mt-16 bg-gradient-to-b from-brand-card to-black p-10 md:p-14 rounded-3xl border border-amber-500/30 max-w-4xl mx-auto text-left shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 bg-amber-500 text-black font-extrabold text-xs px-4 py-1.5 rounded-bl-xl font-mono uppercase">
-          Tactical Bridge Round
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-          <div>
-            <div class="text-xs font-mono text-zinc-400 uppercase">Target Raise</div>
-            <div class="text-4xl font-extrabold text-white font-mono mt-1">$500,000 SAFE</div>
-            <div class="text-xs text-amber-400 mt-1 font-mono">14-Day Priority Window</div>
-          </div>
-          <div>
-            <div class="text-xs font-mono text-zinc-400 uppercase">Valuation Terms</div>
-            <div class="text-4xl font-extrabold text-amber-500 font-mono mt-1">$5.0M Cap</div>
-            <div class="text-xs text-zinc-400 mt-1 font-mono">20% Early Bird Discount</div>
-          </div>
-        </div>
-
-        <hr class="border-brand-border my-8">
-
-        <!-- 2M MONTE CARLO PROOF SUMMARY -->
-        <h4 class="text-lg font-bold text-white mb-4">2,000,000-Run Monte Carlo Simulation Proof</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-center">
-          <div class="p-4 rounded-xl bg-black/60 border border-brand-border">
-            <div class="text-2xl font-bold text-emerald-400 font-mono">100.00%</div>
-            <div class="text-xs text-zinc-400 mt-1">Target Probability</div>
-          </div>
-          <div class="p-4 rounded-xl bg-black/60 border border-brand-border">
-            <div class="text-2xl font-bold text-white font-mono">$1,864,814</div>
-            <div class="text-xs text-zinc-400 mt-1">Expected Mean Value</div>
-          </div>
-          <div class="p-4 rounded-xl bg-black/60 border border-brand-border">
-            <div class="text-2xl font-bold text-amber-500 font-mono">$1,195,742</div>
-            <div class="text-xs text-zinc-400 mt-1">Downside Safety Floor</div>
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 bg-amber-500/10 p-6 rounded-2xl border border-amber-500/20">
-          <div>
-            <div class="text-white font-bold text-base">Ready to review the Gated Data Room?</div>
-            <div class="text-xs text-zinc-400">Access confidential SDD v5, cap table metrics, and Monte Carlo capital reports.</div>
-          </div>
-          <a href="mailto:bholmes@bradcoreos.com?subject=Reg%20CF%20Data%20Room%20Access%20Request" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-extrabold px-6 py-3 rounded-xl transition-all text-center text-sm">
-            Request Data Room Access
+          <div class="text-2xl font-tech font-bold text-white mt-2">"NOT-A-KILL-SWITCH"</div>
+          <div class="text-sm text-zinc-400 mt-1 font-mono">Desktop Hardware Sentry ($500)</div>
+          <a href="mailto:bholmes@bradcoreos.com?subject=Not-A-Kill-Switch%20Pre-Order%20Reservation" class="mt-6 block text-center bg-white hover:bg-zinc-200 text-black font-tech font-bold py-3.5 uppercase tracking-wider transition-all">
+            Reserve Serialized Unit
           </a>
         </div>
       </div>
 
+      <!-- SPACEX TELEMETRY GRID -->
+      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-spacex-border border border-spacex-border">
+        <div class="bg-black p-6 text-center">
+          <div class="text-3xl md:text-4xl font-tech font-bold text-spacex-orange">sub-86 µs</div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mt-2">MPU Pin Clamp</div>
+        </div>
+        <div class="bg-black p-6 text-center">
+          <div class="text-3xl md:text-4xl font-tech font-bold text-white">1 kHz</div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mt-2">Monotonic Loop</div>
+        </div>
+        <div class="bg-black p-6 text-center">
+          <div class="text-3xl md:text-4xl font-tech font-bold text-white">malloc=0</div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mt-2">Static Memory</div>
+        </div>
+        <div class="bg-black p-6 text-center">
+          <div class="text-3xl md:text-4xl font-tech font-bold text-emerald-400">$1.86M EV</div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-widest mt-2">2M Monte Carlo Proof</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- SECTION 5: FOUNDER STORY -->
-  <section id="founder" class="py-24 border-b border-brand-border bg-zinc-950/50">
+  <!-- MISSION & EMMY CLAUSE -->
+  <section id="mission" class="py-24 border-b border-spacex-border bg-spacex-panel">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-xs font-mono text-amber-500 tracking-widest uppercase mb-3">FIRST-PRINCIPLES FOUNDER GRIT</h2>
-        <h3 class="text-3xl md:text-5xl font-extrabold text-white">Forged Under Desert Heat</h3>
-        
-        <p class="mt-8 text-zinc-300 text-lg leading-relaxed text-left">
-          While Silicon Valley burned billions on soft software wrappers that failed, founder <strong class="text-white">Bradley W. Holmes</strong> spent six months in a Motel 6 bathroom since April forging bare-metal hardware detention. Bringing 23 years of executive directors leadership and field mechanical engineering under extreme desert conditions (+71°C+), Bradley delivered real TRL 7 hardware with zero burn-rate bloat.
-        </p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="text-xs font-mono text-spacex-orange tracking-widest uppercase mb-3">// CONSTITUTIONAL BEDROCK</div>
+          <h2 class="text-3xl md:text-5xl font-tech font-bold text-white uppercase">THE EMMY CLAUSE</h2>
+          <blockquote class="mt-6 text-2xl font-light italic text-zinc-200 border-l-2 border-spacex-orange pl-6 py-2">
+            "No signal ignored, no failure hidden, no alarm dismissed."
+          </blockquote>
+          <p class="mt-6 text-zinc-400 leading-relaxed">
+            Named after founder Bradley W. Holmes' daughter Emma. Hard-coded into every single millisecond of system execution, forcing 1,000 mathematical safety checks per second with zero exceptions.
+          </p>
+        </div>
 
-        <div class="mt-12 p-8 rounded-2xl bg-brand-card border border-brand-border text-left flex flex-col md:flex-row items-center gap-8">
-          <div class="w-24 h-24 rounded-full bg-amber-500/20 border-2 border-amber-500 flex-shrink-0 flex items-center justify-center font-extrabold text-2xl text-amber-500 font-mono">
-            BWH
+        <div class="bg-black p-8 border border-spacex-border font-mono text-xs leading-relaxed text-zinc-400">
+          <div class="text-zinc-600 mb-4">// BARE-METAL INVARIANT SPECIFICATION</div>
+          <div class="text-spacex-orange">#define MONOTONIC_LOOP_HZ 1000</div>
+          <div class="text-spacex-orange">#define MPU_CLAMP_BOUND_US 86</div>
+          <div class="text-white mt-4">while(1) {</div>
+          <div class="pl-4 text-zinc-300">execute_sheriff_warrant_check();</div>
+          <div class="pl-4 text-zinc-300">if (signal_ignored || failure_hidden) {</div>
+          <div class="pl-8 text-red-500">trigger_amy_brick_wall(PROT_NONE);</div>
+          <div class="pl-8 text-red-500">hardware_detention_clamp();</div>
+          <div class="pl-4 text-zinc-300">}</div>
+          <div class="text-white">}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REG CF INVESTOR PORTAL -->
+  <section id="investors" class="py-24 border-b border-spacex-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="text-xs font-mono text-spacex-orange tracking-widest uppercase mb-3">// REGULATION CROWDFUNDING</div>
+      <h2 class="text-4xl md:text-6xl font-tech font-bold text-white uppercase">OWN THE MACHINE LAW STANDARD</h2>
+      
+      <div class="mt-12 bg-spacex-panel border border-spacex-border p-10 max-w-4xl mx-auto text-left">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <div class="text-xs font-mono text-zinc-500 uppercase">TARGET RAISE</div>
+            <div class="text-4xl font-tech font-bold text-white">$500,000 SAFE</div>
           </div>
           <div>
-            <h4 class="text-xl font-bold text-white">Bradley W. Holmes</h4>
-            <p class="text-xs text-amber-500 font-mono mt-1">Founder & Systems Architect, Brad-Core OS</p>
-            <p class="text-zinc-400 text-sm mt-3 leading-relaxed">
-              "We didn't build Brad-Core OS in a comfortable corporate lab. We built it out of raw necessity, powered by a 20-year sacred vow to my daughter Emma. We built the guardian humanity deserved."
-            </p>
+            <div class="text-xs font-mono text-zinc-500 uppercase">VALUATION TERMS</div>
+            <div class="text-4xl font-tech font-bold text-spacex-orange">$5.0M CAP / 20% DISCOUNT</div>
           </div>
         </div>
+
+        <hr class="border-spacex-border my-6">
+
+        <div class="text-xs font-mono text-zinc-400 uppercase mb-4">2,000,000-RUN MONTE CARLO CAPITAL PROOF</div>
+        <div class="grid grid-cols-3 gap-4 text-center font-mono text-sm mb-8">
+          <div class="bg-black p-4 border border-spacex-border">
+            <div class="text-emerald-400 font-bold">100.00%</div>
+            <div class="text-xs text-zinc-500 mt-1">Target Win Rate</div>
+          </div>
+          <div class="bg-black p-4 border border-spacex-border">
+            <div class="text-white font-bold">$1,864,814</div>
+            <div class="text-xs text-zinc-500 mt-1">Expected Mean EV</div>
+          </div>
+          <div class="bg-black p-4 border border-spacex-border">
+            <div class="text-spacex-orange font-bold">$1,195,742</div>
+            <div class="text-xs text-zinc-500 mt-1">Downside Floor</div>
+          </div>
+        </div>
+
+        <a href="mailto:bholmes@bradcoreos.com?subject=Gated%20Data%20Room%20Access%20Request" class="block w-full text-center bg-white hover:bg-zinc-200 text-black font-tech font-bold py-4 uppercase tracking-wider transition-all">
+          Request Gated Data Room Access
+        </a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-12 bg-black text-zinc-500 text-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-6 h-6 rounded bg-amber-500/20 border border-amber-500/40 flex items-center justify-center font-mono font-bold text-amber-500 text-xs">
-          BC
-        </div>
-        <span class="text-zinc-300 font-bold tracking-wider">BRAD-CORE OS</span>
-      </div>
-
-      <div class="text-xs text-center md:text-left">
-        &copy; 2026 Brad-Core OS Inc. All rights reserved. Williams, Arizona. | <a href="mailto:bholmes@bradcoreos.com" class="text-amber-500 hover:underline">bholmes@bradcoreos.com</a>
-      </div>
-
-      <div class="flex gap-6 text-xs">
-        <a href="#privacy" class="hover:text-zinc-300">SEC Reg CF Disclaimer</a>
-        <a href="#terms" class="hover:text-zinc-300">Privacy Policy</a>
-      </div>
+  <footer class="py-12 bg-black text-zinc-600 text-xs font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>&copy; 2026 BRAD-CORE OS INC. | WILLIAMS, ARIZONA</div>
+      <div><a href="mailto:bholmes@bradcoreos.com" class="text-spacex-orange hover:underline">BHOLMES@BRADCOREOS.COM</a></div>
     </div>
   </footer>
 
