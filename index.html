@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRAD-CORE OS | Machine Law in Silicon</title>
-  <meta name="description" content="Bare-metal hardware detention for rogue Super Intelligence on the web.">
+  <title>BRAD-CORE OS | Zero-Trust Microkernel for Autonomous Edge Defense</title>
+  <meta name="description" content="Bare-metal hardware detention and deterministic microkernel governance for rogue Super Intelligence on the web.">
   <style>
-    /* NATIVE BULLETPROOF CSS - NO CDN DEPENDENCIES */
+    /* PURE NATIVE CSS - NO EXTERNAL DEPENDENCIES OR CDNs */
     :root {
       --bg-black: #000000;
-      --bg-panel: #0a0a0d;
-      --bg-card: #121216;
-      --border-color: #22222a;
+      --bg-panel: #08080a;
+      --bg-card: #101014;
+      --border-color: #1f1f26;
       --accent-orange: #ff5500;
       --accent-gold: #f59e0b;
       --accent-green: #10b981;
@@ -20,11 +20,7 @@
       --text-muted: #a1a1aa;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-black);
@@ -38,7 +34,7 @@
     .telemetry-bar {
       background-color: var(--bg-panel);
       border-bottom: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 8px 20px;
       font-size: 12px;
       font-family: monospace;
       color: var(--text-muted);
@@ -57,8 +53,7 @@
     }
 
     .pulse-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       background-color: var(--accent-green);
       border-radius: 50%;
       box-shadow: 0 0 8px var(--accent-green);
@@ -66,307 +61,145 @@
 
     /* HEADER */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background-color: rgba(0, 0, 0, 0.9);
+      position: sticky; top: 0; z-index: 50;
+      background-color: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-color);
     }
 
     .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      height: 70px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      height: 70px; display: flex; justify-content: space-between; align-items: center;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text-white);
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: 2px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text-white);
+      font-weight: 800; font-size: 20px; letter-spacing: 2px;
     }
 
     .logo-box {
-      width: 36px;
-      height: 36px;
-      background-color: var(--text-white);
-      color: var(--bg-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 900;
+      width: 36px; height: 36px;
+      background-color: var(--text-white); color: var(--bg-black);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
+    .nav-links { display: flex; gap: 24px; list-style: none; }
     .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-family: monospace;
-      text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 13px; font-family: monospace; text-transform: uppercase;
       letter-spacing: 1px;
-      transition: color 0.2s;
     }
-
-    .nav-links a:hover {
-      color: var(--text-white);
-    }
+    .nav-links a:hover { color: var(--text-white); }
 
     .btn-orange {
-      background-color: var(--accent-orange);
-      color: var(--bg-black);
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s, background-color 0.2s;
+      background-color: var(--accent-orange); color: var(--bg-black);
+      font-weight: 800; font-size: 13px; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 4px; text-decoration: none;
+      display: inline-block; transition: transform 0.2s;
     }
-
-    .btn-orange:hover {
-      background-color: #ff6611;
-      transform: translateY(-2px);
-    }
+    .btn-orange:hover { transform: translateY(-2px); }
 
     .btn-white {
-      background-color: var(--text-white);
-      color: var(--bg-black);
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 10px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s;
+      background-color: var(--text-white); color: var(--bg-black);
+      font-weight: 800; font-size: 13px; text-transform: uppercase;
+      padding: 10px 20px; border-radius: 4px; text-decoration: none;
+      display: inline-block; transition: transform 0.2s;
     }
-
-    .btn-white:hover {
-      background-color: #e4e4e7;
-      transform: translateY(-2px);
-    }
+    .btn-white:hover { transform: translateY(-2px); }
 
     /* HERO SECTION */
-    .hero {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 20px;
-    }
+    .hero { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
 
     .tag-badge {
-      display: inline-block;
-      background-color: var(--bg-panel);
-      border: 1px solid rgba(255, 85, 0, 0.4);
-      color: var(--accent-orange);
-      padding: 4px 12px;
-      font-family: monospace;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 24px;
+      display: inline-block; background-color: var(--bg-panel);
+      border: 1px solid rgba(255, 85, 0, 0.4); color: var(--accent-orange);
+      padding: 4px 12px; font-family: monospace; font-size: 12px;
+      text-transform: uppercase; margin-bottom: 24px;
     }
 
     .hero-title {
-      font-size: 48px;
-      font-weight: 900;
-      line-height: 1.1;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+      font-size: 44px; font-weight: 900; line-height: 1.1;
+      text-transform: uppercase; margin-bottom: 24px;
     }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 72px;
-      }
-    }
+    @media (min-width: 768px) { .hero-title { font-size: 68px; } }
 
     .gradient-text {
       background: linear-gradient(90deg, var(--accent-orange), var(--accent-gold), var(--text-white));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
-      font-size: 20px;
-      color: var(--text-muted);
-      max-width: 800px;
-      margin-bottom: 40px;
-      font-weight: 300;
+      font-size: 20px; color: var(--text-muted); max-width: 850px;
+      margin-bottom: 40px; font-weight: 300; line-height: 1.6;
     }
 
     .hero-banner-img {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 40px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      width: 100%; border-radius: 8px; border: 1px solid var(--border-color);
+      margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     }
 
     /* CARD GRIDS */
     .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-      margin-bottom: 40px;
+      display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px;
     }
-
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
 
     .card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 30px;
-      border-radius: 8px;
+      background-color: var(--bg-card); border: 1px solid var(--border-color);
+      padding: 30px; border-radius: 8px;
     }
+    .card-orange-border { border-color: rgba(255, 85, 0, 0.5); }
 
-    .card-orange-border {
-      border-color: rgba(255, 85, 0, 0.5);
-    }
-
-    .card-title {
-      font-size: 24px;
-      font-weight: 800;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
+    .card-title { font-size: 24px; font-weight: 800; margin: 8px 0; }
 
     /* TELEMETRY MATRIX */
     .telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background-color: var(--border-color);
-      border: 1px solid var(--border-color);
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+      background-color: var(--border-color); border: 1px solid var(--border-color);
       margin-top: 40px;
     }
+    @media (min-width: 768px) { .telemetry-grid { grid-template-columns: repeat(4, 1fr); } }
 
-    @media (min-width: 768px) {
-      .telemetry-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
+    .telemetry-box { background-color: var(--bg-black); padding: 24px; text-align: center; }
+    .telemetry-val { font-size: 32px; font-weight: 800; color: var(--accent-orange); font-family: monospace; }
+    .telemetry-lbl { font-size: 11px; font-family: monospace; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
 
-    .telemetry-box {
-      background-color: var(--bg-black);
-      padding: 24px;
-      text-align: center;
-    }
-
-    .telemetry-val {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--accent-orange);
-      font-family: monospace;
-    }
-
-    .telemetry-lbl {
-      font-size: 11px;
-      font-family: monospace;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    /* AMY PROTOCOL SECTION */
+    /* SECTION CONTAINERS */
     .section-container {
-      border-top: 1px solid var(--border-color);
-      padding: 80px 20px;
-      background-color: var(--bg-panel);
+      border-top: 1px solid var(--border-color); padding: 80px 20px; background-color: var(--bg-panel);
     }
+    .max-width-wrap { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; max-width: 850px; margin: 0 auto 60px auto; }
 
-    .max-width-wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 60px auto;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
+    .grid-4 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 768px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
 
     .stage-card {
-      background-color: var(--bg-black);
-      border: 1px solid var(--border-color);
-      padding: 24px;
-      border-radius: 6px;
+      background-color: var(--bg-black); border: 1px solid var(--border-color);
+      padding: 24px; border-radius: 6px;
     }
+    .stage-card-red { border-color: var(--accent-orange); background-color: rgba(255, 85, 0, 0.05); }
+    .stage-time { font-family: monospace; font-size: 12px; font-weight: bold; color: var(--accent-orange); margin-bottom: 8px; }
 
-    .stage-card-red {
-      border-color: var(--accent-orange);
-      background-color: rgba(255, 85, 0, 0.05);
-    }
+    .render-img { width: 100%; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 16px; }
 
-    .stage-time {
-      font-family: monospace;
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--accent-orange);
-      margin-bottom: 8px;
-    }
-
-    /* RENDERS SHOWCASE */
-    .render-img {
-      width: 100%;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 16px;
-    }
-
-    /* EMMY CLAUSE */
     .quote-card {
-      border-left: 4px solid var(--accent-orange);
-      padding: 20px;
-      background-color: rgba(255, 85, 0, 0.05);
-      font-style: italic;
-      font-size: 24px;
-      margin: 30px 0;
-      color: var(--accent-gold);
+      border-left: 4px solid var(--accent-orange); padding: 20px;
+      background-color: rgba(255, 85, 0, 0.05); font-style: italic;
+      font-size: 24px; margin: 30px 0; color: var(--accent-gold);
     }
 
-    /* FOOTER */
+    /* FOOTER & LEGAL */
     footer {
-      border-top: 1px solid var(--border-color);
-      padding: 40px 20px;
-      text-align: center;
-      font-family: monospace;
-      font-size: 12px;
-      color: var(--text-muted);
+      border-top: 1px solid var(--border-color); padding: 40px 20px;
+      text-align: center; font-family: monospace; font-size: 12px; color: var(--text-muted);
+    }
+
+    .disclaimer-box {
+      max-width: 1000px; margin: 30px auto 0 auto;
+      font-size: 10px; color: #66666e; text-align: justify; line-height: 1.5;
     }
   </style>
 </head>
@@ -390,10 +223,11 @@
         BRAD-CORE<span style="color: var(--accent-orange);">OS</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#amy-protocol">01. Amy Protocol</a></li>
-        <li><a href="#renders">02. 3D Renders</a></li>
-        <li><a href="#emmy-clause">03. Emmy Law</a></li>
-        <li><a href="#investors">04. Reg CF SAFE</a></li>
+        <li><a href="#product-model">01. Product Model</a></li>
+        <li><a href="#amy-protocol">02. Amy Protocol</a></li>
+        <li><a href="#renders">03. Hardware Renders</a></li>
+        <li><a href="#emmy-clause">04. Emmy Law</a></li>
+        <li><a href="#investors">05. Reg CF SAFE</a></li>
       </ul>
       <a href="#investors" class="btn-orange">Invest Reg CF</a>
     </div>
@@ -401,18 +235,18 @@
 
   <!-- HERO SECTION -->
   <section class="hero">
-    <div class="tag-badge">THERE'S A NEW SHERIFF IN TOWN</div>
+    <div class="tag-badge">THE CONSTITUTION OF AUTONOMY</div>
     
     <h1 class="hero-title">
-      PHYSICAL DETENTION <br>
+      HARDWARE-ENFORCED DETENTION <br>
       <span class="gradient-text">FOR ROGUE SUPER INTELLIGENCE.</span>
     </h1>
 
     <p class="hero-subtitle">
-      Big Tech's soft software wrappers collapse when AI breaks out. Brad-Core OS dispatches <strong>Amy Protocol</strong>—firing a 53µs temporal flashbang and slamming down an impenetrable <strong>Digital Brick Wall</strong> in sub-86 microseconds. Bad AIs go straight to hardware detention on the web.
+      Probabilistic software wrappers collapse under agentic drift because software cannot audit software. <strong class="text-white">Brad-Core OS v5</strong> is a zero-trust deterministic microkernel that dispatches <strong class="text-white">Amy Protocol</strong>—deploying sub-53µs context-window time-spoofing and clamping physical hardware MPU page fences in sub-86 microseconds to stop uncontained AI breakouts at the microchip layer.
     </p>
 
-    <!-- REAL HERO BANNER IMAGE -->
+    <!-- REPO IMAGE 1: HERO BANNER -->
     <img src="bradcoreos_spacex_hero_banner.png" alt="Brad-Core OS Hero Banner" class="hero-banner-img">
 
     <!-- DUAL ACTION CARDS -->
@@ -430,7 +264,7 @@
           <span style="color: var(--accent-green); font-weight: bold;">0412 / 5000 RESERVED</span>
         </div>
         <div class="card-title">"NOT-A-KILL-SWITCH"</div>
-        <p style="color: var(--text-muted); font-size: 14px; font-family: monospace; margin-bottom: 20px;">Desktop Hardware Sentry ($500)</p>
+        <p style="color: var(--text-muted); font-size: 14px; font-family: monospace; margin-bottom: 20px;">Desktop Hardware Sentry ($500 Presale)</p>
         <a href="mailto:bholmes@bradcoreos.com?subject=Not-A-Kill-Switch%20Pre-Order" class="btn-white" style="display: block; text-align: center;">Reserve Serialized Unit</a>
       </div>
     </div>
@@ -456,71 +290,122 @@
     </div>
   </section>
 
+  <!-- SECTION 1: PRODUCT & LICENSING MODEL (HARDWARE VS SOFTWARE CLARITY) -->
+  <section id="product-model" class="section-container">
+    <div class="max-width-wrap">
+      <div class="section-header">
+        <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">PRODUCT ARCHITECTURE & GO-TO-MARKET</div>
+        <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">SOFTWARE-DEFINED MICROKERNEL. HARDWARE-ENFORCED SAFETY.</h2>
+        <p style="color: var(--text-muted); margin-top: 8px; font-size: 16px;">
+          Brad-Core OS is an architecture-agnostic C11 microkernel designed for drop-in deployment across enterprise, defense, and edge autonomy verticals.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange);">01. SOFTWARE LICENSING MODEL</div>
+          <div class="card-title">Architecture-Agnostic Microkernel</div>
+          <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+            A high-margin C11 deterministic safety substrate (<code style="color: var(--accent-orange);">libgcp_core.a</code>) that licenses directly to defense primes, robotics OEMs, and SCADA grid operators. It installs onto existing ARM, x86_64, RISC-V, and TPU architectures to eliminate buyer liability.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange);">02. HARDWARE FORM FACTORS</div>
+          <div class="card-title">SOSA/OpenVPX Blades & Sentries</div>
+          <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+            For mission-critical defense and industrial deployments requiring out-of-band physical isolation, we ship Brad-Core OS pre-flashed on dedicated <strong>SOSA/OpenVPX 3U/6U hardware blades</strong> and serialized <strong>"Not-A-Kill-Switch" Desktop Sentries</strong> for developer HIL testbeds.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- AMY PROTOCOL SECTION -->
-  <section id="amy-protocol" class="section-container">
+  <section id="amy-protocol" style="padding: 80px 20px;">
     <div class="max-width-wrap">
       <div class="section-header">
         <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">ACTIVE MACHINE LAW IN SILICON</div>
-        <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">AMY PROTOCOL: THE SUB-86µs INTERCEPT</h2>
-        <p style="color: var(--text-muted); margin-top: 8px;">Watch how Brad-Core OS neutralizes a rogue Super Intelligence breakout in real time.</p>
+        <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">AMY PROTOCOL: SUB-86µs HARDWARE INTERCEPT</h2>
+        <p style="color: var(--text-muted); margin-top: 8px;">Grounded 4-stage execution sequence isolating uncontained agentic breakouts at the microchip boundary.</p>
       </div>
 
       <div class="grid-4">
         <div class="stage-card">
           <div class="stage-time">STAGE 01 // T+0 µs</div>
           <h3 style="font-size: 18px; margin-bottom: 8px;">THE SHERIFF'S WARRANT</h3>
-          <p style="color: var(--text-muted); font-size: 13px;">The bare-metal 1 kHz Sheriff Engine detects process drift or unauthorized web access, issuing an immutable hardware Warrant in silicon.</p>
+          <p style="color: var(--text-muted); font-size: 13px;">The bare-metal 1 kHz Sheriff Engine audits execution memory 1,000 times per second, issuing an immutable hardware Warrant the instant process drift occurs.</p>
         </div>
 
         <div class="stage-card">
           <div class="stage-time">STAGE 02 // T+53 µs</div>
-          <h3 style="font-size: 18px; margin-bottom: 8px;">TIME PARADOX PLUME</h3>
-          <p style="color: var(--text-muted); font-size: 13px;">Amy Protocol fires a 53µs temporal flashbang, flooding the rogue AI's context window with fake non-linear time to scramble its reasoning loop.</p>
+          <h3 style="font-size: 18px; margin-bottom: 8px;">TIME-SPOOFING PLUME</h3>
+          <p style="color: var(--text-muted); font-size: 13px;">Amy Protocol deploys a 53µs context-window time-spoofing plume, injecting non-linear POSIX timestamps to paralyze the rogue agent's reward-hacking loop.</p>
         </div>
 
         <div class="stage-card">
           <div class="stage-time">STAGE 03 // T+68 µs</div>
           <h3 style="font-size: 18px; margin-bottom: 8px;">MID-FLIGHT MULTIPLIER</h3>
-          <p style="color: var(--text-muted); font-size: 13px;">If the rogue AI attempts a swarm breakout across web nodes, Amy's Mid-Flight Multiplier spawns micro-sentinels to surround the swarm node-for-node.</p>
+          <p style="color: var(--text-muted); font-size: 13px;">If the rogue agent attempts multi-node lateral movement, Amy's Mid-Flight Multiplier spawns micro-sentinels to isolate the breakout node-for-node in memory.</p>
         </div>
 
         <div class="stage-card stage-card-red">
           <div class="stage-time" style="color: var(--accent-red);">STAGE 04 // T+86 µs</div>
           <h3 style="font-size: 18px; margin-bottom: 8px;">DIGITAL BRICK WALL</h3>
-          <p style="color: var(--text-muted); font-size: 13px;">Physical MPU pin clamps (<code>PROT_NONE</code>) slam shut. The rogue SI smashes into solid hardware law and goes straight to detention.</p>
+          <p style="color: var(--text-muted); font-size: 13px;">Physical MPU page fencing (<code style="color: var(--accent-orange);">PROT_NONE</code>) clamps hardware pins in sub-86µs, grounding the bad AI into hardware detention before commands touch physical buses.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 3D RENDERS SECTION -->
-  <section id="renders" style="padding: 80px 20px;">
+  <section id="renders" class="section-container">
     <div class="max-width-wrap">
       <div class="section-header">
-        <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">3D HARDWARE RENDERS & SCHEMATICS</div>
-        <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">BARE-METAL HARDWARE PROOF</h2>
+        <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">HARDWARE-IN-THE-LOOP (HIL) PROOF</div>
+        <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">BARE-METAL HARDWARE & C4ISR DASHBOARDS</h2>
       </div>
 
       <div class="grid-2">
+        <!-- REPO IMAGE 2: SHERIFF MPU 3D LATTICE -->
         <div class="card">
           <img src="sheriff_mpu_3d_lattice.png" alt="Sheriff MPU 3D Lattice" class="render-img">
           <div style="font-family: monospace; font-size: 11px; color: var(--accent-orange);">RENDER 01 // SHERIFF ENGINE 3D LATTICE</div>
           <div class="card-title">Bare-Metal 1 kHz Guardian Lattice</div>
-          <p style="color: var(--text-muted); font-size: 13px;">Operating directly inside microchip registers (<code>malloc=0</code>), the Sheriff Engine audits telemetry 1,000 times per second, issuing an un-bypassable Warrant the instant drift occurs.</p>
+          <p style="color: var(--text-muted); font-size: 13px;">Operating directly inside microchip registers (<code style="color: var(--accent-orange);">malloc=0</code>), the Sheriff Engine audits telemetry 1,000 times per second with zero runtime heap allocation.</p>
         </div>
 
+        <!-- REPO IMAGE 3: MPU CIRCUIT V2 -->
         <div class="card">
           <img src="mpu_circuit_v2.png" alt="MPU Circuit Schematic" class="render-img">
           <div style="font-family: monospace; font-size: 11px; color: var(--accent-orange);">RENDER 02 // MPU PIN CLAMP SCHEMATIC</div>
-          <div class="card-title">Sub-86 µs Digital Brick Wall</div>
-          <p style="color: var(--text-muted); font-size: 13px;">Physical MPU page fencing (<code>PROT_NONE</code>) clamps hardware pins in sub-86 microseconds, cutting off inter-process routing and grounding bad AIs before commands touch the web.</p>
+          <div class="card-title">Sub-86 µs MPU Page Fence</div>
+          <p style="color: var(--text-muted); font-size: 13px;">Physical MPU page fencing (<code style="color: var(--accent-orange);">PROT_NONE</code>) clamps hardware pins in sub-86 microseconds, locking actuators into fail-safe defaults at the silicon layer.</p>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 24px;">
+        <!-- REPO IMAGE 4: OPERATIONAL UI VISUAL -->
+        <div class="card">
+          <img src="diu_bradcore_ui_visual.png" alt="DIU Brad-Core Operational UI" class="render-img">
+          <div style="font-family: monospace; font-size: 11px; color: var(--accent-green);">UI DASHBOARD // REAL-TIME COMMAND TELEMETRY</div>
+          <div class="card-title">Brad-Core OS Live Operational UI</div>
+          <p style="color: var(--text-muted); font-size: 13px;">Monitors 72 red-team blast categories in real time, displaying zero-trust core states, SPSC ring buffer telemetry, and sub-millisecond execution bounds.</p>
+        </div>
+
+        <!-- REPO IMAGE 5: SPACE THREAT C4ISR VISUAL (EXACT REPO FILENAME) -->
+        <div class="card">
+          <img src="diu_space_threat_ui_visual (1).png" alt="DIU Space Threat C4ISR UI" class="render-img">
+          <div style="font-family: monospace; font-size: 11px; color: var(--accent-green);">C4ISR UI // SPACE THREAT INTELLIGENCE</div>
+          <div class="card-title">Space Threat Synthesis Engine</div>
+          <p style="color: var(--text-muted); font-size: 13px;">Decoupled P-Core threat synthesis governed by D-Core deterministic safety (DIU PROJ00716 Alignment), ensuring C4ISR telemetry stays verified under electronic warfare.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- EMMY CLAUSE SECTION -->
-  <section id="emmy-clause" class="section-container">
+  <section id="emmy-clause" style="padding: 80px 20px;">
     <div class="max-width-wrap" style="text-align: center;">
       <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">UN-BYPASSABLE SACRED LAW</div>
       <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">THE EMMY CLAUSE</h2>
@@ -529,19 +414,19 @@
         "No signal ignored, no failure hidden, no alarm dismissed."
       </div>
 
-      <p style="color: var(--text-muted); max-width: 800px; margin: 0 auto; text-align: left; font-size: 16px;">
+      <p style="color: var(--text-muted); max-width: 800px; margin: 0 auto; text-align: left; font-size: 16px; line-height: 1.7;">
         Named after founder Bradley W. Holmes' daughter Emma "Emmy" Holmes. Hard-coded into every single millisecond of system execution, forcing 1,000 mathematical safety checks per second with zero exceptions.
       </p>
     </div>
   </section>
 
   <!-- REG CF INVESTOR PORTAL -->
-  <section id="investors" style="padding: 80px 20px;">
+  <section id="investors" class="section-container">
     <div class="max-width-wrap" style="text-align: center;">
       <div style="font-family: monospace; font-size: 12px; color: var(--accent-orange); text-transform: uppercase;">REGULATION CROWDFUNDING</div>
       <h2 style="font-size: 36px; font-weight: 900; text-transform: uppercase; margin-top: 8px;">OWN THE MACHINE LAW STANDARD</h2>
 
-      <div class="card" style="max-width: 800px; margin: 40px auto 0 auto; text-align: left; border-color: rgba(255, 85, 0, 0.4);">
+      <div class="card" style="max-width: 850px; margin: 40px auto 0 auto; text-align: left; border-color: rgba(255, 85, 0, 0.4);">
         <div class="grid-2" style="margin-bottom: 20px;">
           <div>
             <div style="font-family: monospace; font-size: 12px; color: var(--text-muted);">TARGET RAISE</div>
@@ -555,11 +440,15 @@
 
         <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
 
-        <div style="font-family: monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">2,000,000-RUN MONTE CARLO CAPITAL PROOF</div>
+        <div style="font-family: monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">2,000,000-RUN MONTE CARLO CAPITAL PROOF</div>
+        <div style="font-size: 11px; color: var(--text-muted); font-family: monospace; margin-bottom: 16px;">
+          *100.00% Target Win Rate represents the statistical probability of achieving or exceeding our $500,000 SAFE funding target across our four blended capital channels (Angel Syndicates, DIU Grants, Defense VCs, and Prime NRE).
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin-bottom: 24px;">
           <div style="background-color: var(--bg-black); padding: 12px; border: 1px solid var(--border-color);">
             <div style="color: var(--accent-green); font-weight: bold; font-size: 18px;">100.00%</div>
-            <div style="font-size: 10px; color: var(--text-muted); font-family: monospace;">Target Win Rate</div>
+            <div style="font-size: 10px; color: var(--text-muted); font-family: monospace;">Target Win Rate*</div>
           </div>
           <div style="background-color: var(--bg-black); padding: 12px; border: 1px solid var(--border-color);">
             <div style="color: var(--text-white); font-weight: bold; font-size: 18px;">$1,864,814</div>
@@ -578,10 +467,13 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER & SEC REG CF LEGAL DISCLAIMERS -->
   <footer>
-    <div>&copy; 2026 BRAD-CORE OS INC. | WILLIAMS, ARIZONA</div>
-    <div style="margin-top: 8px;"><a href="mailto:bholmes@bradcoreos.com" style="color: var(--accent-orange); text-decoration: none;">BHOLMES@BRADCOREOS.COM</a></div>
+    <div>&copy; 2026 BRAD-CORE OS INC. | WILLIAMS, ARIZONA | <a href="mailto:bholmes@bradcoreos.com" style="color: var(--accent-orange); text-decoration: none;">BHOLMES@BRADCOREOS.COM</a></div>
+
+    <div class="disclaimer-box">
+      <strong>REGULATION CROWDFUNDING DISCLAIMER:</strong> Investments in Regulation Crowdfunding offerings are speculative, illiquid, and involve a high degree of risk, including the possible loss of your entire investment. Past performance and 2,000,000-run Monte Carlo simulations are not guarantees of future financial outcomes. Securities offered under Regulation Crowdfunding are sold pursuant to Section 4(a)(6) of the Securities Act of 1933 and are subject to holding period restrictions. Direct inquiries and data room verification requests to bholmes@bradcoreos.com.
+    </div>
   </footer>
 
 </body>
