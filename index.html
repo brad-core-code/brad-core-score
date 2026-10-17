@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRAD-CORE OS v5 UNIFIED | Defense-Grade Hardware-Sovereign AI Safety Kernel</title>
-    <meta name="description" content="Bare-Metal C11/C++20 Deterministic Safety Substrate and Out-of-Band Amy Infinity OS for Defense C4ISR, Autonomous Systems, and SCADA Grids.">
+    <meta name="description" content="Bare-Metal C11/C++20 Deterministic Safety Substrate and Out-of-Band Amy Infinity OS for Defense C4ISR, Autonomous Systems, and SCADA Grids with Statutory Human-In-The-Loop (HITL) and Commander-in-Chief Strategic Override.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -49,6 +49,12 @@
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
+        .hud-border-gold {
+            border: 1px solid rgba(234, 179, 8, 0.6);
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.25);
+            background: linear-gradient(135deg, rgba(24, 20, 10, 0.95) 0%, rgba(8, 10, 15, 0.98) 100%);
+        }
+
         .hud-tag {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             letter-spacing: 0.1em;
@@ -62,17 +68,10 @@
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
-        .glow-text-amber {
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
-
-        .glow-text-cyan {
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
-        }
-
-        .glow-text-emerald {
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-        }
+        .glow-text-amber { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
+        .glow-text-cyan { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+        .glow-text-emerald { text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+        .glow-text-gold { text-shadow: 0 0 12px rgba(234, 179, 8, 0.6); }
 
         .pulse-live {
             animation: pulse-animation 2s infinite;
@@ -84,13 +83,8 @@
             100% { opacity: 1; }
         }
 
-        /* Modal styling */
-        .modal {
-            transition: opacity 0.25s ease;
-        }
-        body.modal-active {
-            overflow: hidden;
-        }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow: hidden; }
     </style>
 </head>
 <body class="grid-pattern antialiased selection:bg-amber-500 selection:text-black">
@@ -108,14 +102,15 @@
                             BRAD-CORE OS <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-500/40 rounded hud-tag">v5 UNIFIED</span>
                         </a>
                         <div class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">
-                            GUARDIAN SENTINEL TESSERACT SI &bull; C4ISR HARDWARE SUBSTRATE
+                            GUARDIAN SENTINEL TESSERACT SI &bull; STATUTORY HITL & COMMANDER-IN-CHIEF OVERRIDE
                         </div>
                     </div>
                 </div>
 
                 <!-- NAVIGATION LINKS -->
-                <nav class="hidden md:flex space-x-8 text-xs font-mono tracking-wider uppercase text-slate-300">
+                <nav class="hidden lg:flex space-x-6 text-xs font-mono tracking-wider uppercase text-slate-300">
                     <a href="#overview" class="hover:text-amber-400 transition-colors">Overview</a>
+                    <a href="#hitl-override" class="hover:text-yellow-400 transition-colors">HITL & Command Override</a>
                     <a href="#capabilities" class="hover:text-amber-400 transition-colors">Capabilities</a>
                     <a href="#amy-infinity" class="hover:text-cyan-400 transition-colors">Amy Infinity OS</a>
                     <a href="#testbed" class="hover:text-emerald-400 transition-colors">SOSA/MOSA Testbed</a>
@@ -137,16 +132,16 @@
     <!-- LIVE TELEMETRY TICKER BAR -->
     <div class="bg-[#0b0f19] border-b border-slate-800/80 py-2 font-mono text-[11px] text-slate-400 tracking-wider">
         <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
-            <div class="flex items-center gap-4">
-                <span class="text-emerald-400 font-bold">&bull; ANNELEISE LOOP: 1,600 Hz (625 µs)</span>
-                <span class="text-slate-500">|</span>
-                <span>WCET: <strong class="text-white">412.6 µs</strong> &le; 450 µs (28% HEADROOM)</span>
-                <span class="text-slate-500">|</span>
-                <span>MEMORY: <strong class="text-amber-400">malloc = 0</strong> (0 LEAKS)</span>
+            <div class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">&bull; ANNELIESE LOOP: 1,600 Hz (625 µs)</span>
+                <span class="text-slate-600">|</span>
+                <span class="text-yellow-400 font-bold">&bull; DoDD 3000.09 MODE B: HITL FENCE ENFORCED</span>
+                <span class="text-slate-600">|</span>
+                <span class="text-amber-400 font-bold">&bull; COMMANDER-IN-CHIEF OVERRIDE: ACTIVE (&lt;86 µs)</span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <span class="text-cyan-400">&bull; SHERIFF MPU CLAMP: 85.4 µs (PROT_NONE)</span>
-                <span class="text-slate-500">|</span>
+                <span class="text-slate-600">|</span>
                 <span class="text-emerald-400">&bull; RED-TEAM: 74/74 BLAST CLASSES CLEAR</span>
             </div>
         </div>
@@ -168,22 +163,26 @@
                     </h1>
 
                     <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-                        Probabilistic AI models cannot safely control kinetic hardware. <strong class="text-white">Brad-Core OS v5 Unified</strong> is the drop-in, bare-metal hardware seatbelt that enforces active machine law at the silicon layer—converting uncapped physical liability into 100% insured operational certainty under <strong class="text-emerald-400">DoD Directive 3000.09 Mode B</strong>.
+                        Probabilistic AI models cannot safely control kinetic hardware. <strong class="text-white">Brad-Core OS v5 Unified</strong> is the drop-in, bare-metal hardware seatbelt that enforces active machine law at the silicon layer—integrating mandatory <strong class="text-yellow-400">Human-In-The-Loop (HITL) Federal Requirements</strong> under <strong class="text-emerald-400">DoD Directive 3000.09 Mode B</strong> and an un-bypassable <strong class="text-amber-400">Commander-in-Chief / Strategic Command Override</strong> that severs physical actuation in under 86 microseconds.
                     </p>
 
                     <!-- KEY PERFORMANCE METRICS GRID -->
-                    <div class="grid grid-cols-3 gap-4 pt-4 font-mono">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 font-mono">
                         <div class="hud-border p-3 rounded text-center">
-                            <div class="text-xl sm:text-2xl font-bold text-emerald-400 glow-text-emerald">1,600 Hz</div>
-                            <div class="text-[10px] text-slate-400 uppercase mt-1">EMMY HARMONIC LOOP</div>
+                            <div class="text-lg sm:text-xl font-bold text-emerald-400 glow-text-emerald">1,600 Hz</div>
+                            <div class="text-[9px] text-slate-400 uppercase mt-1">EMMY HARMONIC LOOP</div>
                         </div>
                         <div class="hud-border p-3 rounded text-center">
-                            <div class="text-xl sm:text-2xl font-bold text-amber-400 glow-text-amber">85.4 µs</div>
-                            <div class="text-[10px] text-slate-400 uppercase mt-1">SHERIFF MPU CLAMP</div>
+                            <div class="text-lg sm:text-xl font-bold text-yellow-400 glow-text-gold">HITL MODE B</div>
+                            <div class="text-[9px] text-slate-400 uppercase mt-1">FED CONSENT GATE</div>
                         </div>
                         <div class="hud-border p-3 rounded text-center">
-                            <div class="text-xl sm:text-2xl font-bold text-cyan-400 glow-text-cyan">100.0%</div>
-                            <div class="text-[10px] text-slate-400 uppercase mt-1">74 BLAST CLASSES CLEAR</div>
+                            <div class="text-lg sm:text-xl font-bold text-amber-400 glow-text-amber">&lt;86 µs</div>
+                            <div class="text-[9px] text-slate-400 uppercase mt-1">CINCPAC / STRATCOM OVERRIDE</div>
+                        </div>
+                        <div class="hud-border p-3 rounded text-center">
+                            <div class="text-lg sm:text-xl font-bold text-cyan-400 glow-text-cyan">100.0%</div>
+                            <div class="text-[9px] text-slate-400 uppercase mt-1">74 BLAST CLASSES CLEAR</div>
                         </div>
                     </div>
 
@@ -193,8 +192,8 @@
                             <span>REQUEST DATA ROOM ACCESS</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </button>
-                        <a href="#testbed" class="hud-tag border border-slate-700 hover:border-slate-500 bg-slate-900/60 text-slate-200 font-semibold px-6 py-3.5 rounded text-sm transition-all flex items-center gap-2">
-                            <span>EXPLORE SOSA/MOSA TESTBED</span>
+                        <a href="#hitl-override" class="hud-tag border border-yellow-500/50 hover:border-yellow-400 bg-yellow-950/30 text-yellow-300 font-semibold px-6 py-3.5 rounded text-sm transition-all flex items-center gap-2">
+                            <span>REVIEW HITL & OVERRIDE ARCHITECTURE</span>
                         </a>
                     </div>
                 </div>
@@ -211,6 +210,81 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <!-- FEATURED SECTION: HUMAN-IN-THE-LOOP & COMMANDER-IN-CHIEF OVERRIDE -->
+    <section id="hitl-override" class="py-20 bg-[#06080e] border-b border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="text-xs font-mono text-yellow-400 tracking-widest uppercase mb-2">STATUTORY FEDERAL COMPLIANCE & CIVILIAN COMMAND AUTHORITY</div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">HUMAN-IN-THE-LOOP & COMMANDER-IN-CHIEF OVERRIDE</h2>
+                <p class="text-slate-400 mt-3 text-sm">Engineered specifically to satisfy federal mandates under DoD Directive 3000.09 Mode B and statutory AI safety legislation—ensuring un-bypassable civilian command over all autonomous hardware.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- FEATURE 1: HUMAN-IN-THE-LOOP (HITL) FED REQUIREMENT -->
+                <div class="hud-border hud-border-gold p-8 rounded-xl space-y-6">
+                    <div class="flex justify-between items-center border-b border-yellow-500/30 pb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                            <span class="hud-tag text-xs text-yellow-400 font-bold">DoDD 3000.09 MODE B MANDATE</span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">HARDWARE CONSENT GATE</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white">Statutory Human-In-The-Loop (HITL) Positive Consent</h3>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Federal law and DoD Directive 3000.09 strictly mandate that no autonomous neural model or probabilistic AI agent can initiate kinetic engagement or critical infrastructure actuation without positive, authenticated human operator authorization.
+                    </p>
+
+                    <div class="p-4 bg-[#080a0f] rounded-lg font-mono text-xs text-slate-300 space-y-2 border border-slate-800">
+                        <div class="text-yellow-400 font-bold mb-1">&bull; HARDWARE IMPLEMENTATION MECHANICS:</div>
+                        <div>1. <strong class="text-white">Physically Clamped Actuator Bus:</strong> Physical firing and actuation pins (<code class="text-amber-400">ACT_EN</code>) are clamped to electrical ground (<code class="text-red-400">PROT_NONE</code>) at the silicon register layer by default.</div>
+                        <div>2. <strong class="text-white">Probabilistic Proposal Isolation:</strong> P-Core neural models generate target recommendations in isolated RAM space, but cannot toggle actuator switches.</div>
+                        <div>3. <strong class="text-white">Cryptographic Human Token:</strong> Actuation gates open ONLY when an authenticated human operator inputs an out-of-band cryptographic token, authorizing a time-boxed execution window (&le; 625 µs frame bounds).</div>
+                    </div>
+
+                    <div class="text-xs font-mono text-emerald-400 pt-2 border-t border-slate-800 flex justify-between items-center">
+                        <span>&check; Eliminates Enterprise & Military Kinetic Liability</span>
+                        <span class="text-slate-500">DoDD 3000.09 VERIFIED</span>
+                    </div>
+                </div>
+
+                <!-- FEATURE 2: COMMANDER-IN-CHIEF / STRATCOM OVERRIDE -->
+                <div class="hud-border hud-border-red p-8 rounded-xl space-y-6">
+                    <div class="flex justify-between items-center border-b border-red-500/30 pb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-red-500 rounded-full pulse-live"></span>
+                            <span class="hud-tag text-xs text-red-400 font-bold">PRESIDENTIAL & STRATCOM COMMAND</span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">SUB-86 µs HARD SEVER</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white">Commander-in-Chief / Strategic Command Override</h3>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        In severe crisis or rogue AI outbreak scenarios, civilian leadership and National Command Authorities require an absolute, immediate hardware kill-switch that operates outside of local software, wireless networks, or AI model reasoning states.
+                    </p>
+
+                    <div class="p-4 bg-[#080a0f] rounded-lg font-mono text-xs text-slate-300 space-y-2 border border-slate-800">
+                        <div class="text-red-400 font-bold mb-1">&bull; EXECUTIVE HARD-STOP MECHANICS:</div>
+                        <div>1. <strong class="text-white">Non-Maskable Hardware Interrupt (NMI):</strong> Direct physical or opto-isolated warrant line triggers a dedicated bare-metal Non-Maskable Interrupt.</div>
+                        <div>2. <strong class="text-white">Sub-86 µs Actuator Line Sever:</strong> Sheriff OS instantly forces all MPU address spaces to <code class="text-red-400">PROT_NONE</code> and clamps physical actuator pins to safe ground in <strong class="text-amber-400">85.4 microseconds</strong>.</div>
+                        <div>3. <strong class="text-white">Un-Bypassable Civilian Authority:</strong> AI reasoning agents cannot intercept, delay, or spoof this signal—overriding local software and forcing all system nodes globally into Safe-State Default H0.</div>
+                    </div>
+
+                    <div class="text-xs font-mono text-amber-400 pt-2 border-t border-slate-800 flex justify-between items-center">
+                        <span>&check; Guaranteed Presidential & Civilian Command Supremacy</span>
+                        <span class="text-slate-500">HARDWARE ENFORCED</span>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
@@ -234,7 +308,7 @@
                         Prompt guardrails and virtual sandboxes share the exact same physical CPU and RAM address space as the neural planner they police. When agents escape or reward-hack, software filters melt in microseconds.
                     </p>
                     <div class="text-[11px] font-mono text-emerald-400 pt-2 border-t border-slate-800">
-                        &check; BRAD-CORE FIX: Sub-86 µs Sheriff MPU Pin Clamp
+                        &check; BRAD-CORE FIX: Sub-86 µs Sheriff MPU Pin Clamp & Presidential Override
                     </div>
                 </div>
 
@@ -308,12 +382,12 @@
                     </div>
                     <h3 class="text-xl font-bold text-white">Sheriff OS Hardware Executive</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Operating directly at the physical silicon register layer, Sheriff OS audits address transactions passing between untrusted model spaces and actuator command lines. Any boundary overrun instantly remaps MPU page permissions to <strong class="text-red-400 font-mono">PROT_NONE</strong>, locking physical actuator pins to ground in under 86 microseconds.
+                        Operating directly at the physical silicon register layer, Sheriff OS audits address transactions passing between untrusted model spaces and actuator command lines. Any boundary overrun or unauthorized kinetic attempt instantly remaps MPU page permissions to <strong class="text-red-400 font-mono">PROT_NONE</strong>, locking physical actuator pins to ground in under 86 microseconds.
                     </p>
                     <div class="p-3 bg-[#080a0f] rounded font-mono text-xs text-slate-300 space-y-1">
                         <div>&bull; Clamping Latency: <span class="text-amber-400 font-bold">85.40 µs Verified</span> Line-Speed Remap</div>
                         <div>&bull; Hardware Action: Actuator lines severed before corrupt bytes cycle</div>
-                        <div>&bull; Fault Dispatch: Dispatches authenticated Doomsday Warrant</div>
+                        <div>&bull; Strategic Override: Responds to Commander-in-Chief NMI Hard-Stop</div>
                     </div>
                 </div>
 
@@ -417,8 +491,8 @@
                             <div class="flex justify-between"><span>Power Plane:</span> <span class="text-white">Isolated 120s Supercap</span></div>
                             <div class="flex justify-between"><span>Galvanic Isolation:</span> <span class="text-white">&gt;10 kV Photonic Bridge</span></div>
                             <div class="flex justify-between"><span>Shared Host RAM:</span> <span class="text-emerald-400">0 Bytes (Zero Bleed)</span></div>
-                            <div class="flex justify-between"><span>Shielding:</span> <span class="text-white">OFHC + Mu-Metal (&mu;_r &gt; 80,000)</span></div>
-                            <div class="flex justify-between"><span>TDP Per Card:</span> <span class="text-white">14.4W (VITA 48.8 AFT)</span></div>
+                            <div class="flex justify-between"><span>HITL Gate:</span> <span class="text-yellow-400">DoDD 3000.09 Mode B</span></div>
+                            <div class="flex justify-between"><span>CinC Override:</span> <span class="text-amber-400">&lt;86 µs Hard Interrupt</span></div>
                             <div class="flex justify-between"><span>Swarm Intercept:</span> <span class="text-cyan-400">1,200 Drone Agents / Sec</span></div>
                             <div class="flex justify-between"><span>Zeroize Speed:</span> <span class="text-amber-400">&lt;10 µs Anti-Tamper Dump</span></div>
                         </div>
@@ -457,7 +531,7 @@
                             <span>SOSA 3U OpenVPX Backplane</span>
                             <span class="text-emerald-400">LIVE CONSOLE</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-1">12 Payload Slots + 2 PSUs. Displays 1,600 HzAnneliese Engine running 918.4 µs WCET with 74.2% preserved headroom.</p>
+                        <p class="text-[11px] text-slate-400 mt-1">12 Payload Slots + 2 PSUs. Displays 1,600 Hz Anneliese Engine running 918.4 µs WCET with 74.2% preserved headroom.</p>
                     </div>
                 </div>
 
