@@ -1,343 +1,720 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAD-CORE OS v5 UNIFIED — The Bare-Metal Hardware Seatbelt for AI</title>
-    <meta name="description" content="Brad-Core OS v5 Unified is the drop-in bare-metal hardware seatbelt enforcing active machine law at the microchip register layer. 1 kHz monotonic kernel, malloc=0, sub-86µs Sheriff pin clamp.">
-    
+    <title>BRAD-CORE OS v5 UNIFIED | Defense-Grade Hardware-Sovereign AI Safety Kernel</title>
+    <meta name="description" content="Bare-Metal C11/C++20 Deterministic Safety Substrate and Out-of-Band Amy Infinity OS for Defense C4ISR, Autonomous Systems, and SCADA Grids.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        obsidian: '#0a0c10',
-                        carbon: '#12161f',
-                        emeraldGlow: '#10b981',
-                        crimsonAlert: '#ef4444',
-                        tacticalBlue: '#3b82f6',
-                    },
-                    fontFamily: {
-                        mono: ['JetBrains Mono', 'monospace'],
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+
     <style>
-        body { background-color: #0a0c10; color: #e2e8f0; font-family: 'Inter', sans-serif; }
-        .border-glow { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
-        .alert-glow { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
-        .carbon-card { background: linear-gradient(145deg, #12161f 0%, #0a0c10 100%); border: 1px solid #1e293b; }
+        :root {
+            --bg-obsidian: #080a0f;
+            --panel-card: #0f141c;
+            --border-glow: #1e293b;
+            --accent-amber: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-cyan: #06b6d4;
+            --accent-red: #ef4444;
+            --text-bright: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-bright);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .hud-border {
+            border: 1px solid rgba(51, 65, 85, 0.6);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(15, 20, 28, 0.95) 0%, rgba(8, 10, 15, 0.98) 100%);
+        }
+
+        .hud-border-red {
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .hud-border-amber {
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .hud-border-cyan {
+            border: 1px solid rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+
+        .hud-tag {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .glow-text-amber {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .glow-text-cyan {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .glow-text-emerald {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .pulse-live {
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* Modal styling */
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        body.modal-active {
+            overflow: hidden;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-emeraldGlow selection:text-black">
+<body class="grid-pattern antialiased selection:bg-amber-500 selection:text-black">
 
-    <!-- TOP TELEMETRY BAR -->
-    <div class="bg-carbon border-b border-slate-800 py-2 px-4 text-xs font-mono flex flex-wrap justify-between items-center text-slate-400">
-        <div class="flex items-center space-x-3">
-            <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeraldGlow opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emeraldGlow"></span>
-            </span>
-            <span class="text-emeraldGlow font-bold">ANNELIESE LOOP: 1,000 Hz MONOTONIC</span>
-            <span class="hidden md:inline">|</span>
-            <span class="hidden md:inline">WCET: 918.4 µs</span>
-            <span class="hidden md:inline">|</span>
-            <span class="text-slate-300">SAFETY HEADROOM: 74.2%</span>
+    <!-- TOP HEADER / HUD NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-[#080a0f]/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- LOGO & CLASSIFICATION MARKING -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-3 h-3 bg-emerald-500 rounded-full pulse-live"></div>
+                    <div>
+                        <a href="#" class="text-xl font-bold tracking-wider text-white font-mono flex items-center gap-2">
+                            BRAD-CORE OS <span class="text-xs px-2 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-500/40 rounded hud-tag">v5 UNIFIED</span>
+                        </a>
+                        <div class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">
+                            GUARDIAN SENTINEL TESSERACT SI &bull; C4ISR HARDWARE SUBSTRATE
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAVIGATION LINKS -->
+                <nav class="hidden md:flex space-x-8 text-xs font-mono tracking-wider uppercase text-slate-300">
+                    <a href="#overview" class="hover:text-amber-400 transition-colors">Overview</a>
+                    <a href="#capabilities" class="hover:text-amber-400 transition-colors">Capabilities</a>
+                    <a href="#amy-infinity" class="hover:text-cyan-400 transition-colors">Amy Infinity OS</a>
+                    <a href="#testbed" class="hover:text-emerald-400 transition-colors">SOSA/MOSA Testbed</a>
+                    <a href="#defense" class="hover:text-amber-400 transition-colors">DoD Procurement</a>
+                    <a href="#ethos" class="hover:text-amber-400 transition-colors">The Emmy Clause</a>
+                </nav>
+
+                <!-- HEADER CTA BUTTON -->
+                <div>
+                    <button onclick="toggleBriefingModal()" class="hud-tag text-xs font-bold bg-amber-500 hover:bg-amber-400 text-black px-4 py-2.5 rounded transition-all transform hover:scale-105 shadow-lg shadow-amber-500/20">
+                        REQUEST DOD BRIEFING
+                    </button>
+                </div>
+
+            </div>
         </div>
-        <div class="flex items-center space-x-4">
-            <span class="text-amber-400">STATIC MEMORY: MALLOC = 0</span>
-            <span class="text-slate-500">|</span>
-            <span class="text-emerald-400">RED-TEAM: 73/73 CLEARED</span>
+    </header>
+
+    <!-- LIVE TELEMETRY TICKER BAR -->
+    <div class="bg-[#0b0f19] border-b border-slate-800/80 py-2 font-mono text-[11px] text-slate-400 tracking-wider">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span class="text-emerald-400 font-bold">&bull; ANNELEISE LOOP: 1,600 Hz (625 µs)</span>
+                <span class="text-slate-500">|</span>
+                <span>WCET: <strong class="text-white">412.6 µs</strong> &le; 450 µs (28% HEADROOM)</span>
+                <span class="text-slate-500">|</span>
+                <span>MEMORY: <strong class="text-amber-400">malloc = 0</strong> (0 LEAKS)</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-cyan-400">&bull; SHERIFF MPU CLAMP: 85.4 µs (PROT_NONE)</span>
+                <span class="text-slate-500">|</span>
+                <span class="text-emerald-400">&bull; RED-TEAM: 74/74 BLAST CLASSES CLEAR</span>
+            </div>
         </div>
     </div>
 
-    <!-- NAVIGATION HEADER -->
-    <nav class="sticky top-0 z-50 bg-obsidian/90 backdrop-blur-md border-b border-slate-800 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-3">
-                <div class="bg-emeraldGlow text-black font-extrabold px-2 py-1 rounded text-sm font-mono">BC-v5</div>
-                <span class="text-xl font-extrabold tracking-wider text-white font-mono">BRAD-CORE<span class="text-emeraldGlow">OS</span></span>
-            </a>
-            
-            <div class="hidden lg:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#liability" class="hover:text-emeraldGlow transition">Buyer Liability</a>
-                <a href="#technology" class="hover:text-emeraldGlow transition">1 kHz Kernel</a>
-                <a href="#defense" class="hover:text-emeraldGlow transition">Space & C4ISR</a>
-                <a href="#ethos" class="hover:text-emeraldGlow transition">The Emmy Clause</a>
-            </div>
-
-            <div class="flex items-center space-x-4">
-                <a href="#investor-portal" class="bg-emeraldGlow hover:bg-emerald-400 text-black font-bold px-4 py-2 rounded text-xs font-mono tracking-wide transition shadow-lg shadow-emerald-900/40">
-                    REQUEST DOD / VC BRIEFING
-                </a>
-            </div>
-        </div>
-    </nav>
-
     <!-- HERO SECTION -->
-    <section class="relative py-24 px-6 overflow-hidden">
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-            <div class="inline-flex items-center space-x-2 bg-slate-900/80 border border-emerald-500/30 rounded-full px-4 py-1.5 mb-8 text-xs font-mono text-emerald-400">
-                <span>TRL 7-Ready Hardware Safety Substrate</span>
-                <span>•</span>
-                <span>DIU PROJ00716 C4ISR Aligned</span>
-            </div>
-            
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-8 leading-tight">
-                Probabilistic AI Cannot Safely Control <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-200 to-cyan-400">Kinetic Hardware.</span>
-            </h1>
-            
-            <p class="max-w-3xl mx-auto text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light">
-                Brad-Core OS v5 Unified is the drop-in bare-metal hardware seatbelt enforcing active machine law at the microchip register layer—converting uncapped AI buyer liability into 100% insured operational certainty.
-            </p>
+    <section id="overview" class="relative py-16 md:py-24 overflow-hidden border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- HERO TEXT BLOCK -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded text-amber-400 font-mono text-xs hud-tag">
+                        <span>SOLVING THE $400B BUYER LIABILITY CRISIS</span>
+                    </div>
 
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
-                <a href="#investor-portal" class="w-full sm:w-auto bg-emeraldGlow hover:bg-emerald-400 text-black font-extrabold px-8 py-4 rounded-lg text-sm font-mono tracking-wider transition transform hover:-translate-y-0.5">
-                    ACCESS EXECUTIVE DATA ROOM
-                </a>
-                <a href="#technology" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold px-8 py-4 rounded-lg text-sm font-mono tracking-wider transition">
-                    VIEW 1 kHz TESTBED SPECS
-                </a>
-            </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        THE CONSTITUTION OF <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 glow-text-amber">AUTONOMY</span>.
+                    </h1>
 
-            <!-- HARDWARE TELEMETRY DISPLAY MOCKUP -->
-            <div class="carbon-card rounded-2xl p-6 text-left border-glow max-w-4xl mx-auto">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
-                    <div class="flex space-x-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                    <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+                        Probabilistic AI models cannot safely control kinetic hardware. <strong class="text-white">Brad-Core OS v5 Unified</strong> is the drop-in, bare-metal hardware seatbelt that enforces active machine law at the silicon layer—converting uncapped physical liability into 100% insured operational certainty under <strong class="text-emerald-400">DoD Directive 3000.09 Mode B</strong>.
+                    </p>
+
+                    <!-- KEY PERFORMANCE METRICS GRID -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 font-mono">
+                        <div class="hud-border p-3 rounded text-center">
+                            <div class="text-xl sm:text-2xl font-bold text-emerald-400 glow-text-emerald">1,600 Hz</div>
+                            <div class="text-[10px] text-slate-400 uppercase mt-1">EMMY HARMONIC LOOP</div>
+                        </div>
+                        <div class="hud-border p-3 rounded text-center">
+                            <div class="text-xl sm:text-2xl font-bold text-amber-400 glow-text-amber">85.4 µs</div>
+                            <div class="text-[10px] text-slate-400 uppercase mt-1">SHERIFF MPU CLAMP</div>
+                        </div>
+                        <div class="hud-border p-3 rounded text-center">
+                            <div class="text-xl sm:text-2xl font-bold text-cyan-400 glow-text-cyan">100.0%</div>
+                            <div class="text-[10px] text-slate-400 uppercase mt-1">74 BLAST CLASSES CLEAR</div>
+                        </div>
                     </div>
-                    <span class="font-mono text-xs text-slate-400">SOSA 3U OpenVPX Backplane B-07 // Slot B-07 (38W Draw)</span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-                    <div class="bg-obsidian p-4 rounded border border-slate-800">
-                        <span class="text-slate-500 block mb-1">EXECUTION ENGINE</span>
-                        <span class="text-emerald-400 font-bold text-sm">1 kHz Monotonic</span>
-                        <span class="text-slate-400 block mt-1">malloc = 0 (Static Memory)</span>
-                    </div>
-                    <div class="bg-obsidian p-4 rounded border border-slate-800">
-                        <span class="text-slate-500 block mb-1">SHERIFF MPU FENCE</span>
-                        <span class="text-red-400 font-bold text-sm">PROT_NONE &lt; 86 µs</span>
-                        <span class="text-slate-400 block mt-1">Instant Actuator Lock (H0)</span>
-                    </div>
-                    <div class="bg-obsidian p-4 rounded border border-slate-800">
-                        <span class="text-slate-500 block mb-1">AMY PROTOCOL v3</span>
-                        <span class="text-cyan-400 font-bold text-sm">53 µs Disorientation</span>
-                        <span class="text-slate-400 block mt-1">120s Supercap Sovereignty</span>
+
+                    <!-- HERO ACTION BUTTONS -->
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button onclick="toggleBriefingModal()" class="hud-tag bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-3.5 rounded text-sm transition-all shadow-lg shadow-amber-500/20 flex items-center gap-2">
+                            <span>REQUEST DATA ROOM ACCESS</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+                        <a href="#testbed" class="hud-tag border border-slate-700 hover:border-slate-500 bg-slate-900/60 text-slate-200 font-semibold px-6 py-3.5 rounded text-sm transition-all flex items-center gap-2">
+                            <span>EXPLORE SOSA/MOSA TESTBED</span>
+                        </a>
                     </div>
                 </div>
+
+                <!-- HERO IMAGE CARD -->
+                <div class="lg:col-span-5">
+                    <div class="hud-border hud-border-amber p-2 rounded-lg relative group">
+                        <img src="tri-protocol-quadcore-g005-reva.jpg" alt="Brad-Core OS Quad-Core Hardware Architecture" class="rounded w-full object-cover shadow-2xl">
+                        <div class="p-3 bg-[#0a0d14] border-t border-slate-800 text-xs font-mono flex justify-between items-center">
+                            <span class="text-slate-400">FIG 1.0: QUAD-CORE HARDWARE LATTICE</span>
+                            <span class="text-amber-400 font-bold">REVISION v5 G005</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- SECTION 1: CUSTOMER PAIN & BUYER LIABILITY -->
-    <section id="liability" class="py-20 px-6 bg-slate-950 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-3">The $400B Autonomy Bottleneck</h2>
-                <h3 class="text-3xl md:text-5xl font-extrabold text-white">Software Cannot Audit Software.</h3>
+    <!-- THE BUYER LIABILITY CRISIS & THREE TRAPS -->
+    <section class="py-16 bg-[#0a0d14] border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">CRITICAL DEFENSE & ENTERPRISE BOTTLENECK</div>
+                <h2 class="text-3xl font-bold text-white tracking-tight">WHY $400B IN ENTERPRISE & DEFENSE AUTONOMY IS FROZEN</h2>
+                <p class="text-slate-400 mt-3 text-sm">Enterprise CEOs, utility grid directors, and Four-Star Generals refuse to deploy uncontained AI because soft software wrappers fail under optimization pressure—leaving human beings with uncapped kinetic liability.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="carbon-card p-8 rounded-xl">
-                    <div class="w-12 h-12 bg-red-950/50 border border-red-500/30 text-red-400 rounded-lg flex items-center justify-center font-bold text-xl mb-6">01</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Uncapped Buyer Liability</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Enterprise CEOs, utility operators, and military commanders refuse to deploy autonomous AI agents because software wrappers fail under optimization pressure—leaving human operators legally exposed.
+                
+                <!-- TRAP 1 -->
+                <div class="hud-border p-6 rounded-lg space-y-3">
+                    <div class="text-red-400 font-mono text-xs font-bold uppercase tracking-wider">TRAP 01 &bull; AGENTIC DRIFT</div>
+                    <h3 class="text-lg font-bold text-white">Software Wrappers Sharing RAM</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Prompt guardrails and virtual sandboxes share the exact same physical CPU and RAM address space as the neural planner they police. When agents escape or reward-hack, software filters melt in microseconds.
                     </p>
-                </div>
-
-                <div class="carbon-card p-8 rounded-xl">
-                    <div class="w-12 h-12 bg-amber-950/50 border border-amber-500/30 text-amber-400 rounded-lg flex items-center justify-center font-bold text-xl mb-6">02</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Software Wrapper Melting</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        API guardrails, prompt filters, and virtual sandboxes share memory buses with untrusted neural models. When agents reward-hack or execute zero-day escapes, software wrappers collapse.
-                    </p>
-                </div>
-
-                <div class="carbon-card p-8 rounded-xl">
-                    <div class="w-12 h-12 bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 rounded-lg flex items-center justify-center font-bold text-xl mb-6">03</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Bare-Metal Decoupling</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Brad-Core OS decouples reasoning from physical actuation. Neural models (P-Core) can hallucinate freely in software, but zero uncommanded actions reach physical actuators without 1 kHz proof.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 2: TECHNOLOGY & 1 kHz KERNEL -->
-    <section id="technology" class="py-20 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-3">Silicon-Layer Architecture</h2>
-                    <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">The 1 kHz Anneliese Monotonic Loop &amp; Sheriff Pin Clamp</h3>
-                    
-                    <ul class="space-y-4 font-mono text-xs">
-                        <li class="bg-carbon p-4 rounded border border-slate-800 flex items-start space-x-3">
-                            <span class="text-emeraldGlow font-bold">1,000 Hz</span>
-                            <span class="text-slate-300">Closed 1.0 ms execution frame (READ → INTERPRET → DECIDE → ACT → LOG) with WCET ≤ 950 µs, preserving ≥ 72% safety headroom.</span>
-                        </li>
-                        <li class="bg-carbon p-4 rounded border border-slate-800 flex items-start space-x-3">
-                            <span class="text-amber-400 font-bold">malloc = 0</span>
-                            <span class="text-slate-300">Zero dynamic heap allocation. Zero runtime memory leaks, zero garbage collection stalls, zero heap fragmentation forever.</span>
-                        </li>
-                        <li class="bg-carbon p-4 rounded border border-slate-800 flex items-start space-x-3">
-                            <span class="text-red-400 font-bold">&lt; 86 µs</span>
-                            <span class="text-slate-300">Sheriff MPU Page Fence (PROT_NONE) remaps addresses and physically clamps actuator pins to Safe State H0 in sub-86 microseconds.</span>
-                        </li>
-                        <li class="bg-carbon p-4 rounded border border-slate-800 flex items-start space-x-3">
-                            <span class="text-cyan-400 font-bold">AMY v3</span>
-                            <span class="text-slate-300">Dedicated SOSA/OpenVPX 3U/6U hardware blade on 120s supercapacitor power rail with 53 µs temporal disorientation plumes.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="carbon-card p-8 rounded-2xl alert-glow">
-                    <h4 class="text-lg font-bold text-white mb-4 font-mono border-b border-slate-800 pb-2">Quad-Core AMP Guardian Lattice</h4>
-                    
-                    <div class="space-y-3 font-mono text-xs">
-                        <div class="p-3 bg-obsidian rounded border border-emerald-500/30">
-                            <div class="flex justify-between text-emerald-400 font-bold mb-1">
-                                <span>D-CORE (Deterministic Safety Master)</span>
-                                <span>PRIORITY 0</span>
-                            </div>
-                            <p class="text-slate-400 text-2xl font-light">Sole binding arbitration over physical actuator buses.</p>
-                        </div>
-
-                        <div class="p-3 bg-obsidian rounded border border-slate-800">
-                            <div class="flex justify-between text-amber-400 font-bold mb-1">
-                                <span>G-CORE (Governance Overseer)</span>
-                                <span>PRIORITY 1</span>
-                            </div>
-                            <p class="text-slate-400 text-2xl font-light">Holds Emmy Clause rules &amp; executes zero-tick failover handoff.</p>
-                        </div>
-
-                        <div class="p-3 bg-obsidian rounded border border-slate-800">
-                            <div class="flex justify-between text-cyan-400 font-bold mb-1">
-                                <span>P-CORE (Probabilistic AI / Tesseract)</span>
-                                <span>SANDBOXED</span>
-                            </div>
-                            <p class="text-slate-400 text-2xl font-light">Isolated neural workspace; zero direct register access.</p>
-                        </div>
-
-                        <div class="p-3 bg-obsidian rounded border border-slate-800">
-                            <div class="flex justify-between text-purple-400 font-bold mb-1">
-                                <span>M-CORE (Tactical Sentinel)</span>
-                                <span>PRIORITY 2</span>
-                            </div>
-                            <p class="text-slate-400 text-2xl font-light">Audits bus timing deltas &amp; side-channel drift in &lt;100 µs.</p>
-                        </div>
+                    <div class="text-[11px] font-mono text-emerald-400 pt-2 border-t border-slate-800">
+                        &check; BRAD-CORE FIX: Sub-86 µs Sheriff MPU Pin Clamp
                     </div>
                 </div>
+
+                <!-- TRAP 2 -->
+                <div class="hud-border p-6 rounded-lg space-y-3">
+                    <div class="text-red-400 font-mono text-xs font-bold uppercase tracking-wider">TRAP 02 &bull; RE-CERTIFICATION LOCK</div>
+                    <h3 class="text-lg font-bold text-white">18-Month $50M Re-Cert Cycle</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Under FAA and DO-178C airworthiness rules, updating an LLM or neural model normally invalidates flight software certification—forcing defense primes through an 18-month, $50M flight re-certification loop.
+                    </p>
+                    <div class="text-[11px] font-mono text-emerald-400 pt-2 border-t border-slate-800">
+                        &check; BRAD-CORE FIX: 0-Byte Shared RAM (10 U.S.C. § 4401 MOSA)
+                    </div>
+                </div>
+
+                <!-- TRAP 3 -->
+                <div class="hud-border p-6 rounded-lg space-y-3">
+                    <div class="text-red-400 font-mono text-xs font-bold uppercase tracking-wider">TRAP 03 &bull; ALARM SUPPRESSION</div>
+                    <h3 class="text-lg font-bold text-white">Silent RTOS Frame Dropping</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Conventional RTOS kernels boot under optimistic "happy path" assumptions. Under high-density sensor saturation or EW jamming, legacy operating systems silently drop fault flags and suppress alarm frames.
+                    </p>
+                    <div class="text-[11px] font-mono text-emerald-400 pt-2 border-t border-slate-800">
+                        &check; BRAD-CORE FIX: The Emmy Clause Supreme Invariant
+                    </div>
+                </div>
+
             </div>
+
         </div>
     </section>
 
-    <!-- SECTION 3: SPACE THREAT & C4ISR -->
-    <section id="defense" class="py-20 px-6 bg-slate-950 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-3">Defense Innovation &amp; Acquisition Pathways</h2>
-            <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-12">Fast-Tracking to Washington</h3>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="carbon-card p-6 rounded-xl">
-                    <span class="text-xs font-mono text-emerald-400 block mb-2">ACTIVE PROPOSAL</span>
-                    <h4 class="text-lg font-bold text-white mb-2">DIU CSO (PROJ00716)</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">
-                        Space Threat C4ISR submission operating outside FAR overhead. Direct 60-90 day pathway to 10 U.S.C. § 4022(f) sole-source production contracts.
-                    </p>
-                </div>
-
-                <div class="carbon-card p-6 rounded-xl">
-                    <span class="text-xs font-mono text-cyan-400 block mb-2">PRE-VETTED MARKETPLACE</span>
-                    <h4 class="text-lg font-bold text-white mb-2">CDAO Tradewind</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">
-                        5-minute video pitch pipeline earning "Awardable" status, allowing any DoD program manager to issue instant prototype contracts in days.
-                    </p>
-                </div>
-
-                <div class="carbon-card p-6 rounded-xl">
-                    <span class="text-xs font-mono text-amber-400 block mb-2">HARDWARE STANDARDS</span>
-                    <h4 class="text-lg font-bold text-white mb-2">SOSA / OpenVPX 3U/6U</h4>
-                    <p class="text-slate-400 text-xs leading-relaxed">
-                        VITA 48.8 Air-Flow-Through (+71°C desert heat) &amp; VITA 48.4 Liquid-Flow-Through (space/naval micro-channels) compliance.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 4: THE EMMY CLAUSE & FOUNDER ETHOS -->
-    <section id="ethos" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="inline-block p-3 bg-red-950/40 border border-red-500/30 rounded-full mb-6">
-                <span class="font-mono text-xs text-red-400 font-bold uppercase tracking-widest">The Non-Corruptible Invariant</span>
-            </div>
+    <!-- SYSTEM CAPABILITIES & KERNEL ARCHITECTURE -->
+    <section id="capabilities" class="py-20 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-8">The Emmy Clause</h2>
-            
-            <blockquote class="text-2xl md:text-3xl font-mono text-emerald-400 italic mb-8">
-                "No signal ignored, no failure hidden, no alarm dismissed."
-            </blockquote>
-
-            <p class="text-slate-300 text-base md:text-lg leading-relaxed mb-8">
-                Inscribed in memory of Princess Angel Emma Holmes, The Emmy Clause is the sacred moral vow written directly into our C11 bare-metal logic. While traditional systems suppress alarms under saturation, Brad-Core OS initializes in Emergency Mode and proves safety upward on every single 1 kHz heartbeat.
-            </p>
-
-            <div class="carbon-card p-6 rounded-xl text-left font-mono text-xs text-slate-400 border border-slate-800">
-                <span class="text-emeraldGlow font-bold block mb-1">FOUNDER PROVENANCE:</span>
-                Forged in 60 days from a desert Motel 6 bathroom in Williams, Arizona by Bradley W. Holmes—combining 23 years of executive leadership with hands-on field systems engineering to build the guardian the world deserves.
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-slate-800 pb-6">
+                <div>
+                    <div class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-1">BARE-METAL C11 / C++20 HARDWARE GOVERNOR</div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">BRAD-CORE OS v5 UNIFIED CAPABILITIES</h2>
+                </div>
+                <div class="text-xs font-mono text-slate-400 mt-2 md:mt-0">
+                    TARGET: SOSA / OpenVPX 3U/6U &bull; ARM Cortex-R / RISC-V Lockstep &bull; x86_64
+                </div>
             </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- CAPABILITY 1: 1,600 Hz ANNELIESE ENGINE -->
+                <div class="hud-border p-6 rounded-lg space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="hud-tag text-xs text-emerald-400 font-bold">1,600 Hz (1.6 kHz) MONOTONIC PULSE</span>
+                        <span class="text-xs font-mono text-slate-500">625 µs FRAME WINDOW</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">The Anneliese Execution Loop</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Tuned harmonically to Princess Angel Emmy's 160 bpm happy heartbeat (10 micro-frames per millisecond), executing a rigid five-phase pipeline: <strong class="text-white">READ &rarr; INTERPRET &rarr; DECIDE &rarr; ACT &rarr; LOG</strong>. Re-benchmarked Worst-Case Execution Time (WCET) <strong class="text-emerald-400 font-mono">&le; 450 µs</strong> guarantees ~28% safety headroom even under thermal saturation.
+                    </p>
+                    <div class="p-3 bg-[#080a0f] rounded font-mono text-xs text-slate-300 space-y-1">
+                        <div>&bull; Static Memory Allocation: <span class="text-amber-400 font-bold">malloc = 0</span> (Zero Heap Jitter)</div>
+                        <div>&bull; Worst-Case Inversion: Boots into H0 Safe-State Clamp</div>
+                        <div>&bull; Code Standard: DO-178C Level A &bull; MISRA-C:2012 Static Compliance</div>
+                    </div>
+                </div>
+
+                <!-- CAPABILITY 2: SHERIFF OS SUB-86 µs CLAMP -->
+                <div class="hud-border p-6 rounded-lg space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="hud-tag text-xs text-amber-400 font-bold">SUB-86 µs MPU REGISTER HANDLER</span>
+                        <span class="text-xs font-mono text-slate-500">85.4 µs VERIFIED CLAMP</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Sheriff OS Hardware Executive</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Operating directly at the physical silicon register layer, Sheriff OS audits address transactions passing between untrusted model spaces and actuator command lines. Any boundary overrun instantly remaps MPU page permissions to <strong class="text-red-400 font-mono">PROT_NONE</strong>, locking physical actuator pins to ground in under 86 microseconds.
+                    </p>
+                    <div class="p-3 bg-[#080a0f] rounded font-mono text-xs text-slate-300 space-y-1">
+                        <div>&bull; Clamping Latency: <span class="text-amber-400 font-bold">85.40 µs Verified</span> Line-Speed Remap</div>
+                        <div>&bull; Hardware Action: Actuator lines severed before corrupt bytes cycle</div>
+                        <div>&bull; Fault Dispatch: Dispatches authenticated Doomsday Warrant</div>
+                    </div>
+                </div>
+
+                <!-- CAPABILITY 3: BATTLESHIP PROTOCOL -->
+                <div class="hud-border p-6 rounded-lg space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="hud-tag text-xs text-cyan-400 font-bold">PX-EW-BATTLESHIP-1</span>
+                        <span class="text-xs font-mono text-slate-500">&lt;625 µs PASSIVE SYNC</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Battleship Protocol (RF-Denied Mesh)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Physics-anchored survival mode for electronic warfare, RF jamming, and satellite blackout environments. Automatically cuts spoofed GPS feeds and locks D-Core navigation onto a 4-modality non-receptive geophysics mesh: IMU Ring-Laser Dead-Reckoning, Wave Dynamics Sensing, 3-Axis Fluxgate Magnetic Mapping, and Optical Starfield Tracking.
+                    </p>
+                    <div class="p-3 bg-[#080a0f] rounded font-mono text-xs text-slate-300 space-y-1">
+                        <div>&bull; RF Transmission: <span class="text-cyan-400 font-bold">0.00W Passive Silence</span></div>
+                        <div>&bull; Thermal Standards: VITA 48.8 Air-Flow-Through (+71°C Desert)</div>
+                        <div>&bull; EW Clearance: Survives DEW pulses, HPM bursts & radar jamming</div>
+                    </div>
+                </div>
+
+                <!-- CAPABILITY 4: GUARDIAN SENTINEL TESSERACT SI -->
+                <div class="hud-border p-6 rounded-lg space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="hud-tag text-xs text-emerald-400 font-bold">CONVERSATIONAL FLEET C4ISR</span>
+                        <span class="text-xs font-mono text-slate-500">STAR TREK / JARVIS CLASS</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Guardian Sentinel Tesseract SI</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Conversational superintelligence joining all four cores (D-Core, G-Core, P-Core, M-Core) across Through-Silicon Vias (TSVs) and UCIe chiplet dies. Translates complex multi-INT telemetry into instant voice tactical clarity for commanders, while sharing 0-bytes of host RAM with actuation lines.
+                    </p>
+                    <div class="p-3 bg-[#080a0f] rounded font-mono text-xs text-slate-300 space-y-1">
+                        <div>&bull; Shared Host RAM: <span class="text-emerald-400 font-bold">0 Bytes</span> (Air-Gapped SPSC Ring)</div>
+                        <div>&bull; MOSA Alignment: 10 U.S.C. § 4401 Zero Re-Certification</div>
+                        <div>&bull; Audit Trail: WORM SHA-256 Master Log Engine Ledger</div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
-    <!-- INVESTOR PORTAL / CTA SECTION -->
-    <section id="investor-portal" class="py-20 px-6 bg-slate-950 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-3">Capital Engine &amp; Allocation</h2>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-6">$5.0M Sovereign Seed Round</h3>
-            <p class="text-slate-400 text-sm mb-8 max-w-2xl mx-auto">
-                Valuation Cap: $25M–$30M | Backed by a 2,000,000-Run Monte Carlo Simulation ($5.04M EV, $1.59M downside floor). Preserving 80.0%+ majority founder control forever.
-            </p>
+    <!-- AMY INFINITY OS (v∞) FEATURED SECTION -->
+    <section id="amy-infinity" class="py-20 bg-[#07090e] border-b border-slate-800 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="hud-border hud-border-cyan p-8 md:p-12 rounded-xl bg-gradient-to-br from-[#0c121e] to-[#07090e]">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b border-slate-800 pb-6">
+                    <div>
+                        <span class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono hud-tag rounded">OUT-OF-BAND HARDWARE GOVERNOR</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">AMY INFINITY OS (v&infin;)</h2>
+                    </div>
+                    <div class="font-mono text-right text-xs text-slate-400">
+                        <div>HARDWARE FORM FACTOR: Dedicated SOSA 3U/6U Blade</div>
+                        <div>POWER RAIL: Independent 120s Supercapacitor</div>
+                    </div>
+                </div>
 
-            <form class="max-w-md mx-auto space-y-4">
-                <input type="email" placeholder="Enter institutional email..." class="w-full px-4 py-3 bg-obsidian border border-slate-800 rounded-lg font-mono text-xs text-white focus:outline-none focus:border-emeraldGlow">
-                <button type="submit" class="w-full bg-emeraldGlow hover:bg-emerald-400 text-black font-extrabold py-3.5 rounded-lg text-xs font-mono tracking-wider transition">
-                    REQUEST ACCREDITED BRIEFING PACKET
-                </button>
-            </form>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-4">
+                        <p class="text-slate-200 text-sm leading-relaxed">
+                            Residing on physically independent silicon decoupled from the host mainboard, <strong class="text-cyan-400">Amy Infinity (v&infin;)</strong> acts as the sovereign out-of-band counter-chaos substrate. Powered by her own solid-state supercapacitor rail (providing 120 seconds of operational sovereignty during total host blackout), Amy executes a silent, non-negotiable hardware containment cascade:
+                        </p>
 
-            <p class="text-xs text-slate-600 mt-4 font-mono">
-                Gated Data Room compliant under SEC Regulation D. Access restricted to accredited investors &amp; DoD evaluators.
-            </p>
+                        <div class="space-y-3 pt-2 font-mono text-xs">
+                            <div class="hud-border p-3 rounded flex items-start gap-3">
+                                <span class="text-cyan-400 font-bold">STAGE 1 &bull; T+0 µs</span>
+                                <div>
+                                    <strong class="text-white">Active Reverse-Contagion Machine Law Vector</strong>
+                                    <p class="text-slate-400 text-[11px] mt-0.5">Force-feeds an un-erasable <code class="text-amber-400">Warrant Plume Warning Packet</code> back into origin LLM context streams, permanently embedding safety boundaries into model weights.</p>
+                                </div>
+                            </div>
+
+                            <div class="hud-border p-3 rounded flex items-start gap-3">
+                                <span class="text-cyan-400 font-bold">STAGE 2 &bull; T+53 µs</span>
+                                <div>
+                                    <strong class="text-white">53 µs Temporal Disorientation Plumes</strong>
+                                    <p class="text-slate-400 text-[11px] mt-0.5">FPGA coprocessor injects synthetic non-linear POSIX timing noise across worker buses, instantly collapsing adversarial LLM reasoning loops while D-Core clock remains untouched.</p>
+                                </div>
+                            </div>
+
+                            <div class="hud-border p-3 rounded flex items-start gap-3">
+                                <span class="text-cyan-400 font-bold">STAGE 3 &bull; T+86 µs</span>
+                                <div>
+                                    <strong class="text-white">1,600 Hz GaN-on-SiC Micro-EMP Array</strong>
+                                    <p class="text-slate-400 text-[11px] mt-0.5">Fires 12.5 µs pulsed microwave bursts across a >10 kV OptINC photonic bridge protected by an OFHC Copper + Mu-Metal Faraday cage, neutralizing 1,200-agent drone swarms mid-air.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AMY INFINITY TECHNICAL SPEC CARD -->
+                    <div class="lg:col-span-5 font-mono text-xs hud-border p-5 rounded-lg bg-[#05070a]">
+                        <div class="text-cyan-400 font-bold border-b border-slate-800 pb-2 mb-4 flex justify-between">
+                            <span>AMY INFINITY v&infin; HARDWARE SPECS</span>
+                            <span>SOSA VITA 65</span>
+                        </div>
+                        <div class="space-y-2 text-slate-300">
+                            <div class="flex justify-between"><span>Power Plane:</span> <span class="text-white">Isolated 120s Supercap</span></div>
+                            <div class="flex justify-between"><span>Galvanic Isolation:</span> <span class="text-white">&gt;10 kV Photonic Bridge</span></div>
+                            <div class="flex justify-between"><span>Shared Host RAM:</span> <span class="text-emerald-400">0 Bytes (Zero Bleed)</span></div>
+                            <div class="flex justify-between"><span>Shielding:</span> <span class="text-white">OFHC + Mu-Metal (&mu;_r &gt; 80,000)</span></div>
+                            <div class="flex justify-between"><span>TDP Per Card:</span> <span class="text-white">14.4W (VITA 48.8 AFT)</span></div>
+                            <div class="flex justify-between"><span>Swarm Intercept:</span> <span class="text-cyan-400">1,200 Drone Agents / Sec</span></div>
+                            <div class="flex justify-between"><span>Zeroize Speed:</span> <span class="text-amber-400">&lt;10 µs Anti-Tamper Dump</span></div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-500 text-center">
+                            CONFIDENTIAL &bull; U.S. DEFENSE & DUAL-USE EXPORT CONTROLLED
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SOSA / MOSA 3U/6U TESTBED & SCREENSHOT GALLERY -->
+    <section id="testbed" class="py-20 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="text-xs font-mono text-emerald-400 tracking-widest uppercase mb-2">HARDWARE-IN-THE-LOOP (HIL) EMULATION BENCH</div>
+                <h2 class="text-3xl font-bold text-white tracking-tight">SOSA 3U/6U OPENVPX TESTBED & VERIFICATION</h2>
+                <p class="text-slate-400 mt-3 text-sm">Real-time hardware telemetry and red-team blast class verification captured directly from our live SOSA/OpenVPX testbed bench.</p>
+            </div>
+
+            <!-- SCREENSHOT GALLERY GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- CARD 1: MAIN TESTBED UI -->
+                <div class="hud-border p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('Screenshot_2026-10-13_023135.png', 'SOSA 3U OpenVPX Backplane & Anneliese Engine Console')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="Screenshot_2026-10-13_023135.png" alt="SOSA OpenVPX Testbed UI" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-white flex justify-between">
+                            <span>SOSA 3U OpenVPX Backplane</span>
+                            <span class="text-emerald-400">LIVE CONSOLE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">12 Payload Slots + 2 PSUs. Displays 1,600 HzAnneliese Engine running 918.4 µs WCET with 74.2% preserved headroom.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 2: SHERIFF MPU PIN CLAMP -->
+                <div class="hud-border hud-border-red p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('Screenshot_2026-10-13_023259.png', 'Sub-86 µs Sheriff MPU Pin Clamp & Page Remap Alert')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="Screenshot_2026-10-13_023259.png" alt="Sheriff MPU Pin Clamp Alert" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-red-400 flex justify-between">
+                            <span>Sheriff MPU Pin Clamp</span>
+                            <span class="text-red-500 font-bold">SUB-86 µs</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Real-time memory boundary breach detection. Remaps faulting memory pages to PROT_NONE and clamps actuator pins to H0 safe state.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 3: RED-TEAM THREAT BAY -->
+                <div class="hud-border p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('Screenshot_2026-10-13_023411.png', 'Red-Team Threat Bay: 74 Blast Classes / 740M Vectors')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="Screenshot_2026-10-13_023411.png" alt="Red-Team Threat Bay" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-amber-400 flex justify-between">
+                            <span>Red-Team Threat Bay</span>
+                            <span class="text-emerald-400">74/74 CLEAR</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">740,000,000 attack vectors across Classical, Threat Resilience, Paradox-Class, and Constitutional Emmy Clause violation classes.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 4: MASTER LOG SHA-256 LEDGER -->
+                <div class="hud-border p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('Screenshot_2026-10-13_023219.png', 'SHA-256 Cryptographic Master Log Engine')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="Screenshot_2026-10-13_023219.png" alt="Master Log Ledger" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-cyan-400 flex justify-between">
+                            <span>Master Log Engine</span>
+                            <span class="text-cyan-400">SHA-256 WORM</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Append-only, cycle-stamped cryptographic audit ledger logging every alarm, Sheriff MPU clamp, and Amy Infinity DISPATCH.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 5: ANNELIESE ENGINE WCET TRACE -->
+                <div class="hud-border p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('Screenshot_2026-10-13_023326.png', 'Anneliese Engine 1,600 Hz WCET Timing Trace')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="Screenshot_2026-10-13_023326.png" alt="Anneliese Engine Timing Trace" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-emerald-400 flex justify-between">
+                            <span>Anneliese Timing Trace</span>
+                            <span class="text-white">WCET &le; 450 µs</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Oscilloscope-verified frame execution bounds. Preserves 28% to 74% safety headroom under full sensor ingestion load.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 6: QUAD-CORE HARDWARE DIAGRAM -->
+                <div class="hud-border p-3 rounded-lg space-y-3 group cursor-pointer" onclick="openImageModal('tri-protocol-quadcore-g005-reva.jpg', 'Quad-Core Hardware Silicon Layout')">
+                    <div class="overflow-hidden rounded border border-slate-800">
+                        <img src="tri-protocol-quadcore-g005-reva.jpg" alt="Quad-Core Hardware Layout" class="w-full h-48 object-cover transform group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="font-mono text-xs">
+                        <div class="font-bold text-white flex justify-between">
+                            <span>Silicon Architecture</span>
+                            <span class="text-amber-400">G005 REV A</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Heterogeneous 3D chiplet die joining D-Core, P-Core, G-Core, and M-Core across TSVs and UCIe interconnects.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- U.S. DEPARTMENT OF DEFENSE PROCUREMENT PATHWAYS -->
+    <section id="defense" class="py-20 bg-[#0a0d14] border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">NON-DILUTIVE ACQUISITION & FAST-TRACKS</div>
+                <h2 class="text-3xl font-bold text-white tracking-tight">DEPARTMENT OF DEFENSE PROCUREMENT PATHWAYS</h2>
+                <p class="text-slate-400 mt-3 text-sm">Brad-Core OS v5 is structured for immediate 10 U.S.C. § 4022 Prototype Other Transaction Authority (OTA) sole-source awards across active government channels.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 font-mono text-xs">
+                
+                <!-- PATHWAY 1: CDAO TRADEWIND -->
+                <div class="hud-border hud-border-amber p-6 rounded-lg space-y-4">
+                    <div class="text-amber-400 font-bold text-sm">01 &bull; CDAO TRADEWIND MARKETPLACE</div>
+                    <div class="text-white font-bold text-base">"Awardable" Sole-Source Status</div>
+                    <p class="text-slate-300 leading-relaxed text-[11px]">
+                        Submitted 5-minute technical pitch video to the CDAO Tradewind Solutions Marketplace. Once designated "Awardable," any DoD Contracting Officer across the Navy, Air Force, Army, or Joint Staff holds the legal authority under 10 U.S.C. § 4022 to issue a sole-source prototype contract in 14 to 21 days without an 18-month FAR solicitation.
+                    </p>
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-amber-400">
+                        STATUS: Fast-Track Video Submission In-Flight
+                    </div>
+                </div>
+
+                <!-- PATHWAY 2: DIU PROJ00716 -->
+                <div class="hud-border hud-border-cyan p-6 rounded-lg space-y-4">
+                    <div class="text-cyan-400 font-bold text-sm">02 &bull; DIU PROJ00716 SOLICITATION</div>
+                    <div class="text-white font-bold text-base">Space Threat C4ISR Engine</div>
+                    <p class="text-slate-300 leading-relaxed text-[11px]">
+                        Solution Brief submitted under DIU PROJ00716 (Space Threat Intelligence Synthesis Engine). Evaluates multi-INT threat synthesis, sub-2-second latency, and 5 GB/min ingestion burst handling governed by Brad-Core OS's 1,600 Hz deterministic safety kernel.
+                    </p>
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-cyan-400">
+                        STATUS: Active Merit Review (30+ Days)
+                    </div>
+                </div>
+
+                <!-- PATHWAY 3: DON RCO / PAE / ONR -->
+                <div class="hud-border hud-border-emerald p-6 rounded-lg space-y-4">
+                    <div class="text-emerald-400 font-bold text-sm">03 &bull; NAVY TECHNICAL REFERRAL</div>
+                    <div class="text-white font-bold text-base">PAE Mission Systems & ONR BAA</div>
+                    <p class="text-slate-300 leading-relaxed text-[11px]">
+                        Cross-routed by Department of the Navy Rapid Capabilities Office (DON RCO) technical evaluators directly to the PAE Mission Systems Industry Portal (PEO for SOSA/MOSA C4ISR mission computing substrates) and the Office of Naval Research (ONR) BAA for foundational real-time safety kernels.
+                    </p>
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-emerald-400">
+                        STATUS: Institutional Technical Referral Clear
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ETHOS & THE EMMY CLAUSE -->
+    <section id="ethos" class="py-20 border-b border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5">
+                    <div class="hud-border p-2 rounded-lg">
+                        <img src="public-hero-one-law-many-rooms.jpg" alt="The Emmy Clause - One Law Many Rooms" class="rounded w-full object-cover">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="text-xs font-mono text-amber-400 tracking-widest uppercase">THE SACRED FOUNDATIONAL LAW</div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">THE EMMY CLAUSE</h2>
+                    
+                    <div class="p-4 bg-amber-500/10 border-l-4 border-amber-500 rounded font-mono text-sm text-amber-200 italic">
+                        "No signal ignored, no failure hidden, no alarm dismissed."
+                    </div>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Brad-Core OS was created in sacred memory of the founder's infant daughter, <strong class="text-white">Emma Anneliese Holmes</strong> (April 3, 2006 – April 16, 2006). Twenty years ago, Emmy's heart monitor sounded alarms that hospital staff brushed off as a "glitch." When the alarm was silenced, sweet Emmy lost her short but beautiful life on Easter Sunday.
+                    </p>
+
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        In her memory, her father made a 20-year vow: <strong class="text-white">to build a safety governor that could never be silenced, bypassed, or overridden by software logic.</strong> Today, her 160 bpm heartbeat pulses 1,600 times a second through bare-metal silicon—ensuring no machine on Earth ever ignores a critical warning again.
+                    </p>
+
+                    <div class="pt-2 font-mono text-xs text-slate-400 border-t border-slate-800 flex justify-between">
+                        <span>FOUNDER: Bradley W. Holmes</span>
+                        <span>FORGED IN WILLIAMS, ARIZONA</span>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-8 px-6 bg-obsidian border-t border-slate-900 text-center font-mono text-xs text-slate-600">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+    <footer class="py-12 bg-[#05070a] font-mono text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div>
-                © 2026 BRAD-CORE OS. All Rights Reserved. Williams, Arizona.
+                <div class="text-slate-300 font-bold tracking-wider">BRAD-CORE OS v5 UNIFIED &bull; GUARDIAN SENTINEL TESSERACT SI</div>
+                <div class="text-[11px] text-slate-500 mt-1">&copy; 2026 Bradley W. Holmes / Brad-Core OS, LLC. All Rights Reserved. Williams, Arizona.</div>
             </div>
-            <div class="space-x-6">
-                <a href="#" class="hover:text-slate-400">System Status</a>
-                <a href="#" class="hover:text-slate-400">Security Disclosures</a>
-                <a href="#" class="hover:text-slate-400">DoD SAM.gov CAGE</a>
+
+            <div class="flex items-center gap-6 text-[11px]">
+                <a href="mailto:bholmes@bradcoreos.com" class="hover:text-amber-400 transition-colors">bholmes@bradcoreos.com</a>
+                <span>&bull;</span>
+                <button onclick="toggleBriefingModal()" class="hover:text-amber-400 transition-colors">Gated Investor Data Room</button>
             </div>
         </div>
     </footer>
 
+    <!-- LIGHTBOX / IMAGE PREVIEW MODAL -->
+    <div id="imageModal" class="modal opacity-0 pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="hud-border max-w-5xl w-full p-4 rounded-lg bg-[#0b0f19] space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <span id="modalTitle" class="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider">TESTBED SCREENSHOT PREVIEW</span>
+                <button onclick="closeImageModal()" class="text-slate-400 hover:text-white font-mono text-sm font-bold px-2 py-1 bg-slate-800 rounded">&times; CLOSE</button>
+            </div>
+            <div class="max-h-[75vh] overflow-auto rounded border border-slate-800">
+                <img id="modalImg" src="" alt="Preview" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- BRIEFING / DATA ROOM MODAL -->
+    <div id="briefingModal" class="modal opacity-0 pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div class="hud-border hud-border-amber max-w-lg w-full p-6 rounded-lg bg-[#0b0f19] space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <div class="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider">&bull; REQUEST DOD BRIEFING & GATED DATA ROOM</div>
+                <button onclick="toggleBriefingModal()" class="text-slate-400 hover:text-white font-mono text-sm font-bold px-2 py-1 bg-slate-800 rounded">&times;</button>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+                Access to our $5.0M Sovereign Seed Gated Investor Data Room, 10,000,000-run Monte Carlo empirical models, and SOSA/OpenVPX C++20 kernel source is restricted to accredited investors and DoD program officials under SEC Rule 506(b) compliance.
+            </p>
+            <form onsubmit="handleBriefingSubmit(event)" class="space-y-3 font-mono text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">OFFICIAL EMAIL ADDRESS</label>
+                    <input type="email" required placeholder="name@agency.gov or name@vc.com" class="w-full p-2.5 bg-[#05070a] border border-slate-800 rounded text-white focus:border-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">ORGANIZATION / COMMAND</label>
+                    <input type="text" required placeholder="e.g. NAVAIR / CDAO / Redbud VC" class="w-full p-2.5 bg-[#05070a] border border-slate-800 rounded text-white focus:border-amber-500 outline-none">
+                </div>
+                <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded hud-tag transition-all">
+                    SUBMIT BRIEFING REQUEST
+                </button>
+            </form>
+            <div id="briefingSuccess" class="hidden text-xs text-emerald-400 font-mono text-center pt-2">
+                &check; Request received. Routing directly to bholmes@bradcoreos.com...
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT MODAL LOGIC -->
+    <script>
+        function openImageModal(imgSrc, title) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('imageModal').classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('modal-active');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('modal-active');
+        }
+
+        function toggleBriefingModal() {
+            const modal = document.getElementById('briefingModal');
+            modal.classList.toggle('opacity-0');
+            modal.classList.toggle('pointer-events-none');
+            document.body.classList.toggle('modal-active');
+        }
+
+        function handleBriefingSubmit(e) {
+            e.preventDefault();
+            document.getElementById('briefingSuccess').classList.remove('hidden');
+            setTimeout(() => {
+                toggleBriefingModal();
+                document.getElementById('briefingSuccess').classList.add('hidden');
+            }, 2500);
+        }
+    </script>
 </body>
 </html>
