@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            letter-spacing: -0.05em;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* Progress Bar Styling */
+        .progress-container {
+            background-color: var(--bg-color);
+            border-radius: 9999px;
+            padding: 4px;
+            margin-bottom: 40px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            height: 12px;
+            border-radius: 9999px;
+            width: 70%; /* Adjust this value to change your development progress */
+            transition: width 0.5s ease-in-out;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding: 0 4px;
+        }
+
+        /* Subscription Form */
+        .subscription-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 480px) {
+            .subscription-form {
+                flex-direction: row;
+                gap: 0;
+                background-color: var(--bg-color);
+                padding: 6px;
+                border-radius: 30px;
+            }
+        }
+
+        .subscription-form input[type="email"] {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid #334155;
+            padding: 14px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        @media (min-width: 480px) {
+            .subscription-form input[type="email"] {
+                border: none;
+                background: transparent;
+            }
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: var(--accent);
+        }
+
+        .subscription-form button {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .subscription-form button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brand/Logo Area -->
+        <div class="logo">Project<span>Name</span></div>
+
+        <!-- Main Announcement -->
+        <h1>We are building something new</h1>
+        <p>Our website is currently undergoing scheduled maintenance and upgrades. We should be back online shortly. Sign up below to get notified when we launch!</p>
+
+        <!-- Status Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="progress-text">
+                <span>Current Status: Refining code</span>
+                <span>70% Complete</span>
+            </div>
+        </div>
+
+        <!-- Lead Capture Form -->
+        <form class="subscription-form" action="#" method="POST" onsubmit="alert('Thank you! We will notify you.'); return false;">
+            <input type="email" placeholder="Enter your email address" required aria-label="Email address">
+            <button type="submit">Notify Me</button>
+        </form>
+
+        <!-- Simple Contact Backup -->
+        <div class="footer">
+            Need urgent help? Reach out at <a href="mailto:support@example.com">support@example.com</a>
+        </div>
+    </div>
+
+</body>
+</html>
