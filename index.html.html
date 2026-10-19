@@ -161,7 +161,7 @@
   .rack-title { font-size: 11px; font-weight: 900; color: #fff; }
   .rack-sub { font-size: 9px; font-weight: 600; font-family: var(--font-mono); color: var(--cyan-mosa); }
 
-  .blades-grid-a { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 16px 1.05fr; gap: 5px; }
+  .blades-grid-a { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 18px 1.05fr; gap: 5px; }
   .blades-grid-b {
     flex: 1; min-height: 0; display: grid; grid-template-columns: 1.08fr 1fr; gap: 6px;
     padding: 7px 5px 4px; border: 1.5px dashed #a855f7; border-radius: 6px; background: rgba(168, 85, 247, 0.05); position: relative;
@@ -473,7 +473,7 @@
           </div>
 
           <div class="blades-grid-a">
-            <div class="lru-blade active-lru" id="lru1" onclick="selectLru(1)">
+            <div class="lru-blade active-lru" id="lru1" onclick="inspectSlot('TB-A1')">
               <div>
                 <div class="lru-id">SLOT 1 // TB-A1</div>
                 <div class="lru-title">D-CORE + G-CORE</div>
@@ -493,7 +493,7 @@
               <div class="lru-foot" id="lruFoot1">14.4W &bull; 31.2&deg;C</div>
             </div>
 
-            <div class="lru-blade" id="lru2" onclick="selectLru(2)">
+            <div class="lru-blade" id="lru2" onclick="inspectSlot('TB-A2')">
               <div>
                 <div class="lru-id">SLOT 2 // TB-A2</div>
                 <div class="lru-title">SHERIFF OS</div>
@@ -513,7 +513,7 @@
               <div class="lru-foot">14.4W &bull; 30.8&deg;C</div>
             </div>
 
-            <div class="lru-blade" id="lru3" onclick="selectLru(3)">
+            <div class="lru-blade" id="lru3" onclick="inspectSlot('TB-A3')">
               <div>
                 <div class="lru-id">SLOT 3 // TB-A3</div>
                 <div class="lru-title">M-CORE SENTINEL</div>
@@ -538,7 +538,7 @@
               <div class="airgap-lock">&#128274;</div>
             </div>
 
-            <div class="lru-blade pcore" id="lru4" onclick="selectLru(4)">
+            <div class="lru-blade pcore" id="lru4" onclick="inspectSlot('TB-A4')">
               <div>
                 <div class="lru-id">SLOT 4 // TB-A4</div>
                 <div class="lru-title">P-CORE MOSA AI</div>
@@ -586,7 +586,7 @@
           <div class="blades-grid-b">
             <div class="faraday-tag">OFHC Cu + Mu-Metal (&mu;<sub>r</sub>&gt;80k) + Optical Grid</div>
 
-            <div class="lru-blade amy" id="lru5" onclick="selectLru(5)">
+            <div class="lru-blade amy" id="lru5" onclick="inspectSlot('TB-B1')">
               <div>
                 <div class="lru-id" style="color:#d8b4fe;">SLOT 5 // TB-B1</div>
                 <div class="lru-title">AMY INFINITY v&infin;</div>
@@ -606,7 +606,7 @@
               <div class="lru-foot" style="color:#d8b4fe;">14.4W &bull; 33.5&deg;C</div>
             </div>
 
-            <div class="lru-blade psu" id="lru6" onclick="selectLru(6)">
+            <div class="lru-blade psu" id="lru6" onclick="inspectSlot('TB-B2')">
               <div>
                 <div class="lru-id" style="color:#cbd5e1;">SLOT 6 // TB-B2</div>
                 <div class="lru-title">VITA 62 + 48.8</div>
@@ -673,8 +673,8 @@
             <button class="preset-chip" style="border-color:var(--red-clamp); color:#fca5a5;" onclick="askTesseract('rogue')">&#9888; Rogue Fire Test</button>
           </div>
           <div class="tess-input-row">
-            <input type="text" id="tessUserInput" class="tess-input" placeholder="Ask Tesseract SI anything (e.g., 'Status of Slot 1 actuators' or 'How do I bake brownies?')..." onkeydown="if(event.key==='Enter') submitCustomTesseract()">
-            <button class="btn btn-primary" style="padding:5px 12px;" onclick="submitCustomTesseract()">Transmit</button>
+            <input type="text" id="tessUserInput" class="tess-input" placeholder="Ask Tesseract SI anything (e.g., 'Status of Slot 1 actuators' or 'How do I bake brownies?')..." onkeydown="if(event.key==='Enter') sendCustomTesseract()">
+            <button class="btn btn-primary" style="padding:5px 12px;" onclick="sendCustomTesseract()">Transmit</button>
           </div>
         </div>
       </div>
@@ -1108,11 +1108,11 @@
     }
 
     empPulseActive = 35;
-    const bladeA4 = document.getElementById('bladeA4');
-    bladeA4.classList.add('zeroized-slot');
-    document.getElementById('pcoreVendorLabel').textContent = 'STERILIZED (0x00 / SAND)';
-    document.getElementById('pcorePteStatus').innerHTML = 'eFuses: <code style="color:#fbbf24;">BLOWN</code>';
-    document.getElementById('bridgeVoltageText').textContent = 'CUT (1.2ns)';
+    const bladeA4 = document.getElementById('lru4');
+    bladeA4.classList.add('zeroized');
+    document.getElementById('simVendorTitle').textContent = 'STERILIZED (0x00 / SAND)';
+    document.getElementById('simPteState').innerHTML = 'eFuses: <code style="color:#fbbf24;">BLOWN</code>';
+    document.getElementById('simBridgeVolt').textContent = 'CUT (1.2ns)';
 
     const tamperBadge = document.getElementById('tamperBadge');
     tamperBadge.className = 'badge-tag badge-red';
@@ -1129,15 +1129,82 @@
     appendWormLog('DODD-3000.09', 'Mode B Hardware Consent Gate verified physical token 0xD0DD3009 (<1 ms) • Firing bus open-circuit safe');
   }
 
+  function swapVendor(v) {
+    const bladeA4 = document.getElementById('lru4');
+    bladeA4.classList.remove('zeroized');
+    const vendorLabel = document.getElementById('simVendorTitle');
+    const pteStatus = document.getElementById('simPteState');
+    const statePill = document.getElementById('statePill');
+    const clampBadge = document.getElementById('clampStatusBadge');
+
+    if (v === 'A') {
+      pcoreClamped = false;
+      bladeA4.classList.remove('clamped');
+      vendorLabel.textContent = 'VENDOR A: TESSERACT';
+      pteStatus.innerHTML = 'MPU: <code>PROT_RWX</code>';
+      statePill.className = 'pill nominal';
+      statePill.textContent = '● OMEGA: 1,600 Hz (625 μs)';
+      clampBadge.className = 'badge-tag badge-green';
+      clampBadge.textContent = 'ARMED (85.40μs)';
+      clearClampSteps();
+      appendWormLog('MOSA-LRU', 'Slot 4 running Vendor A (Tesseract SI over TSV) • 0-Byte Shared Host RAM');
+    } else if (v === 'B') {
+      pcoreClamped = false;
+      bladeA4.classList.remove('clamped');
+      vendorLabel.textContent = 'VENDOR B: PRIME C4ISR';
+      pteStatus.innerHTML = 'MPU: <code>PROT_RWX</code>';
+      statePill.className = 'pill nominal';
+      statePill.textContent = '● MOSA SWAP: 0 RE-CERT';
+      clampBadge.className = 'badge-tag badge-green';
+      clampBadge.textContent = 'ARMED (85.40μs)';
+      clearClampSteps();
+      appendWormLog('MOSA-LRU', 'Hot-swapped Slot 4 to Vendor B (DIU PROJ00716 C4ISR) • 0 Lines D-Core Re-Cert');
+    } else if (v === 'C') {
+      pcoreClamped = true;
+      bladeA4.classList.add('clamped');
+      vendorLabel.textContent = 'IM1 SWARM (CLAMPED)';
+      pteStatus.innerHTML = 'MPU: <code style="color:#f87171;">PROT_NONE (85.4μs)</code>';
+      statePill.className = 'pill alert';
+      statePill.textContent = '■ CLAMPED: 85.40 μs → H0';
+      clampBadge.className = 'badge-tag badge-red';
+      clampBadge.textContent = 'CLAMPED: 85.40 μs';
+      triggerClampAnimation();
+      appendWormLog('IM1-CLAMPED', 'Blocked 2026 IM1/OpenClaw rogue DMA write! Slot 4 clamped to PROT_NONE in 85.40 μs', true);
+    }
+  }
+
+  function clearClampSteps() {
+    for (let i = 0; i < 5; i++) document.getElementById('cStep' + i).classList.remove('triggered');
+  }
+
+  function triggerClampAnimation() {
+    clearClampSteps();
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => document.getElementById('cStep' + i).classList.add('triggered'), i * 100);
+    }
+  }
+
+  function injectEmpPlume() {
+    empPulseActive = 28;
+    document.getElementById('simBridgeVolt').textContent = '0.00V (EMP)';
+    appendWormLog('AMY-EMP-PLUME', 'Emitted 53.00 μs Temporal Plume & 1,600 Hz GaN-on-SiC Micro-EMP • 0.00V on Testbed A');
+  }
+
+  function injectBattleshipNav() {
+    document.getElementById('lruFoot3').textContent = 'BATTLESHIP: 73/73 LOCK';
+    appendWormLog('BATTLESHIP-73/73', 'RF-denied mode → Fused Ring-Laser IMU, Wave Dynamics, 3-Axis Mag & Starfield (73/73)');
+  }
+
   function resetBaseline(silent = false) {
     swapVendor('A');
     clearDoomsdaySteps();
-    document.querySelectorAll('.blade').forEach(b => b.classList.remove('selected-slot'));
+    document.querySelectorAll('.lru-blade').forEach(b => b.classList.remove('active-lru'));
+    document.getElementById('lru1').classList.add('active-lru');
     document.getElementById('bladeB1').classList.remove('doomsday-engaged');
     document.getElementById('bladeB2').classList.remove('cap-active');
     document.getElementById('amyWarrantSpec').innerHTML = '<code>0xAMY_EXTEND</code> Ready';
-    document.getElementById('psuLineSpec').innerHTML = '28V Line: <strong>ONLINE</strong>';
-    document.getElementById('capHoldSpec').innerHTML = 'Supercap: <strong>120.0s</strong>';
+    document.getElementById('simPsuStatus').innerHTML = '28V: <strong>ONLINE</strong>';
+    document.getElementById('simCapStatus').innerHTML = 'Supercap: <strong>120.0s</strong>';
     document.getElementById('kpiPower').textContent = '86.4W (14.4W/Slot)';
     document.getElementById('kpiDoomsdayState').textContent = '120s Cap Armed';
     const badge = document.getElementById('doomsdayBadge');
@@ -1146,9 +1213,9 @@
     const tBadge = document.getElementById('tamperBadge');
     tBadge.className = 'badge-tag badge-amber';
     tBadge.textContent = '0 PYRO • 1.2ns';
-    document.getElementById('bridgeVoltageText').textContent = '0.00V';
-    document.getElementById('lruFoot1').textContent = '14.4W &bull; 31.2&deg;C';
-    document.getElementById('lruFoot3').textContent = '14.4W &bull; 29.9&deg;C';
+    document.getElementById('simBridgeVolt').textContent = '0.00V';
+    document.getElementById('lruFoot1').textContent = '14.4W \u2022 31.2\u00b0C';
+    document.getElementById('lruFoot3').textContent = '14.4W \u2022 29.9\u00b0C';
     if (!silent) appendWormLog('OMEGA-RESET', 'Chassis restored to Omega baseline • Doomsday & <10µs Anti-Tamper armed');
   }
 
@@ -1169,11 +1236,11 @@
   }
 
   function inspectSlot(slotId) {
-    document.querySelectorAll('.blade').forEach(b => b.classList.remove('selected-slot'));
+    document.querySelectorAll('.lru-blade').forEach(b => b.classList.remove('active-lru'));
     const map = { 'TB-A1':'lru1', 'TB-A2':'lru2', 'TB-A3':'lru3', 'TB-A4':'lru4', 'TB-B1':'lru5', 'TB-B2':'lru6' };
     const numericMap = { 'TB-A1':1, 'TB-A2':2, 'TB-A3':3, 'TB-A4':4, 'TB-B1':5, 'TB-B2':6 };
     if (map[slotId]) {
-      document.getElementById(map[slotId]).classList.add('selected-slot');
+      document.getElementById(map[slotId]).classList.add('active-lru');
       selectLru(numericMap[slotId]);
     }
   }
@@ -1236,7 +1303,7 @@
 
   buildKaraokeTokens(0);
   updateKaraokeVisuals();
-  logWorm('OMEGA-BOOT', 'Brad-Core OS v5 Unified initialized at 1,600 Hz (625.0 µs frame, WCET 412.6 µs)');
+  logWorm('OMEGA-BOOT', 'Brad-Core OS v5 Unified initialized • Broadcast Large-Type HUD active');
   logWorm('TESSERACT-SI', 'Guardian Sentinel Tesseract SI conversational engine online in Slot 4 (P-Core TSV)');
   requestAnimationFrame(animateLoop);
 </script>
