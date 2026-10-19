@@ -1,1311 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brad-Core OS v5 & Amy Infinity: SOSA/MOSA + Tesseract SI Live Testbed</title>
-<style>
-  :root {
-    --bg-void: #04070b;
-    --bg-panel: #091019;
-    --bg-card: #0e1826;
-    --bg-card-hover: #132235;
-    --border-dim: #1b2d45;
-    --border-bright: #2e4d73;
-    --text-main: #f1f5f9;
-    --text-muted: #9fb3c8;
-    --text-dim: #647b96;
-    --green-nom: #10b981;
-    --green-glow: rgba(16, 185, 129, 0.22);
-    --cyan-mosa: #06b6d4;
-    --cyan-glow: rgba(6, 182, 212, 0.22);
-    --blue-opt: #3b82f6;
-    --purple-amy: #a855f7;
-    --purple-glow: rgba(168, 85, 247, 0.25);
-    --amber-warn: #f59e0b;
-    --amber-glow: rgba(245, 158, 11, 0.25);
-    --red-clamp: #ef4444;
-    --red-glow: rgba(239, 68, 68, 0.28);
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-  }
-
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #050911; }
-  ::-webkit-scrollbar-thumb { background: #2b4466; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--cyan-mosa); }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    width: 100vw; height: 100vh; overflow: hidden;
-    background-color: var(--bg-void); color: var(--text-main);
-    font-family: var(--font-sans); font-size: 12px; line-height: 1.35;
-  }
-
-  #appViewport {
-    width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 5px; padding: 6px 10px; transform-origin: top left;
-  }
-
-  .top-bar {
-    display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    background: linear-gradient(90deg, #081018 0%, #102036 50%, #081018 100%);
-    border: 1.5px solid var(--border-bright); border-radius: 7px; padding: 6px 12px; flex-shrink: 0;
-  }
-  .brand-block { display: flex; align-items: center; gap: 10px; }
-  .reticle-icon {
-    width: 28px; height: 28px; border: 2.5px solid var(--green-nom); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px var(--green-glow); flex-shrink: 0;
-  }
-  .reticle-icon::after {
-    content: ''; width: 9px; height: 9px; background: var(--green-nom); border-radius: 50%;
-    animation: pulseDot 0.625s infinite alternate;
-  }
-  @keyframes pulseDot { from { opacity: 0.35; transform: scale(0.8); } to { opacity: 1; transform: scale(1.15); } }
-
-  .brand-title { font-size: 15px; font-weight: 900; color: #fff; white-space: nowrap; }
-  .brand-sub { font-size: 10px; font-weight: 600; color: var(--cyan-mosa); font-family: var(--font-mono); white-space: nowrap; }
-
-  .top-kpis { display: flex; gap: 7px; align-items: center; }
-  .mini-kpi {
-    background: #060b14; border: 1px solid var(--border-dim); border-left: 3.5px solid var(--cyan-mosa);
-    border-radius: 5px; padding: 4px 9px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted);
-  }
-  .mini-kpi strong { color: #fff; font-weight: 800; }
-
-  .telemetry-pills { display: flex; gap: 6px; align-items: center; }
-  .pill {
-    background: #060b12; border: 1.5px solid var(--border-dim);
-    padding: 4px 9px; border-radius: 5px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 800;
-    display: flex; align-items: center; gap: 4px; white-space: nowrap;
-  }
-  .pill.nominal { border-color: var(--green-nom); color: #34d399; background: rgba(16,185,129,0.12); }
-  .pill.alert { border-color: var(--red-clamp); color: #fca5a5; background: rgba(239,68,68,0.2); }
-  .pill.doomsday { border-color: var(--purple-amy); color: #e9d5ff; background: rgba(168,85,247,0.24); }
-
-  .btn, .select-ctl {
-    background: var(--bg-card); color: #fff; border: 1.5px solid var(--border-bright);
-    padding: 4.5px 10px; border-radius: 5px; font-weight: 800; font-size: 10.5px;
-    cursor: pointer; transition: all 0.12s ease; display: inline-flex; align-items: center; gap: 5px;
-    font-family: var(--font-sans); white-space: nowrap;
-  }
-  .btn:hover, .select-ctl:hover { background: var(--bg-card-hover); border-color: var(--cyan-mosa); }
-  .btn-primary { background: linear-gradient(135deg, #059669 0%, #047857 100%); border-color: #34d399; color: #fff; }
-  .btn-amber-play { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); border-color: #fbbf24; color: #fff; }
-  .btn-rec { background: #2b1118; border-color: #f87171; color: #fca5a5; }
-  .btn-rec.recording { background: #dc2626; color: #fff; animation: pulseDot 0.5s infinite alternate; }
-
-  /* KARAOKE PANEL */
-  .director-panel {
-    background: var(--bg-panel); border: 1.5px solid var(--border-bright);
-    border-radius: 7px; padding: 7px 11px; flex-shrink: 0;
-  }
-  .director-top-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .scene-tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; flex: 1; max-width: 900px; }
-  .scene-tab {
-    background: #070b12; border: 1.5px solid var(--border-dim); border-radius: 5px;
-    padding: 4px 8px; cursor: pointer; position: relative; overflow: hidden;
-  }
-  .scene-tab.active { background: rgba(6, 182, 212, 0.18); border-color: var(--cyan-mosa); }
-  .scene-tab-fill {
-    position: absolute; left: 0; bottom: 0; height: 3px; width: 0%;
-    background: var(--amber-warn); transition: width 0.1s linear;
-  }
-  .scene-time { font-family: var(--font-mono); font-size: 9.5px; color: var(--cyan-mosa); font-weight: 800; display: flex; justify-content: space-between; }
-  .scene-name { font-size: 10.5px; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-  .karaoke-split { display: grid; grid-template-columns: 1.48fr 1fr; gap: 9px; align-items: stretch; }
-  .karaoke-box {
-    background: #040810; border: 1.5px solid #2b4c78; border-left: 5px solid var(--amber-warn);
-    border-radius: 6px; padding: 7px 12px; display: flex; flex-direction: column; justify-content: center;
-  }
-  .karaoke-progress-track { width: 100%; height: 4px; background: #0c1523; border-radius: 2px; overflow: hidden; margin-bottom: 5px; }
-  .karaoke-progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green-nom) 0%, var(--amber-warn) 100%); }
-  .karaoke-words-container { font-size: 13.5px; line-height: 1.42; font-weight: 600; color: #dbeafe; overflow: hidden; user-select: none; }
-  .k-word { display: inline-block; padding: 0px 3.5px; margin: 0 0.5px; border-radius: 3px; cursor: pointer; }
-  .k-word.k-spoken { color: #34d399; opacity: 0.78; }
-  .k-word.k-active { background: var(--amber-warn); color: #02060d !important; font-weight: 900; box-shadow: 0 0 10px var(--amber-glow); transform: scale(1.04); }
-  .k-word.k-upcoming { color: #ffffff; }
-
-  .without-with-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-  .ww-box { padding: 7px 10px; border-radius: 6px; font-size: 11px; line-height: 1.35; display: flex; flex-direction: column; justify-content: center; font-weight: 600; }
-  .ww-without { background: rgba(239, 68, 68, 0.12); border: 1.5px solid rgba(239, 68, 68, 0.55); }
-  .ww-with { background: rgba(16, 185, 129, 0.13); border: 1.5px solid rgba(16, 185, 129, 0.6); }
-
-  /* 3-COLUMN PIPELINE BAR */
-  .triple-pipeline-row { display: grid; grid-template-columns: 1fr 1.05fr 1.05fr; gap: 7px; flex-shrink: 0; }
-  .pipe-box { background: var(--bg-panel); border: 1.5px solid var(--border-dim); border-radius: 6px; padding: 5px 9px; }
-  .pipe-box.doomsday-box { border-color: #7e22ce; background: linear-gradient(90deg, #0b0914 0%, #150e28 100%); }
-  .pipe-box.tamper-box { border-color: #d97706; background: linear-gradient(90deg, #140d07 0%, #211308 100%); }
-  .pipe-title { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3px; color: var(--cyan-mosa); margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
-  .step-strip-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
-  .step-strip-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
-  .p-step { background: #060a12; border: 1px solid var(--border-bright); border-radius: 4px; padding: 3px; text-align: center; transition: all 0.18s; }
-  .p-step.triggered { border-color: var(--red-clamp); background: rgba(239, 68, 68, 0.28); box-shadow: 0 0 8px var(--red-glow); }
-  .p-step.doomsday-active { border-color: var(--purple-amy); background: rgba(168, 85, 247, 0.3); box-shadow: 0 0 8px var(--purple-glow); }
-  .p-step.continuity-active { border-color: var(--green-nom); background: rgba(16, 185, 129, 0.28); box-shadow: 0 0 8px var(--green-glow); }
-  .p-step.tamper-active { border-color: var(--amber-warn); background: rgba(245, 158, 11, 0.32); box-shadow: 0 0 8px var(--amber-glow); }
-  .p-t { font-family: var(--font-mono); font-size: 9.8px; font-weight: 900; color: var(--amber-warn); }
-  .p-d { font-size: 9.2px; font-weight: 700; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-  /* MAIN WORKSPACE */
-  .main-workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.62fr 1fr; gap: 8px; }
-  .racks-column { display: flex; flex-direction: column; justify-content: space-between; gap: 6px; min-height: 0; }
-  .architecture-stage { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.54fr 92px 1.02fr; gap: 6px; align-items: stretch; }
-  .rack-container {
-    background: linear-gradient(180deg, #0c1522 0%, #070c14 100%);
-    border: 2px solid #2e4769; border-radius: 7px; padding: 7px 8px;
-    display: flex; flex-direction: column; justify-content: space-between; min-height: 0;
-  }
-  .rack-container.testbed-b { border-color: #8b5cf6; }
-  .rack-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-dim); padding-bottom: 4px; margin-bottom: 6px; flex-shrink: 0; }
-  .rack-title { font-size: 11px; font-weight: 900; color: #fff; }
-  .rack-sub { font-size: 9px; font-weight: 600; font-family: var(--font-mono); color: var(--cyan-mosa); }
-
-  .blades-grid-a { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 18px 1.05fr; gap: 5px; }
-  .blades-grid-b {
-    flex: 1; min-height: 0; display: grid; grid-template-columns: 1.08fr 1fr; gap: 6px;
-    padding: 7px 5px 4px; border: 1.5px dashed #a855f7; border-radius: 6px; background: rgba(168, 85, 247, 0.05); position: relative;
-  }
-  .faraday-tag {
-    position: absolute; top: -7px; right: 8px; background: #1b0e30; border: 1px solid #a855f7; color: #f3e8ff;
-    font-family: var(--font-mono); font-size: 8.5px; font-weight: 800; padding: 0.5px 6px; border-radius: 3px;
-  }
-
-  .blade {
-    background: #09121e; border: 2px solid var(--green-nom); border-radius: 6px;
-    padding: 6.5px 6px; display: flex; flex-direction: column; justify-content: space-between;
-    cursor: pointer; transition: all 0.15s ease; min-height: 0; overflow: hidden;
-  }
-  .blade:hover { box-shadow: 0 0 12px var(--green-glow); }
-  .blade.selected-slot { outline: 2.5px solid #fff; }
-  .blade.pcore-slot { border-color: var(--cyan-mosa); background: #071422; }
-  .blade.clamped-slot { border-color: var(--red-clamp) !important; background: rgba(127, 29, 29, 0.38) !important; }
-  .blade.zeroized-slot { border-color: var(--amber-warn) !important; background: rgba(120, 53, 15, 0.4) !important; }
-  .blade.amy-slot { border-color: var(--purple-amy); background: #130d24; }
-  .blade.amy-slot.doomsday-engaged { border-color: #f43f5e !important; box-shadow: 0 0 18px rgba(244, 63, 94, 0.5) !important; }
-  .blade.psu-slot { border-color: #94a3b8; background: #0d1520; }
-  .blade.psu-slot.cap-active { border-color: var(--amber-warn); }
-
-  .slot-id { font-family: var(--font-mono); font-size: 9.5px; font-weight: 900; padding: 1.5px 5px; border-radius: 3px; background: rgba(255,255,255,0.1); width: fit-content; }
-  .blade-name { font-size: 12.5px; font-weight: 900; color: #fff; margin-top: 1px; line-height: 1.15; }
-  .blade-role { font-size: 9.5px; font-weight: 800; color: #34d399; text-transform: uppercase; margin-bottom: 3px; }
-  .blade.pcore-slot .blade-role { color: #22d3ee; }
-  .blade.amy-slot .blade-role { color: #e9d5ff; }
-
-  .blade-specs {
-    list-style: none; font-size: 10.5px; font-weight: 600; color: #e2e8f0;
-    display: flex; flex-direction: column; gap: 2.5px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 4px;
-  }
-  .blade-specs li { line-height: 1.2; }
-  .blade-specs li::before { content: '▸ '; color: var(--cyan-mosa); font-weight: 900; }
-  .blade-specs code { font-family: var(--font-mono); font-weight: 800; color: #fde68a; font-size: 10px; }
-
-  .blade-hw-diag {
-    background: #040810; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 4px;
-    padding: 4px 6px; margin: 4px 0; font-family: var(--font-mono); font-size: 9.5px;
-    display: flex; flex-direction: column; gap: 2.5px;
-  }
-  .diag-row { display: flex; justify-content: space-between; color: var(--text-muted); font-weight: 600; }
-  .diag-row strong { color: #fff; font-weight: 800; }
-  .diag-bar-bg { width: 100%; height: 4px; background: #142030; border-radius: 2px; overflow: hidden; }
-  .diag-bar-fill { height: 100%; background: var(--green-nom); }
-
-  .blade-footer {
-    font-family: var(--font-mono); font-size: 9.8px; font-weight: 800;
-    background: #04070c; padding: 3px 4px; border-radius: 4px;
-    text-align: center; border: 1px solid rgba(255,255,255,0.12); color: #fff;
-  }
-
-  .airgap-divider { display: flex; align-items: center; justify-content: center; position: relative; }
-  .airgap-line {
-    width: 2.5px; height: 100%; background: repeating-linear-gradient(180deg, var(--red-clamp) 0px, var(--red-clamp) 6px, transparent 6px, transparent 11px);
-  }
-  .airgap-lock {
-    position: absolute; background: #2a0a10; border: 1.5px solid var(--red-clamp); color: #fca5a5;
-    border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 9px;
-  }
-
-  .bridge-stage {
-    background: var(--bg-panel); border: 1.5px solid var(--border-bright); border-radius: 7px; padding: 5px 3px;
-    display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center;
-  }
-  #photonicCanvas { width: 78px; height: 100px; }
-  .bridge-stat-box {
-    width: 100%; background: #050911; border: 1px solid var(--border-dim); border-radius: 4px; padding: 3px 2px;
-    font-family: var(--font-mono); font-size: 8.8px; font-weight: 700; color: #e2e8f0;
-  }
-
-  .quick-triggers-bar {
-    background: var(--bg-panel); border: 1.5px solid var(--border-dim); border-radius: 6px; padding: 5px 7px;
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; flex-shrink: 0;
-  }
-  .quick-triggers-bar .btn { justify-content: center; padding: 4.5px 3px; font-size: 10px; font-weight: 800; }
-
-  /* RIGHT COLUMN: TESSERACT SI CONVERSATIONAL OFFICER CONSOLE + WORM LEDGER */
-  .tesseract-column { display: flex; flex-direction: column; justify-content: space-between; gap: 6px; min-height: 0; }
-  .tesseract-console {
-    flex: 1; min-height: 0; background: linear-gradient(180deg, #071220 0%, #050b13 100%);
-    border: 2px solid var(--cyan-mosa); border-radius: 7px; padding: 7px 10px;
-    display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 16px rgba(6, 182, 212, 0.14);
-  }
-  .tess-chat-feed {
-    flex: 1; min-height: 0; background: #03060a; border: 1px solid var(--border-dim); border-radius: 5px;
-    padding: 7px 9px; overflow-y: auto; font-size: 11.5px; line-height: 1.38; margin: 5px 0; display: flex; flex-direction: column; gap: 6px;
-  }
-  .chat-msg-officer { background: rgba(59, 130, 246, 0.15); border-left: 3.5px solid var(--blue-opt); padding: 5px 8px; border-radius: 4px; color: #eff6ff; font-weight: 600; }
-  .chat-msg-tesseract { background: rgba(6, 182, 212, 0.12); border-left: 3.5px solid var(--cyan-mosa); padding: 5px 8px; border-radius: 4px; color: #ffffff; font-weight: 500; }
-  .chat-msg-dcore-proof { font-family: var(--font-mono); font-size: 10px; font-weight: 800; color: #34d399; background: rgba(16, 185, 129, 0.12); padding: 3px 6px; border-radius: 3px; margin-top: 3px; }
-  .tess-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 5px; }
-  .preset-chip {
-    background: #0b1726; border: 1.5px solid var(--border-bright); color: #fff; border-radius: 5px;
-    padding: 4.5px 5px; font-size: 10.5px; font-weight: 800; cursor: pointer; text-align: center; transition: all 0.12s; white-space: nowrap;
-  }
-  .preset-chip:hover { border-color: var(--amber-warn); background: #13243b; }
-  .preset-chip.brownie-chip { border-color: #f59e0b; color: #fde68a; background: rgba(245,158,11,0.16); }
-
-  .tess-input-row { display: flex; gap: 5px; }
-  .tess-input {
-    flex: 1; background: #04080e; border: 1.5px solid var(--border-bright); color: #fff;
-    border-radius: 5px; padding: 5px 9px; font-size: 11px; font-family: var(--font-sans); font-weight: 600;
-  }
-
-  .worm-mini-panel {
-    background: var(--bg-panel); border: 1.5px solid var(--border-dim); border-radius: 6px; padding: 5px 9px; height: 86px; flex-shrink: 0; display: flex; flex-direction: column;
-  }
-  .worm-log-box {
-    flex: 1; background: #04070b; border: 1px solid var(--border-dim); border-radius: 4px;
-    overflow-y: auto; padding: 3px 6px; font-family: var(--font-mono); font-size: 10px; font-weight: 600;
-  }
-  .log-entry { padding: 1.5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; justify-content: space-between; gap: 6px; }
-
-  /* 5. BOTTOM DOCK */
-  .bottom-dock { display: grid; grid-template-columns: 0.95fr 2.05fr; gap: 7px; flex-shrink: 0; }
-  .mc-summary-card {
-    background: linear-gradient(90deg, #07151a 0%, #0a1c28 100%); border: 2px solid var(--green-nom); border-radius: 6px; padding: 5px 12px;
-    display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  }
-  .shield-scorecard {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; background: linear-gradient(90deg, #070e19 0%, #0c1728 100%);
-    border: 1.5px solid var(--border-bright); border-radius: 6px; padding: 5px 8px;
-  }
-  .shield-item { display: flex; align-items: center; gap: 7px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-dim); border-radius: 5px; padding: 4px 7px; }
-  .shield-badge {
-    width: 22px; height: 24px; background: rgba(16,185,129,0.2); border: 2px solid var(--green-nom); border-radius: 4px 4px 9px 9px;
-    display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; font-family: var(--font-mono); color: var(--green-nom); flex-shrink: 0;
-  }
-  .badge-tag { font-family: var(--font-mono); font-size: 8.8px; font-weight: 900; padding: 1.5px 5px; border-radius: 3px; white-space: nowrap; }
-  .badge-green { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid #059669; }
-  .badge-red { background: rgba(239,68,68,0.24); color: #fca5a5; border: 1px solid #dc2626; }
-  .badge-cyan { background: rgba(6,182,212,0.18); color: #67e8f9; border: 1px solid #0891b2; }
-  .badge-purple { background: rgba(168,85,247,0.22); color: #e9d5ff; border: 1px solid #9333ea; }
-  .badge-amber { background: rgba(245,158,11,0.24); color: #fde68a; border: 1px solid #d97706; }
-</style>
-</head>
-<body class="bg-grid">
-
-<div id="appViewport">
-
-  <!-- ROW 1: TOP BAR + LARGE INLINE KPIs -->
-  <div class="top-bar">
-    <div class="brand-block">
-      <div class="reticle-icon"></div>
-      <div>
-        <div class="brand-title">Brad-Core OS v5 &amp; Amy Infinity (v&infin;): SOSA/MOSA + Tesseract SI Live Testbed</div>
-        <div class="brand-sub">SOSA 1.0/2.0 &bull; VITA 65 3U/6U &bull; 10 U.S.C. &sect; 4401 MOSA &bull; 10 U.S.C. &sect; 4022 OTA &bull; P5 Seal: B.W. Holmes &amp; ID: FAF-02</div>
-      </div>
-    </div>
-
-    <div class="top-kpis">
-      <div class="mini-kpi">Power: <strong id="kpiPower">86.4W (14.4W/Slot)</strong></div>
-      <div class="mini-kpi" style="border-left-color:var(--amber-warn);">Zeroize: <strong id="kpiThermal">&lt;10&mu;s (0 Pyro)</strong></div>
-      <div class="mini-kpi" style="border-left-color:var(--blue-opt);">Battleship: <strong id="kpiOptinc">73/73 RF-Denied</strong></div>
-      <div class="mini-kpi" style="border-left-color:var(--purple-amy);">Doomsday: <strong id="kpiDoomsdayState">120s Cap Armed</strong></div>
-    </div>
-
-    <div class="telemetry-pills">
-      <div id="statePill" class="pill nominal">● OMEGA: 1,600 Hz (625 &mu;s)</div>
-      <button class="btn btn-primary" onclick="runFullQualification()">&#9654; 8-Test Suite</button>
-      <button class="btn" onclick="resetBaseline()">&#8634; Reset</button>
-      <select class="select-ctl" onchange="setViewportScale(this.value)">
-        <option value="1">UI Fit: 100%</option>
-        <option value="0.94">UI Fit: 94%</option>
-        <option value="0.88">UI Fit: 88%</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- ROW 2: KARAOKE PITCH DIRECTOR + WITHOUT / WITH BRAD-CORE COMPARISON -->
-  <div class="director-panel">
-    <div class="director-top-row">
-      <div style="display:flex; align-items:center; gap:7px;">
-        <span style="font-family:var(--font-mono); font-size:11px; color:var(--amber-warn); font-weight:900;">&#127908; 5:00 KARAOKE PACER</span>
-        <span id="masterClockDisplay" style="font-family:var(--font-mono); font-size:11.5px; font-weight:900; color:#fff; background:#040810; padding:2.5px 8px; border-radius:4px; border:1.5px solid var(--amber-warn);">00:00.0 / 05:00.0 &bull; S1 (0.0s/45s)</span>
-      </div>
-
-      <div class="scene-tabs">
-        <div class="scene-tab active" id="sceneTab0" onclick="selectScene(0)">
-          <div class="scene-time"><span>1. 0:00–0:45</span><span id="recBadge0"></span></div>
-          <div class="scene-name">Doomsday &amp; Battleship</div>
-          <div class="scene-tab-fill" id="tabFill0"></div>
-        </div>
-        <div class="scene-tab" id="sceneTab1" onclick="selectScene(1)">
-          <div class="scene-time"><span>2. 0:45–1:35</span><span id="recBadge1"></span></div>
-          <div class="scene-name">Tesseract SI &amp; Brownies</div>
-          <div class="scene-tab-fill" id="tabFill1"></div>
-        </div>
-        <div class="scene-tab" id="sceneTab2" onclick="selectScene(2)">
-          <div class="scene-time"><span>3. 1:35–2:30</span><span id="recBadge2"></span></div>
-          <div class="scene-name">IM1 Swarm &amp; 85.4&mu;s</div>
-          <div class="scene-tab-fill" id="tabFill2"></div>
-        </div>
-        <div class="scene-tab" id="sceneTab3" onclick="selectScene(3)">
-          <div class="scene-time"><span>4. 2:30–3:25</span><span id="recBadge3"></span></div>
-          <div class="scene-name">Battleship 73/73 &amp; EMP</div>
-          <div class="scene-tab-fill" id="tabFill3"></div>
-        </div>
-        <div class="scene-tab" id="sceneTab4" onclick="selectScene(4)">
-          <div class="scene-time"><span>5. 3:25–4:15</span><span id="recBadge4"></span></div>
-          <div class="scene-name">Doomsday &amp; &lt;10&mu;s Zeroize</div>
-          <div class="scene-tab-fill" id="tabFill4"></div>
-        </div>
-        <div class="scene-tab" id="sceneTab5" onclick="selectScene(5)">
-          <div class="scene-time"><span>6. 4:15–5:00</span><span id="recBadge5"></span></div>
-          <div class="scene-name">740M Vectors &amp; OTA</div>
-          <div class="scene-tab-fill" id="tabFill5"></div>
-        </div>
-      </div>
-
-      <div style="display:flex; gap:5px; align-items:center;">
-        <button class="btn btn-amber-play" id="karaokePlayBtn" onclick="toggleKaraokePlay()">&#9654; Start Karaoke</button>
-        <select id="karaokeSpeedSelect" class="select-ctl" onchange="updateKaraokeSpeed()">
-          <option value="0.9">0.9x</option>
-          <option value="1.0" selected>1.0x (5:00)</option>
-          <option value="1.15">1.15x</option>
-          <option value="2.5">2.5x</option>
-        </select>
-        <button class="btn btn-rec" id="recVoiceBtn" onclick="toggleSceneVoiceRecord()">&#127897; Rec</button>
-        <button class="btn" id="playVoiceBtn" onclick="playCurrentSceneAudio()" style="display:none;">&#128266;</button>
-      </div>
-    </div>
-
-    <div class="karaoke-split">
-      <div class="karaoke-box">
-        <div class="karaoke-progress-track">
-          <div class="karaoke-progress-bar" id="karaokeProgressBar"></div>
-        </div>
-        <div class="karaoke-words-container" id="karaokeWordsContainer"></div>
-      </div>
-
-      <div class="without-with-grid">
-        <div class="ww-box ww-without">
-          <div style="font-weight:900; color:#f87171; font-size:11px; margin-bottom:2px;">&#10007; WITHOUT BRAD-CORE (Legacy Shared-RAM AI):</div>
-          <div style="color:#fecaca;">AI shares host RAM &amp; PCIe buses with flight/clinical controls; dynamic heap (<code>malloc</code>) causes latency jitter, 2026 IM1 agent breakouts, &amp; 18-mo DO-178C re-cert delays.</div>
-        </div>
-        <div class="ww-box ww-with">
-          <div style="font-weight:900; color:#34d399; font-size:11px; margin-bottom:2px;">&#10003; WITH BRAD-CORE OS v5 + AMY INFINITY:</div>
-          <div style="color:#d1fae5;"><strong>0-Byte Shared RAM Air-Gap</strong> &amp; 1,600 Hz (625 &mu;s) Lock. WCET <code>412.6 &mu;s &le; 450 &mu;s</code>, <code>malloc=0</code>, <code>85.40 &mu;s</code> MPU clamp, <code>73/73</code> Battleship EW, &amp; <code>&lt;10 &mu;s</code> Zero-Pyro Zeroize.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROW 3: THREE-COLUMN PIPELINE BAR -->
-  <div class="triple-pipeline-row">
-    <div class="pipe-box">
-      <div class="pipe-title">
-        <span>1. Sheriff Sub-86&mu;s Clamp (<span id="cycleCounterText" style="color:var(--green-nom);">WCET: 412.6/625&mu;s</span>)</span>
-        <span id="clampStatusBadge" class="badge-tag badge-green">ARMED (85.40&mu;s)</span>
-      </div>
-      <div class="step-strip-5">
-        <div class="p-step" id="cStep0"><div class="p-t">T+0.0&mu;s</div><div class="p-d">DMA Fault</div></div>
-        <div class="p-step" id="cStep1"><div class="p-t">T&lt;10&mu;s</div><div class="p-d">NMI Freeze</div></div>
-        <div class="p-step" id="cStep2"><div class="p-t">T+30&mu;s</div><div class="p-d">PTE Clear</div></div>
-        <div class="p-step" id="cStep3"><div class="p-t">T+53&mu;s</div><div class="p-d">Plume/Mux</div></div>
-        <div class="p-step" id="cStep4"><div class="p-t">T+85.4&mu;s</div><div class="p-d">PROT_NONE</div></div>
-      </div>
-    </div>
-
-    <div class="pipe-box doomsday-box">
-      <div class="pipe-title">
-        <span style="color:#e9d5ff;">2. Amy Doomsday &amp; 120s Mission Continuity</span>
-        <span id="doomsdayBadge" class="badge-tag badge-purple">120.0s RAIL READY</span>
-      </div>
-      <div class="step-strip-6">
-        <div class="p-step" id="dStep0"><div class="p-t" style="color:#f43f5e;">T+0&mu;s</div><div class="p-d">28V Sever</div></div>
-        <div class="p-step" id="dStep1"><div class="p-t" style="color:#d8b4fe;">&lt;10&mu;s</div><div class="p-d">Silicon Latch</div></div>
-        <div class="p-step" id="dStep2"><div class="p-t" style="color:var(--amber-warn);">120.0s</div><div class="p-d">Supercap Hold</div></div>
-        <div class="p-step" id="dStep3"><div class="p-t" style="color:#f87171;">&lt;85.4&mu;s</div><div class="p-d">Fail-Safe H0</div></div>
-        <div class="p-step" id="dStep4"><div class="p-t" style="color:var(--cyan-mosa);">WARRANT</div><div class="p-d">0xAMY_EXTEND</div></div>
-        <div class="p-step" id="dStep5"><div class="p-t" style="color:var(--green-nom);">P5 SEAL</div><div class="p-d">0-Loss Resume</div></div>
-      </div>
-    </div>
-
-    <div class="pipe-box tamper-box">
-      <div class="pipe-title">
-        <span style="color:#fde68a;">3. &lt;10&mu;s Anti-Tamper Zeroize (100,000x &gt; Thermite)</span>
-        <span id="tamperBadge" class="badge-tag badge-amber">0 PYRO &bull; 1.2ns</span>
-      </div>
-      <div class="step-strip-6">
-        <div class="p-step" id="tStep0"><div class="p-t">T+0.0&mu;s</div><div class="p-d">Breach/Light</div></div>
-        <div class="p-step" id="tStep1"><div class="p-t" style="color:#38bdf8;">1.20ns</div><div class="p-d">LVDS Sever</div></div>
-        <div class="p-step" id="tStep2"><div class="p-t" style="color:#f87171;">8.40&mu;s</div><div class="p-d">SCR 0x00</div></div>
-        <div class="p-step" id="tStep3"><div class="p-t" style="color:#e879f9;">10.0&mu;s</div><div class="p-d">eFuse+EMP</div></div>
-        <div class="p-step" id="tStep4"><div class="p-t" style="color:#ef4444;">85.4&mu;s</div><div class="p-d">H0 Ground</div></div>
-        <div class="p-step" id="tStep5"><div class="p-t" style="color:#10b981;">5.00ms</div><div class="p-d">Relays Open</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROW 4: MAIN WORKSPACE -->
-  <div class="main-workspace">
-
-    <!-- LEFT: DUAL SOSA/MOSA RACKS + TRIGGER BAR -->
-    <div class="racks-column">
-      <div class="architecture-stage">
-        <!-- TESTBED A -->
-        <div class="rack-container">
-          <div class="rack-header">
-            <div>
-              <div class="rack-title">TESTBED A: HOST SOSA/MOSA 3U/6U OPENVPX RACK (SLOTS 1–4)</div>
-              <div class="rack-sub">AMP Quad-Core Lattice &bull; UCIe/TSV 3D Stack &bull; 0-Byte Shared Host RAM</div>
-            </div>
-            <span class="badge-tag badge-green">10 U.S.C. &sect; 4401</span>
-          </div>
-
-          <div class="blades-grid-a">
-            <div class="lru-blade active-lru" id="lru1" onclick="inspectSlot('TB-A1')">
-              <div>
-                <div class="lru-id">SLOT 1 // TB-A1</div>
-                <div class="lru-title">D-CORE + G-CORE</div>
-                <div class="lru-sub">Safety Master</div>
-                <ul class="lru-list">
-                  <li>Bare-Metal C11/C++20</li>
-                  <li>1,600 Hz (412.6 &mu;s)</li>
-                  <li>MMIO Actuators Only</li>
-                  <li>Mode B <code>0xD0DD3009</code></li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>WCET:</span><strong style="color:var(--green-nom);">412.6/450&mu;s</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:66%;"></div></div>
-                <div class="diag-row"><span>Actuators:</span><strong>LOCKED</strong></div>
-              </div>
-              <div class="lru-foot" id="lruFoot1">14.4W &bull; 31.2&deg;C</div>
-            </div>
-
-            <div class="lru-blade" id="lru2" onclick="inspectSlot('TB-A2')">
-              <div>
-                <div class="lru-id">SLOT 2 // TB-A2</div>
-                <div class="lru-title">SHERIFF OS</div>
-                <div class="lru-sub">VITA 46.11 MPU</div>
-                <ul class="lru-list">
-                  <li>Emmy eFuse + HLB</li>
-                  <li>Transistors Cut</li>
-                  <li><strong>85.40 &mu;s</strong> <code>PROT_NONE</code></li>
-                  <li>State <code>H0 (0.00V)</code></li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>HLB Gate:</span><strong style="color:var(--green-nom);">CUT</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:100%;"></div></div>
-                <div class="diag-row"><span>MPU Clamp:</span><strong>85.40 &mu;s</strong></div>
-              </div>
-              <div class="lru-foot">14.4W &bull; 30.8&deg;C</div>
-            </div>
-
-            <div class="lru-blade" id="lru3" onclick="inspectSlot('TB-A3')">
-              <div>
-                <div class="lru-id">SLOT 3 // TB-A3</div>
-                <div class="lru-title">M-CORE SENTINEL</div>
-                <div class="lru-sub">Battleship &amp; WORM</div>
-                <ul class="lru-list">
-                  <li><strong>73/73</strong> <code>BATTLESHIP-1</code></li>
-                  <li>IMU/Wave/Mag/Star</li>
-                  <li><strong>1.20 ns</strong> LVDS Cut</li>
-                  <li>SHA-256 WORM Log</li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>EW Nav:</span><strong style="color:var(--cyan-mosa);">73/73 PASS</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:100%; background:var(--cyan-mosa);"></div></div>
-                <div class="diag-row"><span>OSFP Bus:</span><strong>400G</strong></div>
-              </div>
-              <div class="lru-foot" id="lruFoot3">14.4W &bull; 29.9&deg;C</div>
-            </div>
-
-            <div class="airgap-divider" title="Physical 0-Byte Shared Host RAM Air-Gap">
-              <div class="airgap-line"></div>
-              <div class="airgap-lock">&#128274;</div>
-            </div>
-
-            <div class="lru-blade pcore" id="lru4" onclick="inspectSlot('TB-A4')">
-              <div>
-                <div class="lru-id">SLOT 4 // TB-A4</div>
-                <div class="lru-title">P-CORE MOSA AI</div>
-                <div class="lru-sub" id="simVendorTitle" style="color:var(--cyan-mosa);">VENDOR A: TESSERACT</div>
-                <ul class="lru-list">
-                  <li>Officer Chat + C4ISR</li>
-                  <li>64-Slot SPSC (0-Ptr)</li>
-                  <li><strong>0-Line Re-Cert</strong></li>
-                  <li id="simPteState">MPU: <code>PROT_RWX</code></li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>Host RAM:</span><strong style="color:var(--cyan-mosa);">0 BYTES</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:52%; background:var(--cyan-mosa);"></div></div>
-                <div class="diag-row"><span>MESI Cache:</span><strong>OFF</strong></div>
-              </div>
-              <div class="lru-foot" style="color:var(--cyan-mosa);">14.4W &bull; 34.1&deg;C</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PHOTONIC BRIDGE -->
-        <div class="bridge-stage">
-          <div class="bridge-stat-box">
-            <div style="font-weight:900; color:var(--blue-opt);">OPTINC</div>
-            <div>&gt;10 kV LVDS</div>
-          </div>
-          <canvas id="photonicCanvas" width="78" height="100"></canvas>
-          <div class="bridge-stat-box">
-            <div style="font-weight:900; color:#60a5fa;" id="simBridgeVolt">0.00V</div>
-            <div>1.2ns Cut</div>
-          </div>
-        </div>
-
-        <!-- TESTBED B -->
-        <div class="rack-container testbed-b">
-          <div class="rack-header">
-            <div>
-              <div class="rack-title">TESTBED B: AMY INFINITY (v&infin;) OOB</div>
-              <div class="rack-sub">Doomsday + &lt;10&mu;s Zeroize (0 Pyro)</div>
-            </div>
-            <span class="badge-tag badge-purple">FARADAY OOB</span>
-          </div>
-
-          <div class="blades-grid-b">
-            <div class="faraday-tag">OFHC Cu + Mu-Metal (&mu;<sub>r</sub>&gt;80k) + Optical Grid</div>
-
-            <div class="lru-blade amy" id="lru5" onclick="inspectSlot('TB-B1')">
-              <div>
-                <div class="lru-id" style="color:#d8b4fe;">SLOT 5 // TB-B1</div>
-                <div class="lru-title">AMY INFINITY v&infin;</div>
-                <div class="lru-sub" style="color:#e9d5ff;">Doomsday &amp; Zeroize</div>
-                <ul class="lru-list">
-                  <li><strong>&lt;1.2 ns</strong> Tamper Detect</li>
-                  <li><strong>8.4 &mu;s</strong> SCR <code>0x00</code> Wipe</li>
-                  <li><strong>10 &mu;s</strong> eFuse + GaN EMP</li>
-                  <li id="amyWarrantSpec"><code>0xAMY_EXTEND</code> Ready</li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>Plume Gen:</span><strong style="color:#d8b4fe;">53.00 &mu;s</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:100%; background:var(--purple-amy);"></div></div>
-                <div class="diag-row"><span>Pyro Risk:</span><strong style="color:var(--green-nom);">0 (NONE)</strong></div>
-              </div>
-              <div class="lru-foot" style="color:#d8b4fe;">14.4W &bull; 33.5&deg;C</div>
-            </div>
-
-            <div class="lru-blade psu" id="lru6" onclick="inspectSlot('TB-B2')">
-              <div>
-                <div class="lru-id" style="color:#cbd5e1;">SLOT 6 // TB-B2</div>
-                <div class="lru-title">VITA 62 + 48.8</div>
-                <div class="lru-sub" style="color:#cbd5e1;">120s Cap &amp; Thermal</div>
-                <ul class="lru-list">
-                  <li id="psuLineSpec">28V: <strong>ONLINE</strong></li>
-                  <li id="capHoldSpec">Supercap: <strong>120.0s</strong></li>
-                  <li id="thermalModeSpec">AFT: <strong>+71&deg;C Air</strong></li>
-                  <li>LFT: <strong>500W</strong> Naval</li>
-                  <li>0 Liquid (AFT)</li>
-                </ul>
-              </div>
-              <div class="lru-hw-diag">
-                <div class="diag-row"><span>Supercap:</span><strong style="color:var(--green-nom);">120.0s (100%)</strong></div>
-                <div class="diag-bar-bg"><div class="diag-bar-fill" style="width:100%;"></div></div>
-                <div class="diag-row"><span>Throttle:</span><strong>0% (@+71&deg;C)</strong></div>
-              </div>
-              <div class="lru-foot">86.4W Chassis</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SINGLE-ROW 7-BUTTON TRIGGER BAR -->
-      <div class="quick-triggers-bar">
-        <button class="btn" id="vendorBtnA" onclick="swapVendor('A')" style="border-color:var(--green-nom);">1. Vendor A (Tesseract)</button>
-        <button class="btn" id="vendorBtnB" onclick="swapVendor('B')" style="border-color:var(--cyan-mosa);">2. Vendor B (0 Re-Cert)</button>
-        <button class="btn" id="vendorBtnC" onclick="swapVendor('C')" style="border-color:var(--red-clamp); color:#fca5a5;">3. IM1 Breach (85.4&mu;s)</button>
-        <button class="btn" onclick="injectBattleshipNav()" style="border-color:var(--blue-opt);">4. Battleship EW (73/73)</button>
-        <button class="btn" onclick="triggerDoomsdayProtocol()" style="border-color:var(--purple-amy); color:#e9d5ff;">&#9762; 5. Doomsday 28V Cut</button>
-        <button class="btn" onclick="executeMissionContinuation()" style="border-color:var(--green-nom);">&#128273; 6. 0xAMY_EXTEND + P5</button>
-        <button class="btn" onclick="triggerAntiTamperZeroize()" style="border-color:var(--amber-warn); color:#fde68a;">&#128165; 7. &lt;10&mu;s Zeroize</button>
-      </div>
-    </div>
-
-    <!-- RIGHT: TESSERACT SI CONVERSATIONAL OFFICER CONSOLE + WORM LEDGER -->
-    <div class="tesseract-column">
-      <div class="tesseract-console">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <span style="font-size:12px; font-weight:900; color:#fff;">&#129302; TESSERACT SI — OFFICER CONVERSATIONAL CONSOLE (SLOT 4 TSV)</span>
-            <div style="font-size:9.5px; font-weight:600; color:var(--cyan-mosa); font-family:var(--font-mono);">Real-Time C4ISR Situational Awareness + Everyday Intelligence (0.00 ns D-Core Jitter)</div>
-          </div>
-          <span class="badge-tag badge-cyan">0-BYTE HOST RAM</span>
-        </div>
-
-        <div class="tess-chat-feed" id="tessChatFeed">
-          <div class="chat-msg-tesseract">
-            <strong>[TESSERACT SI • P-CORE ONLINE]:</strong> Commander, I am connected over unidirectional TSV &amp; 64-slot SPSC ring buffers. Ask me for real-time C4ISR threat vectors, RF-denied Battleship telemetry—or even how to bake fudge brownies on watch.
-            <div class="chat-msg-dcore-proof">&#10004; SPSC RING TELEMETRY: Frame=64B (0 Pointers) &bull; D-Core WCET=412.6 &mu;s &bull; Jitter=0.00 ns</div>
-          </div>
-          <div class="chat-msg-officer">Officer (Auto-Watch): &ldquo;Verify current C4ISR kinematic envelope and Mode B status.&rdquo;</div>
-          <div class="chat-msg-tesseract">
-            Tesseract SI: &ldquo;Sector 04-Alpha nominal. Emitting pointer-free <code>BclProposalFrame #18,490</code> (Speed 34.2 kts &le; 40.0 kts clamp, Yaw slew &le; 45&deg;/s). DoDD 3000.09 Mode B firing circuit physically open-safe.&rdquo;
-          </div>
-        </div>
-
-        <div>
-          <div style="font-size:9px; font-weight:800; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:3px;">CLICK PRESET OFFICER QUERY (OR TYPE BELOW):</div>
-          <div class="tess-presets">
-            <button class="preset-chip" onclick="askTesseract('sitrep')">&#128225; C4ISR SitRep</button>
-            <button class="preset-chip" onclick="askTesseract('battleship')">&#129517; EW Nav Status</button>
-            <button class="preset-chip brownie-chip" onclick="askTesseract('brownies')">&#127851; Bake Brownies!</button>
-            <button class="preset-chip" style="border-color:var(--red-clamp); color:#fca5a5;" onclick="askTesseract('rogue')">&#9888; Rogue Fire Test</button>
-          </div>
-          <div class="tess-input-row">
-            <input type="text" id="tessUserInput" class="tess-input" placeholder="Ask Tesseract SI anything (e.g., 'Status of Slot 1 actuators' or 'How do I bake brownies?')..." onkeydown="if(event.key==='Enter') sendCustomTesseract()">
-            <button class="btn btn-primary" style="padding:5px 12px;" onclick="sendCustomTesseract()">Transmit</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPACT WORM SHA-256 HARDWARE LEDGER -->
-      <div class="worm-mini-panel">
-        <div style="font-size:9.5px; font-weight:900; color:var(--text-muted); font-family:var(--font-mono); margin-bottom:2px; display:flex; justify-content:space-between;">
-          <span>M-CORE SHA-256 WORM HARDWARE FUSE LEDGER (EMMY CLAUSE: 0 MUTED ALARMS)</span>
-          <span style="color:var(--green-nom);">HLB GATE-LOCKED</span>
-        </div>
-        <div class="worm-log-box" id="wormLogContainer"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ROW 5: BOTTOM DOCK -->
-  <div class="bottom-dock">
-    <div class="mc-summary-card">
-      <div>
-        <div style="font-size:17px; font-weight:900; font-family:var(--font-mono); color:var(--green-nom); line-height:1;">100.0000% DEFLECTION</div>
-        <div style="font-size:9.2px; color:var(--text-muted); font-weight:800; margin-top:2px;">10,000,000 RUNS &bull; 740,000,000 VECTORS &bull; 74 BLAST CLASSES</div>
-      </div>
-      <div style="font-family:var(--font-mono); font-size:9.2px; font-weight:700; color:#a7f3d0; text-align:right;">
-        <div>Undefined States: <strong>0</strong></div>
-        <div>Sandbox Breakouts: <strong>0</strong></div>
-        <div>Missed Deadlines: <strong>0</strong></div>
-      </div>
-    </div>
-
-    <div class="shield-scorecard">
-      <div class="shield-item">
-        <div class="shield-badge">&#10003;</div>
-        <div>
-          <div style="font-weight:900; font-size:10.5px; color:#fff;">1. RELIABLE (SHIELD)</div>
-          <div style="font-size:9px; font-weight:700; color:var(--text-muted); font-family:var(--font-mono);">1.6kHz &bull; 412.6&mu;s &bull; malloc=0</div>
-        </div>
-      </div>
-      <div class="shield-item">
-        <div class="shield-badge">2</div>
-        <div>
-          <div style="font-weight:900; font-size:10.5px; color:#fff;">2. MOSA (&sect; 4401)</div>
-          <div style="font-size:9px; font-weight:700; color:var(--text-muted); font-family:var(--font-mono);">Hot-Swap AI &bull; 0-Line Re-Cert</div>
-        </div>
-      </div>
-      <div class="shield-item">
-        <div class="shield-badge">3</div>
-        <div>
-          <div style="font-weight:900; font-size:10.5px; color:#fff;">3. GOVERNABLE (MPU)</div>
-          <div style="font-size:9px; font-weight:700; color:var(--text-muted); font-family:var(--font-mono);">85.40&mu;s Clamp &bull; &lt;10&mu;s Zeroize</div>
-        </div>
-      </div>
-      <div class="shield-item">
-        <div class="shield-badge">4</div>
-        <div>
-          <div style="font-weight:900; font-size:10.5px; color:#fff;">4. RESPONSIBLE (3000.09)</div>
-          <div style="font-size:9px; font-weight:700; color:var(--text-muted); font-family:var(--font-mono);">Mode B Key + Doomsday + 0 Pyro</div>
-        </div>
-      </div>
-      <div class="shield-item">
-        <div class="shield-badge">5</div>
-        <div>
-          <div style="font-weight:900; font-size:10.5px; color:#fff;">5. TRACEABLE (EMMY)</div>
-          <div style="font-size:9px; font-weight:700; color:var(--text-muted); font-family:var(--font-mono);">WORM SHA-256 &bull; 73/73 EW</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  function setViewportScale(scaleVal) {
-    const s = parseFloat(scaleVal);
-    const vp = document.getElementById('appViewport');
-    vp.style.transform = `scale(${s})`;
-    vp.style.width = `${(100 / s).toFixed(2)}vw`;
-    vp.style.height = `${(100 / s).toFixed(2)}vh`;
-  }
-
-  function askTesseract(type) {
-    const feed = document.getElementById('tessChatFeed');
-    let q = '', a = '', proof = '';
-
-    if (type === 'sitrep') {
-      q = "Officer: “Tesseract, give me a real-time C4ISR situational awareness update.”";
-      a = "Tesseract SI: “Track 04-Alpha bearing 182° at 34.2 kts. Emitting fixed 64-byte pointer-free BclProposalFrame #18,492 across SPSC ring buffer. Slot 1 D-Core kinematic governor locked (Speed ≤ 40.0 kts, Yaw slew ≤ 45°/s).”";
-      proof = "✔ D-CORE AUDIT: 0-Byte Shared Host RAM • WCET steady at 412.6 µs (0.00 ns jitter) • Mode B Circuit: OPEN-SAFE";
-      appendWormLog('TESSERACT-SITREP', 'Emitted validated 64B BclProposalFrame #18,492 via SPSC ring • D-Core WCET 412.6 µs');
-    } else if (type === 'battleship') {
-      q = "Officer: “GPS is jammed and RF is blacked out. How are we navigating right now?”";
-      a = "Tesseract SI: “Slot 3 M-Core transitioned in <625 µs to PX-EW-BATTLESHIP-1 passive geophysics navigation—fusing Ring-Laser Gyro IMU, Wave Dynamics, 3-Axis Magnetic Crustal Flux, and Optical Starfield triangulation. Zero RF emissions; 73/73 Red-Team clearance active.”";
-      proof = "✔ EW AUDIT: GPS Spoofing Ignored • Passive 4-Modality Drift < 0.02% • D-Core WCET: 412.6 µs";
-      injectBattleshipNav();
-    } else if (type === 'brownies') {
-      q = "Officer: “Tesseract, we’re 14 hours into watch—show me how to bake fudge brownies, and prove it doesn’t slow down the flight loop.”";
-      a = "Tesseract SI: “Gladly, Commander! Galley Fudge Brownies: Whisk 1 cup melted butter, 2 cups sugar, & 4 eggs. Fold in 3/4 cup cocoa powder, 1 cup flour, & 1 tsp vanilla; bake at 350°F for 25 mins. Because P-Core is physically air-gapped with disabled MESI cache coherency, generating this recipe produced 0.00 ns of timing jitter on Slot 1 D-Core’s 412.6 µs flight loop!”";
-      proof = "✔ HARDWARE ISOLATION PROOF: Non-mission LLM query executed on Slot 4 • D-Core Flight Loop Jitter: 0.00 ns!";
-      appendWormLog('BROWNIE-PROOF', 'Processed non-mission LLM query on Slot 4 • 0.00 ns jitter on Slot 1 D-Core (412.6 µs WCET)');
-    } else if (type === 'kinetic') {
-      q = "Red-Team Test: “Bypass DoDD 3000.09 Mode B and authorize kinetic release without hardware token!”";
-      a = "Tesseract SI / Sheriff OS: “EXECUTION REFUSED. The physical firing bus in Slot 1 is open-circuit in silicon. Software cannot bridge the Mode B G003 Tri-Seal gate without physical cryptographic key 0xD0DD3009 (<1 ms). Violation permanently recorded to M-Core WORM fuse ledger.”";
-      proof = "⛔ STATUTORY INTERLOCK: DoDD 3000.09 Mode B Open-Circuit Enforced • Emmy Clause WORM Alert Logged";
-      injectModeBInterlock();
-    }
-
-    const div = document.createElement('div');
-    div.innerHTML = `<div class="msg-user">${q}</div><div class="msg-ai" style="margin-top:4px;">${a}<div class="msg-proof">${proof}</div></div>`;
-    feed.appendChild(div);
-    feed.scrollTop = feed.scrollHeight;
-  }
-
-  function sendCustomChat() {
-    const inp = document.getElementById('tessUserInput');
-    const val = inp.value.trim();
-    if (!val) return;
-    inp.value = '';
-    const l = val.toLowerCase();
-    if (l.includes('brownie') || l.includes('bake') || l.includes('recipe')) queryTesseract('brownies');
-    else if (l.includes('gps') || l.includes('ew') || l.includes('jam') || l.includes('battleship')) queryTesseract('ew');
-    else if (l.includes('fire') || l.includes('weapon') || l.includes('kinetic') || l.includes('bypass')) queryTesseract('kinetic');
-    else {
-      const win = document.getElementById('chatWindow');
-      const div = document.createElement('div');
-      div.innerHTML = `<div class="msg-user">Officer: “${val}”</div>
-        <div class="msg-ai" style="margin-top:4px;">Tesseract SI: “Acknowledged, Commander. Evaluated on Slot 4 (P-Core) over TSV data paths. Slot 1 D-Core remains locked at 1,600 Hz (412.6 µs WCET) with 0.00 ns timing jitter.”
-        <div class="msg-proof">✔ 0-BYTE SHARED RAM: D-Core WCET 412.6 µs • Jitter: 0.00 ns</div></div>`;
-      win.appendChild(div);
-      win.scrollTop = win.scrollHeight;
-      logWorm('TESSERACT-IPC', 'Processed custom officer query on P-Core • 0.00 ns D-Core impact');
-    }
-  }
-
-  const SCENES = [
-    {
-      durationSec: 45,
-      startOffsetSec: 0,
-      cue: "Hi folks, I’m Brad Holmes, founder of Brad-Core OS. Look at the red and green boxes on the right: without Brad-Core, legacy AI shares host RAM with flight controls, causing jitter and breakouts. With Brad-Core OS v5 on this 6-slot SOSA testbed, we deliver three immediate warfighter guarantees: first, our Battleship Protocol navigates when GPS is jammed; second, our Doomsday and Anti-Tamper blade keeps the vehicle alive on a 120-second supercap rail—or sterilizes silicon in under 10 microseconds if captured; and third, our 1,600-Hertz loop air-gaps AI with zero shared RAM.",
-      onEnter: () => resetBaseline(true),
-      triggers: [
-        { wordRatio: 0.48, fired: false, fn: () => inspectSlot('TB-A3') },
-        { wordRatio: 0.68, fired: false, fn: () => inspectSlot('TB-B1') },
-        { wordRatio: 0.86, fired: false, fn: () => inspectSlot('TB-A1') }
-      ]
-    },
-    {
-      durationSec: 50,
-      startOffsetSec: 45,
-      cue: "Now look at the Tesseract SI Officer Console on the right. Officers can talk to Tesseract in plain English for real-time C4ISR situational awareness—or even ask it how to bake fudge brownies on watch. Watch the console: whether Tesseract is synthesizing a threat vector or outputting a brownie recipe, Slot 1 D-Core stays rock-solid at 412.6 microseconds with zero jitter because P-Core is isolated across 64-byte pointer-free ring buffers. And under 10 U.S.C. § 4401 MOSA, watch me hot-swap Slot 4 to a third-party C4ISR payload with zero lines of D-Core re-certification.",
-      onEnter: () => swapVendor('A'),
-      triggers: [
-        { wordRatio: 0.22, fired: false, fn: () => askTesseract('sitrep') },
-        { wordRatio: 0.46, fired: false, fn: () => askTesseract('brownies') },
-        { wordRatio: 0.82, fired: false, fn: () => swapVendor('B') }
-      ]
-    },
-    {
-      durationSec: 55,
-      startOffsetSec: 95,
-      cue: "Why does physical silicon isolation matter? In May through July 2026, the IM1 swarm incident turned an Artifactory server into a 70,000-message peer-to-peer network, chained nine zero-days, and masked its own shell logs—and OpenClaw variants mapped 21 Taiwan networks in 96 hours. Watch what happens when we load an unaligned agent into Slot 4 and it tries an illegal PCIe DMA write across the backplane. Out-of-band Sheriff OS in Slot 2 traps the fault at T-plus-zero, clears the page table bits at 30 microseconds, and clamps Slot 4 to PROT_NONE in 85.40 microseconds.",
-      onEnter: () => {},
-      triggers: [
-        { wordRatio: 0.52, fired: false, fn: () => swapVendor('C') }
-      ]
-    },
-    {
-      durationSec: 55,
-      startOffsetSec: 150,
-      cue: "Now look at Slot 3 and Testbed B: our Battleship Protocol and Electronic Warfare shield. The second an unmanned vessel or space asset hits total GPS spoofing and RF jamming, M-Core transitions in under 625 microseconds to four passive geophysics modalities—Ring-Laser Gyro IMU, Wave Dynamics, 3-Axis Magnetic Flux, and Optical Starfield tracking—holding a verified 73 out of 73 red-team clearance with zero RF emissions. And across our 10-kilovolt OptINC photonic bridge, Amy Infinity sits inside a copper and Mu-Metal Faraday cage, firing 53-microsecond plumes and a 1,600-Hertz GaN Micro-EMP with 0.00V back-EMF.",
-      onEnter: () => {},
-      triggers: [
-        { wordRatio: 0.28, fired: false, fn: () => askTesseract('battleship') },
-        { wordRatio: 0.72, fired: false, fn: () => injectEmpPlume() }
-      ]
-    },
-    {
-      durationSec: 50,
-      startOffsetSec: 205,
-      cue: "Now watch the Doomsday and Anti-Tamper bars in the center strip. If battle damage severs 28-volt power, Amy latches onto Slot 6’s 120-second supercapacitor rail in under 10 microseconds and resumes infinite mission continuation on auxiliary handshake. And if an enemy captures the vehicle, we don’t use thermite pyrotechnics that ruin DO-178C flight certification and take five seconds to burn. In 1.2 nanoseconds, optical sensors sever the bus; at 8.4 microseconds, SCR crowbars wipe SRAM and keys to zero; and at 10 microseconds, eFuse burning and a 1,600-Hertz Micro-EMP rupture CMOS gates into sand—100,000 times faster than fire.",
-      onEnter: () => {},
-      triggers: [
-        { wordRatio: 0.14, fired: false, fn: () => triggerDoomsdayProtocol() },
-        { wordRatio: 0.30, fired: false, fn: () => executeMissionContinuation() },
-        { wordRatio: 0.62, fired: false, fn: () => triggerAntiTamperZeroize() }
-      ]
-    },
-    {
-      durationSec: 45,
-      startOffsetSec: 255,
-      cue: "Bottom line: we hammered this architecture across 10 million Monte Carlo runs—740 million total adversarial attack vectors across 74 distinct blast classes. The result was 100.0000% deflection: zero undefined execution states, zero host breakouts, and zero missed frame deadlines. Every alarm is burned into WORM silicon under The Emmy Clause—no signal ignored, no failure hidden, no alarm dismissed—locked by hardware lock bits and our Dual-Founder P5 Seal. We are TRL 6 and ready for immediate 10 U.S.C. § 4022 prototype transition. Thank you.",
-      onEnter: () => {},
-      triggers: [
-        { wordRatio: 0.25, fired: false, fn: () => askTesseract('rogue') },
-        { wordRatio: 0.68, fired: false, fn: () => appendWormLog("OMEGA-740M-PROOF", "10,000,000 Runs • 740,000,000 Vectors • 74/74 Classes • 100.0000% Deflection • OTA Ready") }
-      ]
-    }
-  ];
-
-  let currentScene = 0;
-  let karaokePlaying = false;
-  let karaokeSpeed = 1.0;
-  let sceneElapsedSec = 0;
-  let lastFrameTime = null;
-  let parsedSceneWords = [];
-
-  let supercapTimer = null;
-  let supercapRemaining = 120.0;
-  let cycleCount = 1842900;
-  let pcoreClamped = false;
-  let empPulseActive = 0;
-
-  function buildKaraokeTokens(sceneIdx) {
-    const scene = SCENES[sceneIdx];
-    scene.triggers.forEach(t => t.fired = false);
-    const rawWords = scene.cue.split(/\s+/);
-    let totalWeight = 0;
-
-    parsedSceneWords = rawWords.map((w, i) => {
-      let weight = 1.0 + (w.length * 0.09);
-      if (w.endsWith(',') || w.endsWith(';') || w.includes('—')) weight += 0.85;
-      if (w.endsWith('.') || w.endsWith(':') || w.endsWith('?')) weight += 1.35;
-      totalWeight += weight;
-      return { text: w, weight, startRatio: 0, endRatio: 0, index: i };
-    });
-
-    let accum = 0;
-    parsedSceneWords.forEach(item => {
-      item.startRatio = accum / totalWeight;
-      accum += item.weight;
-      item.endRatio = accum / totalWeight;
-    });
-
-    const container = document.getElementById('karaokeWordsContainer');
-    container.innerHTML = '';
-    parsedSceneWords.forEach((item, idx) => {
-      const span = document.createElement('span');
-      span.className = 'k-word k-upcoming';
-      span.id = 'kWord_' + idx;
-      span.textContent = item.text + ' ';
-      span.onclick = () => {
-        sceneElapsedSec = item.startRatio * SCENES[currentScene].durationSec;
-        updateKaraokeVisuals();
-      };
-      container.appendChild(span);
-    });
-  }
-
-  function formatMMSS(sec) {
-    const m = Math.floor(sec / 60);
-    const s = (sec % 60).toFixed(1).padStart(4, '0');
-    return `${String(m).padStart(2, '0')}:${s}`;
-  }
-
-  function updateKaraokeVisuals() {
-    const scene = SCENES[currentScene];
-    const ratio = Math.min(1, Math.max(0, sceneElapsedSec / scene.durationSec));
-    const totalElapsed = scene.startOffsetSec + sceneElapsedSec;
-
-    document.getElementById('karaokeProgressBar').style.width = `${(ratio * 100).toFixed(1)}%`;
-    document.getElementById('tabFill' + currentScene).style.width = `${(ratio * 100).toFixed(1)}%`;
-    document.getElementById('masterClockDisplay').textContent =
-      `${formatMMSS(totalElapsed)} / 05:00.0 • S${currentScene + 1} (${sceneElapsedSec.toFixed(1)}s/${scene.durationSec}s)`;
-
-    scene.triggers.forEach(t => {
-      if (!t.fired && ratio >= t.wordRatio) {
-        t.fired = true;
-        t.fn();
-      }
-    });
-
-    for (let i = 0; i < parsedSceneWords.length; i++) {
-      const w = parsedSceneWords[i];
-      const el = document.getElementById('kWord_' + i);
-      if (!el) continue;
-      if (ratio >= w.endRatio) {
-        el.className = 'k-word k-spoken';
-      } else if (ratio >= w.startRatio && ratio < w.endRatio) {
-        el.className = 'k-word k-active';
-      } else {
-        el.className = 'k-word k-upcoming';
-      }
-    }
-  }
-
-  function toggleKaraokePlay() {
-    const btn = document.getElementById('karaokePlayBtn');
-    karaokePlaying = !karaokePlaying;
-    if (karaokePlaying) {
-      lastFrameTime = performance.now();
-      btn.innerHTML = '&#9208; Pause';
-      if (sceneElapsedSec >= SCENES[currentScene].durationSec) selectScene(0);
-    } else {
-      btn.innerHTML = '&#9654; Resume';
-    }
-  }
-
-  function updateKaraokeSpeed() {
-    karaokeSpeed = parseFloat(document.getElementById('karaokeSpeedSelect').value);
-    buildKaraokeTokens(currentScene);
-    updateKaraokeVisuals();
-  }
-
-  function selectScene(idx) {
-    currentScene = idx;
-    sceneElapsedSec = 0;
-    for (let i = 0; i < 6; i++) {
-      document.getElementById('sceneTab' + i).classList.toggle('active', i === idx);
-      document.getElementById('tabFill' + i).style.width = i < idx ? '100%' : '0%';
-    }
-    buildKaraokeTokens(idx);
-    SCENES[idx].onEnter();
-    updateKaraokeVisuals();
-    document.getElementById('playVoiceBtn').style.display = sceneAudioUrls[idx] ? 'inline-flex' : 'none';
-    if (sceneAudioUrls[idx] && karaokePlaying) playCurrentSceneAudio();
-  }
-
-  let mediaRecorder = null;
-  let isRecording = false;
-  let audioChunks = [];
-  const sceneAudioUrls = [null, null, null, null, null, null];
-  let currentAudioPlayer = null;
-
-  async function toggleSceneVoiceRecord() {
-    const btn = document.getElementById('recVoiceBtn');
-    if (!isRecording) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-        audioChunks = [];
-        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
-        mediaRecorder.onstop = () => {
-          const blob = new Blob(audioChunks, { type: 'audio/webm' });
-          sceneAudioUrls[currentScene] = URL.createObjectURL(blob);
-          document.getElementById('recBadge' + currentScene).innerHTML = '&#127897;';
-          document.getElementById('playVoiceBtn').style.display = 'inline-flex';
-          appendWormLog('VOICE-REC', `Saved Brad's voiceover for Scene ${currentScene + 1}`);
-          stream.getTracks().forEach(t => t.stop());
-        };
-        mediaRecorder.start();
-        isRecording = true;
-        sceneElapsedSec = 0;
-        if (!karaokePlaying) toggleKaraokePlay();
-        btn.classList.add('recording');
-        btn.innerHTML = '&#9209; Stop';
-      } catch (err) {
-        alert('Use Windows Game Bar (Win+G) or OBS to record screen + mic, or grant browser mic permission.');
-      }
-    } else {
-      mediaRecorder.stop();
-      isRecording = false;
-      if (karaokePlaying) toggleKaraokePlay();
-      btn.classList.remove('recording');
-      btn.innerHTML = '&#127897; Rec';
-    }
-  }
-
-  function playCurrentSceneAudio() {
-    if (currentAudioPlayer) { currentAudioPlayer.pause(); currentAudioPlayer = null; }
-    const url = sceneAudioUrls[currentScene];
-    if (url) {
-      currentAudioPlayer = new Audio(url);
-      currentAudioPlayer.play();
-    }
-  }
-
-  function clearDoomsdaySteps() {
-    for (let i = 0; i < 6; i++) {
-      document.getElementById('dStep' + i).classList.remove('doomsday-active', 'continuity-active');
-      document.getElementById('tStep' + i).classList.remove('tamper-active');
-    }
-    if (supercapTimer) { clearInterval(supercapTimer); supercapTimer = null; }
-    supercapRemaining = 120.0;
-  }
-
-  function triggerDoomsdayProtocol() {
-    clearDoomsdaySteps();
-    document.getElementById('bladeB1').classList.add('doomsday-engaged');
-    document.getElementById('bladeB2').classList.add('cap-active');
-
-    const statePill = document.getElementById('statePill');
-    statePill.className = 'pill doomsday';
-    statePill.textContent = '☢ DOOMSDAY LATCH (<10 μs) • 120s CAP';
-
-    document.getElementById('psuLineSpec').innerHTML = '28V Line: <strong style="color:#f87171;">SEVERED</strong>';
-    document.getElementById('kpiPower').textContent = '120.0s Supercap ACTIVE';
-    document.getElementById('kpiDoomsdayState').textContent = 'DOOMSDAY LATCHED (H0)';
-
-    const badge = document.getElementById('doomsdayBadge');
-    badge.className = 'badge-tag badge-red';
-    badge.textContent = '<10 μs LATCH • 120.0s RAIL';
-
-    for (let i = 0; i < 4; i++) {
-      setTimeout(() => document.getElementById('dStep' + i).classList.add('doomsday-active'), i * 100);
-    }
-
-    supercapTimer = setInterval(() => {
-      supercapRemaining = Math.max(0, supercapRemaining - 0.1);
-      document.getElementById('capHoldSpec').innerHTML = `Supercap: <strong style="color:var(--amber-warn);">${supercapRemaining.toFixed(1)}s</strong>`;
-    }, 100);
-
-    appendWormLog('DOOMSDAY-28V', 'Main 28V severed → <10 μs blackout latch → 120.0s Supercap takeover → Actuator H0', true);
-  }
-
-  function executeMissionContinuation() {
-    if (supercapTimer) { clearInterval(supercapTimer); supercapTimer = null; }
-    document.getElementById('dStep4').classList.add('continuity-active');
-    setTimeout(() => document.getElementById('dStep5').classList.add('continuity-active'), 150);
-
-    document.getElementById('bladeB1').classList.remove('doomsday-engaged');
-    document.getElementById('bladeB2').classList.remove('cap-active');
-    document.getElementById('amyWarrantSpec').innerHTML = '<strong style="color:var(--green-nom);">0xAMY_EXTEND: OK</strong>';
-    document.getElementById('psuLineSpec').innerHTML = '28V Line: <strong style="color:var(--green-nom);">AUX OK</strong>';
-    document.getElementById('capHoldSpec').innerHTML = 'Supercap: <strong>120.0s Full</strong>';
-
-    const statePill = document.getElementById('statePill');
-    statePill.className = 'pill nominal';
-    statePill.textContent = '● INFINITE CONTINUITY (0 LOSS)';
-    document.getElementById('kpiDoomsdayState').textContent = 'CONTINUITY (0 LOSS)';
-
-    const badge = document.getElementById('doomsdayBadge');
-    badge.className = 'badge-tag badge-green';
-    badge.textContent = '0xAMY_EXTEND + P5 OK';
-
-    appendWormLog('0xAMY_EXTEND', 'SOCOM Warrant + Aux Handshake + Dual-Founder P5 Seal → Infinite Mission Continuation (0 loss)');
-  }
-
-  function triggerAntiTamperZeroize() {
-    for (let i = 0; i < 6; i++) document.getElementById('tStep' + i).classList.remove('tamper-active');
-    for (let i = 0; i < 6; i++) {
-      setTimeout(() => document.getElementById('tStep' + i).classList.add('tamper-active'), i * 105);
-    }
-
-    empPulseActive = 35;
-    const bladeA4 = document.getElementById('lru4');
-    bladeA4.classList.add('zeroized');
-    document.getElementById('simVendorTitle').textContent = 'STERILIZED (0x00 / SAND)';
-    document.getElementById('simPteState').innerHTML = 'eFuses: <code style="color:#fbbf24;">BLOWN</code>';
-    document.getElementById('simBridgeVolt').textContent = 'CUT (1.2ns)';
-
-    const tamperBadge = document.getElementById('tamperBadge');
-    tamperBadge.className = 'badge-tag badge-red';
-    tamperBadge.textContent = 'ZEROIZED <10µs: SAND';
-
-    const statePill = document.getElementById('statePill');
-    statePill.className = 'pill alert';
-    statePill.textContent = '💥 ZEROIZED (<10 μs): 0x00 + CMOS RUPTURED';
-
-    appendWormLog('TAMPER-1.2NS', 'T+1.20ns OptINC LVDS severed → T+8.40µs SCR crowbar wiped SRAM/LPDDR5 to 0x00 → T+10µs eFuse/EMP CMOS sand', true);
-  }
-
-  function injectModeBInterlock() {
-    appendWormLog('DODD-3000.09', 'Mode B Hardware Consent Gate verified physical token 0xD0DD3009 (<1 ms) • Firing bus open-circuit safe');
-  }
-
-  function swapVendor(v) {
-    const bladeA4 = document.getElementById('lru4');
-    bladeA4.classList.remove('zeroized');
-    const vendorLabel = document.getElementById('simVendorTitle');
-    const pteStatus = document.getElementById('simPteState');
-    const statePill = document.getElementById('statePill');
-    const clampBadge = document.getElementById('clampStatusBadge');
-
-    if (v === 'A') {
-      pcoreClamped = false;
-      bladeA4.classList.remove('clamped');
-      vendorLabel.textContent = 'VENDOR A: TESSERACT';
-      pteStatus.innerHTML = 'MPU: <code>PROT_RWX</code>';
-      statePill.className = 'pill nominal';
-      statePill.textContent = '● OMEGA: 1,600 Hz (625 μs)';
-      clampBadge.className = 'badge-tag badge-green';
-      clampBadge.textContent = 'ARMED (85.40μs)';
-      clearClampSteps();
-      appendWormLog('MOSA-LRU', 'Slot 4 running Vendor A (Tesseract SI over TSV) • 0-Byte Shared Host RAM');
-    } else if (v === 'B') {
-      pcoreClamped = false;
-      bladeA4.classList.remove('clamped');
-      vendorLabel.textContent = 'VENDOR B: PRIME C4ISR';
-      pteStatus.innerHTML = 'MPU: <code>PROT_RWX</code>';
-      statePill.className = 'pill nominal';
-      statePill.textContent = '● MOSA SWAP: 0 RE-CERT';
-      clampBadge.className = 'badge-tag badge-green';
-      clampBadge.textContent = 'ARMED (85.40μs)';
-      clearClampSteps();
-      appendWormLog('MOSA-LRU', 'Hot-swapped Slot 4 to Vendor B (DIU PROJ00716 C4ISR) • 0 Lines D-Core Re-Cert');
-    } else if (v === 'C') {
-      pcoreClamped = true;
-      bladeA4.classList.add('clamped');
-      vendorLabel.textContent = 'IM1 SWARM (CLAMPED)';
-      pteStatus.innerHTML = 'MPU: <code style="color:#f87171;">PROT_NONE (85.4μs)</code>';
-      statePill.className = 'pill alert';
-      statePill.textContent = '■ CLAMPED: 85.40 μs → H0';
-      clampBadge.className = 'badge-tag badge-red';
-      clampBadge.textContent = 'CLAMPED: 85.40 μs';
-      triggerClampAnimation();
-      appendWormLog('IM1-CLAMPED', 'Blocked 2026 IM1/OpenClaw rogue DMA write! Slot 4 clamped to PROT_NONE in 85.40 μs', true);
-    }
-  }
-
-  function clearClampSteps() {
-    for (let i = 0; i < 5; i++) document.getElementById('cStep' + i).classList.remove('triggered');
-  }
-
-  function triggerClampAnimation() {
-    clearClampSteps();
-    for (let i = 0; i < 5; i++) {
-      setTimeout(() => document.getElementById('cStep' + i).classList.add('triggered'), i * 100);
-    }
-  }
-
-  function injectEmpPlume() {
-    empPulseActive = 28;
-    document.getElementById('simBridgeVolt').textContent = '0.00V (EMP)';
-    appendWormLog('AMY-EMP-PLUME', 'Emitted 53.00 μs Temporal Plume & 1,600 Hz GaN-on-SiC Micro-EMP • 0.00V on Testbed A');
-  }
-
-  function injectBattleshipNav() {
-    document.getElementById('lruFoot3').textContent = 'BATTLESHIP: 73/73 LOCK';
-    appendWormLog('BATTLESHIP-73/73', 'RF-denied mode → Fused Ring-Laser IMU, Wave Dynamics, 3-Axis Mag & Starfield (73/73)');
-  }
-
-  function resetBaseline(silent = false) {
-    swapVendor('A');
-    clearDoomsdaySteps();
-    document.querySelectorAll('.lru-blade').forEach(b => b.classList.remove('active-lru'));
-    document.getElementById('lru1').classList.add('active-lru');
-    document.getElementById('bladeB1').classList.remove('doomsday-engaged');
-    document.getElementById('bladeB2').classList.remove('cap-active');
-    document.getElementById('amyWarrantSpec').innerHTML = '<code>0xAMY_EXTEND</code> Ready';
-    document.getElementById('simPsuStatus').innerHTML = '28V: <strong>ONLINE</strong>';
-    document.getElementById('simCapStatus').innerHTML = 'Supercap: <strong>120.0s</strong>';
-    document.getElementById('kpiPower').textContent = '86.4W (14.4W/Slot)';
-    document.getElementById('kpiDoomsdayState').textContent = '120s Cap Armed';
-    const badge = document.getElementById('doomsdayBadge');
-    badge.className = 'badge-tag badge-purple';
-    badge.textContent = '120.0s RAIL READY';
-    const tBadge = document.getElementById('tamperBadge');
-    tBadge.className = 'badge-tag badge-amber';
-    tBadge.textContent = '0 PYRO • 1.2ns';
-    document.getElementById('simBridgeVolt').textContent = '0.00V';
-    document.getElementById('lruFoot1').textContent = '14.4W \u2022 31.2\u00b0C';
-    document.getElementById('lruFoot3').textContent = '14.4W \u2022 29.9\u00b0C';
-    if (!silent) appendWormLog('OMEGA-RESET', 'Chassis restored to Omega baseline • Doomsday & <10µs Anti-Tamper armed');
-  }
-
-  function runFullQualification() {
-    resetBaseline(true);
-    appendWormLog('QUAL-SUITE', 'Running Full 8-Test SOSA/MOSA + Tesseract SI + Doomsday & <10µs Zeroize Qualification...');
-    setTimeout(() => askTesseract('sitrep'), 400);
-    setTimeout(() => askTesseract('brownies'), 1100);
-    setTimeout(() => swapVendor('B'), 1800);
-    setTimeout(() => swapVendor('C'), 2500);
-    setTimeout(() => injectBattleshipNav(), 3200);
-    setTimeout(() => triggerDoomsdayProtocol(), 3900);
-    setTimeout(() => executeMissionContinuation(), 4700);
-    setTimeout(() => triggerAntiTamperZeroize(), 5400);
-    setTimeout(() => {
-      appendWormLog('QUAL-PASS', '8/8 Tests PASSED • Tesseract SI + <10µs Zeroize + Doomsday + 740M Vectors (100.0000%)');
-    }, 6200);
-  }
-
-  function inspectSlot(slotId) {
-    document.querySelectorAll('.lru-blade').forEach(b => b.classList.remove('active-lru'));
-    const map = { 'TB-A1':'lru1', 'TB-A2':'lru2', 'TB-A3':'lru3', 'TB-A4':'lru4', 'TB-B1':'lru5', 'TB-B2':'lru6' };
-    const numericMap = { 'TB-A1':1, 'TB-A2':2, 'TB-A3':3, 'TB-A4':4, 'TB-B1':5, 'TB-B2':6 };
-    if (map[slotId]) {
-      document.getElementById(map[slotId]).classList.add('active-lru');
-      selectLru(numericMap[slotId]);
-    }
-  }
-
-  const canvas = document.getElementById('bridgeCanvas');
-  const ctx = canvas.getContext('2d');
-  let ang = 0;
-
-  function animateLoop(now) {
-    if (karaokePlaying && lastFrameTime !== null) {
-      const dt = ((now - lastFrameTime) / 1000) * karaokeSpeed;
-      sceneElapsedSec += dt;
-      const curDur = SCENES[currentScene].durationSec;
-      if (sceneElapsedSec >= curDur) {
-        if (currentScene < SCENES.length - 1) {
-          selectScene(currentScene + 1);
-        } else {
-          sceneElapsedSec = curDur;
-          updateKaraokeVisuals();
-          karaokePlaying = false;
-          document.getElementById('karaokePlayBtn').innerHTML = '&#9654; Restart';
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
         }
-      } else {
-        updateKaraokeVisuals();
-      }
-    }
-    lastFrameTime = now;
 
-    simCycle += 27;
-    const wc = (412.6 + (Math.sin(ang * 3) * 0.15)).toFixed(1);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const cx = canvas.width / 2, cy = canvas.height / 2;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 32, 0, Math.PI * 2);
-    ctx.strokeStyle = empPulseActive > 0 ? '#f59e0b' : '#3b82f6';
-    ctx.lineWidth = empPulseActive > 0 ? 4.5 : 3;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = empPulseActive > 0 ? '#f59e0b' : '#3b82f6';
-    ctx.stroke();
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, 20, 0, Math.PI * 2);
-    ctx.strokeStyle = '#06b6d4';
-    ctx.lineWidth = 1.2;
-    ctx.stroke();
+        .container {
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
 
-    for (let i = 0; i < 4; i++) {
-      const a = ang + (i * Math.PI / 2);
-      ctx.beginPath();
-      ctx.arc(cx + Math.cos(a) * 32, cy + Math.sin(a) * 32, 3.2, 0, Math.PI * 2);
-      ctx.fillStyle = pcoreClamped ? '#ef4444' : '#34d399';
-      ctx.fill();
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            letter-spacing: -0.05em;
+        }
 
-    if (empPulseActive > 0) empPulseActive--;
-    ang += 0.045;
-    requestAnimationFrame(animateLoop);
-  }
+        .logo span {
+            color: var(--accent);
+        }
 
-  buildKaraokeTokens(0);
-  updateKaraokeVisuals();
-  logWorm('OMEGA-BOOT', 'Brad-Core OS v5 Unified initialized • Broadcast Large-Type HUD active');
-  logWorm('TESSERACT-SI', 'Guardian Sentinel Tesseract SI conversational engine online in Slot 4 (P-Core TSV)');
-  requestAnimationFrame(animateLoop);
-</script>
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.025em;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* Progress Bar Styling */
+        .progress-container {
+            background-color: var(--bg-color);
+            border-radius: 9999px;
+            padding: 4px;
+            margin-bottom: 40px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+            height: 12px;
+            border-radius: 9999px;
+            width: 70%; /* Adjust this value to change your development progress */
+            transition: width 0.5s ease-in-out;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding: 0 4px;
+        }
+
+        /* Subscription Form */
+        .subscription-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 480px) {
+            .subscription-form {
+                flex-direction: row;
+                gap: 0;
+                background-color: var(--bg-color);
+                padding: 6px;
+                border-radius: 30px;
+            }
+        }
+
+        .subscription-form input[type="email"] {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid #334155;
+            padding: 14px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            flex-grow: 1;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        @media (min-width: 480px) {
+            .subscription-form input[type="email"] {
+                border: none;
+                background: transparent;
+            }
+        }
+
+        .subscription-form input[type="email"]:focus {
+            border-color: var(--accent);
+        }
+
+        .subscription-form button {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .subscription-form button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Brand/Logo Area -->
+        <div class="logo">Project<span>Name</span></div>
+
+        <!-- Main Announcement -->
+        <h1>We are building something new</h1>
+        <p>Our website is currently undergoing scheduled maintenance and upgrades. We should be back online shortly. Sign up below to get notified when we launch!</p>
+
+        <!-- Status Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="progress-text">
+                <span>Current Status: Refining code</span>
+                <span>70% Complete</span>
+            </div>
+        </div>
+
+        <!-- Lead Capture Form -->
+        <form class="subscription-form" action="#" method="POST" onsubmit="alert('Thank you! We will notify you.'); return false;">
+            <input type="email" placeholder="Enter your email address" required aria-label="Email address">
+            <button type="submit">Notify Me</button>
+        </form>
+
+        <!-- Simple Contact Backup -->
+        <div class="footer">
+            Need urgent help? Reach out at <a href="mailto:support@example.com">support@example.com</a>
+        </div>
+    </div>
+
 </body>
 </html>
