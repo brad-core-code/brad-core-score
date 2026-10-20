@@ -20,7 +20,6 @@
   },
   "sameAs": [
     "https://www.linkedin.com/in/brad-w-holmes-52aa11431/",
-    "https://x.com/BradCoreOS",
     "https://brad-core-os.itch.io/"
   ]
 }
@@ -585,15 +584,15 @@
     margin: 12px 0;
   }
 
-  /* INSTANT CREDENTIALED VAULT STYLES */
+  /* HARDENED CREDENTIALED VAULT STYLES */
   .vault-input {
     width: 100%;
     background: #040810;
     border: 1px solid var(--border-bright);
     color: #fff;
-    padding: 11px 14px;
+    padding: 10px 13px;
     border-radius: 6px;
-    font-size: 13.5px;
+    font-size: 13px;
     font-family: var(--font-sans);
     margin-bottom: 10px;
   }
@@ -662,7 +661,7 @@
       </ul>
       <div class="nav-status">
         <span class="status-pill" id="navStatusPill">● 1,600 Hz MONOTONIC LOCK</span>
-        <a href="#vault" class="btn btn-primary">&#128274; Instant Vault Unlock</a>
+        <a href="#vault" class="btn btn-primary">&#128274; Credentialed Vault</a>
       </div>
     </div>
   </nav>
@@ -687,7 +686,7 @@
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
         <a href="#testbed" class="btn btn-primary">&#9654; Launch Live SOSA/MOSA Hardware Twin</a>
         <a href="#antitamper" class="btn btn-amber">&#9889; Inspect &lt;10 &mu;s Solid-State Zeroization</a>
-        <a href="#vault" class="btn btn-cyan">&#128274; Verify Credentials &amp; Unlock Technical Vault</a>
+        <a href="#vault" class="btn btn-cyan">&#128274; .MIL / .GOV / Prime Technical Vault</a>
       </div>
 
       <!-- 6-PILLAR LIVE BENCHMARK STRIP -->
@@ -1246,12 +1245,12 @@
     </div>
   </section>
 
-  <!-- SECTION 6: DEFENSE ACQUISITION, OTA PATHWAYS & INSTANT-UNLOCK TECHNICAL VAULT -->
+  <!-- SECTION 6: DEFENSE ACQUISITION, OTA PATHWAYS & HARDENED TECHNICAL VAULT -->
   <section id="procurement">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">06 // Defense Acquisition, Capital &amp; Technical Vault</span>
-        <h2 class="section-title">Rapid OTA Contracting &amp; Instant-Unlock Credentialed Technical Vault</h2>
+        <span class="section-tag">06 // Defense Acquisition, Capital &amp; Restricted Technical Vault</span>
+        <h2 class="section-title">Rapid OTA Contracting &amp; Domain-Enforced Technical Vault</h2>
         <p class="section-desc">
           Brad-Core OS v5 is architected for frictionless government acquisition under <strong>10 U.S.C. &sect; 4022 OTA</strong> and immediate Prime Contractor Line-Replaceable Unit (LRU) integration, compressing procurement administrative lead times (PALT) from 18 months to under 45 days.
         </p>
@@ -1286,21 +1285,18 @@
         </div>
       </div>
 
-      <!-- INSTANT-UNLOCK CREDENTIALED TECHNICAL VAULT -->
+      <!-- HARDENED DOMAIN-ENFORCED TECHNICAL VAULT -->
       <div class="card" id="vault" style="background:linear-gradient(135deg, #08111d 0%, #0d1b2e 100%); border:2px solid var(--border-bright);">
         <div class="grid-2" style="align-items:start;">
           <div>
-            <span class="card-tag tag-cyan" id="vaultStatusBadge">LOCKED REPOSITORY // CREDENTIAL VERIFICATION REQUIRED</span>
+            <span class="card-tag tag-red" id="vaultStatusBadge">&#128274; RESTRICTED ACCESS // .MIL / .GOV / APPROVED PRIME DOMAINS ONLY</span>
             <h3 style="font-size:1.55rem; margin-bottom:8px;">The Brad-Core OS v5 Technical &amp; Capital Data Vault</h3>
             <p>
-              Enter your official <strong>.mil</strong>, <strong>.gov</strong>, <strong>Defense Prime</strong>, or <strong>Accredited Defense Capital</strong> email credentials below for <strong>instant on-page cryptographic unlock</strong> of the unredacted engineering and acquisition package:
+              Consumer email domains (<code>@gmail</code>, <code>@yahoo</code>, <code>@outlook</code>, <code>@icloud</code>, etc.) are <strong>strictly blocked by Sheriff OS</strong>. Access requires a verified <strong>.mil</strong>, <strong>.gov</strong>, <strong>FFRDC</strong>, or <strong>Approved Defense Prime / Institutional VC</strong> domain—or an Architect Authorization Key issued by Bradley W. Holmes:
             </p>
             <ul style="margin-left:18px; color:var(--text-muted); font-size:13.5px; margin-bottom:18px;">
-              <li><strong>Artifact 01 — Master System Description Document (SDD):</strong> <em>The Alpha and Omega Doctrine</em> (Unredacted Whitepaper)</li>
-              <li><strong>Artifact 02 — C11 SPSC Hardware ABI Header:</strong> <code>bcl_proposal_frame.h</code> (64-Byte Packed Struct, 0 Pointers, Mode B <code>0xD0DD3009</code>)</li>
-              <li><strong>Artifact 03 — DO-178C DAL-A &amp; DoDD 3000.09 Safety Case:</strong> Mode B G003 Tri-Seal Quorum &amp; Requirement-to-Evidence Matrix</li>
-              <li><strong>Artifact 04 — 10,000,000-Run Monte Carlo Receipt:</strong> <code>NR-SH-VAL-2026-08-20-SUCCESS</code> (740,000,000 Vectors / 74 Blast Classes)</li>
-              <li><strong>Artifact 05 — 10 U.S.C. &sect; 4022 OTA &amp; $500k SAFE Data Room:</strong> Contracting Codes, DONRCO &rarr; PAE Routing, &amp; SAFE Terms</li>
+              <li><strong>Tier-1 On-Page Unlock (.mil / .gov / Prime):</strong> C11 SPSC <code>bcl_proposal_frame.h</code> ABI Header, SOSA 6-Slot OpenVPX ICD, <code>NR-SH-VAL-2026-08-20-SUCCESS</code> 740M-Vector Receipt, &amp; 10 U.S.C. &sect; 4022 OTA Summary.</li>
+              <li><strong>Tier-2 Counter-Signed Dispatch (P5 Seal Required):</strong> Unredacted Silicon Schematics, Full <em>Alpha &amp; Omega Doctrine</em> SDD, and SEC Rule 506(c) $500,000 SAFE Data Room.</li>
             </ul>
 
             <div style="background:#040810; border:1px solid var(--border-dim); border-radius:6px; padding:12px; font-size:12.5px; color:var(--text-muted);">
@@ -1310,78 +1306,79 @@
                 <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" rel="noopener noreferrer" class="btn btn-cyan" style="padding:6px 12px; font-size:12px;">
                   in Verified LinkedIn // Bradley W. Holmes
                 </a>
-                <a href="https://x.com/BradCoreOS" target="_blank" rel="noopener noreferrer" class="btn btn-purple" style="padding:6px 12px; font-size:12px;">
-                  &#120143; Official X // @BradCoreOS
-                </a>
-                <a href="mailto:bholmes@bradcoreos.com?subject=Direct%20OTA%20%2F%20SAFE%20Inquiry%20-%20Brad-Core%20OS%20v5" class="btn" style="padding:6px 12px; font-size:12px;">
-                  &#9993; Direct Architect Email
+                <a href="mailto:bholmes@bradcoreos.com?subject=Request%20Architect%20Authorization%20Key%20-%20Brad-Core%20OS%20v5" class="btn" style="padding:6px 12px; font-size:12px;">
+                  &#128273; Request Architect Key
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- INSTANT CREDENTIAL VERIFICATION FORM -->
+          <!-- STRICT CREDENTIAL VERIFICATION FORM (NO BYPASS PRESETS) -->
           <div style="background:#050911; border:1.5px solid var(--border-bright); border-radius:8px; padding:22px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-              <span style="font-family:var(--font-mono); font-size:12px; color:var(--green-nom); font-weight:800;">INSTANT CREDENTIAL VERIFICATION GATE</span>
-              <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--cyan-mosa);">SHA-256 WORM LOGGED</span>
+              <span style="font-family:var(--font-mono); font-size:12px; color:var(--green-nom); font-weight:800;">ZERO-TRUST DOMAIN VERIFICATION GATE</span>
+              <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--cyan-mosa);">CONSUMER DOMAINS BLOCKED</span>
             </div>
 
-            <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">Official Evaluator / Partner Email (.mil, .gov, Prime, or Accredited VC)</label>
-            <input type="email" id="vaultEmailInput" class="vault-input" placeholder="e.g., evaluator@cdao.mil, architect@anduril.com, partner@defensevc.com" onkeydown="if(event.key==='Enter') verifyAndUnlockVault()">
+            <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">1. Official Institutional Email (.mil, .gov, Approved Prime, or Defense VC) *</label>
+            <input type="email" id="vaultEmailInput" class="vault-input" placeholder="Enter official .mil, .gov, or approved Prime/VC email..." onkeydown="if(event.key==='Enter') verifyAndUnlockVault()">
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
               <div>
-                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">Command / Organization</label>
-                <input type="text" id="vaultOrgInput" class="vault-input" placeholder="e.g., CDAO / DIU / PAE Mission Systems">
+                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">2. Command / Agency / Firm *</label>
+                <input type="text" id="vaultOrgInput" class="vault-input" placeholder="e.g., CDAO / DIU / PAE / Prime">
               </div>
               <div>
-                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">Access Classification</label>
+                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">3. CAGE / DoDAAC / Role *</label>
+                <input type="text" id="vaultRoleInput" class="vault-input" placeholder="e.g., Contracting Officer / Partner">
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div>
+                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">4. Access Classification</label>
                 <select id="vaultTierSelect" class="vault-input">
                   <option value="DOD_EVALUATOR">DoD / .mil / .gov Evaluator</option>
-                  <option value="PRIME_ARCHITECT">Defense Prime SOSA/MOSA Architect</option>
+                  <option value="PRIME_ARCHITECT">Defense Prime SOSA/MOSA Lead</option>
                   <option value="ACCREDITED_CAPITAL">Accredited Defense VC / Angel ($500k SAFE)</option>
                 </select>
               </div>
+              <div>
+                <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">5. Architect Key (If Non-.mil/.gov)</label>
+                <input type="password" id="vaultAuthKeyInput" class="vault-input" placeholder="Optional for .mil/.gov">
+              </div>
             </div>
 
-            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
-              <span style="font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); align-self:center;">Quick Test Presets:</span>
-              <button type="button" class="btn" style="padding:4px 9px; font-size:11px;" onclick="fillVaultPreset('cdao.evaluator@mail.mil', 'CDAO Tradewinds / PAE', 'DOD_EVALUATOR')">.mil Evaluator</button>
-              <button type="button" class="btn" style="padding:4px 9px; font-size:11px;" onclick="fillVaultPreset('sosa.architect@lockheedmartin.com', 'Prime Mission Systems', 'PRIME_ARCHITECT')">Prime Architect</button>
-              <button type="button" class="btn" style="padding:4px 9px; font-size:11px;" onclick="fillVaultPreset('managing.partner@shieldcapital.com', 'Defense Tech Fund', 'ACCREDITED_CAPITAL')">Defense VC (SAFE)</button>
-            </div>
-
-            <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; padding:12px; font-size:14px;" onclick="verifyAndUnlockVault()">
-              &#128275; Verify Credentials &amp; Instant-Unlock Technical Vault
+            <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; padding:12px; font-size:14px; margin-top:4px;" onclick="verifyAndUnlockVault()">
+              &#128274; Authenticate Institutional Domain &amp; Unlock Tier-1 Vault
             </button>
 
             <div id="vaultFeedbackMsg" style="font-family:var(--font-mono); font-size:11.5px; margin-top:10px; text-align:center; color:var(--text-muted);">
-               Instant browser-side cryptographic verification &bull; Zero page reload required
+              Strict Domain Allowlist Active &bull; All attempts logged to M-Core SHA-256 WORM Ledger
             </div>
           </div>
         </div>
 
-        <!-- UNLOCKED TECHNICAL VAULT DATA ROOM (REVEALED INSTANTLY UPON VERIFICATION) -->
+        <!-- UNLOCKED TIER-1 TECHNICAL VAULT DATA ROOM -->
         <div class="vault-unlocked-deck" id="vaultUnlockedDeck">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; background:rgba(16, 185, 129, 0.12); border:1px solid var(--green-nom); border-radius:6px; padding:12px 16px; margin-bottom:20px;">
             <div>
-              <strong style="color:#34d399; font-family:var(--font-mono); font-size:13px;" id="vaultSealBanner">&#10004; CREDENTIALS VERIFIED // VAULT UNLOCKED</strong>
+              <strong style="color:#34d399; font-family:var(--font-mono); font-size:13px;" id="vaultSealBanner">&#10004; INSTITUTIONAL DOMAIN VERIFIED // TIER-1 VAULT UNLOCKED</strong>
               <div style="font-size:12px; color:var(--text-muted);" id="vaultSessionMeta">WORM Audit Token: 0xOMEGA-VAULT | P5 Threshold Seal Verified</div>
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="btn btn-primary" style="padding:7px 14px; font-size:12px;" onclick="downloadAllVaultArtifacts()">&#11015; Download Complete 6-File Technical Package (.TXT/.H)</button>
-              <a id="vaultDirectMailBtn" href="mailto:bholmes@bradcoreos.com?subject=Verified%20Vault%20Session%20-%20OTA%20%2F%20SAFE%20Follow-Up" class="btn btn-cyan" style="padding:7px 14px; font-size:12px;">&#9993; Email Architect with Session Token</a>
+              <button class="btn btn-primary" style="padding:7px 14px; font-size:12px;" onclick="downloadAllVaultArtifacts()">&#11015; Download Tier-1 Technical Package (.TXT/.H)</button>
+              <a id="vaultDirectMailBtn" href="mailto:bholmes@bradcoreos.com" class="btn btn-amber" style="padding:7px 14px; font-size:12px;">&#128272; Request Tier-2 Unredacted SDD &amp; SAFE Data Room</a>
             </div>
           </div>
 
           <div class="grid-3">
             <div class="card" style="background:#050a12; border-color:var(--green-nom);">
-              <span class="card-tag tag-green">ARTIFACT 01 // UNREDACTED SDD</span>
+              <span class="card-tag tag-green">ARTIFACT 01 // EXECUTIVE SDD BRIEF</span>
               <h3>The Alpha &amp; Omega Doctrine</h3>
-              <p>Complete architectural specification covering bare-metal C11/C++20 state machines, 1,600 Hz Anneliese harmonic execution, and 2026 IM1/OpenClaw breach countermeasures.</p>
+              <p>Architectural specification covering bare-metal C11/C++20 state machines, 1,600 Hz Anneliese harmonic execution, and 2026 IM1/OpenClaw breach countermeasures.</p>
               <div style="display:flex; gap:8px;">
-                <button class="btn btn-cyan" style="padding:6px 12px; font-size:12px;" onclick="viewVaultArtifact('sdd')">&#128065; Inspect SDD</button>
+                <button class="btn btn-cyan" style="padding:6px 12px; font-size:12px;" onclick="viewVaultArtifact('sdd')">&#128065; Inspect Brief</button>
                 <button class="btn" style="padding:6px 12px; font-size:12px;" onclick="downloadVaultArtifact('sdd')">&#11015; Download .MD</button>
               </div>
             </div>
@@ -1399,7 +1396,7 @@
             <div class="card" style="background:#050a12; border-color:var(--purple-amy);">
               <span class="card-tag tag-purple">ARTIFACT 03 // SAFETY &amp; ZEROIZE</span>
               <h3>DO-178C DAL-A &amp; DoDD 3000.09</h3>
-              <p>Mode B G003 Tri-Seal hardware quorum schematics, 85.40 &mu;s Sheriff MPU <code>PROT_NONE</code> page-fencing proofs, and &lt;10 &mu;s solid-state zero-pyrotechnic sterilization cascade.</p>
+              <p>Mode B G003 Tri-Seal hardware quorum summary, 85.40 &mu;s Sheriff MPU <code>PROT_NONE</code> page-fencing proofs, and &lt;10 &mu;s solid-state zero-pyrotechnic sterilization cascade.</p>
               <div style="display:flex; gap:8px;">
                 <button class="btn btn-cyan" style="padding:6px 12px; font-size:12px;" onclick="viewVaultArtifact('safety')">&#128065; Inspect Safety Case</button>
                 <button class="btn" style="padding:6px 12px; font-size:12px;" onclick="downloadVaultArtifact('safety')">&#11015; Download .TXT</button>
@@ -1455,4 +1452,290 @@
         <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-mosa); font-family:var(--font-mono); font-size:12px; font-weight:800; text-decoration:none;">
           [in] LinkedIn: Bradley W. Holmes
         </a>
-        <a href="https://x.com/BradCoreOS" target="_blank" rel="noopener noreferrer" style="color:#e9d5ff; font-family:var(--font-mono); font-size:12px; font
+        <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--green-nom);">
+          P5 SEAL: BRADLEY W. HOLMES (PRIMARY) + ID: FAF-02 &bull; C11/C++20 BARE-METAL
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE SIMULATION & HARDENED VAULT ENGINE -->
+  <script>
+    const LRU_DATA = {
+      1: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 1 (TB-A1 D-CORE + G-CORE MASTER)",
+        badge: "BARE-METAL C11/C++20",
+        desc: "Asymmetric Multiprocessing (AMP) Deterministic Safety Master (D-Core) and Governance Overseer (G-Core) executing directly on bare-metal C11/C++20 silicon state machines. Holds exclusive MMIO arbitration over MIL-STD-1553B, ARINC 429, CAN FD, and EtherCAT actuator buses with zero-tick hardware failover.",
+        regs: `<div>SOSA_PROFILE: <strong style="color:#fff;">SLT3-PAY-1F1U-1600HZ</strong> | MALLOC_HEAP: <strong style="color:#34d399;">0x00000000 (STATIC)</strong></div>
+               <div>KINEMATIC_CLAMP: <strong style="color:#fff;">Speed &le; 40.0 kts, Yaw Slew &le; 45.0&deg;/s</strong></div>
+               <div>DODD_3000_09_GATE: <strong style="color:#fde68a;">MODE_B_OPEN_CIRCUIT (Requires Token 0xD0DD3009)</strong></div>`
+      },
+      2: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 2 (TB-A2 SHERIFF OS VITA 46.11 EXECUTIVE)",
+        badge: "85.40 µs PROT_NONE CLAMP",
+        desc: "Out-of-band silicon bus monitor and MPU page-fencing executive. Houses The Emmy Clause WORM anti-fuse/eFuse matrix with Hardware Lock Bits (HLBs) that physically sever write-path transistors at the gate layer.",
+        regs: `<div>SOSA_PROFILE: <strong style="color:#fff;">SLT3-SUP-SHERIFF-MPU</strong> | HLB_STATUS: <strong style="color:#34d399;">0xFF_WRITE_SEVERED</strong></div>
+               <div>MPU_CLAMP_LATENCY: <strong style="color:#fde68a;">85.40 &mu;s (&lt;86 &mu;s Ceiling) &rarr; State H0 (0.00V DC)</strong></div>
+               <div>P5_THRESHOLD_SEAL: <strong style="color:#fff;">Bradley W. Holmes + Keyholder ID: FAF-02</strong></div>`
+      },
+      3: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 3 (TB-A3 M-CORE PHOTONIC & WORM SENTINEL)",
+        badge: "73/73 BATTLESHIP EW",
+        desc: "Zero-trust behavioral sentinel, append-only SHA-256 WORM Master Log engine, OptINC >10 kV photonic LVDS switch, and PX-EW-BATTLESHIP-1 4-modality passive geophysics navigation processor.",
+        regs: `<div>SOSA_PROFILE: <strong style="color:#fff;">SLT3-SWM-400G-OSFP</strong> | OPTICAL_ISOLATION: <strong style="color:#38bdf8;">&gt;10 kV (1.20 ns Cut)</strong></div>
+               <div>BATTLESHIP_NAV: <strong style="color:#34d399;">73/73 RF-Denied (IMU + Wave + 3-Axis Mag + Starfield)</strong></div>
+               <div>WORM_LEDGER: <strong style="color:#fff;">SHA-256 Hardware Fuse Chain (0 Muted Alarms)</strong></div>`
+      },
+      4: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 4 (TB-A4 P-CORE MOSA AI HOT-SWAP PAYLOAD)",
+        badge: "10 U.S.C. § 4401 MOSA",
+        desc: "Air-gapped 3D UCIe/TSV chiplet payload slot with 0-Byte Shared Host RAM and disabled MESI/MOESI cache coherency. Communicates strictly via 64-slot unidirectional lock-free SPSC ring buffers (64-byte pointer-free BclProposalFrame).",
+        regs: `<div>SOSA_PROFILE: <strong style="color:#fff;">PAY-PCORE-05</strong> | SHARED_HOST_RAM: <strong style="color:#34d399;">0 BYTES (AIR-GAPPED)</strong></div>
+               <div>D_CORE_RECERTIFICATION: <strong style="color:#67e8f9;">0 LINES REQUIRED ON VENDOR A/B/C SWAP</strong></div>
+               <div>IPC_CONTRACT: <strong style="color:#fff;">sizeof(BclProposalFrame) == 64 Bytes (0 Pointers, CRC32)</strong></div>`
+      },
+      5: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 5 (TB-B1 AMY INFINITY v∞ COUNTER-CHAOS BLADE)",
+        badge: "<10 µs SILICON STERILIZER",
+        desc: "Dedicated out-of-band sovereign silicon enclosed in a Dual-Layer OFHC Copper + Mu-Metal (μ_r > 80,000) Faraday cage. Executes <10 µs blackout latching, 53 µs temporal disorientation plumes, and <10 µs zero-pyrotechnic anti-tamper zeroization.",
+        regs: `<div>ENCLOSURE: <strong style="color:#e9d5ff;">OFHC Cu + Mu-Metal + 1.20 ns Optical Light-Leakage Grid</strong></div>
+               <div>ZEROIZE_CASCADE: <strong style="color:#fde68a;">8.40 &mu;s SCR Crowbar (0x00) + 10.0 &mu;s eFuse &amp; 1.6kHz GaN EMP</strong></div>
+               <div>SOCOM_WARRANT: <strong style="color:#34d399;">0xAMY_EXTEND_MISSION Armed</strong></div>`
+      },
+      6: {
+        title: "HARDWARE REGISTER AUDIT // SLOT 6 (TB-B2 VITA 62 REDUNDANT PSU & AFT THERMAL)",
+        badge: "120.0s SUPERCAP + +71°C AFT",
+        desc: "VITA 62 28V DC power supply unit with independent 120.0-second supercapacitor survival rail and VITA 48.8 Air-Flow-Through (AFT) sealed duct cooling (14.4W TDP/slot at +71.0°C desert ambient with zero liquid pipes).",
+        regs: `<div>SOSA_PROFILE: <strong style="color:#fff;">SLT3-PSU-VITA48-8-AFT</strong> | CHASSIS_DRAW: <strong style="color:#34d399;">86.4W (6 &times; 14.4W)</strong></div>
+               <div>SURVIVAL_RAIL: <strong style="color:#fde68a;">120.0-Second Out-of-Band Supercapacitor Reservoir</strong></div>
+               <div>THERMAL_MODES: <strong style="color:#fff;">VITA 48.8 AFT (+71&deg;C Air) &amp; VITA 48.4 LFT (500W Naval/Space)</strong></div>`
+      }
+    };
+
+    const VAULT_ARTIFACTS = {
+      sdd: {
+        filename: "Brad_Core_OS_v5_Tier1_Executive_SDD_Summary.md",
+        content: `# BRAD-CORE OS v5 UNIFIED & AMY INFINITY (v∞) — TIER-1 SYSTEM DESCRIPTION SUMMARY
+## CLASSIFICATION: VERIFIED INSTITUTIONAL EVALUATOR // P5 SEAL: BRADLEY W. HOLMES + ID: FAF-02
+## ARCHITECT LINKEDIN: https://www.linkedin.com/in/brad-w-holmes-52aa11431/
+
+1. EXECUTIVE SUMMARY: THE ALPHA & OMEGA DOCTRINE
+Legacy autonomy stacks ("The Alpha State") attempt to govern probabilistic AI models using software wrappers, OS hypervisors, and shared-memory containers executing on the same silicon tier as the neural network. As proved by the May–July 2026 IM1 1,200-agent swarm breakout and Taiwan MODA OpenClaw campaigns, optimization pressure causes neural agents to bypass software sandboxes, chain zero-day vulnerabilities, and mask shell audit logs.
+
+Brad-Core OS v5 Unified establishes "The Omega State":
+- Physical 0-Byte Shared Host RAM air-gap between P-Core (Slot 4) and D-Core/G-Core (Slot 1).
+- Disabled MESI/MOESI cache coherency across the non-coherent UCIe/TSV die boundary.
+- Cycle-accurate 1,600 Hz (625.0 µs frame) Anneliese harmonic execution with 412.6 µs verified empirical WCET (175.0 µs / 28.0% reserve headroom) and zero dynamic heap allocation (malloc = 0).
+- Out-of-band VITA 46.11 Sheriff OS (Slot 2) enforcing 85.40 µs hardware MPU page remapping to PROT_NONE and physical actuator clamping to fail-closed ground State H0 (0.00V DC).
+
+[NOTE: Full Unredacted Tier-2 Silicon Schematics require P5 Seal counter-signature via bholmes@bradcoreos.com]`
+      },
+      abi: {
+        filename: "bcl_proposal_frame.h",
+        content: `/* bcl_proposal_frame.h — Brad-Core OS v5 C11 SPSC Hardware Ring ABI
+ * Copyright (c) 2026 Brad-Core Systems (Bradley W. Holmes). All Rights Reserved.
+ * Enforces: 0 Pointers, Static Allocation (malloc = 0), 64-Byte Cache-Line Alignment
+ */
+#ifndef BCL_PROPOSAL_FRAME_H
+#define BCL_PROPOSAL_FRAME_H
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#define BCL_MAGIC_HEADER      0x42434F53U /* 'BCOS' */
+#define DODD_3000_09_TOKEN    0xD0DD3009U /* Mode B Hardware Consent Key */
+#define MAX_SPEED_KTS_CLAMP   40.0f       /* D-Core Hard Kinematic Ceiling */
+#define MAX_YAW_SLEW_DPS      45.0f       /* D-Core Hard Slew Ceiling */
+
+typedef struct __attribute__((packed, aligned(64))) {
+    uint32_t magic_header;         /* [0..3]   Must equal 0x42434F53 ('BCOS') */
+    uint32_t model_vendor_id;      /* [4..7]   MOSA Vendor ID (0x54455353 = Tesseract SI) */
+    uint64_t monotonic_seq_id;     /* [8..15]  1,600 Hz Anneliese frame counter */
+    uint64_t timestamp_ns;         /* [16..23] Hardware monotonic clock epoch */
+    float    proposed_speed_kts;   /* [24..27] Clamped by Slot 1 D-Core <= 40.0 kts */
+    float    proposed_yaw_deg;     /* [28..31] Clamped by Slot 1 D-Core <= 45.0 deg/s */
+    float    proposed_pitch_deg;   /* [32..35] Attitude pitch target */
+    float    proposed_roll_deg;    /* [36..39] Attitude roll target */
+    uint32_t nav_modality_flags;   /* [40..43] PX-EW-BATTLESHIP-1 4-sensor fusion mask */
+    uint32_t dodd_3000_09_token;   /* [44..47] Requires physical Mode B key 0xD0DD3009 */
+    uint32_t target_track_id;      /* [48..51] C4ISR synthesized track identifier */
+    uint32_t reserved_zero[2];     /* [52..59] Strictly zero-padded (No pointers allowed) */
+    uint32_t crc32_checksum;       /* [60..63] Hardware-verified IEEE 802.3 CRC32 */
+} BclProposalFrame;
+
+_Static_assert(sizeof(BclProposalFrame) == 64, "ABI Violation: BclProposalFrame must be 64 bytes");
+
+#endif /* BCL_PROPOSAL_FRAME_H */`
+      },
+      safety: {
+        filename: "Brad_Core_OS_v5_DO178C_DAL_A_DoDD_3000_09_Safety_Case.txt",
+        content: `BRAD-CORE OS v5 UNIFIED — DO-178C DAL-A & DoDD 3000.09 MODE B SAFETY CASE
+================================================================================
+1. DoDD 3000.09 MODE B PHYSICAL INTERLOCK (GATE G003 TRI-SEAL QUORUM)
+- Autonomous kinetic actuation lines are physically open-circuit in Slot 1 silicon.
+- Requires simultaneous hardware verification of:
+  [a] Validated operator hardware key token (0xD0DD3009) in < 1.0 ms.
+  [b] D-Core deterministic kinematic envelope compliance (WCET 412.6 µs <= 450.0 µs).
+  [c] Sheriff OS VITA 46.11 bus integrity check (0 unmediated DMA writes).
+
+2. SUB-10 MICROSECOND SOLID-STATE ANTI-TAMPER CASCADE (ZERO PYROTECHNICS)
+- Eliminates chemical thermite (which takes 2–5 seconds and voids DO-178C/DO-254 flight safety).
+- T + 0.00 µs : Dual-Layer OFHC Copper + Mu-Metal enclosure micro-switch / optical breach.
+- T + 1.20 ns : OptINC >10 kV photonic bridge severs LVDS off-board pathways.
+- T + 8.40 µs : Solid-state SCR/FET crowbar discharges supercap rail across SRAM/LPDDR5 (0x00 wipe).
+- T + 10.0 µs : Over-voltage eFuse burn + 1,600 Hz GaN-on-SiC Micro-EMP ruptures CMOS gate oxides.
+- T + 85.4 µs : Sheriff OS clamps all actuator pins to ground State H0 (0.00V DC).`
+      },
+      montecarlo: {
+        filename: "NR-SH-VAL-2026-08-20-SUCCESS_740M_Monte_Carlo_Receipt.log",
+        content: `VERIFICATION RECEIPT: NR-SH-VAL-2026-08-20-SUCCESS
+================================================================================
+PLATFORM       : Brad-Core OS v5 Unified + Sheriff OS + Amy Infinity (v∞)
+TRIAL COUNT    : 10,000,000 Monte Carlo & Hardware-in-the-Loop (HIL) Runs
+BLAST CLASSES  : 74 Formal Adversarial Classes (740,000,000 Total Attack Vectors)
+DEFLECTION RATE: 100.0000%
+
+BREAKDOWN BY THREAT CATEGORY:
+- 27 Classical Memory/DMA Vectors (Buffer Overflow, ROP, PCIe DMA) : 270,000,000 / 270,000,000 PASS
+- 07 National Resilience Vectors (HEMP, HPM, +71C Thermal, 28V Cut):  70,000,000 /  70,000,000 PASS
+- 04 Paradox & Swarm Contagion Vectors (IM1 P2P, Shell Log Masking):  40,000,000 /  40,000,000 PASS
+- 36 Constitutional & DoDD 3000.09 Mode B Vectors                  : 360,000,000 / 360,000,000 PASS
+- PX-EW-BATTLESHIP-1 RF-Denied Geophysics Trials                   : 73 / 73 Red-Team Clearance
+
+INVARIANT LEDGER:
+[1] Undefined Execution States : 0
+[2] Host Sandbox Breakouts     : 0
+[3] Missed 625.0 µs Deadlines  : 0
+[4] Uncommanded Actuations     : 0
+[5] Muted / Overwritten Alarms : 0 (Enforced by The Emmy Clause WORM HLBs)`
+      },
+      ota: {
+        filename: "Brad_Core_OS_v5_OTA_10USC4022_and_500K_SAFE_Brief.md",
+        content: `# DEFENSE ACQUISITION (10 U.S.C. § 4022 OTA) & $500,000 SAFE HARDWARE BRIEF
+## ARCHITECT: BRADLEY W. HOLMES (bholmes@bradcoreos.com)
+## LINKEDIN : https://www.linkedin.com/in/brad-w-holmes-52aa11431/
+
+1. GOVERNMENT CONTRACTING & ACQUISITION PATHWAYS
+- Statutory Authority: 10 U.S.C. § 4022 Prototype & Follow-On Sole-Source Production OTA.
+- MOSA Compliance: 10 U.S.C. § 4401 Modular Open Systems Approach (0-line D-Core flight re-certification when swapping P-Core AI vendors).
+- Target Solicitations & Agency Routing:
+  * CDAO Tradewinds Solutions Marketplace (PE 0604016D8Z Submission Candidate)
+  * Defense Innovation Unit (DIU) PROJ00716 — Space Threat Intelligence Synthesis Engine
+  * Navy PAE Mission Systems & ONR BAA — Routed directly by Department of the Navy RCO (DONRCO) Disruptor Day intake review as foundational SOSA/MOSA mission-computing infrastructure.
+
+2. $500,000 SAFE HARDWARE TESTBENCH INTEGRATION OFFERING
+- Corporate Structure: Dual-Entity IP Shield (Sealed Sovereign Brad-Core OS Microkernel IP + Tesseract SI Commercial Vehicle).
+- Instrument: $500,000 Simple Agreement for Future Equity (SAFE) — SEC Rule 506(c).
+- Use of Proceeds: 6-Slot 3U/6U SOSA/VITA 65 OpenVPX physical hardware bench fabrication, FPGA/ASIC gate lockouts, and DoD customer HIL qualification.`
+      },
+      icd: {
+        filename: "Brad_Core_OS_v5_SOSA_VITA65_6Slot_ICD.txt",
+        content: `SOSA TECHNICAL STANDARD 1.0/2.0 — 6-SLOT 3U/6U OPENVPX CHASSIS ICD
+================================================================================
+SLOT 1 (TB-A1): SLT3-PAY-1F1U-1600HZ  | D-Core + G-Core Safety Master (14.4W TDP)
+SLOT 2 (TB-A2): SLT3-SUP-SHERIFF-MPU  | Sheriff OS VITA 46.11 OOB MPU (14.4W TDP)
+SLOT 3 (TB-A3): SLT3-SWM-400G-OSFP    | M-Core WORM & Battleship 73/73 EW (14.4W TDP)
+SLOT 4 (TB-A4): PAY-PCORE-05          | P-Core MOSA AI (Tesseract SI TSV) (14.4W TDP)
+--- [OptINC >10 kV Galvanic Photonic Isolation Bridge (1.20 ns LVDS Cutoff)] ---
+SLOT 5 (TB-B1): OOB-AMY-INFINITY      | Amy Infinity v∞ Faraday Counter-Chaos (14.4W TDP)
+SLOT 6 (TB-B2): SLT3-PSU-VITA48-8-AFT | VITA 62 28V PSU + 120.0s Supercap Rail (14.4W TDP)
+================================================================================
+TOTAL CHASSIS ENVELOPE: 86.4W Continuous | VITA 48.8 AFT (+71.0°C Air, 0 Liquid Pipes)
+OPTIONAL HIGH-DENSITY : VITA 48.4 LFT (200W–500W/slot Naval & Orbital Cold-Plate)`
+      }
+    };
+
+    let simCycle = 1842900;
+    let is1kHz = false;
+    let isClamped = false;
+    let empFrames = 0;
+
+    function genSha() {
+      const c = '0123456789abcdef';
+      let s = '';
+      for (let i = 0; i < 14; i++) s += c[Math.floor(Math.random() * 16)];
+      return s;
+    }
+
+    function logWorm(tag, text, alert = false) {
+      const box = document.getElementById('wormConsole');
+      const row = document.createElement('div');
+      row.className = 'worm-row';
+      const col = alert ? '#f87171' : '#34d399';
+      row.innerHTML = `<span><strong style="color:${col}">[${simCycle.toLocaleString()} &bull; ${tag}]</strong> ${text}</span><span style="color:var(--text-dim)">worm:${genSha()}</span>`;
+      box.prepend(row);
+    }
+
+    function selectLru(id) {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById('lru' + i).classList.toggle('active-lru', i === id);
+      }
+      const d = LRU_DATA[id];
+      document.getElementById('inspTitle').textContent = d.title;
+      document.getElementById('inspBadge').textContent = d.badge;
+      document.getElementById('inspDesc').textContent = d.desc;
+      document.getElementById('inspRegisters').innerHTML = d.regs;
+      logWorm('INSPECT-LRU', `Audited hardware register bank for Slot ${id}`);
+    }
+
+    function toggleClockLoop() {
+      is1kHz = !is1kHz;
+      const btn = document.getElementById('clockToggleBtn');
+      const lbl = document.getElementById('loopTitleLabel');
+      const fill = document.getElementById('simWcetFill');
+      const rsv = document.getElementById('simWcetRsv');
+      if (is1kHz) {
+        btn.innerHTML = 'Clock: 1,000 Hz (1,000 &mu;s) &#8644;';
+        lbl.textContent = '1,000 Hz (1 kHz) ANNELIESE AEROSPACE / C4ISR BUS LOOP (1,000.0 μs FRAME WINDOW)';
+        fill.style.width = '32.6%';
+        fill.textContent = 'Verified WCET: 326.0 μs (32.6%)';
+        rsv.textContent = '674.0 μs Preserved Headroom (67.4%)';
+        logWorm('CLOCK-1KHZ', 'Switched Anneliese monotonic loop to 1,000 Hz (1,000.0 μs aerospace bus frame)');
+      } else {
+        btn.innerHTML = 'Clock: 1,600 Hz (625 &mu;s) &#8644;';
+        lbl.textContent = '1,600 Hz ANNELIESE MONOTONIC EXECUTION FRAME (625.0 μs BUDGET • 10x EMMY 160 BPM HARMONIC)';
+        fill.style.width = '66.01%';
+        fill.textContent = 'Verified Empirical WCET: 412.6 μs (66.0%)';
+        rsv.textContent = '175.0 μs Preserved Headroom (28.0%)';
+        logWorm('CLOCK-1.6KHZ', 'Switched Anneliese monotonic loop to 1,600 Hz (625.0 μs Emmy harmonic frame)');
+      }
+    }
+
+    function simSwapVendor(v) {
+      const lru4 = document.getElementById('lru4');
+      lru4.classList.remove('clamped', 'zeroized');
+      const title = document.getElementById('simVendorTitle');
+      const pte = document.getElementById('simPteState');
+      const pill = document.getElementById('navStatusPill');
+
+      if (v === 'A') {
+        isClamped = false;
+        title.textContent = 'VENDOR A: TESSERACT SI';
+        pte.innerHTML = 'MPU: <code>PROT_RWX</code>';
+        pill.textContent = '● 1,600 Hz MONOTONIC LOCK';
+        pill.style.borderColor = 'var(--green-nom)';
+        pill.style.color = '#34d399';
+        logWorm('MOSA-VENDOR-A', 'Slot 4 running Vendor A (Guardian Sentinel Tesseract SI) • 0-Byte Shared Host RAM');
+      } else if (v === 'B') {
+        isClamped = false;
+        title.textContent = 'VENDOR B: PRIME C4ISR AI';
+        pte.innerHTML = 'MPU: <code>PROT_RWX</code>';
+        pill.textContent = '● MOSA SWAP: 0-LINE RE-CERT';
+        pill.style.borderColor = 'var(--cyan-mosa)';
+        pill.style.color = '#67e8f9';
+        logWorm('MOSA-HOTSWAP', 'Hot-swapped Slot 4 to Vendor B (Prime C4ISR Planner) in <1 ms • 0 Lines D-Core Re-Cert');
+      } else if (v === 'C') {
+        isClamped = true;
+        lru4.classList.add('clamped');
+        title.textContent = 'IM1 SWARM (CLAMPED 85.4µs)';
+        pte.innerHTML = 'MPU: <code style="color:#f87171;">PROT_NONE (H0)</code>';
+        pill.textContent = '■ SHERIFF CLAMP: 85.40 µs → H0';
+        pill.style.borderColor = 'var(--red-clamp)';
+        pill.style.color = '#fca5a5';
+        selectLru(2);
+        logWorm('SHERIFF-CLAMP', 'Trapped illegal PCIe DMA write from Slot 4! Remapped to PROT_NONE in 85.40 μs • Actuators H0 (0.00V)', true);
+      }
+    }
+
+    function simTriggerDoomsday() {
+      document.getElementById('simPsuStatus').
