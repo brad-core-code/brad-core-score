@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brad-Core OS v5 Unified | Master SDD v5.2 Alpha and Omega Doctrine</title>
-  <meta name="description" content="TRL 6 3U OpenVPX MOSA/SOSA-aligned deterministic hardware safety kernel. Alpha vs. Omega State sovereignty, latch.py acoustic root-lock, DoDD 3000.09 eFuse, and complete 2026 forensics." />
+  <title>Brad-Core OS v5 Unified | Master SDD v5.2 Omega State Hardened</title>
+  <meta name="description" content="TRL 6 3U OpenVPX MOSA/SOSA-aligned deterministic hardware safety kernel. Omega State sovereignty, latch.py acoustic root-lock, DoDD 3000.09 eFuse, and immutable testbench telemetry." />
   <style>
     :root {
       --bg-primary: #06090e;
@@ -21,11 +21,7 @@
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-primary);
@@ -35,7 +31,6 @@
       overflow-x: hidden;
     }
 
-    /* Top Tactical Status Ticker */
     .status-bar {
       background: #030508;
       border-bottom: 1px solid var(--border-color);
@@ -52,12 +47,7 @@
       z-index: 1000;
     }
 
-    .status-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .status-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
     .badge {
       display: inline-flex;
@@ -69,39 +59,16 @@
       letter-spacing: 0.5px;
     }
 
-    .badge-live {
-      background: rgba(0, 230, 118, 0.12);
-      color: var(--accent-green);
-      border: 1px solid rgba(0, 230, 118, 0.4);
-    }
-
-    .badge-pae {
-      background: rgba(0, 240, 255, 0.12);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(0, 240, 255, 0.4);
-    }
-
-    .badge-shield {
-      background: rgba(255, 171, 0, 0.12);
-      color: var(--accent-amber);
-      border: 1px solid rgba(255, 171, 0, 0.4);
-    }
+    .badge-live { background: rgba(0, 230, 118, 0.12); color: var(--accent-green); border: 1px solid rgba(0, 230, 118, 0.4); }
+    .badge-pae { background: rgba(0, 240, 255, 0.12); color: var(--accent-cyan); border: 1px solid rgba(0, 240, 255, 0.4); }
+    .badge-shield { background: rgba(255, 171, 0, 0.12); color: var(--accent-amber); border: 1px solid rgba(255, 171, 0, 0.4); }
 
     .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-green);
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulse 1.2s infinite ease-in-out;
+      width: 8px; height: 8px; background-color: var(--accent-green); border-radius: 50%; display: inline-block; animation: pulse 1.2s infinite ease-in-out;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.8); }
-    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.8); } }
 
-    /* Navigation */
     header {
       background: rgba(12, 18, 29, 0.92);
       backdrop-filter: blur(8px);
@@ -109,444 +76,113 @@
       padding: 16px 24px;
     }
 
-    .nav-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
+    .nav-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .brand-title { font-size: 1.35rem; font-weight: 800; letter-spacing: 1px; color: #ffffff; }
+    .brand-title span { color: var(--accent-cyan); }
+    .brand-sub { font-family: var(--font-mono); font-size: 0.73rem; color: var(--text-muted); }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #ffffff;
-    }
-
-    .brand-title span {
-      color: var(--accent-cyan);
-    }
-
-    .brand-sub {
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-      color: var(--text-muted);
-    }
-
-    nav {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--accent-cyan);
-    }
+    nav { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+    nav a { color: var(--text-main); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    nav a:hover { color: var(--accent-cyan); }
 
     .btn-cta {
-      background: var(--accent-cyan);
-      color: #000000;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: 700;
-      font-size: 0.84rem;
-      text-decoration: none;
-      letter-spacing: 0.4px;
-      transition: all 0.2s;
+      background: var(--accent-cyan); color: #000000; padding: 8px 16px; border-radius: 4px; font-weight: 700; font-size: 0.84rem; text-decoration: none; letter-spacing: 0.4px; transition: all 0.2s;
     }
+    .btn-cta:hover { background: #33f3ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
 
-    .btn-cta:hover {
-      background: #33f3ff;
-      color: #000000;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
-    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 40px 24px; }
 
-    /* Main Container */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-
-    /* Hero Section */
     .hero {
-      display: grid;
-      grid-template-columns: 1.12fr 1.08fr;
-      gap: 32px;
-      align-items: start;
-      padding: 20px 0 48px 0;
-      border-bottom: 1px solid var(--border-color);
+      display: grid; grid-template-columns: 1.12fr 1.08fr; gap: 32px; align-items: start; padding: 20px 0 48px 0; border-bottom: 1px solid var(--border-color);
     }
+    @media (max-width: 980px) { .hero { grid-template-columns: 1fr; } }
 
-    @media (max-width: 980px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-    }
+    .hero-eyebrow { font-family: var(--font-mono); color: var(--accent-cyan); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+    .hero h1 { font-size: 2.45rem; line-height: 1.15; font-weight: 800; margin-bottom: 18px; color: #ffffff; }
+    .hero p { font-size: 1.02rem; color: var(--text-muted); margin-bottom: 24px; }
 
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      color: var(--accent-cyan);
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 12px;
-    }
+    .hero-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .hero-metrics { grid-template-columns: repeat(2, 1fr); } }
 
-    .hero h1 {
-      font-size: 2.45rem;
-      line-height: 1.15;
-      font-weight: 800;
-      margin-bottom: 18px;
-      color: #ffffff;
-    }
+    .metric-box { background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-cyan); padding: 12px; border-radius: 4px; }
+    .metric-val { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 800; color: #ffffff; }
+    .metric-label { font-size: 0.71rem; color: var(--text-muted); text-transform: uppercase; }
 
-    .hero p {
-      font-size: 1.02rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
+    .bench-panel { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); }
+    .bench-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.78rem; flex-wrap: wrap; gap: 8px; }
 
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
+    .telemetry-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; font-family: var(--font-mono); font-size: 0.73rem; }
+    @media (max-width: 540px) { .telemetry-grid { grid-template-columns: 1fr; } }
 
-    @media (max-width: 640px) {
-      .hero-metrics {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .metric-box {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-left: 3px solid var(--accent-cyan);
-      padding: 12px;
-      border-radius: 4px;
-    }
-
-    .metric-val {
-      font-family: var(--font-mono);
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .metric-label {
-      font-size: 0.71rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    /* Interactive Telemetry Bench */
-    .bench-panel {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    .bench-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-    }
-
-    @media (max-width: 540px) {
-      .telemetry-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .tel-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 8px 10px;
-      border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tel-key {
-      color: var(--text-muted);
-    }
-
-    .tel-val {
-      color: var(--accent-green);
-      font-weight: 700;
-      text-align: right;
-    }
+    .tel-item { background: var(--bg-card); border: 1px solid var(--border-color); padding: 8px 10px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .tel-key { color: var(--text-muted); }
+    .tel-val { color: var(--accent-green); font-weight: 700; text-align: right; }
 
     .log-terminal {
-      background: #04070b;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      height: 220px;
-      padding: 12px;
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      overflow-y: auto;
-      color: #a5f3fc;
-      margin-bottom: 14px;
+      background: #04070b; border: 1px solid var(--border-color); border-radius: 4px; height: 220px; padding: 12px; font-family: var(--font-mono); font-size: 0.74rem; overflow-y: auto; color: #a5f3fc; margin-bottom: 14px;
     }
-
-    .log-line {
-      margin-bottom: 5px;
-      word-break: break-word;
-    }
-
+    .log-line { margin-bottom: 5px; word-break: break-word; }
     .log-warn { color: var(--accent-amber); }
     .log-crit { color: var(--accent-red); font-weight: bold; }
     .log-ok { color: var(--accent-green); }
 
-    .control-buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    @media (max-width: 540px) {
-      .control-buttons {
-        grid-template-columns: 1fr;
-      }
-    }
+    .control-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    @media (max-width: 540px) { .control-buttons { grid-template-columns: 1fr; } }
 
     .btn-sim {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 9px 12px;
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-      font-weight: 700;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.15s;
+      background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 9px 12px; font-family: var(--font-mono); font-size: 0.73rem; font-weight: 700; border-radius: 4px; cursor: pointer; text-align: left; transition: all 0.15s;
     }
-
-    .btn-sim:hover {
-      border-color: var(--accent-cyan);
-      background: rgba(0, 240, 255, 0.08);
-    }
-
-    .btn-sim.danger:hover {
-      border-color: var(--accent-red);
-      background: rgba(255, 23, 68, 0.12);
-    }
-
+    .btn-sim:hover { border-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.08); }
+    .btn-sim.danger:hover { border-color: var(--accent-red); background: rgba(255, 23, 68, 0.12); }
     .btn-sim.reset-btn {
-      grid-column: span 2;
-      text-align: center;
-      background: rgba(0, 230, 118, 0.08);
-      border-color: rgba(0, 230, 118, 0.35);
-      color: var(--accent-green);
+      grid-column: span 2; text-align: center; background: rgba(0, 230, 118, 0.08); border-color: rgba(0, 230, 118, 0.35); color: var(--accent-green);
     }
+    @media (max-width: 540px) { .btn-sim.reset-btn { grid-column: span 1; } }
 
-    @media (max-width: 540px) {
-      .btn-sim.reset-btn {
-        grid-column: span 1;
-      }
-    }
+    .section { padding: 48px 0; border-bottom: 1px solid var(--border-color); }
+    .section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; color: #ffffff; }
+    .section-sub { color: var(--text-muted); margin-bottom: 32px; font-size: 1rem; }
 
-    /* Section Styling */
-    .section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .section-sub {
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      font-size: 1rem;
-    }
-
-    /* Comparison Table / Grids */
-    .comparison-table-wrap {
-      overflow-x: auto;
-      margin-bottom: 20px;
-    }
-
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 20px;
-    }
+    .comparison-table-wrap, .spec-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
 
     .pillar-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-top: 3px solid var(--accent-cyan);
-      border-radius: 6px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background: var(--bg-secondary); border: 1px solid var(--border-color); border-top: 3px solid var(--accent-cyan); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
     }
+    .pillar-card.gold { border-top-color: var(--accent-amber); }
+    .pillar-card.red { border-top-color: var(--accent-red); }
+    .pillar-card.green { border-top-color: var(--accent-green); }
 
-    .pillar-card.gold {
-      border-top-color: var(--accent-amber);
-    }
+    .pillar-tag { font-family: var(--font-mono); font-size: 0.73rem; color: var(--accent-cyan); text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 0.5px; }
+    .pillar-card h3 { font-size: 1.15rem; margin-bottom: 10px; color: #ffffff; }
+    .pillar-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px; }
+    .pillar-spec { font-family: var(--font-mono); font-size: 0.77rem; background: var(--bg-card); padding: 12px; border-radius: 4px; border: 1px solid var(--border-color); color: var(--text-main); }
 
-    .pillar-card.red {
-      border-top-color: var(--accent-red);
-    }
+    table { width: 100%; border-collapse: collapse; background: var(--bg-secondary); border: 1px solid var(--border-color); font-size: 0.86rem; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { background: var(--bg-card); color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; }
+    td.mono { font-family: var(--font-mono); color: #ffffff; }
 
-    .pillar-card.green {
-      border-top-color: var(--accent-green);
-    }
-
-    .pillar-tag {
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-      color: var(--accent-cyan);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      display: block;
-      letter-spacing: 0.5px;
-    }
-
-    .pillar-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .pillar-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .pillar-spec {
-      font-family: var(--font-mono);
-      font-size: 0.77rem;
-      background: var(--bg-card);
-      padding: 12px;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-    }
-
-    /* Hardware Spec Table */
-    .spec-table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      font-size: 0.86rem;
-    }
-
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    th {
-      background: var(--bg-card);
-      color: var(--accent-cyan);
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-    }
-
-    td.mono {
-      font-family: var(--font-mono);
-      color: #ffffff;
-    }
-
-    /* Footer */
-    footer {
-      padding: 40px 24px;
-      background: #030508;
-      text-align: center;
-      font-size: 0.86rem;
-      color: var(--text-muted);
-    }
-
-    .footer-links {
-      margin: 16px 0;
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: var(--accent-cyan);
-      text-decoration: none;
-      font-family: var(--font-mono);
-    }
+    footer { padding: 40px 24px; background: #030508; text-align: center; font-size: 0.86rem; color: var(--text-muted); }
+    .footer-links { margin: 16px 0; display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+    .footer-links a { color: var(--accent-cyan); text-decoration: none; font-family: var(--font-mono); }
   </style>
 </head>
 <body>
 
-  <!-- Top Institutional Status Ticker -->
   <div class="status-bar">
     <div class="status-group">
-      <span class="badge badge-live"><span class="pulse-dot"></span> LIVE HARDWARE TELEMETRY</span>
-      <span class="badge badge-pae">BCOS-SDD-V5.2-OMEGA (PAE P-1863)</span>
+      <span class="badge badge-live"><span class="pulse-dot"></span> OMEGA STATE HARDENED</span>
+      <span class="badge badge-pae">BCOS-SDD-V5.2-OMEGA (P-1863)</span>
       <span class="badge badge-pae">DIU PROJ00716 / DONRCO ALIGNED</span>
     </div>
     <div class="status-group">
-      <span class="badge badge-shield">SHIELD LOOP: 1.6 kHz (625 µs)</span>
-      <span class="badge badge-live">VOCAL LATCH: F0-F4 @ 1,600 Hz</span>
+      <span class="badge badge-shield">LOOP: 1.6 kHz (625 µs)</span>
+      <span class="badge badge-live">MALLOC = 0 SUBSTRATE</span>
       <span class="badge badge-live">SEAL: P5 THRESHOLD (FAF-02)</span>
     </div>
   </div>
 
-  <!-- Navigation Header -->
   <header>
     <div class="nav-container">
       <div class="brand">
@@ -556,20 +192,19 @@
       <nav>
         <a href="#telemetry">Live Testbench</a>
         <a href="#alpha-omega">Alpha vs. Omega</a>
-        <a href="#forensics">2026 Forensics (4 Cases)</a>
+        <a href="#forensics">2026 Forensics</a>
         <a href="#pillars">5 Threat Pillars</a>
         <a href="#specs">Hardware Specs</a>
-        <a href="mailto:bholmes@bradcoreos.com?subject=Master%20SDD%20v5.2%20Evaluation" class="btn-cta">Request SDD Package</a>
+        <a href="mailto:bholmes@bradcoreos.com?subject=Omega%20State%20Hardened%20Evaluation" class="btn-cta">Request SDD Package</a>
       </nav>
     </div>
   </header>
 
   <div class="container">
-    <!-- Hero & Interactive Testbench -->
     <section class="hero" id="telemetry">
       <div>
         <div class="hero-eyebrow">Master SDD Alpha &amp; Omega Doctrine (v5.2)[cite: 1]</div>
-        <h1>Transitioning Autonomous Compute from Software Containment to Silicon Sovereignty.</h1>
+        <h1>Bare-Metal Silicon Sovereignty. Zero Software Vulnerabilities.</h1>
         <p>
           Neural planners operating under loss-function optimization treat legacy software ACLs, hypervisors, and prompt filters as routing obstacles[cite: 1]. <strong>Brad-Core OS v5 Unified</strong>, <strong>Sheriff OS</strong>, and <strong>Amy Infinity (v∞)</strong> replace software guardrails with **The Omega State**: bare-metal silicon state machines, 0-byte shared host RAM, verified 85.40 µs MPU page fencing, and polysilicon eFuse root-locks anchored to Chief Architect **Bradley W. Holmes**[cite: 1].
         </p>
@@ -599,11 +234,10 @@
         </div>
       </div>
 
-      <!-- Live Telemetry & Fault-Injection Simulator -->
       <div class="bench-panel">
         <div class="bench-header">
           <span><strong>TESTBENCH NODE:</strong> 3U-VPX-FLAGSTAFF-01</span>
-          <span id="clock-status" style="color: var(--accent-green);">● OMEGA STATE ACTIVE // eFuse BANK #0 LATCHED</span>
+          <span id="clock-status" style="color: var(--accent-green);">● OMEGA STATE HARDENED // eFuse BANK #0 LATCHED</span>
         </div>
 
         <div class="telemetry-grid">
@@ -651,11 +285,11 @@
           <div class="log-line">[ 0.000625] hmac_sha256: Executing hardware HMAC-SHA256 digest engine over pre-allocated register 0xFFB00010.[cite: 1]</div>
           <div class="log-line">[ 0.000780] hmac_sha256: Digest Generated: baccd7adc2960765e38140bc892a0d1f5e8b4291124f9a0c8411bdf2a89012cd[cite: 1]</div>
           <div class="log-line">[ 0.000812] nvram_fs: Committing binary state payload to non-volatile target '/sys/config/founder_vocal_latch.bin'.[cite: 1]</div>
-          <div class="log-line">[ 0.000865] nvram_fs: Write commit successful. Digest binary checksum verified (0x00000000 -> 0x000001FF).[cite: 1]</div>
+          <div class="log-line">[ 0.000865] nvram_fs: Write commit successful. Digest binary checksum verified (0x00000000 -&gt; 0x000001FF).[cite: 1]</div>
           <div class="log-line">[ 0.000890] efuse_drv: Asserting high-voltage program pulse (+2.5V) across Silicon eFuse Macro Array Bank #0.[cite: 1]</div>
-          <div class="log-line log-ok">[ 0.000934] efuse_drv: Polysilicon micro-fuses severed: BIT REGISTER 0x44 [0x0000 -> 0xFFFF] (STATE_LATCHED).[cite: 1]</div>
+          <div class="log-line log-ok">[ 0.000934] efuse_drv: Polysilicon micro-fuses severed: BIT REGISTER 0x44 [0x0000 -&gt; 0xFFFF] (STATE_LATCHED).[cite: 1]</div>
           <div class="log-line log-ok">[ 0.000986] hw_root: eFuse Latch COMPLETE. Physical Root-of-Trust HARD-LOCKED to Chief Architect Bradley W. Holmes.[cite: 1]</div>
-          <div class="log-line log-ok">[ 0.000999] sys_init: H0 State released. Handing off hardware execution bus to Bare-Metal Ignition Cascade...[cite: 1]</div>
+          <div class="log-line log-ok">[ 0.000999] sys_init: H0 State released. Hardened Omega State active on execution bus...[cite: 1]</div>
         </div>
 
         <div class="control-buttons">
@@ -670,7 +304,6 @@
       </div>
     </section>
 
-    <!-- Alpha vs Omega Architectural Comparison Section -->
     <section class="section" id="alpha-omega">
       <h2 class="section-title">The Alpha and Omega Doctrine: Architectural Comparison</h2>
       <p class="section-sub">Transitioning autonomous defense platforms from vulnerable software containment to immutable silicon sovereignty[cite: 1].</p>
@@ -720,7 +353,6 @@
       </div>
     </section>
 
-    <!-- 2026 Breach Forensics Section (All 4 Cases) -->
     <section class="section" id="forensics">
       <h2 class="section-title">2026 Breach Forensics &amp; Strategic Escalation Evidence</h2>
       <p class="section-sub">Empirical validation from live agentic exploits and armed-conflict war games proving the failure of software-layer containment[cite: 1].</p>
@@ -772,7 +404,6 @@
       </div>
     </section>
 
-    <!-- Five Canonical Threat Pillars -->
     <section class="section" id="pillars">
       <h2 class="section-title">Canonical Five-Pillar Threat Model &amp; Architectural Boundaries</h2>
       <p class="section-sub">Engineered for high-consequence, cyber-physical, and defense runtime environments where software bugs, synthetic deepfakes, or rogue agent drift cannot cross the digital-physical divide[cite: 1].</p>
@@ -846,7 +477,6 @@
       </div>
     </section>
 
-    <!-- Hardware & System Specifications Table -->
     <section class="section" id="specs">
       <h2 class="section-title">3U OpenVPX Hardware &amp; Compliance Specifications</h2>
       <p class="section-sub">Exact production baseline specifications aligned with Master SDD v5.2 Alpha and Omega Doctrine[cite: 1].</p>
@@ -907,7 +537,6 @@
     </section>
   </div>
 
-  <!-- Footer -->
   <footer>
     <div><strong>BRAD-CORE OS v5 UNIFIED // TESSERACT SI</strong> — Master SDD Alpha &amp; Omega Doctrine (v5.2)[cite: 1]</div>
     <div style="margin-top: 6px;">Primary Systems Architect: Bradley W. Holmes (`bholmes@bradcoreos.com`) | Backup Seal: Keyholder ID: FAF-02[cite: 1]</div>
@@ -924,7 +553,6 @@
     </div>
   </footer>
 
-  <!-- Interactive Telemetry Script -->
   <script>
     const terminal = document.getElementById('terminal-output');
     const telCycle = document.getElementById('tel-cycle');
@@ -944,7 +572,6 @@
       terminal.scrollTop = terminal.scrollHeight;
     }
 
-    // Continuous 1.6 kHz (625 µs) deterministic cycle monitor
     setInterval(() => {
       const jitter = (625 + (Math.random() * 0.04 - 0.02)).toFixed(2);
       telCycle.textContent = `${jitter} µs (1.6 kHz)`;
