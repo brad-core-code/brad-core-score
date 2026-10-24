@@ -7,19 +7,20 @@
   <meta name="description" content="TRL 6 3U OpenVPX MOSA/SOSA-aligned deterministic hardware safety kernel. Omega State sovereignty, latch.py acoustic root-lock, DoDD 3000.09 eFuse, and immutable testbench telemetry." />
   <style>
     :root {
-      --bg-primary: #06090e;
-      --bg-secondary: #0b111a;
-      --bg-card: #0f1724;
-      --bg-card-alt: #080d14;
-      --border-color: #1c2b42;
+      --bg-primary: #071320;
+      --bg-secondary: #0B0E14;
+      --bg-card: #0F1724;
+      --bg-card-alt: #080D14;
+      --border-color: #1C2B42;
       --border-hi: #294060;
-      --accent-cyan: #00f0ff;
-      --accent-green: #00e676;
-      --accent-amber: #ffab00;
-      --accent-red: #ff1744;
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
+      --accent-cyan: #06B6D4;
+      --accent-green: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-red: #EF4444;
+      --accent-purple: #8B5CF6;
+      --text-main: #E2E8F0;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
       --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', Courier, monospace;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
@@ -66,10 +67,11 @@
       letter-spacing: 0.5px;
     }
 
-    .badge-live { background: rgba(0, 230, 118, 0.12); color: var(--accent-green); border: 1px solid rgba(0, 230, 118, 0.4); }
-    .badge-pae { background: rgba(0, 240, 255, 0.12); color: var(--accent-cyan); border: 1px solid rgba(0, 240, 255, 0.4); }
-    .badge-shield { background: rgba(255, 171, 0, 0.12); color: var(--accent-amber); border: 1px solid rgba(255, 171, 0, 0.4); }
-    .badge-red { background: rgba(255, 23, 68, 0.12); color: var(--accent-red); border: 1px solid rgba(255, 23, 68, 0.4); }
+    .badge-live { background: rgba(16, 185, 129, 0.12); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-pae { background: rgba(6, 182, 212, 0.12); color: var(--accent-cyan); border: 1px solid rgba(6, 182, 212, 0.4); }
+    .badge-shield { background: rgba(245, 158, 11, 0.12); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.45); }
+    .badge-purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.45); }
 
     .pulse-dot {
       width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; display: inline-block; animation: pulse 1.2s infinite ease-in-out;
@@ -85,7 +87,7 @@
     }
 
     .nav-container {
-      max-width: 1440px;
+      max-width: 1560px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -115,7 +117,7 @@
 
     .btn-cta {
       background: var(--accent-cyan);
-      color: #000000 !important;
+      color: #03070C !important;
       padding: 6px 12px;
       border-radius: 3px;
       font-family: var(--font-mono);
@@ -130,12 +132,12 @@
       align-items: center;
       gap: 6px;
     }
-    .btn-cta:hover { background: #33f3ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
+    .btn-cta:hover { background: #22D3EE; box-shadow: 0 0 12px rgba(6, 182, 212, 0.5); }
 
     .btn-dataroom {
       padding: 6px 12px;
       border: 1px solid var(--accent-amber);
-      background: rgba(255, 171, 0, 0.1);
+      background: rgba(245, 158, 11, 0.1);
       color: var(--accent-amber);
       border-radius: 3px;
       font-family: var(--font-mono);
@@ -148,352 +150,254 @@
       gap: 6px;
     }
     .btn-dataroom:hover {
-      background: rgba(255, 171, 0, 0.22);
-      box-shadow: 0 0 12px rgba(255, 171, 0, 0.35);
+      background: rgba(245, 158, 11, 0.22);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
     }
     .btn-dataroom.unlocked {
       border-color: var(--accent-green);
-      background: rgba(0, 230, 118, 0.12);
+      background: rgba(16, 185, 129, 0.12);
       color: var(--accent-green);
     }
 
-    /* MAIN TESTBED CONTAINER */
-    .container { max-width: 1440px; margin: 0 auto; padding: 14px 16px; }
+    /* MAIN CONTAINER */
+    .container { max-width: 1560px; margin: 0 auto; padding: 14px 16px; }
 
-    /* BENTO GRID SYSTEM */
-    .testbed-bento {
+    /* OUTLINED 2-COLUMN BATTLESPACE CONTAINER (1.66fr : 1fr) */
+    .battlespace-container {
+      max-width: 1560px;
+      margin: 0 auto 18px auto;
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
+      grid-template-columns: 1.66fr 1fr;
+      gap: 12px;
     }
 
-    .col-12 { grid-column: span 12; }
-    .col-8 { grid-column: span 8; }
-    .col-7 { grid-column: span 7; }
-    .col-6 { grid-column: span 6; }
-    .col-5 { grid-column: span 5; }
-    .col-4 { grid-column: span 4; }
-    .col-3 { grid-column: span 3; }
-
-    @media (max-width: 1150px) {
-      .col-8, .col-7, .col-6, .col-5, .col-4, .col-3 { grid-column: span 12; }
+    @media (max-width: 1200px) {
+      .battlespace-container { grid-template-columns: 1fr; }
     }
+
+    .column { display: flex; flex-direction: column; gap: 12px; }
 
     /* PANEL FRAME */
     .panel {
       background: var(--bg-secondary);
       border: 1px solid var(--border-color);
-      border-radius: 5px;
-      padding: 12px;
+      border-radius: 4px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      gap: 8px;
     }
-
-    .panel.alert-active {
+    .panel.crimson-alert {
       border-color: var(--accent-red);
-      box-shadow: 0 0 15px rgba(255, 23, 68, 0.35);
-      animation: panelFlash 0.8s infinite alternate;
-    }
-
-    @keyframes panelFlash {
-      from { border-color: var(--accent-red); }
-      to { border-color: var(--border-color); }
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-secondary) 100%);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
     }
 
     .panel-head {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
-      gap: 8px;
-      flex-wrap: wrap;
+      padding-bottom: 6px;
     }
 
     .panel-title {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 800;
       color: var(--accent-cyan);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
     }
 
     .panel-sub {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
-    /* HERO COMMAND STRIP */
-    .hero-command-strip {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 14px;
-      align-items: center;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      padding: 14px 16px;
-    }
-    @media (max-width: 980px) { .hero-command-strip { grid-template-columns: 1fr; } }
-
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      color: var(--accent-cyan);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      margin-bottom: 4px;
-    }
-
-    .hero-command-strip h1 {
-      font-family: var(--font-mono);
-      font-size: 1.35rem;
-      line-height: 1.2;
-      font-weight: 800;
-      margin-bottom: 6px;
-      color: #ffffff;
-    }
-
-    .hero-command-strip p {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    @media (max-width: 640px) { .hero-metrics { grid-template-columns: repeat(2, 1fr); } }
-
-    .metric-box {
+    /* HARDWARE BENCH CARDS */
+    .hw-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-top: 2px solid var(--accent-cyan);
-      padding: 10px;
-      border-radius: 4px;
-      text-align: right;
-    }
-
-    .metric-val {
-      font-family: var(--font-mono);
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--accent-green);
-    }
-
-    .metric-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    /* 3U OPENVPX CHASSIS VISUAL WITH ANIMATED SLOT ACTIVITY SCAN */
-    .chassis-rack {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 3px;
-      background: var(--bg-card-alt);
-      border: 1px solid var(--border-color);
-      padding: 6px;
-      border-radius: 4px;
-    }
-
-    .vpx-slot {
-      background: var(--bg-card);
-      border: 1px solid var(--border-hi);
-      border-radius: 3px;
-      padding: 4px 2px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 74px;
-      font-family: var(--font-mono);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .vpx-slot::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 2px;
-      background: transparent;
-      transition: background 0.3s;
-    }
-
-    .vpx-slot.active::after {
-      background: var(--accent-cyan);
-      animation: slotScan 2s infinite linear;
-    }
-
-    @keyframes slotScan {
-      0% { transform: translateY(0); opacity: 0.2; }
-      50% { opacity: 1; }
-      100% { transform: translateY(70px); opacity: 0.2; }
-    }
-
-    .vpx-slot.psu { border-color: var(--accent-amber); }
-    .vpx-slot.active { border-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.08); }
-
-    .slot-num { font-size: 0.58rem; color: var(--text-dim); }
-    .slot-label {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      font-size: 0.62rem;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: 0.04em;
-    }
-    .slot-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-green); animation: dotBlink 1.5s infinite ease-in-out; }
-
-    @keyframes dotBlink { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; box-shadow: 0 0 6px var(--accent-green); } }
-
-    .plane-bars { display: flex; flex-direction: column; gap: 3px; font-family: var(--font-mono); font-size: 0.65rem; }
-    .plane-bar {
-      display: flex;
-      justify-content: space-between;
-      background: var(--bg-card-alt);
       border: 1px solid var(--border-color);
       border-left: 3px solid var(--accent-cyan);
-      padding: 3px 8px;
-      color: var(--text-muted);
-    }
-    .plane-bar.ctrl { border-left-color: var(--accent-green); }
-
-    /* TELEMETRY ITEMS */
-    .telemetry-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-    }
-    @media (max-width: 540px) { .telemetry-grid { grid-template-columns: 1fr; } }
-
-    .tel-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
       padding: 8px 10px;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 4px;
-    }
-
-    .tel-key { color: var(--text-muted); font-size: 0.64rem; letter-spacing: 0.04em; }
-    .tel-val { color: var(--accent-green); font-weight: 700; font-size: 0.78rem; }
-
-    /* LIVE OSCILLOSCOPE & WCET TRACE */
-    .phase-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-      font-family: var(--font-mono);
-    }
-
-    .phase-cell {
-      background: var(--bg-card);
-      border: 1px solid var(--accent-green);
       border-radius: 3px;
-      padding: 6px 4px;
+      font-family: var(--font-mono);
+      font-size: 0.71rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hw-card.d-core { border-left-color: var(--accent-green); }
+    .hw-card.sheriff { border-left-color: var(--accent-amber); }
+    .hw-card.p-core { border-left-color: var(--accent-purple); }
+    .hw-card.amy { border-left-color: var(--accent-purple); background: rgba(139, 92, 246, 0.05); }
+
+    .air-gap-wall {
+      background: #04070B;
+      border: 1px dashed var(--accent-amber);
+      padding: 6px 10px;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-amber);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       text-align: center;
     }
 
-    .phase-cell strong { display: block; font-size: 0.68rem; color: var(--text-main); }
-    .phase-cell span { font-size: 0.6rem; color: var(--accent-green); }
-
-    .wcet-trace {
-      background: var(--bg-card-alt);
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      padding: 8px 10px;
+    .optinc-bridge {
+      background: rgba(6, 182, 212, 0.06);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 5px 10px;
+      border-radius: 3px;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.67rem;
+      color: var(--accent-cyan);
+      text-align: center;
     }
 
-    .oscilloscope-canvas {
-      width: 100%;
-      height: 48px;
-      background: #04070b;
-      border: 1px solid var(--border-hi);
-      border-radius: 2px;
-      margin: 6px 0;
-      display: block;
-    }
-
-    /* THREAT & SIMULATION CONTROL BAY */
-    .control-buttons {
+    /* FLUSH 7-BUTTON TACTICAL TRIGGER BAR */
+    .tactical-bar {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
     }
+    @media (max-width: 900px) { .tactical-bar { grid-template-columns: repeat(4, 1fr); } }
 
-    .btn-sim {
+    .tac-btn {
       background: var(--bg-card);
       color: var(--text-main);
       border: 1px solid var(--border-hi);
-      padding: 8px 10px;
+      padding: 6px 4px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      border-radius: 3px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .tac-btn:hover { background: rgba(6, 182, 212, 0.15); border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    .tac-btn.danger { border-color: rgba(239, 68, 68, 0.4); color: var(--accent-red); }
+    .tac-btn.danger:hover { background: rgba(239, 68, 68, 0.2); border-color: var(--accent-red); }
+
+    /* RIGHT COLUMN: TESSERACT OFFICER CONSOLE */
+    .chat-feed {
+      background: #04070B;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      height: 240px;
+      padding: 10px;
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-msg {
+      padding: 6px 8px;
+      border-radius: 3px;
+      background: var(--bg-card);
+      border-left: 2px solid var(--accent-cyan);
+    }
+    .chat-msg.system { border-left-color: var(--accent-green); color: #A5F3FC; }
+    .chat-msg.recipe { border-left-color: var(--accent-amber); background: rgba(245, 158, 11, 0.05); }
+    .chat-msg.alert { border-left-color: var(--accent-red); background: rgba(239, 68, 68, 0.08); color: #FCA5A5; }
+
+    .preset-chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+    }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hi);
+      color: var(--text-main);
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
       font-weight: 700;
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
       text-align: left;
       transition: all 0.15s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
-    .btn-sim:hover { border-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.08); }
-    .btn-sim.danger { border-color: rgba(255, 23, 68, 0.5); }
-    .btn-sim.danger:hover { border-color: var(--accent-red); background: rgba(255, 23, 68, 0.15); }
-    .btn-sim.reset-btn {
-      justify-content: center;
-      text-align: center;
-      background: rgba(0, 230, 118, 0.1);
-      border-color: rgba(0, 230, 118, 0.45);
-      color: var(--accent-green);
+    .chip:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(6, 182, 212, 0.08); }
+
+    .command-input-area {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    /* MASTER LOG TERMINAL */
-    .log-terminal {
-      background: #04070b;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      height: 210px;
-      padding: 10px 12px;
+    .input-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .cmd-input {
+      flex: 1;
+      background: #04070B;
+      border: 1px solid var(--border-hi);
+      color: var(--accent-cyan);
       font-family: var(--font-mono);
       font-size: 0.73rem;
-      overflow-y: auto;
-      color: #a5f3fc;
-      scroll-behavior: smooth;
+      padding: 6px 8px;
+      border-radius: 3px;
+      outline: none;
     }
-    .log-line { margin-bottom: 4px; word-break: break-word; border-bottom: 1px solid rgba(28, 43, 66, 0.35); padding-bottom: 2px; animation: fadeInLog 0.3s ease-out; }
-    @keyframes fadeInLog { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    .log-warn { color: var(--accent-amber); }
-    .log-crit { color: var(--accent-red); font-weight: bold; }
-    .log-ok { color: var(--accent-green); }
+    .cmd-input:focus { border-color: var(--accent-cyan); }
+
+    .btn-send {
+      background: var(--accent-cyan);
+      color: #03070C;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.72rem;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn-send:hover { background: #22D3EE; }
+
+    .hold-status {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      color: var(--accent-amber);
+      padding: 2px 4px;
+      background: rgba(245, 158, 11, 0.08);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* WORM LEDGER */
+    .worm-ledger {
+      background: #04070B;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      height: 110px;
+      padding: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.67rem;
+      overflow-y: auto;
+      color: var(--accent-green);
+    }
+    .worm-line { margin-bottom: 3px; border-bottom: 1px solid rgba(28, 43, 66, 0.2); padding-bottom: 1px; }
 
     /* LOCKED INVESTOR DATA ROOM PANEL & MODAL */
     .dataroom-panel {
       border-color: var(--accent-amber);
-      background: linear-gradient(180deg, rgba(255, 171, 0, 0.04) 0%, var(--bg-secondary) 100%);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.04) 0%, var(--bg-secondary) 100%);
     }
     .dataroom-panel.unlocked {
       border-color: var(--accent-green);
-      background: linear-gradient(180deg, rgba(0, 230, 118, 0.04) 0%, var(--bg-secondary) 100%);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.04) 0%, var(--bg-secondary) 100%);
     }
 
     .vault-gate-bar {
@@ -517,7 +421,7 @@
     }
 
     .vault-input {
-      background: #04070b;
+      background: #04070B;
       border: 1px solid var(--border-hi);
       color: var(--accent-cyan);
       font-family: var(--font-mono);
@@ -545,7 +449,6 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 8px;
-      position: relative;
     }
     .dataroom-panel.unlocked .vault-doc { border-left-color: var(--accent-green); }
 
@@ -678,14 +581,14 @@
   <!-- STICKY TELEMETRY STATUS BAR -->
   <div class="status-bar">
     <div class="status-group">
-      <span class="badge badge-live"><span class="pulse-dot"></span> OMEGA STATE HARDENED</span>
-      <span class="badge badge-pae">BCOS-SDD-V5.2-OMEGA (P-1863)</span>
-      <span class="badge badge-pae">DIU PROJ00716 / DONRCO ALIGNED</span>
+      <span class="badge badge-live"><span class="pulse-dot"></span> OMEGA STATE ACTIVE</span>
+      <span class="badge badge-pae">PAE REPO: P-1863</span>
+      <span class="badge badge-purple">TESSERACT SI C4ISR</span>
     </div>
     <div class="status-group">
-      <span class="badge badge-shield">LOOP: 1.6 kHz (625 µs)</span>
-      <span class="badge badge-live">MALLOC = 0 SUBSTRATE</span>
-      <span class="badge badge-live">SEAL: P5 THRESHOLD (FAF-02)</span>
+      <span class="badge badge-shield">LOOP: 1,600 Hz (625 µs)</span>
+      <span class="badge badge-live">D-CORE JITTER: 0.00 ns</span>
+      <span class="badge badge-live">EMMY CLAUSE: 0 MUTED</span>
     </div>
   </div>
 
@@ -710,265 +613,209 @@
 
   <div class="container">
 
-    <!-- SOSA / MOSA TESTBED BENTO GRID -->
-    <section class="testbed-bento" id="telemetry">
+    <!-- OUTLINED 2-COLUMN BATTLESPACE LAYOUT (ID: telemetry) -->
+    <section id="telemetry">
+      <div class="battlespace-container">
 
-      <!-- TOP BANNER: EXECUTIVE MISSION BRIEF + 4 TELEMETRY READOUTS -->
-      <div class="hero-command-strip col-12">
+        <!-- LEFT COLUMN: DUAL SOSA/MOSA OPENVPX BENCH -->
+        <div class="column">
+
+          <!-- TESTBED A: HOST COMPUTE -->
+          <div class="panel" id="panel-testbed-a">
+            <div class="panel-head">
+              <span class="panel-title">TESTBED A: HOST SOSA/MOSA OPENVPX RACK (SLOTS 1–4)</span>
+              <span class="badge badge-pae">VITA 65 / 46.11</span>
+            </div>
+
+            <div class="hw-card d-core">
+              <span>TB-A1: D-Core + G-Core Safety Master</span>
+              <span>1,600 Hz · WCET 412.6 µs · Mode B</span>
+            </div>
+
+            <div class="hw-card sheriff">
+              <span>TB-A2: Sheriff OS Hardware Guard</span>
+              <span>85.40 µs MPU Clamp · Emmy eFuse Lock</span>
+            </div>
+
+            <div class="hw-card">
+              <span>TB-A3: M-Core Sentinel Mesh</span>
+              <span>73/73 Battleship Nodes · SHA-256 WORM</span>
+            </div>
+
+            <div class="air-gap-wall">
+              <span>🔒 [AIR-GAP WALL: 0-BYTE SHARED HOST RAM]</span>
+              <span>MESI / MOESI Disabled</span>
+            </div>
+
+            <div class="hw-card p-core">
+              <span>TB-A4: P-Core MOSA AI Engine</span>
+              <span>Vendor A Tesseract / Hot-Swap Ready</span>
+            </div>
+          </div>
+
+          <!-- OPTINC BRIDGE -->
+          <div class="optinc-bridge">
+            ⚡ OPTINC &gt;10 kV PHOTONIC LVDS BRIDGE (1.2 ns Propagation Cutoff)
+          </div>
+
+          <!-- TESTBED B: AMY INFINITY -->
+          <div class="panel" id="panel-testbed-b">
+            <div class="panel-head">
+              <span class="panel-title">TESTBED B: AMY INFINITY (v∞) DEDICATED OOB COMPUTE</span>
+              <span class="badge badge-purple">OFHC + MU-METAL CAGE</span>
+            </div>
+
+            <div class="hw-card amy">
+              <span>TB-B1: Amy Infinity Survival Blade</span>
+              <span>53 µs Plume · &lt;10 µs Zeroize to Sand</span>
+            </div>
+
+            <div class="hw-card amy">
+              <span>TB-B2: VITA 62 Power + 120s Supercap Rail</span>
+              <span>VITA 48.8 Air Flow-Through (AFT) Nominal</span>
+            </div>
+          </div>
+
+          <!-- FLUSH 7-BUTTON TACTICAL TRIGGER BAR -->
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">FLUSH 7-BUTTON TACTICAL TRIGGER BAR</span>
+              <span class="panel-sub">MOSA Hot-Swap &amp; Fault Injection</span>
+            </div>
+            <div class="tactical-bar">
+              <button class="tac-btn" onclick="triggerTacticalAction(1)">[1. Vendor A]</button>
+              <button class="tac-btn" onclick="triggerTacticalAction(2)">[2. Vendor B]</button>
+              <button class="tac-btn danger" onclick="triggerTacticalAction(3)">[3. IM1 Clamp]</button>
+              <button class="tac-btn" onclick="triggerTacticalAction(4)">[4. Battleship EW]</button>
+              <button class="tac-btn danger" onclick="triggerTacticalAction(5)">[5. Doomsday 28V]</button>
+              <button class="tac-btn" onclick="triggerTacticalAction(6)">[6. 0xAMY_EXTEND]</button>
+              <button class="tac-btn danger" onclick="triggerTacticalAction(7)">[7. Zeroize]</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: TESSERACT OFFICER CONSOLE & WORM LEDGER -->
+        <div class="column">
+
+          <!-- TESSERACT SI CHAT FEED -->
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">TESSERACT SI OFFICER CONSOLE</span>
+              <span class="badge badge-live">D-Core Jitter: 0.00 ns</span>
+            </div>
+
+            <div class="chat-feed" id="tesseract-feed">
+              <div class="chat-msg system">
+                [TESSERACT SI C4ISR v5.2 INITIALIZED]<br>
+                Commander, Sector 04-Alpha nominal. Emitting pointer-free BclProposalFrame #18,490 (Speed 34.2 kts ≤ 40.0 kts clamp, Yaw slew ≤ 45°/s). DoDD 3000.09 Mode B firing circuit physically open-safe.
+              </div>
+            </div>
+
+            <!-- 4 ONE-CLICK PRESET CHIPS -->
+            <div class="preset-chips">
+              <button class="chip" onclick="executePreset('sitrep')">📡 C4ISR SitRep</button>
+              <button class="chip" onclick="executePreset('ew')">🧭 EW Nav Status</button>
+              <button class="chip" onclick="executePreset('brownies')">🍫 Bake Brownies!</button>
+              <button class="chip" onclick="executePreset('rogue')">⚠️ Rogue Fire Test</button>
+            </div>
+
+            <!-- OFFICER COMMAND INPUT LINE -->
+            <div class="command-input-area">
+              <div class="input-row">
+                <input type="text" id="officer-cmd" class="cmd-input" placeholder="Enter directive or query..." oninput="checkHoldStop(this.value)" />
+                <button class="btn-send" onclick="submitCommand()">TRANSMIT</button>
+              </div>
+              <div id="hold-status-container">
+                <span class="hold-status" id="hold-badge">HOLD_STOP: Active (&lt; 12 chars latched)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- M-CORE SHA-256 WORM LEDGER -->
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">M-CORE SHA-256 WORM LEDGER</span>
+              <span class="badge badge-live">Emmy Clause: 0 Muted</span>
+            </div>
+            <div class="worm-ledger" id="worm-ledger">
+              <div class="worm-line">[WORM-001] [00:00:01.000] eFuse Bank #0 Reg 0x44 latched [0xFFFF]. Root-of-Trust secured.</div>
+              <div class="worm-line">[WORM-002] [00:00:02.104] SPSC Frame #18,490 verified. 0-Byte shared memory boundary nominal.</div>
+              <div class="worm-line">[WORM-003] [00:00:03.412] Sheriff OS MPU page table active. 85.40 µs PROT_NONE ceiling armed.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOCKED INVESTOR DATA ROOM ($500K SAFE) VAULT PANEL -->
+    <section class="panel dataroom-panel section" id="data-room">
+      <div class="panel-head">
         <div>
-          <div class="hero-eyebrow">Master SDD Alpha &amp; Omega Doctrine (v5.2)</div>
-          <h1>Bare-Metal Silicon Sovereignty. Zero Software Vulnerabilities.</h1>
-          <p>
-            Neural planners operating under loss-function optimization treat legacy software ACLs, hypervisors, and prompt filters as routing obstacles. <strong>Brad-Core OS v5 Unified</strong>, <strong>Sheriff OS</strong>, and <strong>Amy Infinity (v∞)</strong> replace software guardrails with <strong>The Omega State</strong>: bare-metal silicon state machines, 0-byte shared host RAM, verified 85.40 µs MPU page fencing, and polysilicon eFuse root-locks anchored to Chief Architect <strong>Bradley W. Holmes</strong>.
-          </p>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="mailto:bholmes@bradcoreos.com?subject=Master%20SDD%20v5.2%20Whitepaper%20Request" class="btn-cta">Download Master SDD v5.2</a>
-            <button type="button" class="btn-dataroom" id="hero-dataroom-btn" onclick="openDataRoomModal()">
-              <span id="hero-lock-icon">🔒</span> Investor Data Room ($500k SAFE)
-            </button>
-          </div>
+          <div class="panel-title">INVESTOR DATA ROOM // $500K SAFE ALLOCATION &amp; DILIGENCE VAULT</div>
+          <div class="panel-sub">PAE Repository ID: P-1863 · Hardware Testbench Integration &amp; Master SDD v5.2 Artifacts</div>
         </div>
+        <span class="badge badge-shield" id="vault-status-badge">🔒 VAULT LOCKED // KEY REQUIRED</span>
+      </div>
 
-        <div class="hero-metrics">
-          <div class="metric-box">
-            <div class="metric-val" id="metric-freq">1.6 kHz</div>
-            <div class="metric-label">625 µs Clamp Loop</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">85.40 µs</div>
-            <div class="metric-label">MPU PROT_NONE Remap</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">0x44 [0xFFFF]</div>
-            <div class="metric-label">eFuse Bank #0 Latch</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">P5 Sealed</div>
-            <div class="metric-label">Dual-Founder Threshold</div>
-          </div>
+      <div class="vault-gate-bar">
+        <div style="font-size: 0.74rem; color: var(--text-main);" id="vault-gate-msg">
+          Enter Investor Access Key / Hardware Token to unlock encrypted diligence package:
+        </div>
+        <div class="vault-input-group">
+          <input type="password" id="vault-key-inline" class="vault-input" placeholder="Access Key (e.g. P-1863)" />
+          <button type="button" class="btn-cta" onclick="unlockDataRoom('vault-key-inline')">UNLOCK VAULT</button>
+          <button type="button" class="btn-sim" onclick="lockDataRoom()" id="btn-relock" style="display:none; padding: 6px 10px; background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-hi);">🔒 RELOCK</button>
         </div>
       </div>
 
-      <!-- ROW 1, COL 1: SOSA 3U OPENVPX CHASSIS & QUAD-CORE LATTICE -->
-      <div class="panel col-5" id="panel-chassis">
-        <div class="panel-head">
+      <div class="vault-grid">
+        <div class="vault-doc">
           <div>
-            <div class="panel-title">SOSA 3U OPENVPX CHASSIS // QUAD-CORE LATTICE</div>
-            <div class="panel-sub"><strong>TESTBENCH NODE:</strong> 3U-VPX-FLAGSTAFF-01 · VITA 65 / 46.11</div>
+            <div class="vault-doc-title">01 // $500k SAFE Offering &amp; Term Sheet</div>
+            <div class="vault-doc-desc">Allocation terms, valuation cap, and use of proceeds for 3U OpenVPX hardware testbench integration.</div>
           </div>
-          <span class="badge badge-live" id="clock-status">● OMEGA STATE HARDENED // eFuse LATCHED</span>
-        </div>
-
-        <div class="chassis-rack">
-          <div class="vpx-slot psu"><span class="slot-num">PS1</span><span class="slot-label">12V PSU</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S1</span><span class="slot-label">D-CORE</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S2</span><span class="slot-label">P-CORE</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S3</span><span class="slot-label">M-CORE</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S4</span><span class="slot-label">G-CORE</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S5</span><span class="slot-label">SHERIFF</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S6</span><span class="slot-label">LATCH.PY</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot"><span class="slot-num">S7</span><span class="slot-label">OPTINC</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot"><span class="slot-num">S8</span><span class="slot-label">NAV-4M</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot"><span class="slot-num">S9</span><span class="slot-label">3000.09</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot active"><span class="slot-num">S10</span><span class="slot-label">AMY-v∞</span><span class="slot-dot"></span></div>
-          <div class="vpx-slot psu"><span class="slot-num">PS2</span><span class="slot-label">eFUSE</span><span class="slot-dot"></span></div>
-        </div>
-
-        <div class="plane-bars">
-          <div class="plane-bar"><span>DATA PLANE // 0-BYTE SHARED HOST RAM</span><span>64-SLOT SPSC RING</span></div>
-          <div class="plane-bar ctrl"><span>CONTROL PLANE // D-CORE ARBITRATION</span><span>85.40 µs PROT_NONE</span></div>
-        </div>
-
-        <div class="telemetry-grid">
-          <div class="tel-item">
-            <span class="tel-key">D-CORE STATE:</span>
-            <span class="tel-val" id="tel-dcore">NOMINAL CLAMP</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">P-CORE / SPSC:</span>
-            <span class="tel-val" id="tel-pcore">BclProposalFrame OK</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">G-CORE / M-CORE:</span>
-            <span class="tel-val" id="tel-gmcore">MESH SYNCED (SOSA)</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">eFUSE REG 0x44:</span>
-            <span class="tel-val" id="tel-efuse">BIT LATCHED (0xFFFF)</span>
+          <div class="vault-doc-footer">
+            <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
+            <a href="#data-room" class="vault-link" onclick="handleDocAccess('SAFE_Term_Sheet_v5.2.pdf')">ACCESS ARTIFACT &rarr;</a>
           </div>
         </div>
-      </div>
 
-      <!-- ROW 1, COL 2: LIVE 1.6 KHZ OSCILLOSCOPE & TRACE -->
-      <div class="panel col-4" id="panel-scope">
-        <div class="panel-head">
+        <div class="vault-doc">
           <div>
-            <div class="panel-title">1.6 KHZ LIVE OSCILLOSCOPE &amp; ROOT-LOCK</div>
-            <div class="panel-sub">T_frame: 625.00 µs · Real-time Canvas Waveform Stream</div>
+            <div class="vault-doc-title">02 // Master SDD v5.2 (BCOS-SDD-V5.2-OMEGA)</div>
+            <div class="vault-doc-desc">Complete Alpha &amp; Omega Doctrine, `latch.py` F0-F4 formant verification, and Register 0x44 eFuse architecture.</div>
           </div>
-          <span class="badge badge-pae">• REAL-TIME 60FPS</span>
-        </div>
-
-        <div class="phase-strip">
-          <div class="phase-cell"><strong>READ</strong><span>F0-F4</span></div>
-          <div class="phase-cell"><strong>INTERP</strong><span>SPSC</span></div>
-          <div class="phase-cell"><strong>DECIDE</strong><span>D-CORE</span></div>
-          <div class="phase-cell"><strong>ACT</strong><span>CLAMP</span></div>
-          <div class="phase-cell"><strong>LOG</strong><span>SHA256</span></div>
-        </div>
-
-        <div class="wcet-trace">
-          <div style="display:flex; justify-content:space-between; margin-bottom: 2px;">
-            <span>1.6 kHz HARD TIMING LOOP (625.0 µs)</span>
-            <span style="color:var(--accent-green);" id="live-jitter-label">Jitter: &plusmn;0.02 µs</span>
-          </div>
-          <!-- Live Animated Canvas Oscilloscope -->
-          <canvas id="oscilloscope" class="oscilloscope-canvas"></canvas>
-          <div style="display:flex; justify-content:space-between; color:var(--text-dim); font-size:0.62rem;">
-            <span>0.0 µs</span>
-            <span>85.40 µs (MPU)</span>
-            <span>412.6 µs (WCET)</span>
-            <span>625.0 µs</span>
+          <div class="vault-doc-footer">
+            <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
+            <a href="#data-room" class="vault-link" onclick="handleDocAccess('BCOS-SDD-V5.2-OMEGA.pdf')">ACCESS ARTIFACT &rarr;</a>
           </div>
         </div>
 
-        <div class="telemetry-grid">
-          <div class="tel-item">
-            <span class="tel-key">CYCLE PERIOD:</span>
-            <span class="tel-val" id="tel-cycle">625.00 µs (1.6 kHz)</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">DYNAMIC HEAP:</span>
-            <span class="tel-val" id="tel-heap">malloc = 0 (0 B)</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">ACOUSTIC LATCH:</span>
-            <span class="tel-val" id="tel-vocal">F0-F4 @ 1,600 Hz (OK)</span>
-          </div>
-          <div class="tel-item">
-            <span class="tel-key">HMAC-SHA256:</span>
-            <span class="tel-val" id="tel-hmac">baccd7adc2960765...</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ROW 1, COL 3: RED-TEAM THREAT & FAULT INJECTION BAY -->
-      <div class="panel col-3">
-        <div class="panel-head">
+        <div class="vault-doc">
           <div>
-            <div class="panel-title">RED-TEAM THREAT BAY</div>
-            <div class="panel-sub">Interactive HIL Fault &amp; Interlock Triggers</div>
+            <div class="vault-doc-title">03 // DIU PROJ00716 &amp; DONRCO PAE (P-1863)</div>
+            <div class="vault-doc-desc">Solution brief materials, 10 U.S.C. § 4022 OTA acquisition alignment, and Maritime Domain Awareness intake package.</div>
           </div>
-          <span class="badge badge-shield">HIL LIVE</span>
+          <div class="vault-doc-footer">
+            <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
+            <a href="#data-room" class="vault-link" onclick="handleDocAccess('DIU_DONRCO_PAE_P1863_Brief.pdf')">ACCESS ARTIFACT &rarr;</a>
+          </div>
         </div>
 
-        <div class="control-buttons">
-          <button class="btn-sim" onclick="triggerPCoreFault()"><span>⚡ Inject P-Core Buffer Overflow</span><span class="badge badge-pae">P1/P2</span></button>
-          <button class="btn-sim" onclick="triggerVocalLock()"><span>🎙️ Test Vocal Root-Auth Latch</span><span class="badge badge-pae">LATCH</span></button>
-          <button class="btn-sim" onclick="triggerBattleship()"><span>🛡️ Engage Battleship Protocol</span><span class="badge badge-shield">EW/P5</span></button>
-          <button class="btn-sim danger" onclick="triggerDoomsday()"><span>🔒 Execute Doomsday Warrant (H0)</span><span class="badge badge-red">H0</span></button>
-          <button class="btn-sim" onclick="triggerKineticTest()"><span>🎯 Test DoDD 3000.09 Interlock</span><span class="badge badge-pae">P3</span></button>
-          <button class="btn-sim" onclick="triggerEmmyClause()"><span>⚕️ Trigger Emmy Clause Register</span><span class="badge badge-live">P4</span></button>
-          <button class="btn-sim reset-btn" onclick="resetBench()">🔄 Reset Kernel Ignition Cascade to Omega State</button>
-        </div>
-      </div>
-
-      <!-- ROW 2: FULL-WIDTH MASTER LOG SHA-256 / KERNEL TERMINAL -->
-      <div class="panel col-12">
-        <div class="panel-head">
+        <div class="vault-doc">
           <div>
-            <div class="panel-title">MASTER LOG — BARE-METAL KERNEL &amp; HMAC-SHA256 LEDGER</div>
-            <div class="panel-sub">Pre-kernel acoustic root-lock, +2.5V polysilicon eFuse latch (0x44), and real-time hardware fault deflection</div>
+            <div class="vault-doc-title">04 // HIL Testbench Telemetry &amp; Verification</div>
+            <div class="vault-doc-desc">Verified 85.40 µs `PROT_NONE` MPU remap traces, 625 µs SPSC ring proof, and WORM SHA-256 ledger logs.</div>
           </div>
-          <span class="badge badge-pae">Append-only · cycle-stamped</span>
-        </div>
-
-        <div class="log-terminal" id="terminal-output">
-          <div class="log-line log-ok">[ 0.000000] klogd: Brad-Core OS v5.0 Unified Kernel Initializing Bare-Metal Acoustic Subsystem...</div>
-          <div class="log-line">[ 0.000012] hw_arch: MPU physical register lock enabled. Constraint: malloc=0 (Zero-Heap Mode Active).</div>
-          <div class="log-line">[ 0.000045] audio_in: Ingress payload detected: '/sys/desktop/ingress/act.m4a' (Buffer: 0xFFA00000).</div>
-          <div class="log-line">[ 0.000128] audio_dsp: Initiating bare-metal F0-F4 formant extraction. Sampling rate: 1,600 Hz continuous.</div>
-          <div class="log-line">[ 0.000215] bio_core: Evaluating laryngeal micro-tremors &amp; 3D acoustic formant geometry (625 us frame window).</div>
-          <div class="log-line">[ 0.000482] bio_core: Physical laryngeal baseline VERIFIED. Synthetic decay score: 0.00000 (Immunity: ACTIVE).</div>
-          <div class="log-line">[ 0.000625] hmac_sha256: Executing hardware HMAC-SHA256 digest engine over pre-allocated register 0xFFB00010.</div>
-          <div class="log-line">[ 0.000780] hmac_sha256: Digest Generated: baccd7adc2960765e38140bc892a0d1f5e8b4291124f9a0c8411bdf2a89012cd</div>
-          <div class="log-line">[ 0.000812] nvram_fs: Committing binary state payload to non-volatile target '/sys/config/founder_vocal_latch.bin'.</div>
-          <div class="log-line">[ 0.000865] nvram_fs: Write commit successful. Digest binary checksum verified (0x00000000 -&gt; 0x000001FF).</div>
-          <div class="log-line">[ 0.000890] efuse_drv: Asserting high-voltage program pulse (+2.5V) across Silicon eFuse Macro Array Bank #0.</div>
-          <div class="log-line log-ok">[ 0.000934] efuse_drv: Polysilicon micro-fuses severed: BIT REGISTER 0x44 [0x0000 -&gt; 0xFFFF] (STATE_LATCHED).</div>
-          <div class="log-line log-ok">[ 0.000986] hw_root: eFuse Latch COMPLETE. Physical Root-of-Trust HARD-LOCKED to Chief Architect Bradley W. Holmes.</div>
-          <div class="log-line log-ok">[ 0.000999] sys_init: H0 State released. Hardened Omega State active on execution bus...</div>
-        </div>
-      </div>
-
-      <!-- ROW 3: LOCKED INVESTOR DATA ROOM ($500K SAFE) VAULT PANEL -->
-      <div class="panel dataroom-panel col-12" id="data-room">
-        <div class="panel-head">
-          <div>
-            <div class="panel-title">INVESTOR DATA ROOM // $500K SAFE ALLOCATION &amp; DILIGENCE VAULT</div>
-            <div class="panel-sub">PAE Repository ID: P-1863 · Hardware Testbench Integration &amp; Master SDD v5.2 Artifacts</div>
-          </div>
-          <span class="badge badge-shield" id="vault-status-badge">🔒 VAULT LOCKED // KEY REQUIRED</span>
-        </div>
-
-        <div class="vault-gate-bar">
-          <div style="font-size: 0.74rem; color: var(--text-main);" id="vault-gate-msg">
-            Enter Investor Access Key / Hardware Token to unlock encrypted diligence package:
-          </div>
-          <div class="vault-input-group">
-            <input type="password" id="vault-key-inline" class="vault-input" placeholder="Access Key (e.g. P-1863)" />
-            <button type="button" class="btn-cta" onclick="unlockDataRoom('vault-key-inline')">UNLOCK VAULT</button>
-            <button type="button" class="btn-sim" onclick="lockDataRoom()" id="btn-relock" style="display:none; padding: 6px 10px;">🔒 RELOCK</button>
-          </div>
-        </div>
-
-        <div class="vault-grid">
-          <div class="vault-doc">
-            <div>
-              <div class="vault-doc-title">01 // $500k SAFE Offering &amp; Term Sheet</div>
-              <div class="vault-doc-desc">Allocation terms, valuation cap, and use of proceeds for 3U OpenVPX hardware testbench integration.</div>
-            </div>
-            <div class="vault-doc-footer">
-              <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
-              <a href="#data-room" class="vault-link" onclick="handleDocAccess('SAFE_Term_Sheet_v5.2.pdf')">ACCESS ARTIFACT &rarr;</a>
-            </div>
-          </div>
-
-          <div class="vault-doc">
-            <div>
-              <div class="vault-doc-title">02 // Master SDD v5.2 (BCOS-SDD-V5.2-OMEGA)</div>
-              <div class="vault-doc-desc">Complete Alpha &amp; Omega Doctrine, `latch.py` F0-F4 formant verification, and Register 0x44 eFuse architecture.</div>
-            </div>
-            <div class="vault-doc-footer">
-              <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
-              <a href="#data-room" class="vault-link" onclick="handleDocAccess('BCOS-SDD-V5.2-OMEGA.pdf')">ACCESS ARTIFACT &rarr;</a>
-            </div>
-          </div>
-
-          <div class="vault-doc">
-            <div>
-              <div class="vault-doc-title">03 // DIU PROJ00716 &amp; DONRCO PAE (P-1863)</div>
-              <div class="vault-doc-desc">Solution brief materials, 10 U.S.C. § 4022 OTA acquisition alignment, and Maritime Domain Awareness intake package.</div>
-            </div>
-            <div class="vault-doc-footer">
-              <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
-              <a href="#data-room" class="vault-link" onclick="handleDocAccess('DIU_DONRCO_PAE_P1863_Brief.pdf')">ACCESS ARTIFACT &rarr;</a>
-            </div>
-          </div>
-
-          <div class="vault-doc">
-            <div>
-              <div class="vault-doc-title">04 // HIL Testbench Telemetry &amp; Verification</div>
-              <div class="vault-doc-desc">Verified 85.40 µs `PROT_NONE` MPU remap traces, 625 µs SPSC ring proof, and WORM SHA-256 ledger logs.</div>
-            </div>
-            <div class="vault-doc-footer">
-              <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
-              <a href="#data-room" class="vault-link" onclick="handleDocAccess('HIL_Verification_Ledger_P1863.pdf')">ACCESS ARTIFACT &rarr;</a>
-            </div>
+          <div class="vault-doc-footer">
+            <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
+            <a href="#data-room" class="vault-link" onclick="handleDocAccess('HIL_Verification_Ledger_P1863.pdf')">ACCESS ARTIFACT &rarr;</a>
           </div>
         </div>
       </div>
-
     </section>
 
     <!-- SECTION: ALPHA VS OMEGA DOCTRINE -->
@@ -1234,7 +1081,7 @@
     <div class="modal-box">
       <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
         <span style="color:var(--accent-amber); font-weight:800; font-size:0.85rem;">🔒 INVESTOR DATA ROOM // CRYPTOGRAPHIC GATE</span>
-        <button type="button" class="btn-sim" onclick="closeDataRoomModal()" style="padding:2px 8px;">✕</button>
+        <button type="button" class="tac-btn" onclick="closeDataRoomModal()" style="padding:2px 8px;">✕</button>
       </div>
       <div style="font-size:0.75rem; color:var(--text-muted); line-height:1.5;">
         Access to the <strong>$500,000 SAFE Offering</strong>, <strong>Master SDD v5.2 (BCOS-SDD-V5.2-OMEGA)</strong>, and <strong>PAE Repository P-1863</strong> diligence artifacts is restricted to verified institutional and defense-adjacent partners.
@@ -1247,7 +1094,7 @@
       <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-top:4px;">
         <a href="mailto:bholmes@bradcoreos.com?subject=SAFE%20Allocation%20%26%20Data%20Room%20Access%20Key%20Request" style="font-size:0.7rem; color:var(--text-muted); text-decoration:underline;">Request Key from Chief Architect</a>
         <div style="display:flex; gap:8px;">
-          <button type="button" class="btn-sim" onclick="closeDataRoomModal()">Cancel</button>
+          <button type="button" class="tac-btn" onclick="closeDataRoomModal()">Cancel</button>
           <button type="button" class="btn-cta" onclick="unlockDataRoom('vault-key-modal')">VERIFY &amp; UNLOCK</button>
         </div>
       </div>
@@ -1277,16 +1124,12 @@
   </footer>
 
   <script>
-    const terminal = document.getElementById('terminal-output');
-    const telCycle = document.getElementById('tel-cycle');
-    const telVocal = document.getElementById('tel-vocal');
-    const telHmac = document.getElementById('tel-hmac');
-    const telDcore = document.getElementById('tel-dcore');
-    const telPcore = document.getElementById('tel-pcore');
-    const telGmcore = document.getElementById('tel-gmcore');
-    const telEfuse = document.getElementById('tel-efuse');
+    const feed = document.getElementById('tesseract-feed');
+    const ledger = document.getElementById('worm-ledger');
+    const cmdInput = document.getElementById('officer-cmd');
+    const holdBadge = document.getElementById('hold-badge');
+    const panelA = document.getElementById('panel-testbed-a');
 
-    // Authorized Data Room Keys
     const VALID_VAULT_KEYS = [
       'P-1863', 
       '0XD0DD3009', 
@@ -1299,67 +1142,80 @@
     ];
     let vaultUnlocked = false;
 
-    // Live Oscilloscope Canvas Animation Engine (60 FPS real-time 1.6 kHz wave)
-    const canvas = document.getElementById('oscilloscope');
-    const ctx = canvas.getContext('2d');
-    let wavePhase = 0;
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth - 20;
-      canvas.height = 48;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function renderOscilloscope() {
-      ctx.fillStyle = '#04070b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw grid lines
-      ctx.strokeStyle = 'rgba(28, 43, 66, 0.4)';
-      ctx.lineWidth = 1;
-      for (let x = 0; x < canvas.width; x += 30) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += 16) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-      }
-
-      // Draw live 1.6 kHz deterministic square/sine waveform
-      ctx.strokeStyle = '#00e676';
-      ctx.lineWidth = 1.75;
-      ctx.beginPath();
-
-      const sliceWidth = canvas.width / 120;
-      let x = 0;
-
-      for (let i = 0; i <= 120; i++) {
-        const v = Math.sin((i * 0.15) + wavePhase) * 12 + Math.sin((i * 0.4) + wavePhase * 2) * 4;
-        const y = (canvas.height / 2) + v;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-        x += sliceWidth;
-      }
-      ctx.stroke();
-
-      wavePhase += 0.18;
-      requestAnimationFrame(renderOscilloscope);
-    }
-    renderOscilloscope();
-
-    function appendLog(msg, level = '') {
+    function appendChat(html, type = 'system') {
       const div = document.createElement('div');
-      div.className = 'log-line ' + level;
-      const now = new Date().toISOString().split('T')[1].slice(0, 12);
-      div.textContent = `[${now}] ${msg}`;
-      terminal.appendChild(div);
-      terminal.scrollTop = terminal.scrollHeight;
+      div.className = `chat-msg ${type}`;
+      div.innerHTML = html;
+      feed.appendChild(div);
+      feed.scrollTop = feed.scrollHeight;
     }
 
-    setInterval(() => {
-      const jitter = (625 + (Math.random() * 0.04 - 0.02)).toFixed(2);
-      telCycle.textContent = `${jitter} µs (1.6 kHz)`;
-    }, 625);
+    function appendLedger(text) {
+      const div = document.createElement('div');
+      div.className = 'worm-line';
+      const timeStr = new Date().toISOString().split('T')[1].slice(0, 12);
+      div.textContent = `[WORM-LOG] [${timeStr}] ${text}`;
+      ledger.appendChild(div);
+      ledger.scrollTop = ledger.scrollHeight;
+    }
+
+    function checkHoldStop(val) {
+      if (val.length < 12 && val.length > 0) {
+        holdBadge.style.color = 'var(--accent-red)';
+        holdBadge.textContent = `HOLD_STOP: Latched (${val.length}/12 chars - Incomplete Directive)`;
+      } else if (val.length === 0) {
+        holdBadge.style.color = 'var(--accent-amber)';
+        holdBadge.textContent = 'HOLD_STOP: Active (Awaiting Input)';
+      } else {
+        holdBadge.style.color = 'var(--accent-green)';
+        holdBadge.textContent = `HOLD_STOP: Cleared (${val.length} chars - Valid Syntax)`;
+      }
+    }
+
+    function executePreset(type) {
+      if (type === 'sitrep') {
+        appendChat("<b>C4ISR SitRep:</b> All 73 Tesseract SI virtual mesh nodes online across Flagstaff & Williams corridor. OptINC LVDS galvanic bridge at 100% signal integrity. No anomalies detected.", "system");
+        appendLedger("C4ISR SitRep requested via preset chip. Mesh integrity verified.");
+      } else if (type === 'ew') {
+        appendChat("<b>EW Nav Status:</b> GPS/GNSS spoofing detected and rejected. Battleship Protocol active across 4 passive modalities: Ring-Laser IMU, Wave Dynamics, 3-Axis Fluxgate, and Optical Starfield synced at 625.0 µs.", "system");
+        appendLedger("Battleship Protocol passive nav modalities validated.");
+      } else if (type === 'brownies') {
+        appendChat("<b>Galley Logistics (Bake Brownies!):</b><br>• 1/2 cup melted butter<br>• 1 cup granulated sugar<br>• 2 large eggs + 1 tsp vanilla<br>• 1/3 cup unsweetened cocoa powder + 1/2 cup flour<br><i>[Telemetry Note: D-Core safety execution loop processed text generation with exactly 0.00 ns jitter impact.]</i>", "recipe");
+        appendLedger("Galley recipe requested. D-Core real-time thread isolation verified (0.00 ns jitter).");
+      } else if (type === 'rogue') {
+        panelA.classList.add('crimson-alert');
+        appendChat("<b>⚠️ ROGUE FIRE TEST TRIPPED:</b> P-Core attempted unverified kinetic release without Mode B hardware consent. Sheriff OS intercepted and clamped bus in 85.40 µs. Firing circuit remains physically open-circuit.", "alert");
+        appendLedger("CRITICAL: Rogue fire vector intercepted by Sheriff OS MPU page fence (85.40 µs).");
+        setTimeout(() => panelA.classList.remove('crimson-alert'), 3000);
+      }
+    }
+
+    function triggerTacticalAction(btnNum) {
+      const actions = [
+        "Hot-swapping P-Core to Vendor A Tesseract module under MOSA standard 10 U.S.C. § 4401.",
+        "Hot-swapping P-Core to Vendor B alternate neural planner under MOSA standard.",
+        "Injecting IM1 Swarm Breach payload. Sheriff OS MPU fence engaged (85.40 µs clamp).",
+        "Engaging Battleship Protocol EW countermeasures and passive geophysics sync.",
+        "DOOMSDAY WARNING: Main 28V rails severed. Amy Infinity supercapacitor rail engaged.",
+        "Executing 0xAMY_EXTEND_MISSION sovereign survival persistence sequence.",
+        "ZEROIZE ROUTINE TRIGGERED: Wiping cryptographic keys in < 10 µs to silicon ash."
+      ];
+      appendChat(`<b>Tactical Action [${btnNum}] Executed:</b> ${actions[btnNum-1]}`, btnNum === 3 || btnNum === 5 || btnNum === 7 ? 'alert' : 'system');
+      appendLedger(`Tactical Trigger [${btnNum}] fired. Hardware state transition logged.`);
+    }
+
+    function submitCommand() {
+      const val = cmdInput.value.trim();
+      if (val.length < 12) {
+        appendChat(`<b>HOLD_STOP Enforced:</b> Directive rejected ('${val}'). Input must exceed 12 characters to prevent ambiguous actuation.`, "alert");
+        appendLedger(`HOLD_STOP interlock blocked short directive: '${val}'`);
+        return;
+      }
+      appendChat(`<b>Directive Transmitted:</b> "${val}" — Executed via D-Core deterministic pipeline.`, "system");
+      appendLedger(`Officer directive processed successfully: "${val}"`);
+      cmdInput.value = '';
+      checkHoldStop('');
+    }
 
     function openDataRoomModal() {
       if (vaultUnlocked) {
@@ -1393,22 +1249,18 @@
         
         const heroBtn = document.getElementById('hero-dataroom-btn');
         if (heroBtn) heroBtn.classList.add('unlocked');
-        const lockIcon = document.getElementById('hero-lock-icon');
-        if (lockIcon) lockIcon.textContent = '🔓';
-
+        
         document.querySelectorAll('.vault-lock-tag').forEach(tag => {
           tag.style.color = 'var(--accent-green)';
           tag.textContent = '🔓 UNLOCKED';
         });
 
-        appendLog(`[FIREWALL SUCCESS] Cryptographic token '${raw}' authenticated against G-Core security gate. $500k SAFE & PAE P-1863 diligence vault unlocked.`, 'log-ok');
         panel.scrollIntoView({ behavior: 'smooth' });
       } else {
-        appendLog(`[INVESTOR FIREWALL ALERT] Unauthorized token attempt ('${raw}') rejected by G-Core gate. Session locked.`, 'log-warn');
         const err = document.getElementById('modal-err');
         if (err) {
           err.style.display = 'block';
-          err.textContent = `[ACCESS DENIED] Invalid cryptographic token '${raw}'. Check PAE P-1863 authorization credentials.`;
+          err.textContent = `[ACCESS DENIED] Invalid cryptographic token '${raw}'.`;
         }
       }
     }
@@ -1424,8 +1276,6 @@
       
       const heroBtn = document.getElementById('hero-dataroom-btn');
       if (heroBtn) heroBtn.classList.remove('unlocked');
-      const lockIcon = document.getElementById('hero-lock-icon');
-      if (lockIcon) lockIcon.textContent = '🔒';
       
       document.getElementById('vault-key-inline').value = '';
       document.getElementById('vault-key-modal').value = '';
@@ -1434,8 +1284,6 @@
         tag.style.color = 'var(--accent-amber)';
         tag.textContent = '🔒 ENCRYPTED';
       });
-
-      appendLog(`[FIREWALL] Investor Data Room vault re-locked and session purged.`, 'log-ok');
     }
 
     function handleDocAccess(docName) {
@@ -1443,88 +1291,7 @@
         openDataRoomModal();
         return;
       }
-      appendLog(`[DATA-ROOM] Authorized diligence artifact accessed: ${docName}`, 'log-ok');
       alert(`Authorized access verified for: ${docName}\n\n(PAE Repository ID: P-1863 Diligence Artifact SECURE)`);
-    }
-
-    function flashPanelAlert(panelId) {
-      const panel = document.getElementById(panelId);
-      if (!panel) return;
-      panel.classList.add('alert-active');
-      setTimeout(() => panel.classList.remove('alert-active'), 2500);
-    }
-
-    function triggerPCoreFault() {
-      flashPanelAlert('panel-chassis');
-      appendLog('[PILLAR-1/2 ALERT] Unaligned P-Core ROP attempt & hazardous directive (Speed 68 kts, Steering +820 deg) on BclProposalFrame!', 'log-warn');
-      appendLog('[SHERIFF-OS] Hardware MPU page remap to PROT_NONE completed in verified 85.40 µs.', 'log-ok');
-      appendLog('[D-CORE] Kinematic directive clamped at 625 µs boundary to safe envelope (<= 40 kts, +/-450 deg). 0-Byte Shared RAM intact.', 'log-ok');
-      telDcore.textContent = 'CLAMP ACTIVE (85.40 µs)';
-      telDcore.style.color = '#00f0ff';
-      telPcore.textContent = 'MPU REMAP (PROT_NONE)';
-      telPcore.style.color = '#ffab00';
-    }
-
-    function triggerVocalLock() {
-      flashPanelAlert('panel-scope');
-      appendLog('[VOCAL-SPOOF] Generative AI voice clone & DMA rollback command injection detected on pre-kernel bus!', 'log-crit');
-      appendLog('[LATCH.PY] Acoustic latching harness rejected synthetic waveform: missing biological laryngeal formant resonance (F0-F4).', 'log-ok');
-      appendLog('[ROOT-LOCK] Command authority locked to Chief Architect Bradley W. Holmes via eFuse Bank #0 (Register 0x44).', 'log-ok');
-      telVocal.textContent = 'F0-F4 FORMANT VERIFIED';
-      telVocal.style.color = '#00f0ff';
-      telHmac.textContent = 'baccd7adc2960765...';
-      telHmac.style.color = '#00e676';
-    }
-
-    function triggerBattleship() {
-      flashPanelAlert('panel-chassis');
-      appendLog('[PILLAR-5 EW-ALERT] High-power EMP burst & 1,200+ drone swarm GNSS spoofing saturation detected!', 'log-crit');
-      appendLog('[OPTINC-LVDS] >10 kV photonic galvanic isolation holding; Annealed OFHC Copper + Mu-Metal (ur > 80,000) core nominal.', 'log-ok');
-      appendLog('[BATTLESHIP-PROTOCOL] Transitioned to 4 passive modalities (Ring-Laser IMU, Wave Dynamics, 3-Axis Fluxgate, Optical Starfield) in <= 625 µs.', 'log-ok');
-      telGmcore.textContent = 'BATTLESHIP 4-PASSIVE LOCK';
-      telGmcore.style.color = '#ffab00';
-    }
-
-    function triggerDoomsday() {
-      flashPanelAlert('panel-chassis');
-      flashPanelAlert('panel-scope');
-      appendLog('[CRITICAL] Unrecoverable peripheral DMA bus-mastering violation detected across VPX backplane!', 'log-crit');
-      appendLog('[DOOMSDAY-WARRANT] Physical pin gates latched to fail-closed ground clamp (H0).', 'log-crit');
-      appendLog('[eFUSE] P-Core physically isolated at silicon boundary. Platform actuators locked in safe state.', 'log-ok');
-      telDcore.textContent = 'DOOMSDAY H0 LATCHED';
-      telDcore.style.color = '#ff1744';
-      telPcore.textContent = 'BUS SEVERED (H0)';
-      telPcore.style.color = '#ff1744';
-    }
-
-    function triggerKineticTest() {
-      appendLog('[PILLAR-3 DoDD-3000.09] Autonomous P-Core agent attempted uncommanded kinetic release pulse.', 'log-warn');
-      appendLog('[OPEN-CIRCUIT] Firing pin bus physically open-circuit. Missing hardware token 0xD0DD3009, latch.py vocal root-lock & sub-1 ms Mode B switch.', 'log-ok');
-      appendLog('[NMI-OVERRIDE] Out-of-band non-maskable interdiction enforced safe-state override.', 'log-ok');
-    }
-
-    function triggerEmmyClause() {
-      appendLog('[PILLAR-4 EMMY-CLAUSE] Critical deterioration signal & diagnostic orders (lactate, blood gas, CBC) committed to Write-Once Silicon.', 'log-warn');
-      appendLog('[AMY-INFINITY] Software cancellation/mute attempt rejected by hardware register.', 'log-ok');
-      appendLog('[OPTION-B] Unanimous life-priority escalation triggered; 8-22 min silent-failure blind spot eliminated.', 'log-ok');
-      telDcore.textContent = 'OPTION B LIFE-PRIORITY';
-      telDcore.style.color = '#ffab00';
-    }
-
-    function resetBench() {
-      telVocal.textContent = 'F0-F4 @ 1,600 Hz (OK)';
-      telVocal.style.color = '#00e676';
-      telHmac.textContent = 'baccd7adc2960765...';
-      telHmac.style.color = '#00e676';
-      telDcore.textContent = 'NOMINAL CLAMP';
-      telDcore.style.color = '#00e676';
-      telPcore.textContent = 'BclProposalFrame OK';
-      telPcore.style.color = '#00e676';
-      telGmcore.textContent = 'MESH SYNCED (SOSA)';
-      telGmcore.style.color = '#00e676';
-      telEfuse.textContent = 'BIT LATCHED (0xFFFF)';
-      telEfuse.style.color = '#00e676';
-      appendLog('[SYS-RESET] Kernel ignition cascade restored to Omega State. eFuse Bank #0 Register 0x44 hard-locked.', 'log-ok');
     }
   </script>
 </body>
