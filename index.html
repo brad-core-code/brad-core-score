@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brad-Core OS v5 Unified | Master SDD v5.2 Omega State Hardened</title>
-  <meta name="description" content="TRL 6 3U OpenVPX MOSA/SOSA-aligned deterministic hardware safety kernel. Omega State sovereignty, latch.py acoustic root-lock, DoDD 3000.09 eFuse, and immutable testbench telemetry." />
+  <meta name="description" content="TRL 7 3U OpenVPX MOSA/SOSA-aligned deterministic hardware safety kernel. Omega State sovereignty, latch.py acoustic root-lock, DoDD 3000.09 eFuse, and immutable testbench telemetry." />
   <style>
     :root {
       --bg-primary: #071320;
@@ -162,7 +162,7 @@
     /* MAIN CONTAINER */
     .container { max-width: 1560px; margin: 0 auto; padding: 14px 16px; }
 
-    /* OUTLINED 2-COLUMN BATTLESPACE CONTAINER (1.66fr : 1fr) */
+    /* OUTLINED 2-COLUMN BATTLESPACE LAYOUT (ID: telemetry) */
     .battlespace-container {
       max-width: 1560px;
       margin: 0 auto 18px auto;
@@ -601,7 +601,7 @@
       </div>
       <nav>
         <a href="#telemetry">Live Testbench</a>
-        <a href="#data-room" onclick="openDataRoomModal()">🔒 Data Room ($500k SAFE)</a>
+        <a href="#data-room" onclick="openDataRoomModal()">🔒 Data Room ($3.0M / $38.83M Cap)</a>
         <a href="#alpha-omega">Alpha vs. Omega</a>
         <a href="#forensics">2026 Forensics</a>
         <a href="#pillars">5 Threat Pillars</a>
@@ -750,11 +750,11 @@
       </div>
     </section>
 
-    <!-- LOCKED INVESTOR DATA ROOM ($500K SAFE) VAULT PANEL -->
+    <!-- LOCKED INVESTOR DATA ROOM ($3.0M SAFE / $38.83M CAP) VAULT PANEL -->
     <section class="panel dataroom-panel section" id="data-room">
       <div class="panel-head">
         <div>
-          <div class="panel-title">INVESTOR DATA ROOM // $500K SAFE ALLOCATION &amp; DILIGENCE VAULT</div>
+          <div class="panel-title">INVESTOR DATA ROOM // $3.0M SAFE ALLOCATION ($38.83M VALUATION CAP)</div>
           <div class="panel-sub">PAE Repository ID: P-1863 · Hardware Testbench Integration &amp; Master SDD v5.2 Artifacts</div>
         </div>
         <span class="badge badge-shield" id="vault-status-badge">🔒 VAULT LOCKED // KEY REQUIRED</span>
@@ -767,19 +767,19 @@
         <div class="vault-input-group">
           <input type="password" id="vault-key-inline" class="vault-input" placeholder="Access Key (e.g. P-1863)" />
           <button type="button" class="btn-cta" onclick="unlockDataRoom('vault-key-inline')">UNLOCK VAULT</button>
-          <button type="button" class="btn-sim" onclick="lockDataRoom()" id="btn-relock" style="display:none; padding: 6px 10px; background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-hi);">🔒 RELOCK</button>
+          <button type="button" class="tac-btn" onclick="lockDataRoom()" id="btn-relock" style="display:none; padding: 6px 10px; background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-hi);">🔒 RELOCK</button>
         </div>
       </div>
 
       <div class="vault-grid">
         <div class="vault-doc">
           <div>
-            <div class="vault-doc-title">01 // $500k SAFE Offering &amp; Term Sheet</div>
-            <div class="vault-doc-desc">Allocation terms, valuation cap, and use of proceeds for 3U OpenVPX hardware testbench integration.</div>
+            <div class="vault-doc-title">01 // $3.0M SAFE Allocation &amp; Term Sheet ($38.83M Cap)</div>
+            <div class="vault-doc-desc">YC Post-Money SAFE terms, $38.83M valuation cap, and use of proceeds for 3U OpenVPX hardware testbench scale-out.</div>
           </div>
           <div class="vault-doc-footer">
             <span class="vault-lock-tag" style="color:var(--accent-amber);">🔒 ENCRYPTED</span>
-            <a href="#data-room" class="vault-link" onclick="handleDocAccess('SAFE_Term_Sheet_v5.2.pdf')">ACCESS ARTIFACT &rarr;</a>
+            <a href="#data-room" class="vault-link" onclick="handleDocAccess('SAFE_Term_Sheet_v5.2_38M.pdf')">ACCESS ARTIFACT &rarr;</a>
           </div>
         </div>
 
@@ -1084,7 +1084,7 @@
         <button type="button" class="tac-btn" onclick="closeDataRoomModal()" style="padding:2px 8px;">✕</button>
       </div>
       <div style="font-size:0.75rem; color:var(--text-muted); line-height:1.5;">
-        Access to the <strong>$500,000 SAFE Offering</strong>, <strong>Master SDD v5.2 (BCOS-SDD-V5.2-OMEGA)</strong>, and <strong>PAE Repository P-1863</strong> diligence artifacts is restricted to verified institutional and defense-adjacent partners.
+        Access to the <strong>$3.0M YC Post-Money SAFE Offering ($38.83M Valuation Cap)</strong>, <strong>Master SDD v5.2</strong>, and <strong>PAE Repository P-1863</strong> diligence artifacts is restricted to verified institutional and defense-adjacent partners.
       </div>
       <div style="display:flex; flex-direction:column; gap:6px;">
         <label style="font-size:0.68rem; color:var(--accent-cyan);">ENTER AUTHORIZATION KEY / HARDWARE TOKEN:</label>
@@ -1112,7 +1112,7 @@
       <div class="footer-links">
         <a href="mailto:bholmes@bradcoreos.com">bholmes@bradcoreos.com</a>
         <a href="#telemetry">Live Testbench Console</a>
-        <a onclick="openDataRoomModal()">Locked Data Room ($500k SAFE)</a>
+        <a onclick="openDataRoomModal()">Locked Data Room ($3.0M / $38.83M Cap)</a>
         <a href="#alpha-omega">Alpha vs. Omega Doctrine</a>
         <a href="#forensics">2026 Breach Forensics</a>
         <a href="#specs">3U OpenVPX Specs</a>
@@ -1135,10 +1135,10 @@
       '0XD0DD3009', 
       'FAF-02', 
       'OMEGA', 
-      'OMEGA-500K', 
+      'REDBUD', 
       'BRAD-CORE', 
       'DONRCO-PAE-V5', 
-      'SAFE-500K-2026'
+      'SAFE-3M-2026'
     ];
     let vaultUnlocked = false;
 
