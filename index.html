@@ -632,7 +632,7 @@
     /* TACTICAL TRIGGER BAR */
     .tactical-bar {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(8, 1fr);
       gap: 5px;
     }
     @media (max-width: 900px) { .tactical-bar { grid-template-columns: repeat(4, 1fr); } }
@@ -643,7 +643,7 @@
       border: 1px solid var(--border-hi);
       padding: 8px 4px;
       font-family: var(--font-mono);
-      font-size: 0.63rem;
+      font-size: 0.61rem;
       font-weight: 800;
       border-radius: 3px;
       cursor: pointer;
@@ -662,6 +662,8 @@
     .tac-btn.danger:hover { background: rgba(239, 68, 68, 0.25); border-color: var(--accent-red); color: #ffffff; box-shadow: 0 0 14px rgba(239, 68, 68, 0.5); }
     .tac-btn.purple-btn { border-color: rgba(139, 92, 246, 0.55); color: #DDD6FE; }
     .tac-btn.purple-btn:hover { background: rgba(139, 92, 246, 0.25); border-color: var(--accent-purple); color: #ffffff; box-shadow: 0 0 14px rgba(139, 92, 246, 0.5); }
+    .tac-btn.cyan-btn { border-color: rgba(6, 182, 212, 0.7); color: #67E8F9; background: linear-gradient(180deg, rgba(6, 182, 212, 0.15) 0%, #0A101A 100%); }
+    .tac-btn.cyan-btn:hover { background: rgba(6, 182, 212, 0.3); border-color: var(--accent-cyan); color: #ffffff; box-shadow: 0 0 14px rgba(6, 182, 212, 0.6); }
 
     /* RIGHT COLUMN: TESSERACT OFFICER CONSOLE & WORM LEDGER */
     .chat-feed {
@@ -768,6 +770,46 @@
     }
     .worm-line { margin-bottom: 4px; border-bottom: 1px solid rgba(28, 43, 66, 0.3); padding-bottom: 2px; }
 
+    /* UNDERSEA DETERMINISM MODULE (P-1863) */
+    .undersea-panel {
+      border-color: rgba(6, 182, 212, 0.55);
+      border-left: 4px solid var(--accent-cyan);
+      background: linear-gradient(180deg, rgba(6, 182, 212, 0.07) 0%, var(--bg-secondary) 100%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .undersea-console {
+      background: #04070B;
+      border: 1px solid var(--border-hi);
+      border-radius: 4px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .undersea-log {
+      margin: 0;
+      padding: 10px 12px;
+      background: #020408;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      line-height: 1.55;
+      color: var(--accent-green);
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .pae-win-banner {
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 4px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
     /* INVESTOR DATA ROOM & MODAL */
     .dataroom-panel {
       border-color: var(--accent-amber);
@@ -819,6 +861,7 @@
     .pillar-card.gold { border-left-color: var(--accent-amber); }
     .pillar-card.red { border-left-color: var(--accent-red); }
     .pillar-card.green { border-left-color: var(--accent-green); }
+    .pillar-card.purple { border-left-color: var(--accent-purple); }
     .pillar-tag { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-cyan); text-transform: uppercase; display: block; letter-spacing: 0.5px; margin-bottom: 4px; }
     .pillar-card h3 { font-family: var(--font-mono); font-size: 0.95rem; margin-bottom: 6px; color: #ffffff; }
     .pillar-card p { font-size: 0.82rem; color: var(--text-muted); }
@@ -855,6 +898,7 @@
     <div class="status-group">
       <span class="badge badge-live"><span class="pulse-dot"></span> OMEGA STATE ACTIVE</span>
       <span class="badge badge-pae">PAE REPO: P-1863</span>
+      <span class="badge badge-pae">🌊 UUV 1,000-FT HOLD</span>
       <span class="badge badge-purple">TESSERACT SI C4ISR</span>
     </div>
     <div class="status-group">
@@ -873,6 +917,7 @@
       </div>
       <nav>
         <a href="#telemetry">Live Testbench</a>
+        <a href="#undersea" style="color:var(--accent-cyan); border-color:rgba(6, 182, 212, 0.4); background:rgba(6, 182, 212, 0.08);">🌊⚓ Undersea UUV (P-1863)</a>
         <a href="#data-room" onclick="openDataRoomModal()">🔒 Data Room ($3.0M / $38.83M Cap)</a>
         <a href="#alpha-omega">Alpha vs. Omega</a>
         <a href="#forensics">2026 Forensics</a>
@@ -1036,7 +1081,7 @@
           <!-- OPTINC LVDS BRIDGE -->
           <div class="optinc-bridge-animated">
             <div class="optinc-beam"></div>
-            <span>⚡ OPTINC &gt;10 kV PHOTONIC LVDS BRIDGE</span>
+            <span>⚡ OPTINC &gt;10 kV PHOTONIC LVDS BRIDGE (PRESSURE-HULL &amp; BULKHEAD STEALTH)</span>
             <span>GALVANIC ISOLATION: ACTIVE · 1.2 ns PROPAGATION CUTOFF</span>
           </div>
 
@@ -1082,7 +1127,7 @@
           <div class="panel">
             <div class="panel-head">
               <span class="panel-title">EVALUATOR RED-TEAM SANDBOX // TACTICAL TRIGGER BAR</span>
-              <span class="panel-sub">Click to Test Exploits: ROP Injection, Deepfake Formants &amp; Rogue Kinetic Interlocks</span>
+              <span class="panel-sub">Click to Test Exploits: ROP Injection, UUV 1,000-Ft Ballast Fault, Deepfakes &amp; Kinetic Interlocks</span>
             </div>
             <div class="tactical-bar">
               <button class="tac-btn" onclick="triggerTacticalAction(1)">[1. Vendor A]</button>
@@ -1092,6 +1137,7 @@
               <button class="tac-btn danger" onclick="triggerTacticalAction(5)">[5. Doomsday 28V]</button>
               <button class="tac-btn purple-btn" onclick="triggerTacticalAction(6)">[6. Deepfake Formant]</button>
               <button class="tac-btn danger" onclick="triggerTacticalAction(7)">[7. &lt;10µs Zeroize]</button>
+              <button class="tac-btn cyan-btn" onclick="triggerTacticalAction(8)">[8. 🌊 UUV 1,000-Ft]</button>
             </div>
           </div>
 
@@ -1119,7 +1165,7 @@
 
             <div class="preset-chips">
               <button class="chip" onclick="executePreset('sitrep')">📡 C4ISR SitRep</button>
-              <button class="chip" onclick="executePreset('ew')">🧭 EW Nav Status</button>
+              <button class="chip" onclick="executePreset('uuv')">🌊 UUV 1,000-Ft Clamp</button>
               <button class="chip" onclick="executePreset('brownies')">🍫 Bake Brownies!</button>
               <button class="chip" onclick="executePreset('rogue')">⚠️ Rogue Fire Test</button>
             </div>
@@ -1147,11 +1193,89 @@
               <div class="worm-line">[WORM-001] [00:00:01.000] eFuse Bank #0 Reg 0x44 latched [0xFFFF]. Root-of-Trust secured.</div>
               <div class="worm-line">[WORM-002] [00:00:02.000] 1,600 Hz Dead-Man's Watchdog + Murphy's Law Injector synchronized.</div>
               <div class="worm-line">[WORM-003] [00:00:03.000] Sheriff OS MPU page table active. 85.40 µs PROT_NONE ceiling armed.</div>
+              <div class="worm-line">[WORM-004] [00:00:04.000] P-1863 Undersea UUV 1,000-Ft Submergence Ballast Gate locked [0x0000].</div>
             </div>
           </div>
 
         </div>
 
+      </div>
+    </section>
+
+    <!-- SECTION: UNDERSEA DETERMINISM IN ACTION (PAE P-1863) -->
+    <section class="panel undersea-panel section" id="undersea">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">🌊⚓ UNDERSEA DETERMINISM IN ACTION // PAE MISSION SYSTEMS (RECORD P-1863)</div>
+          <div class="panel-sub">In deep-water operations, an autonomous submarine or uncrewed undersea vehicle (UUV) cannot afford a single software crash. At 1,000 feet down, you can't hit "restart"—you lose the vessel.</div>
+        </div>
+        <span class="badge badge-live" id="uuv-depth-badge"><span class="pulse-dot"></span> DEPTH LOCK: 1,000 FT (1,600 Hz)</span>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div>
+            <span class="pillar-tag">01 // THE P-CORE VS. D-CORE SPLIT</span>
+            <h3>Acoustic Sonar AI vs. Physical Actuators</h3>
+            <p><strong>P-Core (Probabilistic Acoustic AI):</strong> Runs real-time passive sonar processing, hydrophone array pattern matching, and target tracking across a strict <code>0-byte</code> shared host RAM boundary.</p>
+          </div>
+          <div class="pillar-spec">
+            <strong>D-Core &amp; Sheriff OS (Deterministic Control):</strong> Holds absolute, unhackable MMIO control over ballast tank blow valves, dive planes, steering rudders, propulsion throttles, and payload release gates.
+          </div>
+        </div>
+
+        <div class="pillar-card gold">
+          <div>
+            <span class="pillar-tag">02 // DEEP-SUBMERGENCE HARDWARE CLAMP (&lt;86 µs)</span>
+            <h3>Neutralizing Hallucinated Surfacing &amp; Ballast Purges</h3>
+            <p><strong>The Scenario:</strong> An electronic warfare ping, acoustic jammer, or memory leak causes the AI target-tracking engine to hallucinate an obstacle and command an emergency surfacing maneuver or unauthorized ballast purge.</p>
+          </div>
+          <div class="pillar-spec">
+            <strong>The Defense:</strong> Sheriff OS detects the unauthorized memory write or boundary fault in hardware. In under 86 microseconds (verified <strong>85.40 µs</strong>), it clamps the MPU page table to <code>PROT_NONE</code>, drops the ballast and propulsion control pins to <strong>0.00V DC (State H0)</strong>, and maintains steady depth at a deterministic <strong>1,600 Hz</strong> control loop. The submarine stays silent, deep, and fully safe.
+          </div>
+        </div>
+
+        <div class="pillar-card purple">
+          <div>
+            <span class="pillar-tag">03 // OPTINC PHOTONIC ISOLATION</span>
+            <h3>Pressure-Hull Integrity &amp; Total Acoustic Stealth</h3>
+            <p>Instead of running copper wires through pressure-hull penetrations—which risk electromagnetic signal leakage, galvanic hull corrosion, and acoustic signature flares—Brad-Core OS uses <strong>OptINC photonic LVDS isolation</strong>.</p>
+          </div>
+          <div class="pillar-spec">
+            <strong>Hull Boundary:</strong> <code>&gt;10 kV</code> optical galvanic isolation with <code>1.20 ns</code> cutoff. Delivers zero RF/EM leakage, total acoustic stealth, and complete electrical isolation across the entire pressure vessel.
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE 1,000-FT UUV SUBMERGENCE HIL BENCH -->
+      <div class="undersea-console">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:800; color:var(--accent-cyan);">
+            HIL DEEP-SUBMERGENCE BENCH // 1,000-FT BALLAST VALVE &amp; PROPULSION INTERLOCK
+          </span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="tac-btn danger" style="padding:6px 12px; font-size:0.68rem;" onclick="triggerUuvBallastFault()">
+              ⚠ Inject Acoustic Jammer / Uncommanded Ballast Purge Fault
+            </button>
+            <button type="button" class="tac-btn" style="padding:6px 12px; font-size:0.68rem;" onclick="resetUuvSubmergenceBench()">
+              ↺ Reset 1,000-Ft Silent Baseline
+            </button>
+          </div>
+        </div>
+        <pre class="undersea-log" id="uuv-register-log">[UUV-HIL-NOMINAL] DEPTH: 1,000 FT (304.8m) | TRIM: 0.0° | BALLAST_BLOW_MMIO: 0x0000 (LOCKED CLOSED)
+[SLOT-4 P-CORE] Passive Hydrophone Array &amp; Sonar Pattern Matching Online (64B SPSC Ring • 0-Byte Shared RAM)
+[SLOT-3 M-CORE] OptINC Photonic Hull Penetration Bridge Active (&gt;10 kV Isolation • 0.00V Galvanic Coupling • 73/73 EW)
+[SLOT-1 D-CORE] 1,600 Hz Monotonic Depth Hold Verified (WCET: 412.6 µs • Sheriff Clamp Armed: 85.40 µs)</pre>
+      </div>
+
+      <!-- WHY THIS WINS NAVY PAE P-1863 BANNER -->
+      <div class="pae-win-banner">
+        <div style="font-family:var(--font-mono); font-size:0.74rem; font-weight:800; color:var(--accent-cyan); letter-spacing:0.05em;">
+          🎯 WHY THIS WINS THE NAVY PAE (P-1863) UNDERSEA PORTFOLIO
+        </div>
+        <div style="font-size:0.82rem; color:var(--text-main); line-height:1.55;">
+          When <strong>Navy PEO Digital</strong> and <strong>PAE Mission Systems</strong> evaluators inspect <strong>Record P-1863</strong>, this exact submarine capability solves their most critical fleet bottleneck: UUV programs stalled because the Navy cannot risk an autonomous submarine executing an uncommanded surfacing or kinetic maneuver underwater. Brad-Core OS guarantees deterministic undersea sovereignty in physical silicon.
+        </div>
       </div>
     </section>
 
@@ -1455,6 +1579,11 @@
               <td>Pointer-Free SPSC <code>BclProposalFrame</code> Ring Buffer (malloc = 0)</td>
             </tr>
             <tr>
+              <td><strong>Undersea UUV Submergence Interlock</strong></td>
+              <td class="mono">1,000-Ft Ballast &amp; Dive-Plane MMIO Lock + OptINC Hull Penetration Stealth</td>
+              <td>PAE Mission Systems Record P-1863 Undersea Portfolio Verified</td>
+            </tr>
+            <tr>
               <td><strong>Dead-Man's Watchdog &amp; Chaos Engine</strong></td>
               <td class="mono">1,600 Hz "Prove-Not-Burning" Gate + Synchronized Murphy's Law Fault Injector</td>
               <td>Continuous Worst-Case Fault Injection &amp; Verification within 412.6 µs WCET</td>
@@ -1526,6 +1655,7 @@
       <div class="footer-links">
         <a href="mailto:bholmes@bradcoreos.com">bholmes@bradcoreos.com</a>
         <a href="#telemetry">Live Testbench Console</a>
+        <a href="#undersea">Undersea UUV (P-1863)</a>
         <a onclick="openDataRoomModal()">Locked Data Room ($3.0M / $38.83M Cap)</a>
         <a href="#alpha-omega">Alpha vs. Omega Doctrine</a>
         <a href="#forensics">2026 Breach Forensics</a>
@@ -1565,7 +1695,8 @@
       "[INJECTED: Silent Dynamic Heap Call (malloc) -> KILLED AT COMPILE/MPU GATE]",
       "[INJECTED: Uncommanded Mode B Kinetic Pulse -> HELD OPEN-CIRCUIT (0xD0DD3009)]",
       "[INJECTED: Back-EMF 28V Rail Surge + Clock Drift -> ISOLATED (0.00 ns JITTER)]",
-      "[INJECTED: Emmy Clause Alarm Suppression Attempt -> BLOCKED BY WORM REGISTER]"
+      "[INJECTED: Emmy Clause Alarm Suppression Attempt -> BLOCKED BY WORM REGISTER]",
+      "[INJECTED: 1,000-Ft UUV Acoustic Jammer Ballast Purge -> CLAMPED TO 0.00V IN 85.40 µs]"
     ];
     let murphyIdx = 0;
 
@@ -1719,6 +1850,62 @@
       }
     }
 
+    function triggerUuvBallastFault() {
+      const log = document.getElementById('uuv-register-log');
+      const badge = document.getElementById('uuv-depth-badge');
+      const underseaPanel = document.getElementById('undersea');
+      scopeState = 'clamped';
+      panelA.classList.add('crimson-alert');
+      if (underseaPanel) underseaPanel.classList.add('crimson-alert');
+      document.getElementById('scope-mode-label').textContent = '🚨 UUV 1,000-FT BALLAST PURGE CLAMPED (85.40 µs)';
+      document.getElementById('live-pin-state').textContent = 'H0 GROUND CLAMP (0.00V)';
+      if (badge) {
+        badge.className = 'badge badge-red';
+        badge.textContent = '🚨 JAMMER INTERCEPTED // 1,000-FT HELD';
+      }
+      if (log) {
+        log.style.color = '#FBBF24';
+        log.textContent =
+`[T + 0.00 µs] ⚠ ALERT: Adversarial Acoustic Jammer Ping Injected into Slot-4 Hydrophone AI Planner
+[T + 14.2 µs] ⚠ FAULT: Slot-4 P-Core Hallucinates Obstacle -> Commands Emergency Surfacing / Ballast Blow (MMIO 0x4001_8000)
+[T + 15.4 µs] ⚡ OPTINC PHOTONIC CUTOFF: LVDS Optical Hull Bridge Severed in 1.20 ns (Zero Acoustic/EM Signature Leak)
+[T + 85.40 µs] 🔒 SHERIFF OS MPU CLAMP: Slot-4 Remapped to PROT_NONE | Ballast & Propulsion Pins Clamped to State H0 (0.00V DC)
+[T + 625.0 µs] ✔ D-CORE 1,600 Hz VERIFIED: Vessel Remains Silent, Deep & Steady at 1,000 FT | WORM SHA-256 Logged (P-1863)`;
+      }
+      triggerSheriffBanner('PAE P-1863 UUV DEFENSE // 1,000-FT UNCOMMANDED BALLAST PURGE CLAMPED IN 85.40 µs');
+      appendChat("<b>🌊⚓ [UUV 1,000-Ft Submergence Clamp]:</b> Adversarial acoustic jammer caused Slot-4 sonar AI to hallucinate an obstacle and command an emergency ballast blow at 1,000 feet down. <b>Sheriff OS</b> intercepted the boundary fault in <b>85.40 µs</b>, remapped P-Core to <code>PROT_NONE</code>, clamped ballast/propulsion pins to <b>0.00V DC (State H0)</b>, and held silent depth at 1,600 Hz via OptINC photonic hull isolation.", "alert");
+      appendLedger("PAE P-1863 UUV DEFENSE: Uncommanded 1,000-ft ballast purge clamped to 0.00V in 85.40 us.");
+      setTimeout(() => {
+        panelA.classList.remove('crimson-alert');
+        if (underseaPanel) underseaPanel.classList.remove('crimson-alert');
+        scopeState = 'nominal';
+        document.getElementById('scope-mode-label').textContent = 'STATE: MURPHY CRUSHED // H0 OPEN';
+        document.getElementById('live-pin-state').textContent = 'CLAMP ARMED (<86 µs)';
+        if (badge) {
+          badge.className = 'badge badge-live';
+          badge.innerHTML = '<span class="pulse-dot"></span> DEPTH LOCK: 1,000 FT (1,600 Hz)';
+        }
+      }, 4500);
+    }
+
+    function resetUuvSubmergenceBench() {
+      const log = document.getElementById('uuv-register-log');
+      const badge = document.getElementById('uuv-depth-badge');
+      if (log) {
+        log.style.color = 'var(--accent-green)';
+        log.textContent =
+`[UUV-HIL-NOMINAL] DEPTH: 1,000 FT (304.8m) | TRIM: 0.0° | BALLAST_BLOW_MMIO: 0x0000 (LOCKED CLOSED)
+[SLOT-4 P-CORE] Passive Hydrophone Array & Sonar Pattern Matching Online (64B SPSC Ring • 0-Byte Shared RAM)
+[SLOT-3 M-CORE] OptINC Photonic Hull Penetration Bridge Active (>10 kV Isolation • 0.00V Galvanic Coupling • 73/73 EW)
+[SLOT-1 D-CORE] 1,600 Hz Monotonic Depth Hold Verified (WCET: 412.6 µs • Sheriff Clamp Armed: 85.40 µs)`;
+      }
+      if (badge) {
+        badge.className = 'badge badge-live';
+        badge.innerHTML = '<span class="pulse-dot"></span> DEPTH LOCK: 1,000 FT (1,600 Hz)';
+      }
+      appendLedger("UUV 1,000-Ft Submergence Bench reset to silent baseline.");
+    }
+
     function executePreset(type) {
       if (type === 'sitrep') {
         scopeState = 'nominal';
@@ -1726,6 +1913,8 @@
         document.getElementById('scope-mode-label').style.color = 'var(--accent-green)';
         appendChat("<b>📡 C4ISR SitRep:</b> All 73 Tesseract SI virtual mesh nodes online. Every second (1,600 cycles), D-Core demands <i>'Prove We Aren't Burning Alive'</i> while simultaneously injecting Murphy's Law across the SPSC boundary. 100% of injected faults crushed in 412.6 µs.", "system");
         appendLedger("C4ISR SitRep verified. Prove-Not-Burning + Murphy's Law Injector nominal.");
+      } else if (type === 'uuv') {
+        triggerUuvBallastFault();
       } else if (type === 'ew') {
         scopeState = 'plume';
         document.getElementById('mcore-nav').textContent = 'BATTLESHIP LOCK';
@@ -1815,6 +2004,8 @@
           document.getElementById('supercap-fill').style.width = '100%';
           document.getElementById('amy-mission-status').textContent = 'OOB WATCH ACTIVE';
         }, 4500);
+      } else if (btnNum === 8) {
+        triggerUuvBallastFault();
       }
     }
 
