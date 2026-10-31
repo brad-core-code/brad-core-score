@@ -52,17 +52,6 @@
     .mode-spec .op-text { display: none; }
     .mode-op .spec-text { display: none; }
 
-    /* Scroll Reveal Animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* Custom Selection */
     ::selection {
       background-color: #164e63;
@@ -102,7 +91,7 @@
     <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
       
       <!-- Logo -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-md border border-slate-700 shadow-[0_0_15px_rgba(0,240,255,0.2)] bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
            <img src="brad_core_os_official_logo.jpg" alt="Brad-Core Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
         </div>
@@ -118,11 +107,11 @@
         
         <div id="toggle-highlight" class="absolute top-1.5 bottom-1.5 left-1.5 rounded-full transition-all duration-500 ease-out -z-10 shadow-[0_0_20px_rgba(52,211,153,0.4)] toggle-bg-op" style="width: 50%;"></div>
 
-        <button id="btn-op" onclick="setLens('op')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-500 ease-out z-10 text-[#04070F]">
+        <button type="button" id="btn-op" onclick="setLens('op')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-500 ease-out z-10 text-[#04070F] cursor-pointer bg-transparent border-none">
           <span>Operational <span class="hidden md:inline">(Plain English)</span></span>
         </button>
         
-        <button id="btn-spec" onclick="setLens('spec')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 text-slate-400 hover:text-slate-200">
+        <button type="button" id="btn-spec" onclick="setLens('spec')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 text-slate-400 hover:text-slate-200 cursor-pointer bg-transparent border-none">
           <span>Spec <span class="hidden md:inline">(C11/Hardware)</span></span>
         </button>
       </div>
@@ -133,7 +122,7 @@
         <a href="#chaos" class="hover:text-cyan-400 transition-colors">The Reality</a>
         <a href="#industry" class="hover:text-cyan-400 transition-colors">Industry Solutions</a>
         <a href="#architecture" class="hover:text-cyan-400 transition-colors">The Architecture</a>
-        <button onclick="openDataRoomModal()" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono">
+        <button type="button" onclick="openDataRoomModal()" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono cursor-pointer bg-transparent border-none p-0">
           <i data-lucide="server" class="w-3.5 h-3.5"></i> Data Room
         </button>
       </nav>
@@ -142,7 +131,6 @@
 
   <!-- HERO SECTION -->
   <section class="relative w-full min-h-screen flex flex-col justify-center pt-28 sm:pt-36 lg:pt-40 pb-24 overflow-hidden bg-[#04070F]">
-    <!-- Background Image & Gradients -->
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[3s] scale-105" id="hero-bg" style="background-image: url('brad_core_homepage_hero.jpg'); background-size: cover; background-position: center; filter: brightness(0.65) contrast(1.15);"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/60 to-transparent"></div>
@@ -150,7 +138,7 @@
     </div>
 
     <!-- Hero Content -->
-    <div class="relative z-10 max-w-[1920px] w-full mx-auto px-4 sm:px-6 lg:px-12 my-auto reveal active">
+    <div class="relative z-10 max-w-[1920px] w-full mx-auto px-4 sm:px-6 lg:px-12 my-auto">
       <div class="max-w-4xl">
         <div class="inline-flex items-center space-x-2 px-3 sm:px-4 py-1.5 rounded-full border border-slate-700 bg-slate-900/80 backdrop-blur-md mb-6">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -170,11 +158,11 @@
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#testbench" class="flex items-center justify-center space-x-3 bg-cyan-600 hover:bg-cyan-500 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-bold tracking-wide uppercase text-xs sm:text-sm shadow-[0_0_30px_rgba(8,145,178,0.4)] transition-all hover:scale-105 active:scale-95">
+          <a href="#testbench" class="flex items-center justify-center space-x-3 bg-cyan-600 hover:bg-cyan-500 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-bold tracking-wide uppercase text-xs sm:text-sm shadow-[0_0_30px_rgba(8,145,178,0.4)] transition-all hover:scale-105 active:scale-95 text-center">
             <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             <span>Launch Live Testbench & Telemetry</span>
           </a>
-          <button onclick="openDataRoomModal()" class="flex items-center justify-center space-x-3 bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/50 text-amber-400 px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-bold font-mono text-xs shadow-xl transition-all hover:scale-105 active:scale-95">
+          <button type="button" onclick="openDataRoomModal()" class="flex items-center justify-center space-x-3 bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/50 text-amber-400 px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-bold font-mono text-xs shadow-xl transition-all hover:scale-105 active:scale-95 cursor-pointer">
             <i data-lucide="server" class="w-4 h-4 sm:w-5 sm:h-5"></i>
             <span>Access Defense Data Room (P-1863)</span>
           </button>
@@ -210,19 +198,19 @@
 
       <!-- Pillar Selector -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-        <button onclick="switchTestbenchPillar(1)" id="tBtn-1" class="p-3 rounded-lg bg-cyan-600 text-white font-bold text-xs text-left transition shadow">
+        <button type="button" onclick="switchTestbenchPillar(1)" id="tBtn-1" class="p-3 rounded-lg bg-cyan-600 text-white font-bold text-xs text-left transition shadow cursor-pointer border-none">
           PILLAR 01 // KINEMATIC AIR-GAP<br><span class="font-mono text-[10px] opacity-80">&le;40 kts | &plusmn;450&deg;</span>
         </button>
-        <button onclick="switchTestbenchPillar(2)" id="tBtn-2" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition">
+        <button type="button" onclick="switchTestbenchPillar(2)" id="tBtn-2" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition cursor-pointer">
           PILLAR 02 // SHERIFF OS MPU<br><span class="font-mono text-[10px] text-amber-400">85.40 µs | malloc = 0</span>
         </button>
-        <button onclick="switchTestbenchPillar(3)" id="tBtn-3" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition">
+        <button type="button" onclick="switchTestbenchPillar(3)" id="tBtn-3" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition cursor-pointer">
           PILLAR 03 // DoDD 3000.09 LATCH<br><span class="font-mono text-[10px] text-red-400">0xD0DD3009 | latch.py</span>
         </button>
-        <button onclick="switchTestbenchPillar(4)" id="tBtn-4" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition">
+        <button type="button" onclick="switchTestbenchPillar(4)" id="tBtn-4" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition cursor-pointer">
           PILLAR 04 // EMMY CLAUSE ICU<br><span class="font-mono text-[10px] text-cyan-400">0x4000F000UL WORM</span>
         </button>
-        <button onclick="switchTestbenchPillar(5)" id="tBtn-5" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition col-span-2 sm:col-span-1">
+        <button type="button" onclick="switchTestbenchPillar(5)" id="tBtn-5" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition col-span-2 sm:col-span-1 cursor-pointer">
           PILLAR 05 // EW & BATTLESHIP<br><span class="font-mono text-[10px] text-emerald-400">&gt;10 kV OptINC | 1,200 Drone</span>
         </button>
       </div>
@@ -253,7 +241,7 @@
 
     <!-- SECTION 1: THE REALITY OF CHAOS -->
     <section id="chaos">
-      <div class="mb-10 reveal">
+      <div class="mb-10">
         <div class="inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-4">
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">The Reality of Chaos</h2>
         </div>
@@ -263,25 +251,25 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="reveal bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg">
+        <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg">
           <div class="mb-6 text-red-500"><i data-lucide="heart-pulse" class="w-8 h-8"></i></div>
           <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Healthcare</div>
           <h4 class="text-xl font-bold text-white mb-4">The Therac-25 Overdoses</h4>
           <p class="text-sm text-slate-400 leading-relaxed font-light">Removing physical hardware interlocks in favor of software control caused six massive radiation overdoses. Software race conditions bypassed safety checks instantly.</p>
         </div>
-        <div class="reveal bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg" style="transition-delay: 100ms;">
+        <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg">
           <div class="mb-6 text-amber-500"><i data-lucide="factory" class="w-8 h-8"></i></div>
           <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Industrial Robotics</div>
           <h4 class="text-xl font-bold text-white mb-4">South Korea Fatality</h4>
           <p class="text-sm text-slate-400 leading-relaxed font-light">In 2023, a produce-sorting robot crushed a technician because its perception AI could not differentiate a human from a cardboard box, lacking a deterministic hardware interlock.</p>
         </div>
-        <div class="reveal bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg" style="transition-delay: 200ms;">
+        <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg">
           <div class="mb-6 text-blue-500"><i data-lucide="zap" class="w-8 h-8"></i></div>
           <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Energy Infrastructure</div>
           <h4 class="text-xl font-bold text-white mb-4">2003 Northeast Blackout</h4>
           <p class="text-sm text-slate-400 leading-relaxed font-light">Triggered by a silent C++ software race condition in XA/21 SCADA that froze alarm screens, blinding dispatchers while the grid collapsed ($6B in losses).</p>
         </div>
-        <div class="reveal bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg" style="transition-delay: 300ms;">
+        <div class="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-xl shadow-lg">
           <div class="mb-6 text-emerald-500"><i data-lucide="target" class="w-8 h-8"></i></div>
           <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Defense & Aerospace</div>
           <h4 class="text-xl font-bold text-white mb-4">Autonomous Escalation</h4>
@@ -292,7 +280,7 @@
 
     <!-- SECTION 2: INDUSTRY GATEWAYS -->
     <section id="industry">
-      <div class="mb-10 text-center reveal">
+      <div class="mb-10 text-center">
         <div class="inline-block border-t-4 border-cyan-500 pt-4 px-4 mb-4 mx-auto">
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">Cross-Domain Compliance</h2>
         </div>
@@ -303,7 +291,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
         
-        <div class="reveal relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900">
+        <div class="relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900">
           <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] ease-out group-hover:scale-110" style="background-image: url('watermarked_img_3903567456540306627.jpg'); filter: brightness(0.4) contrast(1.2);"></div>
           <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
           <div class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
@@ -324,7 +312,7 @@
           </div>
         </div>
 
-        <div class="reveal relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900" style="transition-delay: 100ms;">
+        <div class="relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900">
           <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] ease-out group-hover:scale-110" style="background-image: url('watermarked_img_11407853485016837270.jpg'); filter: brightness(0.4) contrast(1.2);"></div>
           <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
           <div class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
@@ -345,7 +333,7 @@
           </div>
         </div>
 
-        <div class="reveal relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900" style="transition-delay: 200ms;">
+        <div class="relative overflow-hidden rounded-xl h-[400px] border border-slate-700/50 group shadow-2xl bg-slate-900">
           <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] ease-out group-hover:scale-110" style="background-image: url('watermarked_img_16771451506849982074.jpg'); filter: brightness(0.4) contrast(1.2);"></div>
           <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
           <div class="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
@@ -371,7 +359,7 @@
 
     <!-- SECTION 3: RULE OF PAIRED ANALOGIES -->
     <section id="architecture">
-      <div class="mb-10 reveal">
+      <div class="mb-10">
         <div class="inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-4">
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">The Rule of Paired Analogies</h2>
         </div>
@@ -382,7 +370,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <div class="reveal flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
           <div class="md:w-1/2 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
             <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
             <h4 class="text-xl font-bold text-white mb-3">The Mechanical Shear Pin</h4>
@@ -396,7 +384,7 @@
           </div>
         </div>
 
-        <div class="reveal flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl" style="transition-delay: 100ms;">
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
           <div class="md:w-1/2 p-6 sm:p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
             <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
             <h4 class="text-xl font-bold text-white mb-3">The Locomotive Dead Man's Switch</h4>
@@ -416,14 +404,14 @@
   </main>
 
   <!-- DEFENSE DATA ROOM MODAL -->
-  <div id="dataRoomModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="fui-panel rounded-2xl max-w-2xl w-full p-6 sm:p-8 border border-amber-500/50 space-y-5 bg-[#070C18]">
+  <div id="dataRoomModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="fui-panel rounded-2xl max-w-2xl w-full p-6 sm:p-8 border border-amber-500/50 space-y-5 bg-[#070C18] relative z-50">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div>
           <span class="text-xs font-mono text-amber-400 uppercase font-bold">SECURE DEFENSE DATA ROOM // DON RCO & DIU REFERRAL</span>
           <h3 class="font-bold text-xl text-white">Brad-Core OS v5 & Tesseract SI Clearance Portal</h3>
         </div>
-        <button onclick="closeDataRoomModal()" class="text-slate-400 hover:text-white font-mono text-sm">✕</button>
+        <button type="button" onclick="closeDataRoomModal()" class="text-slate-400 hover:text-white font-mono text-sm cursor-pointer p-2 bg-transparent border-none">✕</button>
       </div>
       <div class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed font-mono">
         <div class="p-3 rounded bg-void border border-slate-800 flex justify-between">
@@ -444,7 +432,7 @@
           <div class="text-cyan-400">bholmes@bradcoreos.com</div>
         </div>
       </div>
-      <button onclick="closeDataRoomModal()" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-void font-bold text-xs uppercase tracking-wider">
+      <button type="button" onclick="closeDataRoomModal()" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-void font-bold text-xs uppercase tracking-wider cursor-pointer border-none">
         Close Data Room Portal
       </button>
     </div>
@@ -462,10 +450,10 @@
         </div>
       </div>
       <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
-        <button onclick="openDataRoomModal()" class="px-5 py-3 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-wider transition">
+        <button type="button" onclick="openDataRoomModal()" class="px-5 py-3 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-wider transition cursor-pointer">
           Access Defense Data Room (P-1863 / DIU #PROJ00716)
         </button>
-        <button onclick="openDataRoomModal()" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">
+        <button type="button" onclick="openDataRoomModal()" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider cursor-pointer bg-transparent border-none">
           View 10 U.S.C. § 4022 Prototype OTA Tiers
         </button>
       </div>
@@ -488,27 +476,37 @@
       if (mode === 'op') {
         body.classList.remove('mode-spec');
         body.classList.add('mode-op');
-        btnOp.classList.replace('text-slate-400', 'text-[#04070F]');
-        btnSpec.classList.replace('text-[#04070F]', 'text-slate-400');
-        highlight.style.transform = 'translateX(0)';
-        highlight.classList.replace('toggle-bg-spec', 'toggle-bg-op');
+        if (btnOp) btnOp.classList.replace('text-slate-400', 'text-[#04070F]');
+        if (btnSpec) btnSpec.classList.replace('text-[#04070F]', 'text-slate-400');
+        if (highlight) {
+          highlight.style.transform = 'translateX(0)';
+          highlight.classList.replace('toggle-bg-spec', 'toggle-bg-op');
+        }
       } else {
         body.classList.remove('mode-op');
         body.classList.add('mode-spec');
-        btnSpec.classList.replace('text-slate-400', 'text-[#04070F]');
-        btnOp.classList.replace('text-[#04070F]', 'text-slate-400');
-        highlight.style.transform = 'translateX(100%)';
-        highlight.classList.replace('toggle-bg-op', 'toggle-bg-spec');
+        if (btnSpec) btnSpec.classList.replace('text-slate-400', 'text-[#04070F]');
+        if (btnOp) btnOp.classList.replace('text-[#04070F]', 'text-slate-400');
+        if (highlight) {
+          highlight.style.transform = 'translateX(100%)';
+          highlight.classList.replace('toggle-bg-op', 'toggle-bg-spec');
+        }
       }
     }
 
     function openDataRoomModal() {
       const modal = document.getElementById('dataRoomModal');
-      if (modal) modal.classList.remove('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
     }
     function closeDataRoomModal() {
       const modal = document.getElementById('dataRoomModal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
     }
 
     // Interactive Testbench Simulator Engine
@@ -533,9 +531,9 @@
         const btn = document.getElementById(`tBtn-${i}`);
         if (!btn) continue;
         if (i === p) {
-          btn.className = 'p-3 rounded-lg bg-cyan-600 text-white font-bold text-xs text-left transition shadow';
+          btn.className = 'p-3 rounded-lg bg-cyan-600 text-white font-bold text-xs text-left transition shadow cursor-pointer border-none';
         } else {
-          btn.className = 'p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition';
+          btn.className = 'p-3 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs text-left transition cursor-pointer';
         }
       }
       renderFaultDeck(p);
@@ -558,9 +556,9 @@
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">Inject unverified AI heading or rudder spikes. Watch the D-Core ring buffer and kinematic safety envelope clamp output to ±450° and ≤40 kts in 625 µs.</p>
           <div class="space-y-2 pt-1">
-            <button onclick="p1Mode='nominal'" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left">1. NOMINAL DETERMINISTIC FLIGHT</button>
-            <button onclick="p1Mode='spike'" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left">2. INJECT +720° HALLUCINATED YAW SPIKE</button>
-            <button onclick="p1Mode='drift'" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left">3. INJECT STOCHASTIC AI DRIFT</button>
+            <button type="button" onclick="p1Mode='nominal'" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer border-none">1. NOMINAL DETERMINISTIC FLIGHT</button>
+            <button type="button" onclick="p1Mode='spike'" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left cursor-pointer border-none">2. INJECT +720° HALLUCINATED YAW SPIKE</button>
+            <button type="button" onclick="p1Mode='drift'" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer border-none">3. INJECT STOCHASTIC AI DRIFT</button>
           </div>
         `;
       } else if (p === 2) {
@@ -573,9 +571,9 @@
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">Simulate a rogue DMA memory corruption attempt. Sheriff OS detects the violation and instantly remaps the slab to PROT_NONE in 85.40 µs.</p>
           <div class="space-y-2 pt-1">
-            <button onclick="triggerP2('dma')" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left">1. TRIGGER ROGUE DMA ATTACK (85.40 µs)</button>
-            <button onclick="triggerP2('h0')" class="w-full p-2.5 rounded bg-red-500/25 border border-red-500 text-white text-xs font-bold text-left">2. FIRE DOOMSDAY WARRANT (STATE H0 0.00V)</button>
-            <button onclick="triggerP2('reset')" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left">3. RESET 32 MEMORY SLABS</button>
+            <button type="button" onclick="triggerP2('dma')" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer border-none">1. TRIGGER ROGUE DMA ATTACK (85.40 µs)</button>
+            <button type="button" onclick="triggerP2('h0')" class="w-full p-2.5 rounded bg-red-500/25 border border-red-500 text-white text-xs font-bold text-left cursor-pointer border-none">2. FIRE DOOMSDAY WARRANT (STATE H0 0.00V)</button>
+            <button type="button" onclick="triggerP2('reset')" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer border-none">3. RESET 32 MEMORY SLABS</button>
           </div>
         `;
       } else if (p === 3) {
@@ -588,9 +586,9 @@
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">Test AI-generated synthetic voice deepfakes against the pre-kernel latch.py laryngeal formant harness and Mode B consent gate.</p>
           <div class="space-y-2 pt-1">
-            <button onclick="p3Mode='spoof'" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left">1. SIMULATE AI VOICE DEEPFAKE SPOOF</button>
-            <button onclick="p3Mode='armed'" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left">2. VERIFY BIO VOICE + 0xD0DD3009 + MODE B</button>
-            <button onclick="p3Mode='standby'" class="w-full p-2.5 rounded bg-red-600 text-white text-xs font-bold text-left">3. ASSERT BUS OPEN-CIRCUIT (0.00V DC)</button>
+            <button type="button" onclick="p3Mode='spoof'" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left cursor-pointer border-none">1. SIMULATE AI VOICE DEEPFAKE SPOOF</button>
+            <button type="button" onclick="p3Mode='armed'" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer border-none">2. VERIFY BIO VOICE + 0xD0DD3009 + MODE B</button>
+            <button type="button" onclick="p3Mode='standby'" class="w-full p-2.5 rounded bg-red-600 text-white text-xs font-bold text-left cursor-pointer border-none">3. ASSERT BUS OPEN-CIRCUIT (0.00V DC)</button>
           </div>
         `;
       } else if (p === 4) {
@@ -603,9 +601,9 @@
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">Simulate patient physiological deterioration. Verify that STAT Lactate and ABG diagnostic orders lock into WORM silicon instantly.</p>
           <div class="space-y-2 pt-1">
-            <button onclick="p4Sepsis=true" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left">1. TRIGGER SEPSIS DRIFT & WORM LATCH</button>
-            <button onclick="p4Sepsis=true" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left">2. ATTEMPT SOFTWARE ALARM CANCELLATION</button>
-            <button onclick="p4Sepsis=false" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left">3. RESTORE NOMINAL ICU TELEMETRY</button>
+            <button type="button" onclick="p4Sepsis=true" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left cursor-pointer border-none">1. TRIGGER SEPSIS DRIFT & WORM LATCH</button>
+            <button type="button" onclick="p4Sepsis=true" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer border-none">2. ATTEMPT SOFTWARE ALARM CANCELLATION</button>
+            <button type="button" onclick="p4Sepsis=false" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer border-none">3. RESTORE NOMINAL ICU TELEMETRY</button>
           </div>
         `;
       } else if (p === 5) {
@@ -618,9 +616,9 @@
           </div>
           <p class="text-xs text-slate-300 leading-relaxed">Trigger a High-Power EMP surge and drone swarm saturation. Verify optical isolation (>10 kV OptINC) and failover to passive navigation.</p>
           <div class="space-y-2 pt-1">
-            <button onclick="p5Swarm=!p5Swarm" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left">1. TOGGLE 1,200-DRONE SWARM SATURATION</button>
-            <button onclick="p5Emp=1.0" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left">2. TRIGGER 50 kV EMP SURGE (>10 kV OPTINC)</button>
-            <button onclick="p5Swarm=false; p5Emp=0;" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left">3. RESET EW & RESTORE GPS LOCK</button>
+            <button type="button" onclick="p5Swarm=!p5Swarm" class="w-full p-2.5 rounded bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer border-none">1. TOGGLE 1,200-DRONE SWARM SATURATION</button>
+            <button type="button" onclick="p5Emp=1.0" class="w-full p-2.5 rounded bg-red-500/20 border border-red-500/50 text-red-400 text-xs font-bold text-left cursor-pointer border-none">2. TRIGGER 50 kV EMP SURGE (>10 kV OPTINC)</button>
+            <button type="button" onclick="p5Swarm=false; p5Emp=0;" class="w-full p-2.5 rounded bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer border-none">3. RESET EW & RESTORE GPS LOCK</button>
           </div>
         `;
       }
@@ -641,6 +639,10 @@
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
+      if (rect.width === 0 || rect.height === 0) {
+        requestAnimationFrame(renderCanvas);
+        return;
+      }
       if (canvas.width !== Math.floor(rect.width * dpr) || canvas.height !== Math.floor(rect.height * dpr)) {
         canvas.width = Math.floor(rect.width * dpr);
         canvas.height = Math.floor(rect.height * dpr);
