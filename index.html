@@ -1,334 +1,538 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Shield, Activity, Cpu, Anchor, AlertTriangle, Zap, Server, 
-  Tractor, Factory, HeartPulse, Target, ArrowRight, Play, CheckCircle2 
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brad-Core OS v5 | Guardian Sentinel</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-const TelemetryTicker = () => {
-  const [jitter, setJitter] = useState("0.00");
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            void: '#04070F',
+            panel: '#090D16',
+            cyanHolo: '#00F0FF',
+            emeraldDet: '#10B981',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setJitter((Math.random() * 0.02).toFixed(2));
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="bg-black border-y border-slate-800/80 p-2 overflow-hidden flex justify-center items-center text-[11px] font-mono tracking-widest uppercase shadow-[inset_0_0_20px_rgba(0,0,0,1)] z-40 relative">
-      <div className="flex space-x-8 text-slate-400">
-        <span className="flex items-center"><Activity size={12} className="mr-2 text-cyan-400" /> SYS_CLOCK: 1,600 Hz</span>
-        <span className="flex items-center"><Zap size={12} className="mr-2 text-cyan-400" /> JITTER: {jitter} ns</span>
-        <span className="flex items-center"><Shield size={12} className="mr-2 text-amber-500" /> MPU CLAMP: ARMED (85.40 µs)</span>
-        <span className="flex items-center"><AlertTriangle size={12} className="mr-2 text-emerald-400" /> MUTED ALARMS: 0</span>
-        <span className="flex items-center"><CheckCircle2 size={12} className="mr-2 text-emerald-400" /> MODE B: SECURED</span>
-      </div>
-    </div>
-  );
-};
-
-const SectionHeading = ({ title, subtitle, align = "left" }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}
-  >
-    <div className={`inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-4 ${align === "center" && "mx-auto border-l-0 border-t-4 pt-4 text-center"}`}>
-      <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">
-        {title}
-      </h2>
-    </div>
-    <p className="text-slate-400 text-lg max-w-3xl font-light leading-relaxed">
-      {subtitle}
-    </p>
-  </motion.div>
-);
-
-const IndustryCard = ({ title, opText, specText, imgUrl, isSpecView, icon: Icon }) => (
-  <motion.div 
-    variants={{
-      hidden: { opacity: 0, y: 30 },
-      visible: { opacity: 1, y: 0 }
-    }}
-    whileHover={{ y: -8, scale: 1.01 }} 
-    className="relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900"
-  >
-    <div 
-      className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] ease-out group-hover:scale-110" 
-      style={{ backgroundImage: `url(${imgUrl})`, filter: 'brightness(0.4) contrast(1.2)' }} 
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent" />
+  <style>
+    body {
+      background-color: #04070F;
+      color: #e2e8f0;
+    }
     
-    <div className="absolute inset-0 p-8 flex flex-col justify-end">
-      <div className="flex items-center space-x-4 mb-4">
-        <div className={`p-3 rounded-xl backdrop-blur-md shadow-lg border ${isSpecView ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'}`}>
-           <Icon size={28} />
-        </div>
-        <h3 className="text-2xl font-bold text-white tracking-wide">{title}</h3>
-      </div>
-      <div className="h-[120px] relative">
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={isSpecView ? 'spec' : 'op'} 
-            initial={{ opacity: 0, x: 20 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className={`absolute inset-0 text-sm md:text-base drop-shadow-md ${isSpecView ? 'font-mono text-cyan-100 leading-relaxed' : 'text-slate-200 leading-relaxed font-light'}`}
-          >
-            {isSpecView ? specText : opText}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  </motion.div>
-);
+    /* Smooth Transitions for Lens Toggle */
+    .lens-content {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .lens-hidden {
+      opacity: 0;
+      position: absolute;
+      pointer-events: none;
+      transform: translateX(-10px);
+    }
+    .lens-visible {
+      opacity: 1;
+      position: relative;
+      transform: translateX(0);
+    }
 
-const AnalogyCard = ({ mechanic, code, mechanicDesc, codeDesc }) => (
-  <motion.div 
-    variants={{
-      hidden: { opacity: 0, scale: 0.95 },
-      visible: { opacity: 1, scale: 1 }
-    }}
-    className="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl"
-  >
-    <div className="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
-      <div className="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
-      <h4 className="text-xl font-bold text-white mb-3">{mechanic}</h4>
-      <p className="text-slate-400 text-sm leading-relaxed">{mechanicDesc}</p>
-    </div>
-    <div className="md:w-1/2 p-8 bg-gradient-to-br from-[#04070F] to-slate-900 relative">
-      <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-        <Cpu size={100} />
-      </div>
-      <div className="text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 font-mono">Silicon Translation</div>
-      <h4 className="text-xl font-bold text-white mb-3 font-mono">{code}</h4>
-      <p className="text-slate-300 text-sm leading-relaxed font-mono">{codeDesc}</p>
-    </div>
-  </motion.div>
-);
+    /* Card Hover Effects */
+    .industry-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .industry-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8);
+    }
+    .industry-bg {
+      transition: transform 2s ease-out;
+      filter: brightness(0.4) contrast(1.2);
+    }
+    .industry-card:hover .industry-bg {
+      transform: scale(1.1);
+    }
 
-const BradCoreOS = () => {
-  const [isSpecView, setIsSpecView] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-cyan-900 selection:text-cyan-100 font-sans overflow-x-hidden">
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.15 } }
-  };
-
-  return (
-    <div className="min-h-screen bg-[#04070F] text-slate-200 font-sans selection:bg-cyan-900 selection:text-cyan-100">
+  <!-- STICKY HEADER -->
+  <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-6">
+    <div class="max-w-[1920px] mx-auto px-6 lg:px-12 flex justify-between items-center">
       
-      {/* Sticky Header */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#04070F]/90 backdrop-blur-xl border-b border-slate-800 shadow-2xl py-3' : 'bg-transparent py-6'}`}>
-        <div className="max-w-[1920px] mx-auto px-6 lg:px-12 flex justify-between items-center">
+      <!-- Logo -->
+      <div class="flex items-center space-x-4 cursor-pointer">
+        <img src="brad_core_os_official_logo.jpg" alt="Brad-Core OS Logo" class="w-12 h-12 rounded-md border border-slate-700 shadow-[0_0_15px_rgba(0,240,255,0.2)] object-cover" />
+        <div class="hidden md:block">
+          <h1 class="text-xl font-bold tracking-tight text-white uppercase leading-none">Brad-Core OS <span class="text-cyan-500 font-light">v5</span></h1>
+          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-1">Guardian Sentinel</p>
+        </div>
+      </div>
+
+      <!-- Dual-Lens Toggle -->
+      <div class="flex items-center bg-slate-900/90 backdrop-blur-md rounded-full p-1.5 border border-slate-700 shadow-2xl relative scale-90 md:scale-100">
+         <div class="absolute inset-0 rounded-full ring-1 ring-inset ring-white/5 pointer-events-none"></div>
+         
+         <button id="btn-op" onclick="setLens(false)" class="relative flex items-center px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-500 ease-out z-10 text-[#04070F]">
+            <div id="bg-op" class="absolute inset-0 bg-emerald-400 rounded-full shadow-[0_0_20px_rgba(52,211,153,0.4)] -z-10"></div>
+            <span class="relative z-10">Operational View <span class="hidden lg:inline">(Plain English)</span></span>
+          </button>
           
-          {/* Logo Section */}
-          <div className="flex items-center space-x-4 cursor-pointer">
-            <img src="brad_core_os_official_logo.jpg" alt="Brad-Core OS Logo" className="w-12 h-12 rounded-md border border-slate-700 shadow-[0_0_15px_rgba(0,240,255,0.2)] object-cover" />
-            <div className="hidden md:block">
-              <h1 className="text-xl font-bold tracking-tight text-white uppercase leading-none">Brad-Core OS <span className="text-cyan-500 font-light">v5</span></h1>
-              <p className="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-1">Guardian Sentinel</p>
-            </div>
-          </div>
+          <button id="btn-spec" onclick="setLens(true)" class="relative flex items-center px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 text-slate-400 hover:text-slate-200">
+             <div id="bg-spec" class="absolute inset-0 bg-cyan-400 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] -z-10 hidden"></div>
+             <span class="relative z-10">Systems Spec <span class="hidden lg:inline">(C11/Hardware)</span></span>
+          </button>
+      </div>
 
-          {/* Dual-Lens Toggle */}
-          <div className="flex items-center bg-slate-900/90 backdrop-blur-md rounded-full p-1.5 border border-slate-700 shadow-2xl relative scale-90 md:scale-100">
-             <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/5 pointer-events-none"></div>
-             <button 
-                onClick={() => setIsSpecView(false)}
-                className={`relative flex items-center px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-500 ease-out z-10 ${!isSpecView ? 'text-[#04070F]' : 'text-slate-400 hover:text-slate-200'}`}
-              >
-                {!isSpecView && <motion.div layoutId="toggle-bg" className="absolute inset-0 bg-emerald-400 rounded-full shadow-[0_0_20px_rgba(52,211,153,0.4)] -z-10" />}
-                <span className="relative z-10">Operational View <span className="hidden lg:inline">(Plain English)</span></span>
-              </button>
-              <button 
-                onClick={() => setIsSpecView(true)}
-                className={`relative flex items-center px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 ${isSpecView ? 'text-[#04070F]' : 'text-slate-400 hover:text-slate-200'}`}
-              >
-                 {isSpecView && <motion.div layoutId="toggle-bg" className="absolute inset-0 bg-cyan-400 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] -z-10" />}
-                 <span className="relative z-10">Systems Spec <span className="hidden lg:inline">(C11/Hardware)</span></span>
-              </button>
-          </div>
-
-          {/* Navigation Links */}
-          <nav className="hidden xl:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
-            <a href="#architecture" className="hover:text-cyan-400 transition-colors">The Architecture</a>
-            <a href="#emmy-clause" className="hover:text-cyan-400 transition-colors">The Emmy Clause</a>
-            <a href="#industry" className="hover:text-cyan-400 transition-colors">Industry Solutions</a>
-            <a href="#pipeline" className="text-amber-500 hover:text-amber-400 transition-colors">RCO/DIU Pipeline</a>
-            <a href="#about" className="hover:text-cyan-400 transition-colors">About Us</a>
-          </nav>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="relative w-full h-[95vh] min-h-[800px] flex flex-col justify-end pt-32 pb-0 overflow-hidden bg-[#04070F]">
-        <motion.div 
-          initial={{ scale: 1.05, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0 z-0"
-        >
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
-            style={{ backgroundImage: 'url(brad_core_homepage_hero.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', filter: 'brightness(0.65) contrast(1.15)' }} 
-          />
-          {/* Gradients for blending into the dark theme */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#04070F]/90 via-[#04070F]/30 to-transparent" />
-        </motion.div>
-
-        <div className="relative z-10 max-w-[1920px] w-full mx-auto px-6 lg:px-12 pb-24">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="max-w-4xl"
-          >
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-slate-700 bg-slate-900/60 backdrop-blur-md mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-xs font-mono text-slate-300 uppercase tracking-widest">Active Development & Deployment</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl">
-              In a chaotic world,<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                Brad-Core OS reduces chaos
-              </span><br />
-              and protects precious<br />human lives.
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-slate-300 font-light mb-12 max-w-3xl leading-relaxed border-l-4 border-slate-700 pl-6">
-              The bare-metal deterministic safety substrate for physical AI, heavy industry, defense, and healthcare.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-5">
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center justify-center space-x-3 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-5 rounded-lg font-bold tracking-wide uppercase text-sm shadow-[0_0_30px_rgba(8,145,178,0.4)] transition-all">
-                <Play size={18} />
-                <span>Explore Live Testbench & Telemetry</span>
-              </motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center justify-center space-x-3 bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/50 text-amber-400 px-8 py-5 rounded-lg font-bold font-mono text-xs shadow-xl transition-all">
-                <Server size={18} />
-                <span>Access Defense Data Room (P-1863 / DIU #PROJ00716)</span>
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-        
-        {/* Ticker at the absolute bottom of hero */}
-        <TelemetryTicker />
-      </section>
-
-      <main className="max-w-[1920px] mx-auto px-6 lg:px-12 py-24 space-y-32">
-        
-        {/* SECTION 1: THE REALITY OF CHAOS */}
-        <section id="chaos">
-          <SectionHeading 
-            title="The Reality of Chaos" 
-            subtitle="Software was never designed to protect human bone and blood. When unverified code or probabilistic AI makes a mistake in the physical world, the result is fatal."
-          />
-          
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {[
-              { title: "Healthcare", subject: "The Therac-25 Overdoses", text: "Removing physical hardware interlocks in favor of software control caused six massive radiation overdoses. Software race conditions bypassed safety checks instantly.", icon: <HeartPulse className="text-red-500" size={32}/> },
-              { title: "Industrial Robotics", subject: "South Korea Fatality", text: "In 2023, a produce-sorting robot crushed a technician because its perception AI could not differentiate a human from a cardboard box, lacking a deterministic hardware interlock.", icon: <Factory className="text-amber-500" size={32}/> },
-              { title: "Energy Infrastructure", subject: "2003 Northeast Blackout", text: "Triggered by a silent C++ software race condition in XA/21 SCADA that froze alarm screens, blinding dispatchers while the grid collapsed ($6B in losses).", icon: <Zap className="text-blue-500" size={32}/> },
-              { title: "Defense & Aerospace", subject: "Autonomous Escalation", text: "Wiring probabilistic AI planners directly into kinetic platforms using only software prompt filters risks uncommanded escalation when electronic warfare saturates the bus.", icon: <Target className="text-emerald-500" size={32}/> }
-            ].map((item, idx) => (
-              <motion.div key={idx} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg hover:border-slate-600 transition-colors">
-                <div className="mb-6">{item.icon}</div>
-                <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">{item.title}</div>
-                <h4 className="text-xl font-bold text-white mb-4">{item.subject}</h4>
-                <p className="text-sm text-slate-400 leading-relaxed font-light">{item.text}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </section>
-
-        {/* SECTION 2: 5 INDUSTRY GATEWAYS */}
-        <section id="industry">
-          <SectionHeading 
-            title="Cross-Domain Compliance" 
-            subtitle="Build your application once on our pre-verified Safety Element out of Context (SEooC) and scale across industries without rewriting your safety architecture."
-            align="center"
-          />
-
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8"
-          >
-            <IndustryCard icon={HeartPulse} imgUrl="watermarked_img_3903567456540306627.jpg" isSpecView={isSpecView} opText="Nurses shouldn't have to guess which of the 350 daily beeps actually matters, and an IV pump should never dump a lethal dose because three lines were programmed at once." specText="Prevents FDA Class I software recalls and Joint Commission sentinel events by enforcing IEC 62304 lifecycle isolation, IEC 60601-1-8 alarm prioritization, and independent hardware-software interlocks." title="Healthcare & Medical"/>
-            <IndustryCard icon={Factory} imgUrl="watermarked_img_11407853485016837270.jpg" isSpecView={isSpecView} opText="A robot arm packs boxes with enough force to crush bone. If a camera glitches while a tech is checking the line, Brad-Core OS cuts the power before the arm can move an inch. No exceptions." specText="Eliminates perception-layer single points of failure and OSHA Section 28 machine-guarding violations via dual-channel SIL 3 / PLd hardware-interlocked presence verification." title="Industrial Robotics"/>
-            <IndustryCard icon={Tractor} imgUrl="watermarked_img_16771451506849982074.jpg" isSpecView={isSpecView} opText="Run the tractor through the night. If a sensor gets caked in mud or a worker walks into the row, the tractor stops dead in its tracks and texts the cab phone. Flip one switch to drive it manually anytime." specText="De-risks autonomous fleet deployment across 3.3M+ legacy and new tractors. Enforces Cal/OSHA and ISO 18497 7-foot human halt zones and ISO 25119 AgPL e compliance natively." title="Autonomous Agriculture"/>
-            <IndustryCard icon={Zap} imgUrl="watermarked_img_11330133310422677668.jpg" isSpecView={isSpecView} opText="When high-voltage lines sag in August heat, the control room screen will never freeze up and lie to the dispatchers while the grid burns down around them." specText="Prevents cascading SCADA collapses ($6B+ tail risk) by eliminating shared-memory race conditions and bounding worst-case alarm processing latency under maximum telemetry floods." title="Energy Grids"/>
-            <IndustryCard icon={Target} imgUrl="watermarked_img_5909979718260413092.jpg" isSpecView={isSpecView} opText="When rounds are flying or comms are jammed, the vehicle's weapons, flight controls, and navigation never lock up, reboot, or let a hacker through the radio." specText="Satisfies DO-178C DAL A, ARINC 653 deterministic partitioning, and Common Criteria EAL 6+ High Robustness MILS requirements with full SBOM and CRA lifecycle assurance." title="Defense & Aerospace"/>
-          </motion.div>
-        </section>
-
-        {/* SECTION 3: THE RULE OF PAIRED ANALOGIES */}
-        <section id="architecture">
-          <SectionHeading 
-            title="The Rule of Paired Analogies" 
-            subtitle="To bridge the gap between theoretical computer science and physical mechanical engineering, we pair every hard Silicon invariant with its undeniable physical counterpart." 
-          />
-
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-          >
-            <AnalogyCard code="MMU/MPU Spatial Partitioning" codeDesc="Every task has a fixed time slice and memory box. If a non-critical app misbehaves, the hardware snaps it off cleanly in 85.40 µs. Critical controls never flinch." mechanic="The Mechanical Shear Pin" mechanicDesc="A tractor's shear pin snaps on purpose when overloaded, saving the transmission."/>
-            <AnalogyCard code="Fail-Closed Liveliness Monitor" codeDesc="The OS requires a cryptographically verified token on every clock cycle. If the AI crashes, the OS lets go of the safety relay, dropping actuators to 0.00V DC." mechanic="The Locomotive Dead Man's Switch" mechanicDesc="The train only moves while the operator actively holds the pedal down; letting go drops the brakes instantly."/>
-            <AnalogyCard code="Non-Blocking Interrupts" codeDesc="Life-safety signals preempt all other code in microseconds. Background logging can never block an emergency stop command (Zero Priority Inversion)." mechanic="The Dedicated Fire Lane" mechanicDesc="An ambulance shouldn't wait behind a garbage truck in traffic. Emergencies preempt routine flow."/>
-            <AnalogyCard code="Mixed-Criticality Hypervisor (AMP/SMP)" codeDesc="Hard safety controls are pinned to dedicated physical cores. Unpredictable AI or Android apps run inside a quarantined virtual sandbox on separate silicon." mechanic="Separate Tractors" mechanicDesc="You don't use a heavy tillage tractor for a grocery run. Critical jobs demand dedicated, isolated machinery."/>
-          </motion.div>
-        </section>
-
-      </main>
-
-      {/* FOOTER */}
-      <footer className="bg-slate-950 border-t border-slate-900 py-16 mt-24">
-        <div className="max-w-[1920px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
-          <div className="flex items-center gap-6">
-            <img src="brad_core_os_logo.jpg" alt="Brad-Core OS AI Safety" className="w-16 h-16 rounded-lg opacity-80 object-cover" />
-            <div>
-              <h4 className="text-xl font-bold text-white uppercase tracking-wider mb-1">Brad-Core OS LLC</h4>
-              <p className="text-slate-400 text-sm font-light">Williams, Arizona</p>
-              <p className="text-slate-500 text-xs mt-2 font-mono">Founder & Lead Architect: Bradley W. Holmes (<span className="text-cyan-600">0xB4AD0001</span>)</p>
-            </div>
-          </div>
-          <div className="flex flex-col items-end gap-2 text-right">
-            <a href="#" className="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">View 10 U.S.C. § 4022 Prototype OTA Tiers</a>
-            <a href="#" className="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">Access Tesseract SI Commercial Delivery</a>
-          </div>
-        </div>
-        <div className="max-w-[1920px] mx-auto px-6 lg:px-12 mt-12 pt-8 border-t border-slate-900/50 text-center text-xs text-slate-600">
-          © 2026 Brad-Core OS LLC. All rights reserved. The Emmy Clause and Guardian Lattice are proprietary hardware/software architectures.
-        </div>
-      </footer>
+      <!-- Nav Links -->
+      <nav class="hidden xl:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
+        <a href="#architecture" class="hover:text-cyan-400 transition-colors">The Architecture</a>
+        <a href="#industry" class="hover:text-cyan-400 transition-colors">Industry Solutions</a>
+        <a href="#pipeline" class="text-amber-500 hover:text-amber-400 transition-colors">RCO/DIU Pipeline</a>
+        <a href="#" class="hover:text-cyan-400 transition-colors">About Us</a>
+      </nav>
     </div>
-  );
-};
+  </header>
 
-export default BradCoreOS;
+  <!-- HERO SECTION -->
+  <section class="relative w-full h-[95vh] min-h-[800px] flex flex-col justify-end pt-32 pb-0 overflow-hidden bg-[#04070F]">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[3s] scale-105" id="hero-bg" style="background-image: url('brad_core_homepage_hero.jpg'); filter: brightness(0.65) contrast(1.15);"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#04070F]/90 via-[#04070F]/30 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1920px] w-full mx-auto px-6 lg:px-12 pb-24 reveal active">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-slate-700 bg-slate-900/60 backdrop-blur-md mb-8">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-xs font-mono text-slate-300 uppercase tracking-widest">Active Development & Deployment</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl">
+          In a chaotic world,<br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+            Brad-Core OS reduces chaos
+          </span><br />
+          and protects precious<br />human lives.
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-slate-300 font-light mb-12 max-w-3xl leading-relaxed border-l-4 border-slate-700 pl-6">
+          The bare-metal deterministic safety substrate for physical AI, heavy industry, defense, and healthcare.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-5">
+          <button class="flex items-center justify-center space-x-3 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-5 rounded-lg font-bold tracking-wide uppercase text-sm shadow-[0_0_30px_rgba(8,145,178,0.4)] transition-all transform hover:scale-105">
+            <i data-lucide="play" class="w-5 h-5"></i>
+            <span>Explore Live Testbench & Telemetry</span>
+          </button>
+          <button class="flex items-center justify-center space-x-3 bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/50 text-amber-400 px-8 py-5 rounded-lg font-bold font-mono text-xs shadow-xl transition-all transform hover:scale-105">
+            <i data-lucide="server" class="w-5 h-5"></i>
+            <span>Access Defense Data Room (P-1863 / DIU)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ticker -->
+    <div class="bg-black border-y border-slate-800/80 p-2 overflow-hidden flex justify-center items-center text-[11px] font-mono tracking-widest uppercase shadow-[inset_0_0_20px_rgba(0,0,0,1)] z-40 relative">
+      <div class="flex space-x-8 text-slate-400">
+        <span class="flex items-center"><i data-lucide="activity" class="w-3 h-3 mr-2 text-cyan-400"></i> SYS_CLOCK: 1,600 Hz</span>
+        <span class="flex items-center"><i data-lucide="zap" class="w-3 h-3 mr-2 text-cyan-400"></i> JITTER: <span id="ticker-jitter">0.00</span> ns</span>
+        <span class="flex items-center"><i data-lucide="shield" class="w-3 h-3 mr-2 text-amber-500"></i> MPU CLAMP: ARMED (85.40 µs)</span>
+        <span class="flex items-center"><i data-lucide="alert-triangle" class="w-3 h-3 mr-2 text-emerald-400"></i> MUTED ALARMS: 0</span>
+        <span class="flex items-center"><i data-lucide="check-circle-2" class="w-3 h-3 mr-2 text-emerald-400"></i> MODE B: SECURED</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-[1920px] mx-auto px-6 lg:px-12 py-24 space-y-32">
+    
+    <!-- SECTION 1: CHAOS -->
+    <section id="chaos" class="reveal">
+      <div class="mb-12">
+        <div class="inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">The Reality of Chaos</h2>
+        </div>
+        <p class="text-slate-400 text-lg max-w-3xl font-light leading-relaxed">
+          Software was never designed to protect human bone and blood. When unverified code or probabilistic AI makes a mistake in the physical world, the result is fatal.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg hover:border-slate-600 transition-colors">
+          <div class="mb-6"><i data-lucide="heart-pulse" class="w-8 h-8 text-red-500"></i></div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Healthcare</div>
+          <h4 class="text-xl font-bold text-white mb-4">The Therac-25 Overdoses</h4>
+          <p class="text-sm text-slate-400 leading-relaxed font-light">Removing physical hardware interlocks in favor of software control caused six massive radiation overdoses. Software race conditions bypassed safety checks instantly.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg hover:border-slate-600 transition-colors">
+          <div class="mb-6"><i data-lucide="factory" class="w-8 h-8 text-amber-500"></i></div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Industrial Robotics</div>
+          <h4 class="text-xl font-bold text-white mb-4">South Korea Fatality</h4>
+          <p class="text-sm text-slate-400 leading-relaxed font-light">In 2023, a produce-sorting robot crushed a technician because its perception AI could not differentiate a human from a cardboard box, lacking a deterministic hardware interlock.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg hover:border-slate-600 transition-colors">
+          <div class="mb-6"><i data-lucide="zap" class="w-8 h-8 text-blue-500"></i></div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Energy Infrastructure</div>
+          <h4 class="text-xl font-bold text-white mb-4">2003 Northeast Blackout</h4>
+          <p class="text-sm text-slate-400 leading-relaxed font-light">Triggered by a silent C++ software race condition in XA/21 SCADA that froze alarm screens, blinding dispatchers while the grid collapsed ($6B in losses).</p>
+        </div>
+        <!-- Card 4 -->
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-lg hover:border-slate-600 transition-colors">
+          <div class="mb-6"><i data-lucide="target" class="w-8 h-8 text-emerald-500"></i></div>
+          <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-2">Defense & Aerospace</div>
+          <h4 class="text-xl font-bold text-white mb-4">Autonomous Escalation</h4>
+          <p class="text-sm text-slate-400 leading-relaxed font-light">Wiring probabilistic AI planners directly into kinetic platforms using only software prompt filters risks uncommanded escalation when electronic warfare saturates the bus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INDUSTRY GATEWAYS -->
+    <section id="industry" class="reveal">
+      <div class="mb-12 text-center">
+        <div class="inline-block border-t-4 border-cyan-500 pt-4 mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">Cross-Domain Compliance</h2>
+        </div>
+        <p class="text-slate-400 text-lg max-w-3xl mx-auto font-light leading-relaxed">
+          Build your application once on our pre-verified Safety Element out of Context (SEooC) and scale across industries without rewriting your safety architecture.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        
+        <!-- Industry Card 1 -->
+        <div class="industry-card relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900">
+          <div class="industry-bg absolute inset-0 bg-cover bg-center" style="background-image: url('watermarked_img_3903567456540306627.jpg');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="icon-bg p-3 rounded-xl backdrop-blur-md shadow-lg border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                 <i data-lucide="heart-pulse" class="w-7 h-7"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-wide">Healthcare & Medical</h3>
+            </div>
+            <div class="h-[120px] relative">
+                <div class="lens-content lens-op lens-visible absolute inset-0 text-sm md:text-base drop-shadow-md text-slate-200 leading-relaxed font-light">
+                  Nurses shouldn't have to guess which of the 350 daily beeps actually matters, and an IV pump should never dump a lethal dose because three lines were programmed at once.
+                </div>
+                <div class="lens-content lens-spec lens-hidden absolute inset-0 text-sm md:text-base drop-shadow-md font-mono text-cyan-100 leading-relaxed">
+                  Prevents FDA Class I software recalls and Joint Commission sentinel events by enforcing IEC 62304 lifecycle isolation, IEC 60601-1-8 alarm prioritization, and independent hardware-software interlocks.
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Industry Card 2 -->
+        <div class="industry-card relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900">
+          <div class="industry-bg absolute inset-0 bg-cover bg-center" style="background-image: url('watermarked_img_11407853485016837270.jpg');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="icon-bg p-3 rounded-xl backdrop-blur-md shadow-lg border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                 <i data-lucide="factory" class="w-7 h-7"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-wide">Industrial Robotics</h3>
+            </div>
+            <div class="h-[120px] relative">
+                <div class="lens-content lens-op lens-visible absolute inset-0 text-sm md:text-base drop-shadow-md text-slate-200 leading-relaxed font-light">
+                  A robot arm packs boxes with enough force to crush bone. If a camera glitches while a tech is checking the line, Brad-Core OS cuts the power before the arm can move an inch. No exceptions.
+                </div>
+                <div class="lens-content lens-spec lens-hidden absolute inset-0 text-sm md:text-base drop-shadow-md font-mono text-cyan-100 leading-relaxed">
+                  Eliminates perception-layer single points of failure and OSHA Section 28 machine-guarding violations via dual-channel SIL 3 / PLd hardware-interlocked presence verification.
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Industry Card 3 -->
+        <div class="industry-card relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900">
+          <div class="industry-bg absolute inset-0 bg-cover bg-center" style="background-image: url('watermarked_img_16771451506849982074.jpg');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="icon-bg p-3 rounded-xl backdrop-blur-md shadow-lg border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                 <i data-lucide="tractor" class="w-7 h-7"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-wide">Autonomous Agriculture</h3>
+            </div>
+            <div class="h-[120px] relative">
+                <div class="lens-content lens-op lens-visible absolute inset-0 text-sm md:text-base drop-shadow-md text-slate-200 leading-relaxed font-light">
+                  Run the tractor through the night. If a sensor gets caked in mud or a worker walks into the row, the tractor stops dead in its tracks and texts the cab phone. Flip one switch to drive it manually anytime.
+                </div>
+                <div class="lens-content lens-spec lens-hidden absolute inset-0 text-sm md:text-base drop-shadow-md font-mono text-cyan-100 leading-relaxed">
+                  De-risks autonomous fleet deployment across 3.3M+ legacy and new tractors. Enforces Cal/OSHA and ISO 18497 7-foot human halt zones and ISO 25119 AgPL e compliance natively.
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Industry Card 4 -->
+        <div class="industry-card relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900">
+          <div class="industry-bg absolute inset-0 bg-cover bg-center" style="background-image: url('watermarked_img_11330133310422677668.jpg');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="icon-bg p-3 rounded-xl backdrop-blur-md shadow-lg border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                 <i data-lucide="zap" class="w-7 h-7"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-wide">Energy Grids</h3>
+            </div>
+            <div class="h-[120px] relative">
+                <div class="lens-content lens-op lens-visible absolute inset-0 text-sm md:text-base drop-shadow-md text-slate-200 leading-relaxed font-light">
+                  When high-voltage lines sag in August heat, the control room screen will never freeze up and lie to the dispatchers while the grid burns down around them.
+                </div>
+                <div class="lens-content lens-spec lens-hidden absolute inset-0 text-sm md:text-base drop-shadow-md font-mono text-cyan-100 leading-relaxed">
+                  Prevents cascading SCADA collapses ($6B+ tail risk) by eliminating shared-memory race conditions and bounding worst-case alarm processing latency under maximum telemetry floods.
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Industry Card 5 -->
+        <div class="industry-card lg:col-span-2 xl:col-span-1 relative overflow-hidden rounded-xl h-[420px] border border-slate-700/50 group cursor-pointer shadow-2xl bg-slate-900">
+          <div class="industry-bg absolute inset-0 bg-cover bg-center" style="background-image: url('watermarked_img_5909979718260413092.jpg');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#04070F] via-[#04070F]/80 to-transparent"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="icon-bg p-3 rounded-xl backdrop-blur-md shadow-lg border bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                 <i data-lucide="target" class="w-7 h-7"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white tracking-wide">Defense & Aerospace</h3>
+            </div>
+            <div class="h-[120px] relative">
+                <div class="lens-content lens-op lens-visible absolute inset-0 text-sm md:text-base drop-shadow-md text-slate-200 leading-relaxed font-light">
+                  When rounds are flying or comms are jammed, the vehicle's weapons, flight controls, and navigation never lock up, reboot, or let a hacker through the radio.
+                </div>
+                <div class="lens-content lens-spec lens-hidden absolute inset-0 text-sm md:text-base drop-shadow-md font-mono text-cyan-100 leading-relaxed">
+                  Satisfies DO-178C DAL A, ARINC 653 deterministic partitioning, and Common Criteria EAL 6+ High Robustness MILS requirements with full SBOM and CRA lifecycle assurance.
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: ANALOGIES -->
+    <section id="architecture" class="reveal">
+      <div class="mb-12">
+        <div class="inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">The Rule of Paired Analogies</h2>
+        </div>
+        <p class="text-slate-400 text-lg max-w-3xl font-light leading-relaxed">
+          To bridge the gap between theoretical computer science and physical mechanical engineering, we pair every hard Silicon invariant with its undeniable physical counterpart.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Analogy 1 -->
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+          <div class="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
+            <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
+            <h4 class="text-xl font-bold text-white mb-3">The Mechanical Shear Pin</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">A tractor's shear pin snaps on purpose when overloaded, saving the transmission.</p>
+          </div>
+          <div class="md:w-1/2 p-8 bg-gradient-to-br from-[#04070F] to-slate-900 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none"><i data-lucide="cpu" class="w-24 h-24"></i></div>
+            <div class="text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 font-mono">Silicon Translation</div>
+            <h4 class="text-xl font-bold text-white mb-3 font-mono">MMU/MPU Spatial Partitioning</h4>
+            <p class="text-slate-300 text-sm leading-relaxed font-mono">Every task has a fixed time slice and memory box. If a non-critical app misbehaves, the hardware snaps it off cleanly in 85.40 µs. Critical controls never flinch.</p>
+          </div>
+        </div>
+
+        <!-- Analogy 2 -->
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+          <div class="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
+            <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
+            <h4 class="text-xl font-bold text-white mb-3">The Locomotive Dead Man's Switch</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">The train only moves while the operator actively holds the pedal down; letting go drops the brakes instantly.</p>
+          </div>
+          <div class="md:w-1/2 p-8 bg-gradient-to-br from-[#04070F] to-slate-900 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none"><i data-lucide="cpu" class="w-24 h-24"></i></div>
+            <div class="text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 font-mono">Silicon Translation</div>
+            <h4 class="text-xl font-bold text-white mb-3 font-mono">Fail-Closed Liveliness Monitor</h4>
+            <p class="text-slate-300 text-sm leading-relaxed font-mono">The OS requires a cryptographically verified token on every clock cycle. If the AI crashes, the OS lets go of the safety relay, dropping actuators to 0.00V DC.</p>
+          </div>
+        </div>
+
+        <!-- Analogy 3 -->
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+          <div class="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
+            <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
+            <h4 class="text-xl font-bold text-white mb-3">The Dedicated Fire Lane</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">An ambulance shouldn't wait behind a garbage truck in traffic. Emergencies preempt routine flow.</p>
+          </div>
+          <div class="md:w-1/2 p-8 bg-gradient-to-br from-[#04070F] to-slate-900 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none"><i data-lucide="cpu" class="w-24 h-24"></i></div>
+            <div class="text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 font-mono">Silicon Translation</div>
+            <h4 class="text-xl font-bold text-white mb-3 font-mono">Non-Blocking Interrupts</h4>
+            <p class="text-slate-300 text-sm leading-relaxed font-mono">Life-safety signals preempt all other code in microseconds. Background logging can never block an emergency stop command (Zero Priority Inversion).</p>
+          </div>
+        </div>
+
+        <!-- Analogy 4 -->
+        <div class="flex flex-col md:flex-row bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+          <div class="md:w-1/2 p-8 border-b md:border-b-0 md:border-r border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950">
+            <div class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-2">Mechanical Physics</div>
+            <h4 class="text-xl font-bold text-white mb-3">Separate Tractors</h4>
+            <p class="text-slate-400 text-sm leading-relaxed">You don't use a heavy tillage tractor for a grocery run. Critical jobs demand dedicated, isolated machinery.</p>
+          </div>
+          <div class="md:w-1/2 p-8 bg-gradient-to-br from-[#04070F] to-slate-900 relative">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none"><i data-lucide="cpu" class="w-24 h-24"></i></div>
+            <div class="text-[10px] uppercase tracking-widest text-cyan-500 font-bold mb-2 font-mono">Silicon Translation</div>
+            <h4 class="text-xl font-bold text-white mb-3 font-mono">Mixed-Criticality Hypervisor</h4>
+            <p class="text-slate-300 text-sm leading-relaxed font-mono">Hard safety controls are pinned to dedicated physical cores. Unpredictable AI or Android apps run inside a quarantined virtual sandbox on separate silicon.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-16 mt-24">
+    <div class="max-w-[1920px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
+      <div class="flex items-center gap-6">
+        <img src="brad_core_os_logo.jpg" alt="Brad-Core OS AI Safety" class="w-16 h-16 rounded-lg opacity-80 object-cover" />
+        <div>
+          <h4 class="text-xl font-bold text-white uppercase tracking-wider mb-1">Brad-Core OS LLC</h4>
+          <p class="text-slate-400 text-sm font-light">Williams, Arizona</p>
+          <p class="text-slate-500 text-xs mt-2 font-mono">Founder & Lead Architect: Bradley W. Holmes (<span class="text-cyan-600">0xB4AD0001</span>)</p>
+        </div>
+      </div>
+      <div class="flex flex-col items-end gap-2 text-right">
+        <a href="#" class="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">View 10 U.S.C. § 4022 Prototype OTA Tiers</a>
+        <a href="#" class="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">Access Tesseract SI Commercial Delivery</a>
+      </div>
+    </div>
+    <div class="max-w-[1920px] mx-auto px-6 lg:px-12 mt-12 pt-8 border-t border-slate-900/50 text-center text-xs text-slate-600">
+      © 2026 Brad-Core OS LLC. All rights reserved. The Emmy Clause and Guardian Lattice are proprietary hardware/software architectures.
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Sticky Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('bg-[#04070F]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800', 'shadow-2xl');
+        header.classList.remove('bg-transparent');
+      } else {
+        header.classList.remove('bg-[#04070F]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800', 'shadow-2xl');
+        header.classList.add('bg-transparent');
+      }
+    });
+
+    // Ticker Jitter
+    setInterval(() => {
+      document.getElementById('ticker-jitter').innerText = (Math.random() * 0.02).toFixed(2);
+    }, 2000);
+    
+    // Zoom background on load to replicate framer motion initial state
+    setTimeout(() => {
+        document.getElementById('hero-bg').classList.remove('scale-105');
+        document.getElementById('hero-bg').classList.add('scale-100');
+    }, 100);
+
+    // Scroll Reveal Animation (Intersection Observer)
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Dual-Lens Toggle Logic
+    let isSpecView = false;
+    function setLens(spec) {
+      if (isSpecView === spec) return;
+      isSpecView = spec;
+
+      const btnOp = document.getElementById('btn-op');
+      const btnSpec = document.getElementById('btn-spec');
+      const bgOp = document.getElementById('bg-op');
+      const bgSpec = document.getElementById('bg-spec');
+
+      if (isSpecView) {
+        // Spec Active
+        btnSpec.classList.remove('text-slate-400', 'hover:text-slate-200');
+        btnSpec.classList.add('text-[#04070F]');
+        bgSpec.classList.remove('hidden');
+
+        btnOp.classList.remove('text-[#04070F]');
+        btnOp.classList.add('text-slate-400', 'hover:text-slate-200');
+        bgOp.classList.add('hidden');
+      } else {
+        // Op Active
+        btnOp.classList.remove('text-slate-400', 'hover:text-slate-200');
+        btnOp.classList.add('text-[#04070F]');
+        bgOp.classList.remove('hidden');
+
+        btnSpec.classList.remove('text-[#04070F]');
+        btnSpec.classList.add('text-slate-400', 'hover:text-slate-200');
+        bgSpec.classList.add('hidden');
+      }
+
+      // Toggle Text and Icon styles
+      document.querySelectorAll('.lens-op').forEach(el => {
+        if (isSpecView) { el.classList.remove('lens-visible'); el.classList.add('lens-hidden'); }
+        else { el.classList.remove('lens-hidden'); el.classList.add('lens-visible'); }
+      });
+      document.querySelectorAll('.lens-spec').forEach(el => {
+        if (!isSpecView) { el.classList.remove('lens-visible'); el.classList.add('lens-hidden'); }
+        else { el.classList.remove('lens-hidden'); el.classList.add('lens-visible'); }
+      });
+      
+      document.querySelectorAll('.icon-bg').forEach(el => {
+         if (isSpecView) {
+            el.classList.remove('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
+            el.classList.add('bg-cyan-500/10', 'border-cyan-500/30', 'text-cyan-400');
+         } else {
+            el.classList.remove('bg-cyan-500/10', 'border-cyan-500/30', 'text-cyan-400');
+            el.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
+         }
+      });
+    }
+  </script>
+</body>
+</html>
