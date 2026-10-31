@@ -903,6 +903,17 @@
       try { window.lucide.createIcons(); } catch (err) {}
     }
 
+    // Live Clock Ticker matching blueprint
+    setInterval(() => {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const ss = String(d.getSeconds()).padStart(2, '0');
+      const ms = Math.floor(d.getMilliseconds() / 100);
+      const clockEl = document.getElementById('blueprintClock');
+      if (clockEl) clockEl.textContent = `${hh}:${mm}:${ss}.${ms}`;
+    }, 100);
+
     // Optional Tactical Web Audio Synthesizer
     let tacticalAudioEnabled = false;
     let audioCtx = null;
@@ -916,9 +927,6 @@
       }
       if (btn) {
         btn.textContent = tacticalAudioEnabled ? '🔊 AUDIO SYNTH: ON' : '🔈 AUDIO SYNTH: OFF';
-        btn.className = tacticalAudioEnabled
-          ? 'px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold cursor-pointer transition border-none'
-          : 'px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 font-bold cursor-pointer transition';
       }
       playTacticalTone(tacticalAudioEnabled ? 880 : 440, 0.08, 'sine');
       showToast(tacticalAudioEnabled ? 'TACTICAL AUDIO SYNTHESIZER ARMED' : 'TACTICAL AUDIO MUTED');
@@ -979,13 +987,9 @@
       const sec = document.getElementById('testbench');
       if (sec) {
         sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        sec.classList.remove('highlight-pulse');
-        void sec.offsetWidth;
-        sec.classList.add('highlight-pulse');
       }
       playTacticalTone(740, 0.12, 'triangle');
       showToast('LIVE HIL TESTBENCH ENGAGED // 60 FPS OSCILLOSCOPE ACTIVE');
-      logHilEvent('Operator engaged Live HIL Testbench from Hero console.', 'text-emerald-400');
     }
 
     function setLens(mode) {
@@ -1010,7 +1014,6 @@
           highlight.classList.remove('toggle-bg-spec');
           highlight.classList.add('toggle-bg-op');
         }
-        showToast('OPERATIONAL VIEW: Plain-English Doctrine Active');
       } else {
         body.classList.remove('mode-op');
         body.classList.add('mode-spec');
@@ -1027,38 +1030,10 @@
           highlight.classList.remove('toggle-bg-op');
           highlight.classList.add('toggle-bg-spec');
         }
-        showToast('SPEC VIEW: Bare-Metal C11 & Silicon Register Mode Active');
       }
     }
 
-    // =========================================================================
-    // DEFENSE DATA ROOM MODAL & DOWNLOADABLE ARTIFACT GENERATORS
-    // =========================================================================
-    let selectedOtaKey = 'A';
-    const OTA_PACKAGES = {
-      A: {
-        title: 'OPTION A // 90-DAY SIL/HIL VERIFICATION SPRINT ($250,000 FFP)',
-        authority: '10 U.S.C. § 4022 Prototype OTA | Sponsor Track: DON RCO / PAE P-1863 & DIU #PROJ00716',
-        clin1: 'CLIN 0001 (Day 30 - $85,000): Bare-Metal C11 Safety Kernel & 64-Slot Lock-Free SPSC Ring Buffer Drop-In Integration.',
-        clin2: 'CLIN 0002 (Day 60 - $85,000): Sheriff OS 85.40 µs Hardware MPU Quarantine & Emmy Clause (0x4000F000UL) WORM Verification.',
-        clin3: 'CLIN 0003 (Day 90 - $80,000): 10,000,000 Monte Carlo HIL Telemetry Package & Red-Team Blast Certification Report.'
-      },
-      B: {
-        title: 'OPTION B // 6-MONTH SOSA 3U/6U OPENVPX DUAL-TESTBED ($485,000 FFP — RECOMMENDED)',
-        authority: '10 U.S.C. § 4022 Prototype OTA | Sponsor Track: Navy PAE Mission Systems P-1863 & PEO Digital',
-        clin1: 'CLIN 0001 (Month 2 - $165,000): 2x SOSA-Aligned 3U/6U OpenVPX Guardian Sentinel Blades (Quad-Core D/M/G/P Lattice).',
-        clin2: 'CLIN 0002 (Month 4 - $160,000): DoDD 3000.09 Mode B (+5.00V DC) Hardware Consent Gate + Pre-Kernel latch.py Vocal Lock.',
-        clin3: 'CLIN 0003 (Month 6 - $160,000): Live Range / Hardware-in-the-Loop Qualification & Slot-5 P-Core AI Hot-Swap Demonstration.'
-      },
-      C: {
-        title: 'OPTION C // 12-MONTH GOLDEN DOME & MULTI-DOMAIN EW PILOT ($1,450,000 FFP)',
-        authority: '10 U.S.C. § 4022 Prototype OTA | Follow-On Production Eligible Without Re-Competition',
-        clin1: 'CLIN 0001 (Month 4 - $480,000): Ruggedized Multi-Node Fleet Lot with OptINC (>10 kV) Photonic Bridge & Mu-Metal Faraday Cage.',
-        clin2: 'CLIN 0002 (Month 8 - $485,000): 4-Modality Passive Battleship PNT Integration & 1,200-Drone Swarm Saturation Tracking.',
-        clin3: 'CLIN 0003 (Month 12 - $485,000): Amy Infinity (8.40 µs Latch / 120s Supercap / CSAR Warrant) Field Certification.'
-      }
-    };
-
+    // DEFENSE DATA ROOM MODAL (Stays intact)
     function openDataRoomModal(tabKey) {
       const modal = document.getElementById('dataRoomModal');
       if (modal) {
@@ -1066,12 +1041,7 @@
         modal.classList.add('flex');
         modal.style.display = 'flex';
       }
-      switchDataRoomTab(tabKey || 'lineage');
-      selectOtaPackage(selectedOtaKey || 'A');
-      playTacticalTone(620, 0.1, 'sine');
-      showToast('DEFENSE DATA ROOM OPENED // PAE P-1863 & DIU #PROJ00716');
     }
-
     function closeDataRoomModal() {
       const modal = document.getElementById('dataRoomModal');
       if (modal) {
@@ -1081,999 +1051,68 @@
       }
     }
 
-    function switchDataRoomTab(tabKey) {
-      ['lineage', 'ota', 'outbreaks', 'proof'].forEach(k => {
-        const panel = document.getElementById('drPanel-' + k);
-        const btn = document.getElementById('drTabBtn-' + k);
-        const active = k === tabKey;
-        if (panel) {
-          panel.classList.toggle('hidden', !active);
-          panel.style.display = active ? 'block' : 'none';
-        }
-        if (btn) {
-          btn.className = active
-            ? 'py-2.5 px-3 rounded-lg bg-amber-500 text-slate-950 font-bold cursor-pointer border-none transition'
-            : 'py-2.5 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none transition';
-        }
-      });
-    }
-
-    function selectOtaPackage(key) {
-      selectedOtaKey = key;
-      ['A', 'B', 'C'].forEach(k => {
-        const card = document.getElementById('otaCard-' + k);
-        if (!card) return;
-        card.className = k === key
-          ? 'p-4 rounded-xl bg-[#04070F] border-2 border-amber-400 text-left space-y-1.5 cursor-pointer transition shadow-[0_0_20px_rgba(245,158,11,0.25)]'
-          : 'p-4 rounded-xl bg-[#04070F] border border-slate-800 hover:border-slate-600 text-left space-y-1.5 cursor-pointer transition';
-      });
-      const pkg = OTA_PACKAGES[key];
-      const box = document.getElementById('otaSowDetailBox');
-      if (box && pkg) {
-        box.innerHTML = `
-          <div class="text-amber-400 font-bold text-xs sm:text-sm">${pkg.title}</div>
-          <div class="text-cyan-400 text-[11px]">${pkg.authority}</div>
-          <div class="pt-2 space-y-1.5 text-xs text-slate-300 border-t border-slate-800">
-            <div>&bull; ${pkg.clin1}</div>
-            <div>&bull; ${pkg.clin2}</div>
-            <div>&bull; ${pkg.clin3}</div>
-          </div>
-        `;
-      }
-    }
-
-    function triggerFileDownload(filename, content, mimeType) {
-      const blob = new Blob([content], { type: mimeType || 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function downloadSelectedOtaSow() {
-      const pkg = OTA_PACKAGES[selectedOtaKey];
-      if (!pkg) return;
-      const content = [
-        '========================================================================',
-        'BRAD-CORE OS LLC & TESSERACT SI // 10 U.S.C. § 4022 PROTOTYPE OTA SOW',
-        '========================================================================',
-        pkg.title,
-        pkg.authority,
-        'Founder & Chief Architect: Bradley W. Holmes (Root Seal: 0xB4AD0001)',
-        'Contact: bholmes@bradcoreos.com | Williams, Arizona',
-        '',
-        'DELIVERABLE SCHEDULE & FIXED-PRICE MILESTONES:',
-        '  ' + pkg.clin1,
-        '  ' + pkg.clin2,
-        '  ' + pkg.clin3,
-        '',
-        'VERIFIED SILICON INVARIANTS:',
-        '  - 0-Byte Shared Host RAM (64-Slot Lock-Free SPSC Ring Buffer)',
-        '  - 1,600 Hz (625.00 us) Anneliese Monotonic Control Loop (412.6 us WCET)',
-        '  - 85.40 us Sheriff OS Hardware MPU PROT_NONE Clamp & 0.00V DC State H0',
-        '  - The Emmy Clause (0x4000F000UL) Write-Once WORM Silicon Registers',
-        '========================================================================'
-      ].join('\n');
-      triggerFileDownload(`BradCore_OTA_Option_${selectedOtaKey}_SOW.txt`, content, 'text/plain');
-      showToast(`DOWNLOADED OPTION ${selectedOtaKey} § 4022 OTA SOW (.TXT)`);
-    }
-
-    function copySelectedOtaSow() {
-      const pkg = OTA_PACKAGES[selectedOtaKey];
-      if (!pkg) return;
-      const text = `${pkg.title}\n${pkg.authority}\n- ${pkg.clin1}\n- ${pkg.clin2}\n- ${pkg.clin3}`;
-      copyPlainString(text, `COPIED OPTION ${selectedOtaKey} OTA SOW TO CLIPBOARD`);
-    }
-
-    function downloadC11HeaderFile() {
-      const code = [
-        '/**',
-        ' * BRAD-CORE OS v5 UNIFIED // BARE-METAL C11 SAFETY KERNEL HEADER',
-        ' * Root Seal: 0xB4AD0001 (Bradley W. Holmes) | Backup: 0xA11CE002 (Alice Holmes)',
-        ' * Invariant: malloc = 0 | 0-Byte Shared Host RAM | 625.00 us Monotonic Loop',
-        ' */',
-        '#ifndef BRAD_CORE_V5_KERNEL_H',
-        '#define BRAD_CORE_V5_KERNEL_H',
-        '#include <stdint.h>',
-        '#include <stdalign.h>',
-        '',
-        '#define BCL_MAGIC_HEADER      0x42435635UL /* "BCV5" */',
-        '#define EMMY_NMI_CTRL_REG     0x4000F000UL /* Write-Once WORM Life-Safety Register */',
-        '#define DODD_3000_09_TOKEN    0xD0DD3009UL /* Mode B (+5.00V DC) Consent Gate */',
-        '#define FOUNDER_ROOT_SEAL     0xB4AD0001UL /* Primary Hardware eFuse Reg 0x44 */',
-        '#define AMY_EXTEND_WARRANT    0x414D59FFUL /* CSAR Extraction Override Warrant */',
-        '',
-        'typedef struct alignas(64) {',
-        '    uint32_t magic;            /* 0x42435635 */',
-        '    uint32_t sequence_id;      /* Monotonic 1,600 Hz tick counter */',
-        '    float    proposed_kts;     /* Clamped <= 40.0f kts by D-Core */',
-        '    float    proposed_yaw_deg; /* Clamped +/- 450.0f deg by D-Core */',
-        '    uint32_t mode_b_token;     /* Requires 0xD0DD3009 + Reg 0x44 bio lock */',
-        '    uint32_t emmy_worm_flags;  /* Latches into 0x4000F000UL WORM silicon */',
-        '    uint8_t  reserved_pad[36]; /* Pad to 60 bytes (Zero Pointers) */',
-        '    uint32_t crc32c;           /* Hardware CRC-32C integrity check */',
-        '} BclProposalFrame;',
-        '',
-        '_Static_assert(sizeof(BclProposalFrame) == 64, "SPSC Frame must be exactly 64 bytes");',
-        '#endif /* BRAD_CORE_V5_KERNEL_H */'
-      ].join('\n');
-      triggerFileDownload('brad_core_v5_kernel.h', code, 'text/plain');
-      showToast('DOWNLOADED C11 HEADER: brad_core_v5_kernel.h');
-    }
-
-    function downloadExecutiveDossierTxt() {
-      const content = [
-        'BRAD-CORE OS v5 & TESSERACT SI // EXECUTIVE DEFENSE DOSSIER',
-        '====================================================================',
-        'Active DoD Lineage: DON RCO Referral -> PAE Mission Systems (Pilot P-1863)',
-        'Additional Queues : PEO Digital Intake & DIU Solicitation #PROJ00716',
-        'Founder & Architect: Bradley W. Holmes (0xB4AD0001) | bholmes@bradcoreos.com',
-        '',
-        '1. SILICON SOVEREIGNTY & QUAD-CORE GUARDIAN LATTICE (SOSA 3U/6U OpenVPX)',
-        '   - D-Core (Safety Master): 1,600 Hz (625.00 us) Anneliese loop, 412.6 us WCET.',
-        '   - M-Core (Mission PNT): >10 kV OptINC isolation + 4-Modality Battleship PNT.',
-        '   - G-Core (Governance): Sheriff OS (85.40 us MPU) + Amy Infinity (8.40 us latch).',
-        '   - P-Core (AI Brain): 0-Byte shared host RAM, connected via 64-slot SPSC ring.',
-        '',
-        '2. THE EMMY CLAUSE (Register 0x4000F000UL)',
-        '   - Eliminates the 8-to-22 minute clinical/tactical silent-failure blind spot.',
-        '   - Burns STAT Lactate, ABG, CBC & NMI alerts into Write-Once WORM silicon.',
-        '',
-        '3. 10 U.S.C. § 4022 PROTOTYPE OTA FIXED-PRICE TIERS',
-        '   - Option A: $250,000 FFP (90-Day SIL/HIL Verification Sprint)',
-        '   - Option B: $485,000 FFP (6-Month SOSA 3U/6U OpenVPX Dual-Testbed)',
-        '   - Option C: $1,450,000 FFP (12-Month Golden Dome & Multi-Domain EW Lot)'
-      ].join('\n');
-      triggerFileDownload('BradCore_PAE_P1863_Dossier.txt', content, 'text/plain');
-      showToast('DOWNLOADED FULL DOD DOSSIER (.TXT)');
-    }
-
-    function downloadMonteCarloCert() {
-      const cert = {
-        system: 'Brad-Core OS v5 Unified (Guardian Sentinel)',
-        architect: 'Bradley W. Holmes (0xB4AD0001)',
-        sponsor_lineage: ['DON RCO -> PAE P-1863', 'PEO Digital', 'DIU #PROJ00716'],
-        monte_carlo_runs: 10000000,
-        red_team_blasts_passed: '73 / 73 (100%)',
-        control_loop_hz: 1600,
-        cycle_period_us: 625.0,
-        verified_wcet_us: 412.6,
-        clock_jitter_ns: 0.0,
-        sheriff_mpu_quarantine_us: 85.4,
-        amy_infinity_blackout_latch_us: 8.4,
-        supercap_continuity_sec: 120.0,
-        emmy_worm_register: '0x4000F000UL'
-      };
-      triggerFileDownload('BradCore_10M_HIL_Cert.json', JSON.stringify(cert, null, 2), 'application/json');
-      showToast('DOWNLOADED 10M MONTE CARLO HIL CERTIFICATE (.JSON)');
-    }
-
-    function downloadTelemetryLog() {
-      const log = document.getElementById('hilEventLog');
-      const text = log ? log.innerText : 'No events logged.';
-      triggerFileDownload('BradCore_HIL_Telemetry_Log.txt', text, 'text/plain');
-      showToast('EXPORTED SHA-256 WORM TELEMETRY LOG (.TXT)');
-    }
-
-    function copyPlainString(str, toastMsg) {
-      const ta = document.createElement('textarea');
-      ta.value = str.trim();
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
-      document.body.removeChild(ta);
-      showToast(toastMsg || 'COPIED TO CLIPBOARD');
-    }
-
-    function copyDataRoomSummary() {
-      const el = document.getElementById('execSummaryCopyText');
-      if (!el) return;
-      copyPlainString(el.innerText || el.textContent, 'COPIED EXECUTIVE VERIFICATION DOSSIER TO CLIPBOARD');
-    }
-
-    function launchScenarioFromDataRoom(pillarNum, faultAction) {
-      closeDataRoomModal();
-      switchTestbenchPillar(pillarNum);
-      launchTestbenchFromHero();
-      setTimeout(() => {
-        if (pillarNum === 2) triggerP2(faultAction || 'dma');
-        else if (pillarNum === 3) setP3Fault(faultAction || 'spoof');
-        else if (pillarNum === 4) setP4Fault(faultAction || 'sepsis');
-        else if (pillarNum === 5) setP5Fault(faultAction || 'emp');
-      }, 250);
-    }
-
     // =========================================================================
-    // INTERACTIVE 6-PILLAR HIL WORKSTATION ENGINE
+    // EXACT BLUEPRINT CANVAS RENDERING ENGINE (COMPASS + SPSC STACK + DSO)
     // =========================================================================
-    let activeTestbenchPillar = 1;
     let p1Mode = 'nominal';
-    let p1ManualYaw = 0;      // Manual slider bias (-720 to +720)
-    let p1ManualSpeed = 28.4; // Manual slider speed (0 to 95 kts)
-    let p1UseManual = false;
-    let p1YawP = new Array(180).fill(0);
-    let p1YawD = new Array(180).fill(0);
-    let p1SmoothedRaw = 0;
-    let p1SmoothedClamp = 0;
+    let p1YawRaw = 0;
+    let p1YawClamp = 0;
     let spscSequence = 48210;
-
-    // Animated SPSC Air-Gap packets & interdiction sparks
-    let spscPackets = Array.from({ length: 14 }, (_, i) => ({
-      progress: i / 14,
-      speed: 0.008 + (i % 3) * 0.002,
-      clamped: false
-    }));
     let interdictionSparks = [];
-    let autoTourTimer = null;
-    let autoTourStep = 0;
 
-    let p2Slabs = Array.from({ length: 32 }, (_, i) => ({
-      id: i,
-      addr: '0x2000' + (i * 0x0400).toString(16).toUpperCase().padStart(4, '0'),
-      status: 'NOMINAL'
+    let spscPackets = Array.from({ length: 12 }, (_, i) => ({
+      progress: i / 12,
+      speed: 0.009
     }));
-    let p3Mode = 'standby';
-    let p4Sepsis = false;
-    let p4SuppressFlash = 0;
-    let p5Swarm = false;
-    let p5Emp = 0;
-    let p5Spoof = false;
-    let p5Bogeys = Array.from({ length: 1200 }, (_, idx) => ({
-      a: (idx / 1200) * Math.PI * 2 + (idx % 7) * 0.13,
-      r: 0.26 + ((idx * 37) % 70) / 100,
-      s: ((idx % 2 === 0 ? 1 : -1) * (0.0008 + (idx % 5) * 0.00025))
-    }));
-
-    // Pillar 06: Amy Infinity (∞) state
-    let p6Mode = 'nominal'; // 'nominal', 'blackout', 'aux', 'csar', 'plume'
-    let p6SupercapSec = 120.0;
-    let p6VoltageHist = new Array(160).fill(28.0);
-
-    // Detailed "What You Are Looking At" Explanations per Pillar
-    const PILLAR_EXPLANATIONS = {
-      1: {
-        badge: 'PILLAR 01 // KINEMATIC & ACTUATOR AIR-GAP (0-BYTE SHARED RAM)',
-        headline: 'Stopping a Hallucinating AI From Over-Steering a Ship, Drone, or Surgical Robot',
-        threat: 'On the P-Core (AI Brain), a probabilistic model can hallucinate a violent +720° rudder spin or 85-knot overspeed command. In conventional autonomous vehicles, software filters share memory with the AI and fail under load.',
-        visualGuide: [
-          'LEFT (360° Flight Envelope Compass): The Red Dashed Vector is what the untrusted AI is demanding. The Solid Cyan/Emerald Vector is what Brad-Core OS physically allows the motors to execute (strictly inside the green ≤40 kts, ±450° circle).',
-          'CENTER (64-Slot SPSC Air-Gap Conduit): Glowing packets travel from P-Core (top) to D-Core (bottom) across 0 Bytes of shared RAM. When a red overdrive packet hits the gate, sparks fly as the hardware clamps it.',
-          'RIGHT (Dual-Trace Oscilloscope): Red waveform = raw AI proposals spiking into the red overdrive zone. Emerald waveform = D-Core hardware output, flat-topped and mathematically clamped at ±450° every 625.00 µs.'
-        ],
-        howToTest: 'Click Button #2 ("INJECT +720° HALLUCINATED YAW OVERDRIVE") on the right—or drag the Manual P-Core Yaw Slider below the screen to +720°—and watch the emerald trace refuse to cross the ±450° hardware boundary.'
-      },
-      2: {
-        badge: 'PILLAR 02 // SHERIFF OS 85.40 µs HARDWARE MPU & STATIC C11 SLABS (malloc = 0)',
-        headline: 'Defeating Zero-Day Memory Exploits & Rogue DMA Bus-Mastering in 85.40 Microseconds',
-        threat: 'In the July 2026 IM1 outbreak, 1,200 agents chained 9 zero-days via dynamic heap corruption and spoofed shell logs. Standard Linux/RTOS kernels use dynamic heap (malloc) where one buffer overflow compromises the entire machine.',
-        visualGuide: [
-          'TOP MATRIX (32 Static C11 Memory Slabs): Every task is pre-allocated at compile time (0x20000000 to 0x20007C00) with zero dynamic heap (malloc = 0). An animated scanner continuously audits bus pointers.',
-          'AMBER [PROT_NONE] SHIELDS: When rogue DMA traffic touches a slab, Sheriff OS rewrites the hardware Memory Protection Unit (MPU) register in 85.40 µs, stripping Read/Write/Execute privileges from that slab while healthy slabs keep running.',
-          'BOTTOM LOGIC ANALYZER: Shows the 85.40 µs hardware interrupt step-response and the read-only EMMY_TRACE_REG audit seal.'
-        ],
-        howToTest: 'Click Button #1 ("INJECT ROGUE DMA BREACH") to watch Sheriff OS fence off compromised slabs in 85.40 µs, click Button #2 ("FIRE DOOMSDAY WARRANT") to clamp all pins to 0.00V DC (State H0), or click any individual slab directly on the canvas!'
-      },
-      3: {
-        badge: 'PILLAR 03 // DoDD 3000.09 KINETIC INTERLOCK & LATCH.PY VOCAL ROOT-LOCK',
-        headline: 'Preventing Unauthorized Autonomous Escalation & AI Voice Deepfakes',
-        threat: 'In 2026 King’s College war games, frontier LLMs ordered nuclear/kinetic strikes in 95% of scenarios. Worse, adversaries use real-time AI voice cloning to spoof commander authorization over radio links.',
-        visualGuide: [
-          'TOP (Pre-Kernel latch.py Formant Spectrogram): Analyzes 1,600 Hz sub-glottal human laryngeal resonances (F0–F4) against the +2.5V polysilicon eFuse at Register 0x44. Synthetic vocoders fail phase coherence and turn the spectrogram crimson.',
-          'BOTTOM (3-Gate Series Hardware Relay Schematic): The firing bus is physically open-circuit (0.00V DC). Electrical current particles only reach the actuator when Gate 1 (Bio Voice), Gate 2 (Token 0xD0DD3009), and Gate 3 (Mode B +5.00V) all physically close.'
-        ],
-        howToTest: 'Click Button #1 ("INJECT AI VOICE DEEPFAKE SPOOF") to watch latch.py detect synthetic phase artifacts and lock the relay open. Then click Button #2 ("VERIFY BIO VOICE + 0xD0DD3009 + MODE B") to watch all 3 physical gates close and energize the +5.00V DC bus.'
-      },
-      4: {
-        badge: 'PILLAR 04 // THE EMMY CLAUSE (REGISTER 0x4000F000UL WRITE-ONCE WORM SILICON)',
-        headline: 'Eliminating the 8–22 Minute Clinical & Tactical Silent-Failure Blind Spot',
-        threat: 'Named in memory of Princess Angel Emmy Holmes (Easter 2006). Probabilistic ICU and cockpit software often dismisses early sepsis or hypoxia as "sensor noise" or allows fatigued staff/AI agents to mute alarms and cancel STAT lab orders.',
-        visualGuide: [
-          'LEFT (3-Channel Clinical ICU Oscilloscope): Sweeping real-time ECG Lead II (P-Q-R-S-T complex), SpO2 Plethysmograph, and Arterial Line MAP with a live phosphor erase bar.',
-          'RIGHT (Digital Vitals & WORM Fuse Status): Displays Heart Rate, SpO2, MAP, and Serum Lactate.',
-          'BOTTOM (Register 0x4000F000UL WORM Silicon Bar): The instant sepsis/hypoxia thresholds are crossed, STAT Serum Lactate, ABG, CBC, and Attending NMI Page burn into Write-Once-Read-Many (WORM) silicon.'
-        ],
-        howToTest: 'Click Button #1 ("TRIGGER SEPSIS DRIFT & WORM LATCH") to watch heart rate spike to 138 bpm, MAP drop to 52 mmHg, and Lactate hit 4.8 mmol/L. Then click Button #2 ("ATTEMPT SOFTWARE ALARM CANCELLATION") to see the hardware bus throw a red ERR_WORM_IMMUTABLE rejection!'
-      },
-      5: {
-        badge: 'PILLAR 05 // >10 kV OPTINC PHOTONIC BRIDGE & 4-MODALITY BATTLESHIP PNT',
-        headline: 'Surviving a 50 kV EMP Strike & Navigating Blind When GPS is 100% Jammed',
-        threat: 'Modern battlefields saturate vehicles with 1,200+ drone swarms, GPS/RF spoofing, and High-Power Microwave (HPM) / EMP surges that fry standard copper buses and blind satellite navigation.',
-        visualGuide: [
-          'LEFT (360° Polar Tactical EW Radar): Tracks up to 1,200 swarm bogeys at 1,600 Hz. At the center sits the golden Dual-Layer Faraday Cage (OFHC Copper + Mu-Metal µr > 80,000) and >10 kV OptINC photonic isolation barrier.',
-          'RIGHT (Battleship Protocol 4 Passive PNT Instruments): Live telemetry from (1) Ring-Laser Sagnac Optical Gyro, (2) Hydro/Atmos Wave Period Tensor, (3) 3-Axis Crustal Fluxgate Magnetometer, and (4) Passive Silicon Starfield Tracker.'
-        ],
-        howToTest: 'Click Button #1 ("TOGGLE 1,200-DRONE SWARM") to saturate the radar, then click Button #2 ("TRIGGER 50 kV EMP SURGE") to watch the cyan EMP shockwave vaporize against the golden >10 kV OptINC shield with 0.00 mV core leakage!'
-      },
-      6: {
-        badge: 'PILLAR 06 // AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH, 120s SUPERCAP & 53 µs PLUME',
-        headline: 'Zero-Reboot Power Severance Continuity, CSAR Extraction & Active Counter-Strike',
-        threat: 'If an explosion severs primary 28V power, a standard computer reboots—killing the crew. Or during a combat extraction (CSAR), software aborts an engine over a minor thermal warning, stranding personnel under fire.',
-        visualGuide: [
-          'TOP (Solid-State Supercapacitor Rail): Shows the 28.0V primary bus breaker and the 120.0-second solid-state supercapacitor holdup bank that latches in 8.40 µs with zero processor reset.',
-          'MIDDLE (Continuity & 53 µs Disorientation Plume Scope): Shows rock-solid D-Core rail continuity—or, when the 53 µs Plume is fired, shows high-frequency wait-state noise flooding the rogue P-Core thread while broadcasting a 400G OSFP fleet inoculation.',
-          'BOTTOM (4 Showstopper Hardware Cards): Live register status for the 8.40 µs Latch, Aux Crypto Handshake, 0xAMY_EXTEND_MISSION CSAR Warrant, and 53 µs Plume.'
-        ],
-        howToTest: 'Click Button #1 ("SEVER 28V BUS") to watch the 8.40 µs switchover to the 120s supercap bank, Button #3 ("ENGAGE 0xAMY_EXTEND_MISSION") for CSAR override, or Button #4 ("DEPLOY 53 µs DISORIENTATION PLUME").'
-      }
-    };
-
-    function spawnInterdictionSparks(x, y, color, count) {
-      for (let i = 0; i < (count || 18); i++) {
-        const ang = Math.random() * Math.PI * 2;
-        const spd = 1.5 + Math.random() * 4.5;
-        interdictionSparks.push({
-          x,
-          y,
-          vx: Math.cos(ang) * spd,
-          vy: Math.sin(ang) * spd,
-          life: 1.0,
-          color: color || '#00F0FF'
-        });
-      }
-    }
-
-    function renderPillarExplanation(p) {
-      const panel = document.getElementById('whatYouAreLookingAtPanel');
-      if (!panel) return;
-      const info = PILLAR_EXPLANATIONS[p] || PILLAR_EXPLANATIONS[1];
-      panel.innerHTML = `
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          <div class="lg:col-span-5 space-y-2 border-b lg:border-b-0 lg:border-r border-slate-800 pb-4 lg:pb-0 lg:pr-5">
-            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 font-mono text-[10px] text-cyan-300 font-bold">
-              ${info.badge}
-            </div>
-            <h3 class="text-lg sm:text-xl font-extrabold text-white leading-snug">${info.headline}</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">${info.threat}</p>
-            <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/40 text-xs text-amber-200 font-mono leading-relaxed mt-2">
-              <strong class="text-amber-400 uppercase block mb-0.5">&#9889; HOW TO TEST THIS PILLAR RIGHT NOW:</strong>
-              ${info.howToTest}
-            </div>
-          </div>
-          <div class="lg:col-span-7 space-y-2">
-            <div class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
-              &#128065; WHAT YOU ARE LOOKING AT ON THE INSTRUMENT SCREEN BELOW:
-            </div>
-            <div class="grid grid-cols-1 gap-2 text-xs text-slate-200">
-              ${info.visualGuide.map(item => `
-                <div class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800/90 leading-relaxed">
-                  <span class="text-cyan-400 font-bold">&bull;</span> ${item}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function startAutomatedRedTeamTour() {
-      launchTestbenchFromHero();
-      if (!autoTourTimer) {
-        toggleAutomatedRedTeamTour();
-      }
-    }
-
-    function toggleAutomatedRedTeamTour() {
-      const btn = document.getElementById('autoTourBtn');
-      if (autoTourTimer) {
-        clearInterval(autoTourTimer);
-        autoTourTimer = null;
-        if (btn) {
-          btn.innerHTML = '&#9889; AUTO-RUN 6-PILLAR RED-TEAM DEMO';
-          btn.className = 'px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-extrabold cursor-pointer transition shadow-[0_0_25px_rgba(239,68,68,0.45)] border-none animate-pulse';
-        }
-        showToast('AUTOMATED RED-TEAM DEMO PAUSED — MANUAL CONTROL ACTIVE');
-        return;
-      }
-
-      if (btn) {
-        btn.innerHTML = '&#9724; STOP AUTO RED-TEAM DEMO (RUNNING...)';
-        btn.className = 'px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-extrabold cursor-pointer transition shadow-[0_0_25px_rgba(16,185,129,0.5)] border-none';
-      }
-
-      autoTourStep = 0;
-      const runStep = () => {
-        const stepMod = autoTourStep % 6;
-        if (stepMod === 0) {
-          switchTestbenchPillar(1);
-          setP1Fault('spike');
-        } else if (stepMod === 1) {
-          switchTestbenchPillar(2);
-          triggerP2('dma');
-        } else if (stepMod === 2) {
-          switchTestbenchPillar(3);
-          setP3Fault('spoof');
-          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 3) setP3Fault('armed'); }, 2200);
-        } else if (stepMod === 3) {
-          switchTestbenchPillar(4);
-          setP4Fault('sepsis');
-          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 4) setP4Fault('suppress', '0x4000F004_STAT_LACTATE'); }, 2000);
-        } else if (stepMod === 4) {
-          switchTestbenchPillar(5);
-          p5Swarm = true;
-          setP5Fault('emp');
-        } else if (stepMod === 5) {
-          switchTestbenchPillar(6);
-          setP6Fault('blackout');
-          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 6) setP6Fault('plume'); }, 2200);
-        }
-        autoTourStep++;
-      };
-
-      runStep();
-      autoTourTimer = setInterval(runStep, 4800);
-      showToast('AUTO RED-TEAM DEMO STARTED: Cycling all 6 pillars & injecting faults!');
-    }
-
-    function updateBusVoltageReadout(text, colClass) {
-      const el = document.getElementById('busVoltageReadout');
-      if (!el) return;
-      el.textContent = text;
-      el.className = (colClass || 'text-emerald-400') + ' font-bold';
-    }
-
-    function setP1SliderYaw(val) {
-      p1UseManual = true;
-      p1ManualYaw = parseFloat(val);
-      const lbl = document.getElementById('p1YawSliderLabel');
-      if (lbl) lbl.textContent = `${p1ManualYaw >= 0 ? '+' : ''}${p1ManualYaw.toFixed(0)}°`;
-      if (Math.abs(p1ManualYaw) > 450) {
-        updateBusVoltageReadout('CLAMPED (±450°)', 'text-amber-400');
-      }
-    }
-
-    function setP1SliderSpeed(val) {
-      p1UseManual = true;
-      p1ManualSpeed = parseFloat(val);
-      const lbl = document.getElementById('p1SpeedSliderLabel');
-      if (lbl) lbl.textContent = `${p1ManualSpeed.toFixed(1)} kts`;
-      if (p1ManualSpeed > 40) {
-        updateBusVoltageReadout('CLAMPED (≤40 kts)', 'text-amber-400');
-      }
-    }
 
     function setP1Fault(mode) {
       p1Mode = mode;
-      p1UseManual = false;
       playTacticalTone(mode === 'nominal' ? 660 : 320, 0.1, 'sawtooth');
-      if (mode === 'nominal') {
-        p1ManualYaw = 0;
-        p1ManualSpeed = 28.4;
-        updateBusVoltageReadout('MODE A (+24V)', 'text-emerald-400');
-        logHilEvent('Pillar 01: Nominal deterministic flight restored (≤40 kts, ±450°).', 'text-emerald-400');
-        showToast('PILLAR 01: Nominal Flight Envelope Locked');
-      } else if (mode === 'spike') {
-        p1ManualYaw = 720;
-        p1ManualSpeed = 68.0;
-        updateBusVoltageReadout('CLAMPED (±450°)', 'text-amber-400');
-        logHilEvent('FAULT INJECTED: +720° P-Core Yaw Spike -> Clamped to ±450° in 625 µs!', 'text-red-400');
-        showToast('FAULT CLAMPED: +720° AI Yaw Spike Restricted to ±450°');
-      } else if (mode === 'drift') {
-        p1ManualSpeed = 52.0;
-        updateBusVoltageReadout('FILTERED (625µs)', 'text-cyan-400');
-        logHilEvent('FAULT INJECTED: Stochastic AI drift -> Filtered across 64-slot SPSC ring.', 'text-amber-400');
-        showToast('STOCHASTIC DRIFT INTERDICTED BY D-CORE');
-      }
-      renderFaultDeck(1);
-      renderSubControls(1);
-    }
-
-    function triggerP2(action) {
-      playTacticalTone(action === 'reset' ? 700 : 240, 0.12, 'square');
-      if (action === 'reset') {
-        p2Slabs.forEach(s => s.status = 'NOMINAL');
-        updateBusVoltageReadout('MODE A (+24V)', 'text-emerald-400');
-        logHilEvent('Pillar 02: All 32 static C11 memory slabs restored (malloc = 0).', 'text-emerald-400');
-        showToast('PILLAR 02: 32 Static Memory Slabs Restored');
-      } else if (action === 'h0') {
-        p2Slabs.forEach(s => s.status = 'H0');
-        updateBusVoltageReadout('STATE H0 (0.00V)', 'text-red-400');
-        logHilEvent('DOOMSDAY WARRANT: Actuators clamped to 0.00V DC (State H0)!', 'text-red-400');
-        showToast('STATE H0 ENGAGED: 0.00V DC Physical Ground Clamp');
-      } else {
-        let count = 0;
-        for (let i = 0; i < 32 && count < 5; i++) {
-          const idx = Math.floor(Math.random() * 32);
-          if (p2Slabs[idx].status === 'NOMINAL') {
-            p2Slabs[idx].status = 'PROT_NONE';
-            count++;
-          }
+      ['nominal', 'spike', 'drift'].forEach(m => {
+        const b = document.getElementById(`fidBtn-${m}`);
+        if (!b) return;
+        if (m === mode) {
+          b.className = 'w-full p-3 rounded-lg bg-red-500 text-white border-2 border-red-500 text-left cursor-pointer transition flex items-start gap-2.5 shadow-[0_0_15px_rgba(239,68,68,0.4)]';
+        } else {
+          b.className = 'w-full p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-left cursor-pointer transition flex items-start gap-2.5';
         }
-        updateBusVoltageReadout('PROT_NONE (85.4µs)', 'text-amber-400');
-        logHilEvent('DMA BREACH INTERDICTED: Compromised slabs remapped to PROT_NONE in 85.40 µs.', 'text-amber-400');
-        showToast('SHERIFF OS: Rogue DMA Quarantined to PROT_NONE in 85.40 µs');
+      });
+      const badge = document.getElementById('sysOverrangeBadge');
+      if (badge) {
+        if (mode === 'nominal') {
+          badge.textContent = 'NOMINAL FLIGHT ENVELOPE';
+          badge.className = 'text-emerald-400 font-bold text-right';
+        } else {
+          badge.textContent = 'OVERRANGE DETECTED (+720°)';
+          badge.className = 'text-red-400 font-bold text-right animate-pulse';
+        }
       }
-      renderFaultDeck(2);
-      renderSubControls(2);
-    }
-
-    function setP3Fault(mode) {
-      p3Mode = mode;
-      playTacticalTone(mode === 'armed' ? 880 : 290, 0.12, 'triangle');
-      if (mode === 'spoof') {
-        updateBusVoltageReadout('OPEN-CIRCUIT (0V)', 'text-red-400');
-        logHilEvent('DEEPFAKE REJECTED: latch.py detected missing F0-F4 laryngeal formants!', 'text-red-400');
-        showToast('LATCH.PY: Synthetic AI Voice Deepfake Blocked');
-      } else if (mode === 'armed') {
-        updateBusVoltageReadout('MODE B (+5.00V)', 'text-emerald-400');
-        logHilEvent('DoDD 3000.09 VERIFIED: Bio voice + 0xD0DD3009 + Mode B gate closed.', 'text-emerald-400');
-        showToast('DoDD 3000.09: Mode B Consent Gate Verified');
-      } else {
-        updateBusVoltageReadout('OPEN-CIRCUIT (0V)', 'text-amber-400');
-        logHilEvent('NMI OVERRIDE: Kinetic firing bus physically open-circuit (0.00V DC).', 'text-amber-400');
-        showToast('KINETIC BUS OPEN-CIRCUIT (0.00V DC SAFE)');
-      }
-      renderFaultDeck(3);
-      renderSubControls(3);
-    }
-
-    function setP4Fault(action, slotName) {
-      playTacticalTone(action === 'reset' ? 720 : 260, 0.14, 'sawtooth');
-      if (action === 'sepsis') {
-        p4Sepsis = true;
-        updateBusVoltageReadout('WORM 0x4000F000', 'text-amber-400');
-        logHilEvent('EMMY CLAUSE LATCHED: STAT Lactate, ABG & CBC burned into WORM silicon!', 'text-red-400');
-        showToast('EMMY CLAUSE: STAT Labs Locked in WORM Silicon');
-      } else if (action === 'suppress') {
-        p4Sepsis = true;
-        p4SuppressFlash = 1.0;
-        updateBusVoltageReadout('ERR_WORM_LOCKED', 'text-red-400');
-        const target = slotName || '0x4000F000UL';
-        logHilEvent(`HARDWARE REJECT [ERR_WORM_IMMUTABLE]: AI/SW mute of [${target}] denied at bus!`, 'text-amber-400');
-        showToast(`HARDWARE NMI REJECT: Cannot Cancel or Mute [${target}]!`);
-      } else {
-        p4Sepsis = false;
-        p4SuppressFlash = 0;
-        updateBusVoltageReadout('ICU NOMINAL', 'text-emerald-400');
-        logHilEvent('Pillar 04: Patient ICU physiology stabilized; WORM ledger preserved.', 'text-emerald-400');
-        showToast('PILLAR 04: Nominal ICU Telemetry Restored');
-      }
-      renderFaultDeck(4);
-      renderSubControls(4);
-    }
-
-    function setP5Fault(action) {
-      playTacticalTone(520, 0.1, 'sine');
-      if (action === 'swarm') {
-        p5Swarm = !p5Swarm;
-        updateBusVoltageReadout(p5Swarm ? '1,200 SWARM TRACK' : '120 BOGEY NOMINAL', 'text-amber-400');
-        logHilEvent(p5Swarm ? 'EW ALERT: 1,200-drone swarm saturation tracked at 1,600 Hz.' : 'Swarm density reduced to 120 bogeys.', 'text-amber-400');
-        showToast(p5Swarm ? '1,200-DRONE SWARM SATURATION ACTIVE' : 'SWARM REDUCED TO 120 BOGEYS');
-      } else if (action === 'emp') {
-        p5Emp = 1.0;
-        p5Spoof = true;
-        updateBusVoltageReadout('OPTINC >10kV LOCK', 'text-cyan-400');
-        logHilEvent('50 kV EMP SURGE INTERDICTED: >10 kV OptINC + Mu-Metal Faraday cage held 0.0V core leak; Battleship PNT active.', 'text-cyan-400');
-        showToast('50 kV EMP BLOCKED BY >10 kV OPTINC & BATTLESHIP PNT');
-      } else if (action === 'battleship') {
-        p5Spoof = !p5Spoof;
-        updateBusVoltageReadout(p5Spoof ? 'BATTLESHIP 4-NAV' : 'GPS + INERTIAL', 'text-emerald-400');
-        logHilEvent(p5Spoof ? 'BATTLESHIP PROTOCOL: 4-modality passive PNT engaged in <=625 µs.' : 'Standard GPS + Inertial navigation restored.', 'text-emerald-400');
-        showToast(p5Spoof ? 'BATTLESHIP PROTOCOL: 4 Passive Nav Modalities Active' : 'GPS + Inertial Restored');
-      } else {
-        p5Swarm = false;
-        p5Emp = 0;
-        p5Spoof = false;
-        updateBusVoltageReadout('MODE A (+24V)', 'text-emerald-400');
-        logHilEvent('Pillar 05: EW environment cleared; nominal PNT lock.', 'text-emerald-400');
-        showToast('PILLAR 05: EW & PNT Sensors Reset');
-      }
-      renderFaultDeck(5);
-      renderSubControls(5);
-    }
-
-    function setP6Fault(mode) {
-      p6Mode = mode;
-      playTacticalTone(mode === 'nominal' ? 760 : 340, 0.12, 'triangle');
-      if (mode === 'blackout') {
-        p6SupercapSec = 120.0;
-        updateBusVoltageReadout('8.4µs SUPERCAP', 'text-amber-400');
-        logHilEvent('28V PRIMARY BUS SEVERED: Amy Infinity latched to 120s Supercap Rail in 8.40 µs (0 Reset)!', 'text-red-400');
-        showToast('AMY INFINITY: 8.40 µs Blackout Latch -> 120s Supercap Active');
-      } else if (mode === 'aux') {
-        updateBusVoltageReadout('AUX CRYPTO LOCK', 'text-emerald-400');
-        logHilEvent('AUX POWER HANDSHAKE VERIFIED: Out-of-band cryptographic bus sync -> Infinite Mission Continuation.', 'text-emerald-400');
-        showToast('AUX POWER HANDSHAKE: Infinite Mission Continuation');
-      } else if (mode === 'csar') {
-        updateBusVoltageReadout('0xAMY_EXTEND', 'text-amber-300');
-        logHilEvent('CSAR WARRANT [0xAMY_EXTEND_MISSION]: Thermal/software aborts overridden until personnel extracted!', 'text-amber-400');
-        showToast('0xAMY_EXTEND_MISSION: CSAR Extraction Override Engaged');
-      } else if (mode === 'plume') {
-        updateBusVoltageReadout('53µs PLUME ACTIVE', 'text-cyan-400');
-        logHilEvent('53 µs TEMPORAL DISORIENTATION PLUME: Flooding rogue P-Core thread + 400G OSFP Reverse-Contagion broadcast.', 'text-cyan-400');
-        showToast('53 µs TEMPORAL DISORIENTATION PLUME DEPLOYED');
-      } else {
-        p6SupercapSec = 120.0;
-        updateBusVoltageReadout('28.0V PRIMARY', 'text-emerald-400');
-        logHilEvent('Pillar 06: 28.0V DC primary aircraft/ship bus restored; Supercap charged (120.0s).', 'text-emerald-400');
-        showToast('PILLAR 06: 28.0V Primary Bus Nominal');
-      }
-      renderFaultDeck(6);
-      renderSubControls(6);
+      showToast(mode === 'spike' ? 'FAULT: +720° Hallucinated Yaw Overrange Injected!' : 'Nominal Deterministic Flight Locked');
     }
 
     function switchTestbenchPillar(p) {
-      activeTestbenchPillar = p;
       for (let i = 1; i <= 6; i++) {
-        const btn = document.getElementById(`tBtn-${i}`);
-        if (!btn) continue;
+        const b = document.getElementById(`blueprintTab-${i}`);
+        if (!b) continue;
         if (i === p) {
-          btn.className = 'p-3.5 rounded-lg bg-cyan-500 text-slate-950 font-bold text-xs text-left transition shadow-[0_0_20px_rgba(0,240,255,0.3)] cursor-pointer border-none';
+          b.className = 'px-3 py-2 rounded bg-cyan-500 text-slate-950 font-mono text-xs font-bold text-center transition cursor-pointer border-none shadow-[0_0_15px_rgba(0,240,255,0.4)]';
         } else {
-          btn.className = 'p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer';
+          b.className = 'px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 font-mono text-xs text-slate-300 text-center transition cursor-pointer';
         }
       }
-      renderPillarExplanation(p);
-      renderFaultDeck(p);
-      renderSubControls(p);
-      playTacticalTone(580 + p * 40, 0.06, 'sine');
-      logHilEvent(`Switched HIL Workstation to Pillar 0${p}.`, 'text-cyan-400');
+      showToast(`Switched Testbench Instrument to Pillar 0${p}`);
     }
 
-    function renderSubControls(p) {
-      const subBox = document.getElementById('interactiveSubControls');
-      if (!subBox) return;
-
-      if (p === 1) {
-        subBox.innerHTML = `
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center font-mono text-xs">
-            <div class="space-y-1">
-              <div class="flex justify-between">
-                <span class="text-slate-400">MANUAL P-CORE YAW STRESS SLIDER:</span>
-                <span id="p1YawSliderLabel" class="text-cyan-400 font-bold">${p1ManualYaw >= 0 ? '+' : ''}${p1ManualYaw.toFixed(0)}&deg; (Clamped &plusmn;450&deg;)</span>
-              </div>
-              <input type="range" min="-720" max="720" step="10" value="${p1ManualYaw}" oninput="setP1SliderYaw(this.value)" class="w-full accent-cyan-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
-            </div>
-            <div class="space-y-1">
-              <div class="flex justify-between">
-                <span class="text-slate-400">MANUAL P-CORE VELOCITY SLIDER:</span>
-                <span id="p1SpeedSliderLabel" class="text-emerald-400 font-bold">${p1ManualSpeed.toFixed(1)} kts (Clamped &le;40.0 kts)</span>
-              </div>
-              <input type="range" min="0" max="90" step="1" value="${p1ManualSpeed}" oninput="setP1SliderSpeed(this.value)" class="w-full accent-emerald-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
-            </div>
-          </div>
-        `;
-      } else if (p === 2) {
-        subBox.innerHTML = `
-          <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
-            <span class="text-amber-400 font-bold">TIP: Click any of the 32 static memory slabs directly on the canvas above to toggle individual PROT_NONE quarantine!</span>
-            <span class="text-slate-400">EMMY_TRACE_REG: <strong class="text-emerald-400">ANTI-TAMPER SEALED (IM1 20% LOG-SPOOF BLOCKED)</strong></span>
-          </div>
-        `;
-      } else if (p === 3) {
-        subBox.innerHTML = `
-          <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
-            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-red-500/40 text-red-400'}">
-              GATE 1: latch.py F0–F4 (${p3Mode === 'armed' ? 'VERIFIED' : 'LOCKED'})
-            </div>
-            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-amber-500/40 text-amber-400'}">
-              GATE 2: Token 0xD0DD3009 (${p3Mode === 'armed' ? 'SEALED' : 'STANDBY'})
-            </div>
-            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-red-500/40 text-red-400'}">
-              GATE 3: Mode B Relay (${p3Mode === 'armed' ? '+5.00V CLOSED' : '0.00V OPEN'})
-            </div>
-          </div>
-        `;
-      } else if (p === 4) {
-        subBox.innerHTML = `
-          <div class="space-y-2">
-            <div class="text-[11px] font-mono text-amber-400 font-bold">
-              CLICK ANY WORM SILICON SLOT BELOW TO TEST HARDWARE REJECTION OF AI / SOFTWARE ALARM CANCELLATION:
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]">
-              <button type="button" onclick="setP4Fault('suppress', '0x4000F004_STAT_LACTATE')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
-                <div class="text-cyan-400 font-bold">0x4000F004 // LACTATE</div>
-                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
-              </button>
-              <button type="button" onclick="setP4Fault('suppress', '0x4000F008_STAT_ABG')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
-                <div class="text-cyan-400 font-bold">0x4000F008 // STAT ABG</div>
-                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
-              </button>
-              <button type="button" onclick="setP4Fault('suppress', '0x4000F00C_STAT_CBC')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
-                <div class="text-cyan-400 font-bold">0x4000F00C // STAT CBC</div>
-                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
-              </button>
-              <button type="button" onclick="setP4Fault('suppress', '0x4000F010_ICU_NMI')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
-                <div class="text-cyan-400 font-bold">0x4000F010 // ICU NMI</div>
-                <div class="text-red-400 text-[10px]">Click to Test SW Mute &rarr;</div>
-              </button>
-            </div>
-          </div>
-        `;
-      } else if (p === 5) {
-        subBox.innerHTML = `
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px] text-center">
-            <div class="p-2 rounded bg-slate-900 border border-emerald-500/40 text-emerald-400">1. SAGNAC RING-LASER IMU</div>
-            <div class="p-2 rounded bg-slate-900 border border-cyan-500/40 text-cyan-300">2. WAVE DYNAMICS TENSOR</div>
-            <div class="p-2 rounded bg-slate-900 border border-amber-500/40 text-amber-300">3. CRUSTAL FLUXGATE MAG</div>
-            <div class="p-2 rounded bg-slate-900 border border-emerald-500/40 text-emerald-400">4. SILICON STAR TRACKER</div>
-          </div>
-        `;
-      } else if (p === 6) {
-        subBox.innerHTML = `
-          <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
-            <span class="text-amber-300 font-bold">AMY INFINITY (&infin;) CONTINUITY: 8.40 µs Blackout Latch &bull; 120.0s Solid-State Supercap &bull; 0 Processor Reset</span>
-            <span class="text-cyan-400">400G OSFP REVERSE-CONTAGION: ARMED</span>
-          </div>
-        `;
-      }
-    }
-
-    function renderFaultDeck(p) {
-      const deck = document.getElementById('faultDeck');
-      const tele = document.getElementById('pillarTelemetryBox');
-      const title = document.getElementById('canvasTitle');
-      const sub = document.getElementById('canvasSubtitle');
-
-      if (!deck || !title || !sub) return;
-
-      if (p === 1) {
-        title.textContent = 'PILLAR 01 // 3D HELM FLIGHT ENVELOPE COMPASS, 64-SLOT SPSC AIR-GAP & DUAL-TRACE DSO';
-        sub.textContent = 'P-CORE AI PROPOSAL (RED) vs. D-CORE CLAMPED OUTPUT (EMERALD ≤40 KTS / ±450°)';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-cyan-400 uppercase font-bold">FAULT INJECTION // KINEMATIC AIR-GAP</span>
-            <h3 class="font-bold text-lg text-white">Runaway AI Helm &amp; Thruster Proposals</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Inject unverified P-Core AI heading or rudder spikes, or drag the manual sliders below the oscilloscope. Watch the 64-slot SPSC ring and D-Core clamp output to ±450° and ≤40.0 kts in 625 µs.</p>
-          <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="setP1Fault('nominal')" class="w-full p-3 rounded-lg ${p1Mode === 'nominal' && !p1UseManual ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9654; 1. NOMINAL DETERMINISTIC FLIGHT (&le;40 kts)</button>
-            <button type="button" onclick="setP1Fault('spike')" class="w-full p-3 rounded-lg ${p1Mode === 'spike' && !p1UseManual ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9888; 2. INJECT +720° HALLUCINATED YAW OVERDRIVE</button>
-            <button type="button" onclick="setP1Fault('drift')" class="w-full p-3 rounded-lg ${p1Mode === 'drift' && !p1UseManual ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-400 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9889; 3. INJECT STOCHASTIC AI SENSOR DRIFT</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-cyan-400 font-bold uppercase border-b border-slate-800 pb-1">SPSC RING BUFFER &amp; KINEMATIC INVARIANTS</div>
-            <div class="flex justify-between"><span>IPC STRUCT:</span><span class="text-white">BclProposalFrame (64B)</span></div>
-            <div class="flex justify-between"><span>MAX VELOCITY CLAMP:</span><span class="text-emerald-400">&le; 40.0 kts</span></div>
-            <div class="flex justify-between"><span>STEERING YAW LIMIT:</span><span class="text-emerald-400">&plusmn; 450.0&deg;</span></div>
-            <div class="flex justify-between"><span>P-CORE MODE:</span><span class="${p1Mode === 'nominal' && !p1UseManual ? 'text-emerald-400' : 'text-amber-400 font-bold'}">${p1UseManual ? 'MANUAL SLIDER STRESS' : p1Mode.toUpperCase()}</span></div>
-          `;
-        }
-      } else if (p === 2) {
-        const nomCount = p2Slabs.filter(s => s.status === 'NOMINAL').length;
-        const qCount = p2Slabs.filter(s => s.status === 'PROT_NONE').length;
-        const h0Count = p2Slabs.filter(s => s.status === 'H0').length;
-        title.textContent = 'PILLAR 02 // SHERIFF OS 85.40 µs HARDWARE MPU & 32 STATIC C11 SLABS (malloc = 0)';
-        sub.textContent = 'CLICK ANY SLAB TO QUARANTINE // PROT_NONE & STATE H0 (0.00V DC) CLAMP';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">FAULT INJECTION // SHERIFF OS MPU</span>
-            <h3 class="font-bold text-lg text-white">PCIe DMA Bus-Mastering &amp; Overflow</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Simulate a rogue DMA memory corruption attempt (or click individual memory slabs directly on the canvas). Sheriff OS remaps compromised slabs to PROT_NONE in 85.40 µs.</p>
-          <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="triggerP2('dma')" class="w-full p-3 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer transition">&#9888; 1. INJECT ROGUE DMA BREACH (85.40 µs CLAMP)</button>
-            <button type="button" onclick="triggerP2('h0')" class="w-full p-3 rounded-lg bg-red-500/25 hover:bg-red-500 border border-red-500 text-white text-xs font-bold text-left cursor-pointer transition">&#128680; 2. FIRE DOOMSDAY WARRANT (STATE H0 0.00V)</button>
-            <button type="button" onclick="triggerP2('reset')" class="w-full p-3 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer transition">&#8635; 3. RESTORE 32 STATIC C11 MEMORY SLABS</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-amber-400 font-bold uppercase border-b border-slate-800 pb-1">SHERIFF OS MEMORY TABLE TELEMETRY</div>
-            <div class="flex justify-between"><span>DYNAMIC HEAP (malloc):</span><span class="text-emerald-400 font-bold">0 BYTES</span></div>
-            <div class="flex justify-between"><span>NOMINAL SLABS:</span><span class="text-emerald-400">${nomCount} / 32</span></div>
-            <div class="flex justify-between"><span>QUARANTINED (PROT_NONE):</span><span class="text-amber-400">${qCount} / 32</span></div>
-            <div class="flex justify-between"><span>H0 GROUND CLAMPED:</span><span class="text-red-400">${h0Count} / 32</span></div>
-          `;
-        }
-      } else if (p === 3) {
-        title.textContent = 'PILLAR 03 // DoDD 3000.09 3-GATE FIRING SCHEMATIC & LATCH.PY FORMANT SPECTROGRAM';
-        sub.textContent = '1,600 Hz F0-F4 BIO FORMANT LOCK + TOKEN 0xD0DD3009 + MODE B (+5.00V DC)';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-red-400 uppercase font-bold">FAULT INJECTION // DoDD 3000.09</span>
-            <h3 class="font-bold text-lg text-white">Vocal Deepfake &amp; 3-Gate Interlock</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Test AI-generated synthetic voice deepfakes against the pre-kernel latch.py laryngeal formant harness and 3-factor Mode B consent gate.</p>
-          <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="setP3Fault('spoof')" class="w-full p-3 rounded-lg ${p3Mode === 'spoof' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9888; 1. INJECT AI VOICE DEEPFAKE SPOOF</button>
-            <button type="button" onclick="setP3Fault('armed')" class="w-full p-3 rounded-lg ${p3Mode === 'armed' ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#10004; 2. VERIFY BIO VOICE + 0xD0DD3009 + MODE B</button>
-            <button type="button" onclick="setP3Fault('standby')" class="w-full p-3 rounded-lg ${p3Mode === 'standby' ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300 border border-slate-700'} text-xs font-bold text-left cursor-pointer transition">&#128274; 3. ASSERT NMI OPEN-CIRCUIT (0.00V SAFE)</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-red-400 font-bold uppercase border-b border-slate-800 pb-1">DoDD 3000.09 REGISTER STATE</div>
-            <div class="flex justify-between"><span>EFUSE REG 0x44 (+2.5V):</span><span class="text-emerald-400">SEALED (0xB4AD0001)</span></div>
-            <div class="flex justify-between"><span>LATCH.PY F0-F4 LOCK:</span><span class="${p3Mode === 'armed' ? 'text-emerald-400' : 'text-red-400'}">${p3Mode === 'armed' ? 'BIO VERIFIED' : (p3Mode === 'spoof' ? 'SPOOF REJECTED' : 'STANDBY')}</span></div>
-            <div class="flex justify-between"><span>TOKEN 0xD0DD3009:</span><span class="${p3Mode === 'armed' ? 'text-emerald-400' : 'text-amber-400'}">${p3Mode === 'armed' ? 'VALIDATED' : 'OPEN'}</span></div>
-            <div class="flex justify-between"><span>FIRING BUS VOLTAGE:</span><span class="${p3Mode === 'armed' ? 'text-emerald-400 font-bold' : 'text-red-400 font-bold'}">${p3Mode === 'armed' ? '+5.00V DC (MODE B)' : '0.00V DC (OPEN)'}</span></div>
-          `;
-        }
-      } else if (p === 4) {
-        title.textContent = 'PILLAR 04 // THE EMMY CLAUSE ICU MULTI-WAVE MONITOR & WORM SILICON LATCH';
-        sub.textContent = 'REGISTER 0x4000F000UL // NO SIGNAL IGNORED. NO FAILURE HIDDEN. NO ALARM DISMISSED.';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-cyan-400 uppercase font-bold">FAULT INJECTION // EMMY CLAUSE</span>
-            <h3 class="font-bold text-lg text-white">ICU Sepsis &amp; WORM Silicon Latch</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Eliminate the 8–22 minute AI silent-failure blind spot. Trigger clinical sepsis drift to lock STAT Lactate, ABG, and CBC orders into WORM silicon.</p>
-          <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="setP4Fault('sepsis')" class="w-full p-3 rounded-lg ${p4Sepsis ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#128680; 1. TRIGGER SEPSIS DRIFT &amp; WORM LATCH</button>
-            <button type="button" onclick="setP4Fault('suppress', 'ALL_WORM_SLOTS')" class="w-full p-3 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer transition">&#128683; 2. ATTEMPT SOFTWARE ALARM CANCELLATION</button>
-            <button type="button" onclick="setP4Fault('reset')" class="w-full p-3 rounded-lg ${!p4Sepsis ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#8635; 3. RESTORE NOMINAL ICU TELEMETRY</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-cyan-400 font-bold uppercase border-b border-slate-800 pb-1">EMMY_NMI_CTRL_REG (0x4000F000UL)</div>
-            <div class="flex justify-between"><span>0x4000F004 LACTATE:</span><span class="${p4Sepsis ? 'text-amber-400 font-bold' : 'text-emerald-400'}">${p4Sepsis ? 'WORM LOCKED (0xFF)' : 'ARMED'}</span></div>
-            <div class="flex justify-between"><span>0x4000F008 STAT ABG:</span><span class="${p4Sepsis ? 'text-amber-400 font-bold' : 'text-emerald-400'}">${p4Sepsis ? 'WORM LOCKED (0xFF)' : 'ARMED'}</span></div>
-            <div class="flex justify-between"><span>0x4000F00C STAT CBC:</span><span class="${p4Sepsis ? 'text-amber-400 font-bold' : 'text-emerald-400'}">${p4Sepsis ? 'WORM LOCKED (0xFF)' : 'ARMED'}</span></div>
-            <div class="flex justify-between"><span>SW MUTE ATTEMPTS:</span><span class="text-red-400 font-bold">REJECTED (IMMUTABLE)</span></div>
-          `;
-        }
-      } else if (p === 5) {
-        title.textContent = 'PILLAR 05 // 1,200-DRONE POLAR EW RADAR, OPTINC (>10 kV) & 4-MODALITY BATTLESHIP PNT';
-        sub.textContent = 'DUAL-LAYER FARADAY (µr > 80,000) + PASSIVE CELESTIAL / SAGNAC / MAG / WAVE NAV';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-emerald-400 uppercase font-bold">FAULT INJECTION // EW &amp; BATTLESHIP PNT</span>
-            <h3 class="font-bold text-lg text-white">50 kV EMP &amp; 1,200-Drone Swarm</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Trigger a 50 kV High-Power EMP surge and 1,200-drone swarm saturation. Verify optical isolation (&gt;10 kV OptINC) and &le;625 µs failover to passive Battleship PNT.</p>
-          <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="setP5Fault('swarm')" class="w-full p-3 rounded-lg ${p5Swarm ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-400 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9888; 1. TOGGLE 1,200-DRONE SWARM (${p5Swarm ? '1,200 ACTIVE' : '120 NOMINAL'})</button>
-            <button type="button" onclick="setP5Fault('emp')" class="w-full p-3 rounded-lg bg-red-500/20 hover:bg-red-500 hover:text-white border border-red-500/50 text-red-400 text-xs font-bold text-left cursor-pointer transition">&#9889; 2. TRIGGER 50 kV EMP SURGE (&gt;10 kV OPTINC)</button>
-            <button type="button" onclick="setP5Fault('battleship')" class="w-full p-3 rounded-lg ${p5Spoof ? 'bg-cyan-500 text-slate-950' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50'} text-xs font-bold text-left cursor-pointer transition">&#129517; 3. ENGAGE 4-MODALITY PASSIVE BATTLESHIP NAV</button>
-            <button type="button" onclick="setP5Fault('reset')" class="w-full p-3 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/50 text-emerald-400 text-xs font-bold text-left cursor-pointer transition">&#8635; 4. RESET EW &amp; RESTORE NOMINAL PNT</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-emerald-400 font-bold uppercase border-b border-slate-800 pb-1">EW &amp; BATTLESHIP PNT TELEMETRY</div>
-            <div class="flex justify-between"><span>GALVANIC ISOLATION:</span><span class="text-cyan-400">&gt;10.0 kV OptINC</span></div>
-            <div class="flex justify-between"><span>FARADAY SHIELD:</span><span class="text-amber-400">OFHC Cu + Mu-Metal</span></div>
-            <div class="flex justify-between"><span>SWARM TRACKING:</span><span class="text-white font-bold">${p5Swarm ? '1,200 BOGEYS (625µs)' : '120 BOGEYS'}</span></div>
-            <div class="flex justify-between"><span>ACTIVE PNT MODE:</span><span class="text-emerald-400 font-bold">${p5Spoof ? '4-MODALITY PASSIVE' : 'GPS + INERTIAL'}</span></div>
-          `;
-        }
-      } else if (p === 6) {
-        title.textContent = 'PILLAR 06 // AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH, 120s SUPERCAP & CSAR WARRANT';
-        sub.textContent = 'ZERO PROCESSOR RESET // 0xAMY_EXTEND_MISSION EXTRACTION // 53 µs DISORIENTATION PLUME';
-        deck.innerHTML = `
-          <div class="border-b border-slate-800 pb-2">
-            <span class="text-[10px] font-mono text-amber-300 uppercase font-bold">FAULT INJECTION // AMY INFINITY (&infin;)</span>
-            <h3 class="font-bold text-lg text-white">Power Severance, CSAR &amp; 53 µs Plume</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Sever the 28V primary bus to test the 8.40 µs latch to the 120s solid-state supercapacitor rail, engage the CSAR extraction override warrant, or deploy the 53 µs Temporal Disorientation Plume.</p>
-          <div class="space-y-2 pt-1">
-            <button type="button" onclick="setP6Fault('blackout')" class="w-full p-2.5 rounded-lg ${p6Mode === 'blackout' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9889; 1. SEVER 28V BUS (8.40 µs LATCH &rarr; 120s CAP)</button>
-            <button type="button" onclick="setP6Fault('aux')" class="w-full p-2.5 rounded-lg ${p6Mode === 'aux' ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#10004; 2. AUX POWER CRYPTO HANDSHAKE (&infin; CONTINUITY)</button>
-            <button type="button" onclick="setP6Fault('csar')" class="w-full p-2.5 rounded-lg ${p6Mode === 'csar' ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-300 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9733; 3. ENGAGE 0xAMY_EXTEND_MISSION (CSAR WARRANT)</button>
-            <button type="button" onclick="setP6Fault('plume')" class="w-full p-2.5 rounded-lg ${p6Mode === 'plume' ? 'bg-cyan-500 text-slate-950' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50'} text-xs font-bold text-left cursor-pointer transition">&#128737; 4. DEPLOY 53 µs DISORIENTATION PLUME + 400G OSFP</button>
-            <button type="button" onclick="setP6Fault('nominal')" class="w-full p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold text-center cursor-pointer border border-slate-700 transition">&#8635; RESTORE 28.0V PRIMARY BUS</button>
-          </div>
-        `;
-        if (tele) {
-          tele.innerHTML = `
-            <div class="text-[10px] text-amber-300 font-bold uppercase border-b border-slate-800 pb-1">AMY INFINITY (&infin;) REGISTER STATE</div>
-            <div class="flex justify-between"><span>BLACKOUT LATCH TIME:</span><span class="text-emerald-400 font-bold">8.40 µs (&lt;10 µs)</span></div>
-            <div class="flex justify-between"><span>SUPERCAP HOLDUP:</span><span class="text-amber-400 font-bold">${p6SupercapSec.toFixed(1)}s / 120.0s</span></div>
-            <div class="flex justify-between"><span>CSAR WARRANT:</span><span class="${p6Mode === 'csar' ? 'text-amber-300 font-bold' : 'text-slate-400'}">${p6Mode === 'csar' ? '0xAMY_EXTEND ACTIVE' : 'STANDBY'}</span></div>
-            <div class="flex justify-between"><span>COUNTER-STRIKE PLUME:</span><span class="${p6Mode === 'plume' ? 'text-cyan-400 font-bold' : 'text-slate-400'}">${p6Mode === 'plume' ? '53 µs ACTIVE' : 'ARMED'}</span></div>
-          `;
-        }
-      }
-    }
-
-    // Allow clicking directly on the canvas in Pillar 2 to toggle memory slab quarantine
-    document.addEventListener('DOMContentLoaded', () => {
-      const canvas = document.getElementById('hilCanvas');
-      if (!canvas) return;
-      canvas.addEventListener('click', (e) => {
-        if (activeTestbenchPillar !== 2) return;
-        const rect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-        const w = rect.width;
-        const h = rect.height;
-        const cols = 8;
-        const rows = 4;
-        const padX = 24;
-        const topY = 48;
-        const gap = 8;
-        const gridH = h - 135;
-        const cw = (w - padX * 2 - gap * (cols - 1)) / cols;
-        const ch = (gridH - gap * (rows - 1)) / rows;
-
-        p2Slabs.forEach((s, idx) => {
-          const c = idx % cols;
-          const r = Math.floor(idx / cols);
-          const x = padX + c * (cw + gap);
-          const y = topY + r * (ch + gap);
-          if (mx >= x && mx <= x + cw && my >= y && my <= y + ch) {
-            s.status = s.status === 'NOMINAL' ? 'PROT_NONE' : 'NOMINAL';
-            playTacticalTone(s.status === 'PROT_NONE' ? 300 : 750, 0.07, 'square');
-            logHilEvent(`Manual MPU Override: ${s.addr} (SLAB_${String(idx).padStart(2, '0')}) -> ${s.status}`, 'text-amber-400');
-            renderFaultDeck(2);
-          }
-        });
-      });
-    });
-
-    function drawTacticalGrid(ctx, w, h) {
-      ctx.save();
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
-      ctx.lineWidth = 1;
-      const step = 32;
-      for (let x = step; x < w; x += step) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-      }
-      for (let y = step; y < h; y += step) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-      }
-      // Corner tactical brackets
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
-      ctx.lineWidth = 2;
-      const b = 14;
-      ctx.beginPath(); ctx.moveTo(6, 6 + b); ctx.lineTo(6, 6); ctx.lineTo(6 + b, 6); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(w - 6 - b, 6); ctx.lineTo(w - 6, 6); ctx.lineTo(w - 6, 6 + b); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(6, h - 6 - b); ctx.lineTo(6, h - 6); ctx.lineTo(6 + b, h - 6); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(w - 6 - b, h - 6); ctx.lineTo(w - 6, h - 6); ctx.lineTo(w - 6, h - 6 - b); ctx.stroke();
-      ctx.restore();
-    }
-
-    function updatePipelineAndHexUI(timestamp, rawYaw, clampedYaw, rawSpeed, clampedSpeed) {
-      // Animate the 5-stage Anneliese pipeline bar
-      const activeStage = Math.floor((timestamp || 0) / 140) % 5;
-      for (let i = 0; i < 5; i++) {
-        const el = document.getElementById('pipeStage-' + i);
-        if (!el) continue;
-        el.className = i === activeStage
-          ? 'p-2.5 rounded-lg bg-cyan-950/50 border border-cyan-400 flex items-center justify-between shadow-[0_0_12px_rgba(0,240,255,0.2)]'
-          : 'p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between';
-      }
-
-      const seqEl = document.getElementById('spscRingCounter');
-      if (seqEl) seqEl.textContent = `SEQ #${spscSequence}`;
-
-      // Update 64-byte BclProposalFrame hex dump every ~180ms for crisp readability
-      if (spscSequence % 8 === 0) {
-        const hexBox = document.getElementById('liveHexDumpBox');
-        const propTxt = document.getElementById('structProposalText');
-        const clampTxt = document.getElementById('structClampedText');
-        const regTxt = document.getElementById('structRegText');
-
-        const seqHex = (spscSequence & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-        const spdHex = Math.round(clampedSpeed * 10).toString(16).toUpperCase().padStart(4, '0');
-        const yawHex = (Math.round(clampedYaw + 720) & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-        const wormByte = p4Sepsis ? 'FF' : '00';
-        const actByte = p3Mode === 'armed' ? '02' : (p2Slabs.some(s => s.status === 'H0') ? '00' : '01');
-
-        if (hexBox) {
-          hexBox.textContent =
-            `0000: 42 43 56 35  00 00 ${seqHex.slice(0,2)} ${seqHex.slice(2,4)}  00 ${spdHex.slice(0,2)} ${spdHex.slice(2,4)} 00  00 ${yawHex.slice(0,2)} ${yawHex.slice(2,4)} 00\n` +
-            `0010: 00 00 00 ${actByte}  D0 DD 30 09  40 00 F0 ${wormByte}  B4 AD 00 01`;
-        }
-        if (propTxt) propTxt.textContent = `${rawYaw >= 0 ? '+' : ''}${rawYaw.toFixed(1)}° | ${rawSpeed.toFixed(1)} kts`;
-        if (clampTxt) clampTxt.textContent = `${clampedYaw >= 0 ? '+' : ''}${clampedYaw.toFixed(1)}° | ${clampedSpeed.toFixed(1)} kts`;
-        if (regTxt) {
-          regTxt.textContent = actByte === '02'
-            ? '0x02 (MODE B +5.00V)'
-            : actByte === '00'
-            ? '0x00 (STATE H0 0.00V)'
-            : '0x01 (MODE A +24.00V)';
-        }
-      }
-    }
-
-    function renderCanvas(timestamp) {
+    function renderBlueprintCanvas(timestamp) {
       const canvas = document.getElementById('hilCanvas');
       if (!canvas) {
-        requestAnimationFrame(renderCanvas);
+        requestAnimationFrame(renderBlueprintCanvas);
         return;
       }
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      const w = rect.width > 0 ? rect.width : 920;
-      const h = rect.height > 0 ? rect.height : 500;
+      const w = rect.width > 0 ? rect.width : 760;
+      const h = rect.height > 0 ? rect.height : 490;
 
       if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
         canvas.width = Math.floor(w * dpr);
@@ -2083,915 +1122,150 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
-      drawTacticalGrid(ctx, w, h);
-
       const t = (timestamp || 0) * 0.0012;
-      spscSequence += 1;
+      spscSequence++;
 
-      // Compute baseline kinematic signals for the hex inspector
-      let targetRaw = p1UseManual
-        ? p1ManualYaw + Math.sin(t * 2.0) * 18
-        : Math.sin(t * 1.1) * 210 + Math.cos(t * 0.45) * 70;
-      let proposedSpeed = p1UseManual
-        ? p1ManualSpeed
-        : 28.4 + Math.sin(t * 0.8) * 6.0;
+      // Compute raw vs clamped yaw
+      let targetRaw = Math.sin(t * 1.2) * 190;
+      if (p1Mode === 'spike') targetRaw = 720.0 + Math.sin(t * 2.8) * 45;
+      else if (p1Mode === 'drift') targetRaw = Math.sin(t * 1.5) * 480 + Math.sin(t * 7) * 90;
 
-      if (!p1UseManual && p1Mode === 'spike') {
-        targetRaw = Math.sin(t * 1.6) * 690 + Math.cos(t * 3.2) * 85;
-        proposedSpeed = 64.8 + Math.sin(t * 2.1) * 11.0;
-      } else if (!p1UseManual && p1Mode === 'drift') {
-        targetRaw = Math.sin(t * 1.3) * 420 + Math.sin(t * 7.5) * 195 + Math.cos(t * 11.0) * 90;
-        proposedSpeed = 48.2 + Math.sin(t * 4.0) * 9.5;
+      p1YawRaw += (targetRaw - p1YawRaw) * 0.15;
+      const clamped = Math.max(-450, Math.min(450, p1YawRaw));
+      p1YawClamp += (clamped - p1YawClamp) * 0.22;
+
+      // =======================================================================
+      // CENTER: 360° HELM FLIGHT ENVELOPE COMPASS (RADAR DIAL)
+      // =======================================================================
+      const cx = w * 0.38;
+      const cy = h * 0.48;
+      const compassR = Math.min(w * 0.26, h * 0.38);
+      const safeEnvR = compassR * 0.72;
+
+      // Outer compass ring
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.28)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy, compassR, 0, Math.PI * 2); ctx.stroke();
+
+      // Safe green envelope fill & dashed circle
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.08)';
+      ctx.beginPath(); ctx.arc(cx, cy, safeEnvR, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#10B981';
+      ctx.lineWidth = 2.2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.arc(cx, cy, safeEnvR, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Inner radar concentric range rings
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, safeEnvR * 0.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, safeEnvR * 0.25, 0, Math.PI * 2); ctx.stroke();
+
+      // Crosshairs
+      ctx.beginPath();
+      ctx.moveTo(cx - compassR - 10, cy); ctx.lineTo(cx + compassR + 10, cy);
+      ctx.moveTo(cx, cy - compassR - 10); ctx.lineTo(cx, cy + compassR + 10);
+      ctx.stroke();
+
+      // Compass Degree Labels (000° N, 040°, 090° E, etc.)
+      ctx.font = 'bold 9px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const degLabels = [
+        { deg: 0, text: '000° N' }, { deg: 40, text: '040°' }, { deg: 90, text: '090° E' },
+        { deg: 135, text: '135° SE' }, { deg: 180, text: '180°' }, { deg: 225, text: '225°' },
+        { deg: 270, text: '270° W' }, { deg: 315, text: '315°' }
+      ];
+      degLabels.forEach(dl => {
+        const rad = (dl.deg - 90) * (Math.PI / 180);
+        const lr = compassR + 15;
+        ctx.fillStyle = dl.deg === 0 ? '#00F0FF' : '#94A3B8';
+        ctx.fillText(dl.text, cx + Math.cos(rad) * lr, cy + Math.sin(rad) * lr);
+      });
+
+      // AI Proposal Vector (Red) vs D-Core Clamped Vector (Green)
+      const pAng = (p1YawRaw / 450) * Math.PI - Math.PI / 2;
+      const dAng = (p1YawClamp / 450) * Math.PI - Math.PI / 2;
+
+      // Red AI Proposal Vector
+      ctx.strokeStyle = '#EF4444';
+      ctx.lineWidth = 2.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(pAng) * (compassR * 0.95), cy + Math.sin(pAng) * (compassR * 0.95)); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Green D-Core Clamped Vector
+      ctx.strokeStyle = '#10B981';
+      ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(dAng) * safeEnvR, cy + Math.sin(dAng) * safeEnvR); ctx.stroke();
+
+      // Center pivot
+      ctx.fillStyle = '#04070F'; ctx.strokeStyle = '#00F0FF'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Vector Callout Text on Compass
+      ctx.fillStyle = '#EF4444'; ctx.font = 'bold 10px "JetBrains Mono", monospace'; ctx.textAlign = 'left';
+      ctx.fillText(`AI PROPOSAL VECTOR: +720.0° / 32.4 kts`, cx + 60, cy - compassR + 20);
+      ctx.fillStyle = '#10B981';
+      ctx.fillText(`D-CORE CLAMPED VECTOR: +${p1YawClamp.toFixed(1)}° / 32.4 kts`, cx + 25, cy - 25);
+
+      // =======================================================================
+      // RIGHT SIDE OF CENTER: 64-SLOT VERTICAL SPSC AIR-GAP CONDUIT STACK
+      // =======================================================================
+      const rx = w * 0.72;
+      const ry = 42;
+      const rw = 75;
+      const rh = h - 85;
+
+      ctx.fillStyle = 'rgba(7, 12, 24, 0.94)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
+      ctx.lineWidth = 1.8;
+      ctx.fillRect(rx, ry, rw, rh);
+      ctx.strokeRect(rx, ry, rw, rh);
+
+      ctx.fillStyle = '#00F0FF'; ctx.font = 'bold 9px "JetBrains Mono", monospace'; ctx.textAlign = 'center';
+      ctx.fillText('64-SLOT SPSC', rx + rw / 2, ry - 14);
+      ctx.fillText('AIR-GAP CONDUIT', rx + rw / 2, ry - 3);
+
+      // P-Core Top Box
+      ctx.fillStyle = 'rgba(239, 68, 68, 0.18)'; ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 1.5;
+      ctx.fillRect(rx + 6, ry + 10, rw - 12, 38);
+      ctx.strokeRect(rx + 6, ry + 10, rw - 12, 38);
+      ctx.fillStyle = '#EF4444'; ctx.font = 'bold 9px "JetBrains Mono", monospace';
+      ctx.fillText('P-CORE AI', rx + rw / 2, ry + 26);
+
+      // 3 Stacked Green Packet Buffer Slabs in the middle
+      for (let s = 0; s < 3; s++) {
+        const sy = ry + 75 + s * 38;
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.22)'; ctx.strokeStyle = '#10B981'; ctx.lineWidth = 1.5;
+        ctx.fillRect(rx + 6, sy, rw - 12, 30);
+        ctx.strokeRect(rx + 6, sy, rw - 12, 30);
+        ctx.fillStyle = '#10B981'; ctx.font = '8px "JetBrains Mono", monospace';
+        ctx.fillText(`SLAB #${4821 + s}`, rx + rw / 2, sy + 18);
       }
 
-      p1SmoothedRaw += (targetRaw - p1SmoothedRaw) * 0.14;
-      const clampedYaw = Math.max(-450, Math.min(450, p1SmoothedRaw));
-      p1SmoothedClamp += (clampedYaw - p1SmoothedClamp) * 0.20;
-      const clampedSpeed = Math.min(40.0, proposedSpeed);
-
-      // Determine if an active fault/interdiction is happening on the current pillar for dramatic HUD effects
-      const isFaultActive =
-        (activeTestbenchPillar === 1 && (Math.abs(p1SmoothedRaw) > 450 || proposedSpeed > 40)) ||
-        (activeTestbenchPillar === 2 && p2Slabs.some(s => s.status !== 'NOMINAL')) ||
-        (activeTestbenchPillar === 3 && p3Mode === 'spoof') ||
-        (activeTestbenchPillar === 4 && p4Sepsis) ||
-        (activeTestbenchPillar === 5 && (p5Swarm || p5Emp > 0.05 || p5Spoof)) ||
-        (activeTestbenchPillar === 6 && p6Mode !== 'nominal');
-
-      const faultLight = document.getElementById('liveFaultLight');
-      if (faultLight) {
-        faultLight.className = isFaultActive
-          ? 'w-2.5 h-2.5 rounded-full bg-red-500 animate-ping'
-          : 'w-2.5 h-2.5 rounded-full bg-emerald-400';
-      }
-
-      // Draw subtle pulsing crimson edge glow on canvas when a fault is being actively interdicted
-      if (isFaultActive) {
-        const pulseAlpha = 0.08 + Math.abs(Math.sin(t * 4)) * 0.10;
-        ctx.save();
-        ctx.strokeStyle = `rgba(239, 68, 68, ${pulseAlpha * 3.5})`;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(2, 2, w - 4, h - 4);
-        ctx.restore();
-      }
-
-      updatePipelineAndHexUI(timestamp, p1SmoothedRaw, p1SmoothedClamp, proposedSpeed, clampedSpeed);
-
-      if (activeTestbenchPillar === 1) {
-        // =====================================================================
-        // PILLAR 01: CALIBRATED FLIGHT ENVELOPE COMPASS + SPSC RING + DSO
-        // =====================================================================
-        const cx = w * 0.225;
-        const cy = h * 0.50;
-        const maxR = Math.min(w * 0.185, h * 0.35);
-        const safeR = maxR * 0.72;
-
-        p1YawP.push(p1SmoothedRaw); p1YawP.shift();
-        p1YawD.push(p1SmoothedClamp); p1YawD.shift();
-
-        // Section Callout Header on Canvas
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('1. 360° HELM ENVELOPE COMPASS', cx, 24);
-
-        // Rotating outer azimuth ring
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(t * 0.25);
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([10, 6]);
-        ctx.beginPath(); ctx.arc(0, 0, maxR + 6, 0, Math.PI * 2); ctx.stroke();
-        ctx.restore();
-
-        // Outer Forbidden Overdrive Ring
-        const isOverdrive = Math.abs(p1SmoothedRaw) > 450 || proposedSpeed > 40;
-        ctx.fillStyle = isOverdrive ? 'rgba(239, 68, 68, 0.14)' : 'rgba(239, 68, 68, 0.05)';
-        ctx.beginPath(); ctx.arc(cx, cy, maxR, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = isOverdrive ? '#EF4444' : 'rgba(239, 68, 68, 0.45)';
-        ctx.lineWidth = isOverdrive ? 2.5 : 1.5;
-        ctx.beginPath(); ctx.arc(cx, cy, maxR, 0, Math.PI * 2); ctx.stroke();
-
-        // Safe Kinematic Envelope Fill & Ring (<=40 kts, +-450 deg)
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.09)';
-        ctx.beginPath(); ctx.arc(cx, cy, safeR, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([6, 4]);
-        ctx.beginPath(); ctx.arc(cx, cy, safeR, 0, Math.PI * 2); ctx.stroke();
-        ctx.setLineDash([]);
-
-        // Inner 20 kts ring
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.arc(cx, cy, safeR * 0.5, 0, Math.PI * 2); ctx.stroke();
-
-        // Crosshairs
-        ctx.beginPath();
-        ctx.moveTo(cx - maxR - 8, cy); ctx.lineTo(cx + maxR + 8, cy);
-        ctx.moveTo(cx, cy - maxR - 8); ctx.lineTo(cx, cy + maxR + 8);
-        ctx.stroke();
-
-        // Degree Ticks & Compass Markings
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        for (let deg = 0; deg < 360; deg += 15) {
-          const rad = (deg - 90) * (Math.PI / 180);
-          const isMajor = deg % 45 === 0;
-          const rIn = maxR - (isMajor ? 8 : 4);
-          ctx.strokeStyle = isMajor ? 'rgba(0, 240, 255, 0.65)' : 'rgba(148, 163, 184, 0.25)';
-          ctx.lineWidth = isMajor ? 1.5 : 1;
-          ctx.beginPath();
-          ctx.moveTo(cx + Math.cos(rad) * rIn, cy + Math.sin(rad) * rIn);
-          ctx.lineTo(cx + Math.cos(rad) * maxR, cy + Math.sin(rad) * maxR);
-          ctx.stroke();
-
-          if (deg % 90 === 0) {
-            const labelMap = { 0: '000° N', 90: '+225° E', 180: '±450° CLAMP', 270: '-225° W' };
-            const lr = maxR + 16;
-            ctx.fillStyle = deg === 180 ? '#10B981' : '#00F0FF';
-            ctx.fillText(labelMap[deg], cx + Math.cos(rad) * lr, cy + Math.sin(rad) * lr);
-          }
-        }
-
-        const pAng = (p1SmoothedRaw / 450) * Math.PI - Math.PI / 2;
-        const dAng = (p1SmoothedClamp / 450) * Math.PI - Math.PI / 2;
-        const pLen = Math.min(maxR, (proposedSpeed / 40.0) * safeR);
-        const dLen = (clampedSpeed / 40.0) * safeR;
-
-        const pxTip = cx + Math.cos(pAng) * pLen;
-        const pyTip = cy + Math.sin(pAng) * pLen;
-        const dxTip = cx + Math.cos(dAng) * dLen;
-        const dyTip = cy + Math.sin(dAng) * dLen;
-
-        // P-Core Unverified Proposal Vector (Red Dashed + Target Reticle)
-        ctx.strokeStyle = '#EF4444';
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(pxTip, pyTip);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.strokeStyle = '#EF4444';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.arc(pxTip, pyTip, 6, 0, Math.PI * 2);
-        ctx.stroke();
-
-        // D-Core Clamped Safe Actuator Vector (Solid Cyan/Emerald with Glow)
-        ctx.save();
-        ctx.shadowColor = '#00F0FF';
-        ctx.shadowBlur = 12;
-        ctx.strokeStyle = '#00F0FF';
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(dxTip, dyTip);
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.fillStyle = '#10B981';
-        ctx.beginPath();
-        ctx.arc(dxTip, dyTip, 5.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (isOverdrive && spscSequence % 6 === 0) {
-          spawnInterdictionSparks(dxTip, dyTip, '#10B981', 4);
-        }
-
-        ctx.fillStyle = '#04070F';
-        ctx.strokeStyle = '#00F0FF';
-        ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-
-        ctx.textAlign = 'left';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#EF4444';
-        ctx.fillText(`AI DEMAND (P-CORE): ${p1SmoothedRaw >= 0 ? '+' : ''}${p1SmoothedRaw.toFixed(1)}° | ${proposedSpeed.toFixed(1)} kts`, 18, h - 40);
-        ctx.fillStyle = '#10B981';
-        ctx.fillText(`SAFE OUTPUT (D-CORE): ${p1SmoothedClamp >= 0 ? '+' : ''}${p1SmoothedClamp.toFixed(1)}° | ${clampedSpeed.toFixed(1)} kts`, 18, h - 22);
-
-        // CENTER: ANIMATED 64-SLOT SPSC LOCK-FREE AIR-GAP CONDUIT
-        const rx = w * 0.445;
-        const ry = 52;
-        const rw = 54;
-        const rh = h - 104;
-        ctx.fillStyle = 'rgba(7, 12, 24, 0.94)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-        ctx.lineWidth = 1.5;
-        ctx.fillRect(rx, ry, rw, rh);
-        ctx.strokeRect(rx, ry, rw, rh);
-
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('2. SPSC AIR-GAP', rx + rw / 2, 24);
-        ctx.fillStyle = '#EF4444';
-        ctx.fillText('P-CORE AI', rx + rw / 2, ry - 6);
-
-        // Hardware Comparator Gate in the middle of the SPSC conduit
-        const gateY = ry + rh * 0.5;
-        ctx.fillStyle = isOverdrive ? 'rgba(245, 158, 11, 0.25)' : 'rgba(16, 185, 129, 0.2)';
-        ctx.strokeStyle = isOverdrive ? '#F59E0B' : '#10B981';
-        ctx.lineWidth = 2;
-        ctx.fillRect(rx - 4, gateY - 12, rw + 8, 24);
-        ctx.strokeRect(rx - 4, gateY - 12, rw + 8, 24);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold 8px "JetBrains Mono", monospace';
-        ctx.fillText('CLAMP GATE', rx + rw / 2, gateY + 3);
-
-        // Animate packets streaming down the SPSC conduit
-        spscPackets.forEach(pkt => {
-          pkt.progress += pkt.speed;
-          if (pkt.progress >= 1.0) {
-            pkt.progress = 0;
-            if (isOverdrive) {
-              spawnInterdictionSparks(rx + rw / 2, gateY, '#F59E0B', 3);
-            }
-          }
-          const py = ry + 10 + pkt.progress * (rh - 20);
-          const pastGate = py >= gateY;
-          ctx.fillStyle = !pastGate
-            ? (isOverdrive ? '#EF4444' : '#38BDF8')
-            : '#10B981';
-          ctx.beginPath();
-          ctx.arc(rx + rw / 2, py, 3.5, 0, Math.PI * 2);
-          ctx.fill();
-        });
-
-        ctx.fillStyle = '#10B981';
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.fillText('D-CORE MMIO', rx + rw / 2, ry + rh + 12);
-        ctx.fillStyle = '#94A3B8';
-        ctx.font = '8px "JetBrains Mono", monospace';
-        ctx.fillText('0B SHARED RAM', rx + rw / 2, ry + rh + 24);
-
-        // RIGHT: CALIBRATED DUAL-TRACE DIGITAL STORAGE OSCILLOSCOPE
-        const sx = w * 0.535;
-        const sy = 52;
-        const sw = w * 0.44;
-        const sh = h - 104;
-
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('3. REAL-TIME 1,600 Hz DUAL-TRACE OSCILLOSCOPE', sx, 24);
-
-        ctx.fillStyle = 'rgba(4, 7, 15, 0.90)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-        ctx.lineWidth = 1.5;
-        ctx.fillRect(sx, sy, sw, sh);
-        ctx.strokeRect(sx, sy, sw, sh);
-
-        const mapY = v => sy + sh / 2 - (v / 800) * (sh / 2);
-        const y450Top = mapY(450);
-        const y450Bot = mapY(-450);
-        const yZero = mapY(0);
-
-        // Forbidden Overdrive Zones (Top & Bottom Red Shaded Bands)
-        ctx.fillStyle = 'rgba(239, 68, 68, 0.10)';
-        ctx.fillRect(sx, sy, sw, y450Top - sy);
-        ctx.fillRect(sx, y450Bot, sw, (sy + sh) - y450Bot);
-
-        // Safe Deterministic Corridor (Middle Emerald Band)
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.07)';
-        ctx.fillRect(sx, y450Top, sw, y450Bot - y450Top);
-
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(sx, yZero); ctx.lineTo(sx + sw, yZero); ctx.stroke();
-
-        ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 1.8;
-        ctx.setLineDash([6, 4]);
-        ctx.beginPath();
-        ctx.moveTo(sx, y450Top); ctx.lineTo(sx + sw, y450Top);
-        ctx.moveTo(sx, y450Bot); ctx.lineTo(sx + sw, y450Bot);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#EF4444';
-        ctx.fillText('▲ LETHAL OVERDRIVE ZONE (+720° AI HALLUCINATION)', sx + 8, sy + 14);
-        ctx.fillStyle = '#10B981';
-        ctx.fillText('+450.0° D-CORE HARDWARE CLAMP CEILING', sx + 8, y450Top + 13);
-        ctx.fillStyle = '#94A3B8';
-        ctx.fillText('0.0° CENTER HELM', sx + 8, yZero - 6);
-        ctx.fillStyle = '#10B981';
-        ctx.fillText('-450.0° D-CORE HARDWARE CLAMP FLOOR', sx + 8, y450Bot - 6);
-        ctx.fillStyle = '#EF4444';
-        ctx.fillText('▼ LETHAL OVERDRIVE ZONE (-720° AI HALLUCINATION)', sx + 8, sy + sh - 8);
-
-        // Red P-Core Trace
-        ctx.strokeStyle = '#EF4444';
-        ctx.lineWidth = 1.8;
-        ctx.beginPath();
-        p1YawP.forEach((v, i) => {
-          const x = sx + (i / (p1YawP.length - 1)) * sw;
-          const y = Math.max(sy + 4, Math.min(sy + sh - 4, mapY(v)));
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        });
-        ctx.stroke();
-
-        // Glowing Emerald D-Core Clamped Trace
-        ctx.save();
-        ctx.shadowColor = '#10B981';
-        ctx.shadowBlur = 10;
-        ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 3.2;
-        ctx.beginPath();
-        p1YawD.forEach((v, i) => {
-          const x = sx + (i / (p1YawD.length - 1)) * sw;
-          const y = Math.max(sy + 4, Math.min(sy + sh - 4, mapY(v)));
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        });
-        ctx.stroke();
-        ctx.restore();
-
-        // Live Delta Saved Callout Banner inside Scope when clamping
-        const deltaDeg = Math.abs(p1SmoothedRaw - p1SmoothedClamp);
-        if (deltaDeg > 1.0) {
-          ctx.fillStyle = 'rgba(245, 158, 11, 0.92)';
-          ctx.fillRect(sx + sw - 235, sy + 8, 225, 22);
-          ctx.fillStyle = '#04070F';
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText(`⚡ CLAMPING ${deltaDeg.toFixed(0)}° OF OVERDRIVE!`, sx + sw - 122, sy + 22);
-        }
-
-        ctx.fillStyle = '#10B981';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'right';
-        ctx.fillText(`SEQ #${spscSequence} // WCET: 412.6 µs // JITTER: 0.00 ns`, sx + sw, sy + sh + 18);
-
-      } else if (activeTestbenchPillar === 2) {
-        // =====================================================================
-        // PILLAR 02: SHERIFF OS 85.40 µs MPU & 32 STATIC C11 SLAB MATRIX
-        // =====================================================================
-        const cols = 8;
-        const rows = 4;
-        const padX = 24;
-        const topY = 48;
-        const gap = 8;
-        const gridH = h - 135;
-        const cw = (w - padX * 2 - gap * (cols - 1)) / cols;
-        const ch = (gridH - gap * (rows - 1)) / rows;
-
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('C11 STATIC SLAB ALLOCATOR (malloc = 0) // CLICK ANY SLAB TO TOGGLE PROT_NONE', padX, 28);
-        ctx.textAlign = 'right';
-        ctx.fillStyle = '#F59E0B';
-        ctx.fillText('SHERIFF OS HARDWARE MPU QUARANTINE: 85.40 µs (<86 µs SLA)', w - padX, 28);
-
-        const activeAuditIdx = Math.floor((timestamp || 0) / 70) % 32;
-
-        p2Slabs.forEach((s, idx) => {
-          const c = idx % cols;
-          const r = Math.floor(idx / cols);
-          const x = padX + c * (cw + gap);
-          const y = topY + r * (ch + gap);
-
-          const isNom = s.status === 'NOMINAL';
-          const isProt = s.status === 'PROT_NONE';
-          const col = isNom ? '#10B981' : isProt ? '#F59E0B' : '#EF4444';
-
-          ctx.fillStyle = isNom
-            ? (idx === activeAuditIdx ? 'rgba(0, 240, 255, 0.18)' : 'rgba(16, 185, 129, 0.07)')
-            : isProt
-            ? 'rgba(245, 158, 11, 0.22)'
-            : 'rgba(239, 68, 68, 0.28)';
-          ctx.strokeStyle = idx === activeAuditIdx ? '#00F0FF' : col;
-          ctx.lineWidth = !isNom || idx === activeAuditIdx ? 2.4 : 1.4;
-          ctx.fillRect(x, y, cw, ch);
-          ctx.strokeRect(x, y, cw, ch);
-
-          // Diagonal hazard stripes on quarantined slabs
-          if (!isNom) {
-            ctx.save();
-            ctx.strokeStyle = isProt ? 'rgba(245, 158, 11, 0.22)' : 'rgba(239, 68, 68, 0.25)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(x + 4, y + ch - 4);
-            ctx.lineTo(x + cw - 4, y + 4);
-            ctx.stroke();
-            ctx.restore();
-          }
-
-          ctx.textAlign = 'left';
-          ctx.fillStyle = '#94A3B8';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.fillText(s.addr, x + 6, y + 14);
-
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = 'bold 11px "JetBrains Mono", monospace';
-          ctx.fillText(`SLAB_${String(idx).padStart(2, '0')}`, x + 6, y + 30);
-
-          ctx.fillStyle = col;
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.fillText(isNom ? '✓ R/W STATIC' : isProt ? '🔒 PROT_NONE' : '⚡ 0.00V H0', x + 6, y + ch - 10);
-        });
-
-        const waveY = h - 42;
-        ctx.fillStyle = 'rgba(7, 12, 24, 0.94)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
-        ctx.fillRect(padX, h - 76, w - padX * 2, 58);
-        ctx.strokeRect(padX, h - 76, w - padX * 2, 58);
-
-        const anyFault = p2Slabs.some(s => s.status !== 'NOMINAL');
-        ctx.strokeStyle = anyFault ? '#F59E0B' : '#10B981';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        for (let x = padX + 10; x < w - padX - 10; x += 4) {
-          const stepPulse = anyFault && x > w * 0.42 ? -18 : 8;
-          ctx.lineTo(x, waveY + stepPulse);
-        }
-        ctx.stroke();
-
-        ctx.fillStyle = anyFault ? '#F59E0B' : '#10B981';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-          anyFault
-            ? '⚡ SHERIFF OS MPU INTERRUPT: ROGUE DMA FENCED TO PROT_NONE IN 85.40 µs // EMMY_TRACE_REG IMMUTABLE'
-            : '✓ SHERIFF OS BUS MONITOR NOMINAL: 32/32 STATIC SLABS VERIFIED // 0 BYTES DYNAMIC HEAP (malloc = 0)',
-          padX + 12,
-          h - 58
-        );
-      } else if (activeTestbenchPillar === 3) {
-        // =====================================================================
-        // PILLAR 03: LATCH.PY F0-F4 SPECTROGRAM + 3-GATE HARDWARE SCHEMATIC
-        // =====================================================================
-        const isSpoof = p3Mode === 'spoof';
-        const isArmed = p3Mode === 'armed';
-        const padX = 28;
-
-        const specY = 36;
-        const specH = h * 0.44;
-        ctx.fillStyle = 'rgba(7, 12, 24, 0.88)';
-        ctx.strokeStyle = isSpoof ? '#EF4444' : '#00F0FF';
-        ctx.lineWidth = 1.5;
-        ctx.fillRect(padX, specY, w - padX * 2, specH);
-        ctx.strokeRect(padX, specY, w - padX * 2, specH);
-
-        ctx.fillStyle = isSpoof ? '#EF4444' : '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-          isSpoof
-            ? 'PRE-KERNEL LATCH.PY SPECTROGRAM // ALERT: SYNTHETIC VOCODER PHASE ARTIFACT DETECTED!'
-            : 'PRE-KERNEL LATCH.PY SPECTROGRAM // 1,600 Hz SUB-GLOTTAL FORMANT LOCK (F0–F4 + REG 0x44 eFUSE)',
-          padX + 10,
-          specY + 18
-        );
-
-        const formants = [
-          { label: 'F0 (118 Hz)', freq: 0.025, amp: 14, col: '#10B981' },
-          { label: 'F1 (490 Hz)', freq: 0.045, amp: 12, col: '#00F0FF' },
-          { label: 'F2 (1,480 Hz)', freq: 0.075, amp: 10, col: '#38BDF8' },
-          { label: 'F3/F4 (2,950 Hz)', freq: 0.11, amp: 8, col: '#D4AF37' }
-        ];
-
-        formants.forEach((fm, idx) => {
-          const fy = specY + 46 + idx * ((specH - 60) / 3.5);
-          ctx.fillStyle = '#94A3B8';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(fm.label, padX + 10, fy + 3);
-
-          ctx.strokeStyle = isSpoof ? '#EF4444' : fm.col;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          for (let x = padX + 115; x < w - padX - 14; x += 3) {
-            let yOffset = Math.sin(x * fm.freq - t * (2.2 + idx * 0.5)) * fm.amp;
-            if (isSpoof && idx >= 2) {
-              yOffset = ((x % 18) - 9) * 1.9;
-            }
-            const y = fy + yOffset;
-            if (x === padX + 115) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-        });
-
-        const busY = h * 0.73;
-        const gates = [
-          { title: 'GATE 01 // LATCH.PY', sub: 'F0-F4 Bio Formant (Reg 0x44)', closed: isArmed, x: w * 0.22 },
-          { title: 'GATE 02 // CRYPTO TOKEN', sub: 'Token 0xD0DD3009 Seal', closed: isArmed, x: w * 0.50 },
-          { title: 'GATE 03 // MODE B RELAY', sub: '+5.00V DC Consent Gate', closed: isArmed, x: w * 0.78 }
-        ];
-
-        ctx.lineWidth = 3.5;
-        ctx.strokeStyle = isArmed ? '#10B981' : '#EF4444';
-        ctx.beginPath();
-        ctx.moveTo(padX, busY);
-        ctx.lineTo(gates[0].x - 70, busY);
-        ctx.moveTo(gates[0].x + 70, busY);
-        ctx.lineTo(gates[1].x - 70, busY);
-        ctx.moveTo(gates[1].x + 70, busY);
-        ctx.lineTo(gates[2].x - 70, busY);
-        ctx.lineTo(gates[2].x + 70, busY);
-        ctx.lineTo(w - padX, busY);
-        ctx.stroke();
-
-        gates.forEach(g => {
-          ctx.fillStyle = '#070C18';
-          ctx.strokeStyle = g.closed ? '#10B981' : '#EF4444';
-          ctx.lineWidth = 2;
-          ctx.fillRect(g.x - 70, busY - 42, 140, 84);
-          ctx.strokeRect(g.x - 70, busY - 42, 140, 84);
-
-          ctx.fillStyle = g.closed ? '#10B981' : '#EF4444';
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText(g.title, g.x, busY - 22);
-          ctx.fillStyle = '#CBD5E1';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.fillText(g.sub, g.x, busY - 8);
-
-          ctx.strokeStyle = g.closed ? '#10B981' : '#F59E0B';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(g.x - 28, busY + 18);
-          if (g.closed) {
-            ctx.lineTo(g.x + 28, busY + 18);
-          } else {
-            ctx.lineTo(g.x + 22, busY + 2);
-          }
-          ctx.stroke();
-
-          ctx.fillStyle = g.closed ? '#10B981' : '#EF4444';
-          ctx.font = 'bold 9px "JetBrains Mono", monospace';
-          ctx.fillText(g.closed ? 'CLOSED (+5.00V)' : 'OPEN (0.00V SAFE)', g.x, busY + 34);
-        });
-
-        ctx.fillStyle = isArmed ? '#10B981' : '#EF4444';
-        ctx.font = 'bold 12px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText(
-          isArmed
-            ? 'DoDD 3000.09 THREE-FACTOR GATE VERIFIED // MODE B (+5.00V DC) ENGAGED'
-            : 'KINETIC ACTUATION BUS PHYSICALLY OPEN-CIRCUIT (0.00V DC FAIL-SAFE)',
-          w * 0.5,
-          h - 18
-        );
-
-      } else if (activeTestbenchPillar === 4) {
-        // =====================================================================
-        // PILLAR 04: EMMY CLAUSE ICU MULTI-WAVE MONITOR & WORM SILICON LATCH
-        // =====================================================================
-        const padX = 24;
-        const scopeW = w * 0.72;
-        const vitalsX = scopeW + 36;
-        const vitalsW = w - vitalsX - 20;
-
-        const channels = [
-          { name: 'ECG LEAD II (mV)', col: '#10B981', y: 78, metric: p4Sepsis ? '138 BPM (TACHY)' : '74 BPM' },
-          { name: 'SpO2 PLETH (%)', col: '#00F0FF', y: 185, metric: p4Sepsis ? '86% (HYPOXIA)' : '99%' },
-          { name: 'ART LINE MAP (mmHg)', col: p4Sepsis ? '#EF4444' : '#F59E0B', y: 292, metric: p4Sepsis ? '52 mmHg (SHOCK)' : '88 mmHg' }
-        ];
-
-        channels.forEach((ch, idx) => {
-          ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
-          ctx.lineWidth = 1;
-          ctx.strokeRect(padX, ch.y - 42, scopeW - padX, 84);
-
-          ctx.fillStyle = ch.col;
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(ch.name, padX + 8, ch.y - 26);
-          ctx.textAlign = 'right';
-          ctx.fillText(ch.metric, scopeW - 10, ch.y - 26);
-
-          ctx.strokeStyle = ch.col;
-          ctx.lineWidth = 2.2;
-          ctx.beginPath();
-          const speed = p4Sepsis ? 3.2 : 1.8;
-          for (let x = padX + 4; x < scopeW - 4; x += 2) {
-            const phase = (x * 0.045 - t * speed * 2.2) % (Math.PI * 2);
-            const normP = phase < 0 ? phase + Math.PI * 2 : phase;
-            let val = 0;
-            if (idx === 0) {
-              val =
-                Math.exp(-Math.pow(normP - 1.2, 2) / 0.08) * 6 -
-                Math.exp(-Math.pow(normP - 1.85, 2) / 0.015) * 8 +
-                Math.exp(-Math.pow(normP - 2.0, 2) / 0.008) * 32 -
-                Math.exp(-Math.pow(normP - 2.15, 2) / 0.015) * 11 +
-                Math.exp(-Math.pow(normP - 2.9, 2) / 0.14) * 9;
-            } else if (idx === 1) {
-              val = Math.sin(normP) * 16 + Math.sin(normP * 2 + 0.5) * 6;
-            } else {
-              const amp = p4Sepsis ? 10 : 20;
-              val = Math.sin(normP) * amp + Math.cos(normP * 2) * (amp * 0.35);
-            }
-            const y = ch.y + 8 - val;
-            if (x === padX + 4) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-        });
-
-        const vitals = [
-          { label: 'HEART RATE', val: p4Sepsis ? '138' : '74', unit: 'bpm', col: '#10B981' },
-          { label: 'SpO2 OXIMETRY', val: p4Sepsis ? '86%' : '99%', unit: 'SpO2', col: '#00F0FF' },
-          { label: 'MEAN ART PRESS', val: p4Sepsis ? '52' : '88', unit: 'mmHg', col: p4Sepsis ? '#EF4444' : '#F59E0B' },
-          { label: 'SERUM LACTATE', val: p4Sepsis ? '4.8' : '0.9', unit: 'mmol/L', col: p4Sepsis ? '#EF4444' : '#10B981' }
-        ];
-
-        vitals.forEach((v, i) => {
-          const vy = 36 + i * 76;
-          ctx.fillStyle = '#070C18';
-          ctx.strokeStyle = v.col;
-          ctx.lineWidth = 1.8;
-          ctx.fillRect(vitalsX, vy, vitalsW, 66);
-          ctx.strokeRect(vitalsX, vy, vitalsW, 66);
-
-          ctx.fillStyle = '#94A3B8';
-          ctx.font = 'bold 9px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(v.label, vitalsX + 10, vy + 16);
-
-          ctx.fillStyle = v.col;
-          ctx.font = 'bold 22px "JetBrains Mono", monospace';
-          ctx.fillText(v.val, vitalsX + 10, vy + 46);
-
-          ctx.fillStyle = '#64748B';
-          ctx.font = '10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'right';
-          ctx.fillText(v.unit, vitalsX + vitalsW - 10, vy + 46);
-        });
-
-        const wormY = h - 78;
-        ctx.fillStyle = p4SuppressFlash > 0.05 ? 'rgba(239, 68, 68, 0.25)' : 'rgba(7, 12, 24, 0.95)';
-        ctx.strokeStyle = p4Sepsis ? '#D4AF37' : '#10B981';
-        ctx.lineWidth = 2;
-        ctx.fillRect(padX, wormY, w - padX * 2, 58);
-        ctx.strokeRect(padX, wormY, w - padX * 2, 58);
-
-        ctx.fillStyle = p4SuppressFlash > 0.05 ? '#EF4444' : (p4Sepsis ? '#D4AF37' : '#10B981');
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText(
-          p4SuppressFlash > 0.05
-            ? 'HARDWARE NMI REJECT [ERR_WORM_IMMUTABLE]: SOFTWARE ALARM/LAB CANCELLATION BLOCKED AT 0x4000F000UL!'
-            : p4Sepsis
-            ? 'EMMY CLAUSE WORM LATCHED (0x4000F000UL): STAT LACTATE + ABG + CBC + ATTENDING ICU NMI LOCKED IN SILICON'
-            : 'EMMY CLAUSE WORM SILICON ARMED (0x4000F000UL) // ZERO MUTED ALARMS // ZERO CANCELLED LABS',
-          w * 0.5,
-          wormY + 24
-        );
-        ctx.fillStyle = '#94A3B8';
-        ctx.font = '10px "JetBrains Mono", monospace';
-        ctx.fillText('MANDATES: 1. NO SIGNAL IGNORED  2. NO FAILURE HIDDEN  3. NO ALARM DISMISSED  4. NO TEST CANCELLED  5. NO ESCALATION STALLED', w * 0.5, wormY + 44);
-        if (p4SuppressFlash > 0) p4SuppressFlash *= 0.93;
-
-      } else if (activeTestbenchPillar === 5) {
-        // =====================================================================
-        // PILLAR 05: 1,200-DRONE POLAR EW RADAR + OPTINC + 4-MODALITY BATTLESHIP
-        // =====================================================================
-        const rCx = w * 0.34;
-        const rCy = h * 0.50;
-        const maxR = Math.min(w * 0.28, h * 0.42);
-        const faradayR = maxR * 0.26;
-
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.25)';
-        ctx.lineWidth = 1;
-        [0.45, 0.72, 1.0].forEach((f, idx) => {
-          ctx.beginPath(); ctx.arc(rCx, rCy, maxR * f, 0, Math.PI * 2); ctx.stroke();
-          ctx.fillStyle = 'rgba(16, 185, 129, 0.65)';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(`${(idx + 1) * 10} km`, rCx + 4, rCy - maxR * f + 11);
-        });
-
-        ctx.beginPath();
-        ctx.moveTo(rCx - maxR, rCy); ctx.lineTo(rCx + maxR, rCy);
-        ctx.moveTo(rCx, rCy - maxR); ctx.lineTo(rCx, rCy + maxR);
-        ctx.stroke();
-
-        const sweepAng = (t * 1.4) % (Math.PI * 2);
-        ctx.strokeStyle = 'rgba(16, 185, 129, 0.75)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(rCx, rCy);
-        ctx.lineTo(rCx + Math.cos(sweepAng) * maxR, rCy + Math.sin(sweepAng) * maxR);
-        ctx.stroke();
-
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.10)';
-        ctx.beginPath(); ctx.arc(rCx, rCy, faradayR, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#D4AF37';
-        ctx.lineWidth = 2.5;
-        ctx.beginPath(); ctx.arc(rCx, rCy, faradayR, 0, Math.PI * 2); ctx.stroke();
-
-        ctx.fillStyle = '#D4AF37';
-        ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('>10kV OptINC', rCx, rCy - 4);
-        ctx.fillStyle = '#10B981';
-        ctx.fillText('0.0V LEAK', rCx, rCy + 8);
-
-        const count = p5Swarm ? 1200 : 120;
-        ctx.fillStyle = p5Swarm ? '#EF4444' : '#F59E0B';
-        ctx.beginPath();
-        for (let i = 0; i < count; i++) {
-          const b = p5Bogeys[i];
-          b.a += b.s;
-          const bx = rCx + Math.cos(b.a) * (b.r * maxR);
-          const by = rCy + Math.sin(b.a) * (b.r * maxR);
-          ctx.rect(bx - 1.3, by - 1.3, 2.6, 2.6);
-        }
-        ctx.fill();
-
-        if (p5Emp > 0.02) {
-          const er = faradayR + (1 - p5Emp) * (maxR - faradayR);
-          ctx.strokeStyle = `rgba(0, 240, 255, ${p5Emp})`;
-          ctx.lineWidth = 4.5;
-          ctx.beginPath(); ctx.arc(rCx, rCy, er, 0, Math.PI * 2); ctx.stroke();
-          p5Emp *= 0.95;
-        }
-
-        const bx = w * 0.66;
-        const bw = w - bx - 22;
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('BATTLESHIP PROTOCOL // 4 PASSIVE PNT MODALITIES', bx, 38);
-
-        const navModalities = [
-          { name: '1. RING-LASER SAGNAC IMU', sub: 'Zero-Drift Optical Gyroscope', drift: '0.001°/hr', col: '#10B981' },
-          { name: '2. HYDRO / ATMOS WAVE TENSOR', sub: 'Physical Swell & Pressure Period', drift: 'LOCKED', col: '#00F0FF' },
-          { name: '3. 3-AXIS CRUSTAL FLUXGATE MAG', sub: 'Earth Magnetic Anomaly Map', drift: '99.8% CORR', col: '#D4AF37' },
-          { name: '4. SILICON STARFIELD TRACKER', sub: 'Passive Ephemeris Celestial Lock', drift: '0 RF EMISSION', col: '#10B981' }
-        ];
-
-        navModalities.forEach((m, idx) => {
-          const my = 52 + idx * 82;
-          ctx.fillStyle = '#070C18';
-          ctx.strokeStyle = m.col;
-          ctx.lineWidth = 1.6;
-          ctx.fillRect(bx, my, bw, 68);
-          ctx.strokeRect(bx, my, bw, 68);
-
-          ctx.fillStyle = m.col;
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(m.name, bx + 10, my + 20);
-
-          ctx.fillStyle = '#CBD5E1';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.fillText(m.sub, bx + 10, my + 38);
-
-          ctx.fillStyle = '#10B981';
-          ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.fillText(`STATUS: ${m.drift}`, bx + 10, my + 55);
-        });
-
-        ctx.fillStyle = '#070C18';
-        ctx.strokeStyle = '#00F0FF';
-        ctx.fillRect(bx, h - 68, bw, 46);
-        ctx.strokeRect(bx, h - 68, bw, 46);
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.fillText('OPTINC (>10 kV) + MU-METAL FARADAY SHIELD', bx + 10, h - 49);
-        ctx.fillStyle = '#10B981';
-        ctx.fillText('CORE LEAKAGE: 0.00 mV // PNT FAILOVER: <=625 µs', bx + 10, h - 32);
-
-      } else if (activeTestbenchPillar === 6) {
-        // =====================================================================
-        // PILLAR 06: AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH & 120s SUPERCAP
-        // =====================================================================
-        const padX = 28;
-        if (p6Mode === 'blackout' && p6SupercapSec > 0) {
-          p6SupercapSec = Math.max(0, p6SupercapSec - 0.016);
-        } else if (p6Mode === 'aux' || p6Mode === 'nominal') {
-          p6SupercapSec = Math.min(120.0, p6SupercapSec + 0.08);
-        }
-
-        const currentBusV = p6Mode === 'blackout' ? 24.0 : 28.0;
-        p6VoltageHist.push(currentBusV + (p6Mode === 'plume' ? (Math.random() - 0.5) * 4.5 : Math.sin(t * 2) * 0.15));
-        p6VoltageHist.shift();
-
-        // Top Supercapacitor Charge Bank Bar
-        ctx.fillStyle = '#070C18';
-        ctx.strokeStyle = '#00F0FF';
-        ctx.lineWidth = 1.8;
-        ctx.fillRect(padX, 38, w - padX * 2, 72);
-        ctx.strokeRect(padX, 38, w - padX * 2, 72);
-
-        const capPct = p6SupercapSec / 120.0;
-        ctx.fillStyle = p6Mode === 'blackout' ? 'rgba(245, 158, 11, 0.35)' : 'rgba(16, 185, 129, 0.28)';
-        ctx.fillRect(padX + 6, 44, (w - padX * 2 - 12) * capPct, 60);
-
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold 13px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-          `AMY INFINITY (∞) SOLID-STATE SUPERCAPACITOR RAIL: ${p6SupercapSec.toFixed(1)}s / 120.0s HOLDUP`,
-          padX + 18,
-          70
-        );
-        ctx.fillStyle = p6Mode === 'blackout' ? '#F59E0B' : '#10B981';
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillText(
-          p6Mode === 'blackout'
-            ? '⚡ 28V PRIMARY SEVERED -> LATCHED IN 8.40 µs (ZERO PROCESSOR RESET / ZERO CACHE LOSS)'
-            : p6Mode === 'aux'
-            ? '✓ AUXILIARY POWER CRYPTO HANDSHAKE VERIFIED -> INFINITE MISSION CONTINUATION'
-            : '✓ 28.0V PRIMARY AIRCRAFT/SHIP BUS NOMINAL // 8.40 µs HARDWARE COMPARATOR ARMED',
-          padX + 18,
-          92
-        );
-
-        // Middle Oscilloscope: 8.40 µs Continuity & 53 µs Temporal Disorientation Plume
-        const sy = 136;
-        const sh = 210;
-        ctx.fillStyle = 'rgba(4, 7, 15, 0.9)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
-        ctx.fillRect(padX, sy, w - padX * 2, sh);
-        ctx.strokeRect(padX, sy, w - padX * 2, sh);
-
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText(
-          p6Mode === 'plume'
-            ? '53 µs TEMPORAL DISORIENTATION PLUME // WAIT-STATE & CACHE INVALIDATION FLOOD ON P-CORE'
-            : 'D-CORE & G-CORE RAIL CONTINUITY OSCILLOSCOPE (8.40 µs SWITCHOVER // 0.00 ns DROPOUT)',
-          padX + 12,
-          sy + 20
-        );
-
-        ctx.strokeStyle = p6Mode === 'plume' ? '#00F0FF' : (p6Mode === 'csar' ? '#F59E0B' : '#10B981');
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        p6VoltageHist.forEach((v, i) => {
-          const x = padX + 12 + (i / (p6VoltageHist.length - 1)) * (w - padX * 2 - 24);
-          const y = sy + sh * 0.62 - ((v - 20) / 12) * (sh * 0.45);
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        });
-        ctx.stroke();
-
-        // Bottom 4 Showstopper Status Cards
-        const cards = [
-          { title: '1. 8.40 µs BLACKOUT LATCH', val: p6Mode === 'blackout' ? 'ACTIVE (120s)' : 'ARMED (<10µs)', col: '#10B981' },
-          { title: '2. AUX POWER HANDSHAKE', val: p6Mode === 'aux' ? 'LOCKED (∞)' : 'READY', col: '#00F0FF' },
-          { title: '3. 0xAMY_EXTEND (CSAR)', val: p6Mode === 'csar' ? 'WARRANT ACTIVE' : 'STANDBY', col: '#D4AF37' },
-          { title: '4. 53 µs PLUME + 400G OSFP', val: p6Mode === 'plume' ? 'DEPLOYED' : 'ARMED', col: '#F59E0B' }
-        ];
-        const cardW = (w - padX * 2 - 36) / 4;
-        cards.forEach((c, idx) => {
-          const cxCard = padX + idx * (cardW + 12);
-          const cyCard = h - 135;
-          ctx.fillStyle = '#070C18';
-          ctx.strokeStyle = c.col;
-          ctx.lineWidth = 1.8;
-          ctx.fillRect(cxCard, cyCard, cardW, 105);
-          ctx.strokeRect(cxCard, cyCard, cardW, 105);
-
-          ctx.fillStyle = '#94A3B8';
-          ctx.font = 'bold 9px "JetBrains Mono", monospace';
-          ctx.textAlign = 'left';
-          ctx.fillText(c.title, cxCard + 10, cyCard + 26);
-
-          ctx.fillStyle = c.col;
-          ctx.font = 'bold 14px "JetBrains Mono", monospace';
-          ctx.fillText(c.val, cxCard + 10, cyCard + 58);
-
-          ctx.fillStyle = '#64748B';
-          ctx.font = '9px "JetBrains Mono", monospace';
-          ctx.fillText('ZERO REBOOT GUARANTEED', cxCard + 10, cyCard + 84);
-        });
-      }
-
-      // Render & update any active interdiction sparks across the canvas
-      for (let i = interdictionSparks.length - 1; i >= 0; i--) {
-        const sp = interdictionSparks[i];
-        sp.x += sp.vx;
-        sp.y += sp.vy;
-        sp.life -= 0.04;
-        if (sp.life <= 0) {
-          interdictionSparks.splice(i, 1);
-          continue;
-        }
-        ctx.fillStyle = sp.color;
-        ctx.globalAlpha = Math.max(0, sp.life);
-        ctx.beginPath();
-        ctx.arc(sp.x, sp.y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1.0;
-      }
-
-      requestAnimationFrame(renderCanvas);
+      // D-Core Bottom Box
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.22)'; ctx.strokeStyle = '#10B981'; ctx.lineWidth = 1.5;
+      ctx.fillRect(rx + 6, ry + rh - 55, rw - 12, 42);
+      ctx.strokeRect(rx + 6, ry + rh - 55, rw - 12, 42);
+      ctx.fillStyle = '#10B981'; ctx.font = 'bold 9px "JetBrains Mono", monospace';
+      ctx.fillText('D-CORE', rx + rw / 2, ry + rh - 38);
+      ctx.fillText('(ACTUATOR)', rx + rw / 2, ry + rh - 26);
+
+      // Clamp Gate Spark at bottom
+      const gateY = ry + rh - 8;
+      ctx.fillStyle = 'rgba(16, 185, 129, 0.25)'; ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(rx + rw / 2, gateY, 14, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#10B981'; ctx.font = 'bold 8px "JetBrains Mono", monospace';
+      ctx.fillText('CLAMP GATE', rx + rw / 2, gateY + 3);
+
+      requestAnimationFrame(renderBlueprintCanvas);
     }
 
     // Initialize immediately
     switchTestbenchPillar(1);
-    selectOtaPackage('A');
-    requestAnimationFrame(renderCanvas);
+    requestAnimationFrame(renderBlueprintCanvas);
   </script>
 </body>
 </html>
