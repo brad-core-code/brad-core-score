@@ -98,41 +98,44 @@
 <body class="mode-op font-sans antialiased overflow-x-hidden selection:bg-cyan-900 selection:text-cyan-100">
 
   <!-- HEADER -->
-  <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-4 sm:py-6">
+  <header id="main-header" class="fixed top-0 w-full z-50 transition-all duration-300 bg-[#04070F]/95 backdrop-blur-md py-4 sm:py-5 border-b border-slate-800/80 shadow-xl">
     <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
       
       <!-- Logo -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-md border border-slate-700 shadow-[0_0_15px_rgba(0,240,255,0.2)] bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-md border border-slate-700 shadow-[0_0_15px_rgba(0,240,255,0.2)] bg-slate-800 flex items-center justify-center overflow-hidden shrink-0">
            <img src="brad_core_os_official_logo.jpg" alt="Brad-Core Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
         </div>
-        <div class="hidden md:block">
-          <h1 class="text-xl font-bold tracking-tight text-white uppercase leading-none">Brad-Core OS <span class="text-cyan-500 font-light">v5</span></h1>
-          <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-1">Guardian Sentinel</p>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white uppercase leading-none">Brad-Core OS <span class="text-cyan-400 font-light">v5</span></h1>
+          <p class="text-[9px] sm:text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-1">Guardian Sentinel</p>
         </div>
       </div>
 
       <!-- Dual-Lens Toggle -->
-      <div class="flex items-center bg-slate-900/90 backdrop-blur-md rounded-full p-1.5 border border-slate-700 shadow-2xl relative scale-85 sm:scale-100">
+      <div class="flex items-center bg-slate-900/90 backdrop-blur-md rounded-full p-1.5 border border-slate-700 shadow-2xl relative scale-90 sm:scale-100">
         <div class="absolute inset-0 rounded-full ring-1 ring-inset ring-white/5 pointer-events-none"></div>
         
         <div id="toggle-highlight" class="absolute top-1.5 bottom-1.5 left-1.5 rounded-full transition-all duration-500 ease-out -z-10 shadow-[0_0_20px_rgba(52,211,153,0.4)] toggle-bg-op" style="width: 50%;"></div>
 
-        <button id="btn-op" onclick="setLens('op')" class="relative flex items-center px-4 sm:px-8 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-500 ease-out z-10 text-[#04070F]">
-          <span>Operational <span class="hidden lg:inline">(Plain English)</span></span>
+        <button id="btn-op" onclick="setLens('op')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-500 ease-out z-10 text-[#04070F]">
+          <span>Operational <span class="hidden md:inline">(Plain English)</span></span>
         </button>
         
-        <button id="btn-spec" onclick="setLens('spec')" class="relative flex items-center px-4 sm:px-8 py-2 rounded-full text-xs sm:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 text-slate-400 hover:text-slate-200">
-          <span>Spec <span class="hidden lg:inline">(C11/Hardware)</span></span>
+        <button id="btn-spec" onclick="setLens('spec')" class="relative flex items-center px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-bold font-mono transition-all duration-500 ease-out z-10 text-slate-400 hover:text-slate-200">
+          <span>Spec <span class="hidden md:inline">(C11/Hardware)</span></span>
         </button>
       </div>
 
       <!-- Nav Links -->
-      <nav class="hidden xl:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
+      <nav class="hidden xl:flex items-center space-x-6 text-xs font-bold uppercase tracking-wider text-slate-300">
         <a href="#testbench" class="hover:text-cyan-400 transition-colors text-cyan-400 font-bold">Live Testbench</a>
         <a href="#chaos" class="hover:text-cyan-400 transition-colors">The Reality</a>
         <a href="#industry" class="hover:text-cyan-400 transition-colors">Industry Solutions</a>
         <a href="#architecture" class="hover:text-cyan-400 transition-colors">The Architecture</a>
+        <button onclick="openDataRoomModal()" class="text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono">
+          <i data-lucide="server" class="w-3.5 h-3.5"></i> Data Room
+        </button>
       </nav>
     </div>
   </header>
@@ -455,12 +458,16 @@
         <div>
           <h4 class="text-xl font-bold text-white uppercase tracking-wider mb-1">Brad-Core OS LLC</h4>
           <p class="text-slate-400 text-sm font-light">Williams, Arizona</p>
-          <p class="text-slate-500 text-xs mt-2 font-mono">Founder & Lead Architect: Bradley W. Holmes (<span class="text-cyan-600">0xB4AD0001</span>)</p>
+          <p class="text-slate-500 text-xs mt-2 font-mono">Founder & Lead Architect: Bradley W. Holmes (<span class="text-cyan-400">0xB4AD0001</span>)</p>
         </div>
       </div>
-      <div class="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
-        <button onclick="openDataRoomModal()" class="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider text-left">View 10 U.S.C. § 4022 Prototype OTA Tiers</button>
-        <button onclick="openDataRoomModal()" class="text-sm font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider text-left">Access Tesseract SI Commercial Delivery</button>
+      <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+        <button onclick="openDataRoomModal()" class="px-5 py-3 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/50 text-amber-400 text-xs font-bold uppercase tracking-wider transition">
+          Access Defense Data Room (P-1863 / DIU #PROJ00716)
+        </button>
+        <button onclick="openDataRoomModal()" class="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors uppercase tracking-wider">
+          View 10 U.S.C. § 4022 Prototype OTA Tiers
+        </button>
       </div>
     </div>
     <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 mt-10 pt-6 border-t border-slate-900/50 text-center text-xs text-slate-600">
@@ -496,10 +503,12 @@
     }
 
     function openDataRoomModal() {
-      document.getElementById('dataRoomModal').classList.remove('hidden');
+      const modal = document.getElementById('dataRoomModal');
+      if (modal) modal.classList.remove('hidden');
     }
     function closeDataRoomModal() {
-      document.getElementById('dataRoomModal').classList.add('hidden');
+      const modal = document.getElementById('dataRoomModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // Interactive Testbench Simulator Engine
@@ -536,6 +545,8 @@
       const deck = document.getElementById('faultDeck');
       const title = document.getElementById('canvasTitle');
       const sub = document.getElementById('canvasSubtitle');
+
+      if (!deck || !title || !sub) return;
 
       if (p === 1) {
         title.textContent = 'PILLAR 01 // 3D HELM FLIGHT ENVELOPE RADAR + DUAL-TRACE OSCILLOSCOPE';
