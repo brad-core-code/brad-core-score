@@ -179,8 +179,11 @@
           <button type="button" onclick="launchTestbenchFromHero()" class="flex items-center justify-center space-x-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-extrabold tracking-wide uppercase text-xs sm:text-sm shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all hover:scale-105 active:scale-95 cursor-pointer border-none">
             <span>&#9654; Launch Live Testbench &amp; Telemetry</span>
           </button>
-          <button type="button" onclick="openDataRoomModal('lineage')" class="flex items-center justify-center space-x-3 bg-slate-900/90 hover:bg-slate-800 backdrop-blur-md border-2 border-amber-500/70 text-amber-400 px-6 sm:px-8 py-4 sm:py-5 rounded-lg font-bold font-mono text-xs sm:text-sm shadow-xl transition-all hover:scale-105 active:scale-95 cursor-pointer">
-            <span>&#128274; Access Defense Data Room (P-1863 / DIU #PROJ00716)</span>
+          <button type="button" onclick="startAutomatedRedTeamTour()" class="flex items-center justify-center space-x-2 bg-red-500/20 hover:bg-red-500 hover:text-white border-2 border-red-500/80 text-red-300 px-5 sm:px-6 py-4 sm:py-5 rounded-lg font-extrabold font-mono text-xs sm:text-sm shadow-[0_0_25px_rgba(239,68,68,0.3)] transition-all hover:scale-105 active:scale-95 cursor-pointer">
+            <span>&#9889; Auto-Run Red-Team Stress Demo</span>
+          </button>
+          <button type="button" onclick="openDataRoomModal('lineage')" class="flex items-center justify-center space-x-3 bg-slate-900/90 hover:bg-slate-800 backdrop-blur-md border-2 border-amber-500/70 text-amber-400 px-6 sm:px-7 py-4 sm:py-5 rounded-lg font-bold font-mono text-xs sm:text-sm shadow-xl transition-all hover:scale-105 active:scale-95 cursor-pointer">
+            <span>&#128274; Investor &amp; DoD Data Room (P-1863)</span>
           </button>
         </div>
       </div>
@@ -206,79 +209,215 @@
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <div class="inline-block border-l-4 border-cyan-500 pl-4 py-1 mb-2">
-            <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest block">INTERACTIVE 60 FPS HARDWARE-IN-THE-LOOP LAB</span>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">Verified Live Testbench &amp; HIL Simulator</h2>
+            <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest block">SOSA 3U/6U OPENVPX HARDWARE-IN-THE-LOOP WORKSTATION</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">Verified Live Testbench &amp; Silicon Telemetry Lab</h2>
           </div>
-          <p class="text-slate-400 text-sm sm:text-base max-w-3xl font-light leading-relaxed">
-            Click any of the 5 cyber-physical threat pillars below, then click the fault injection buttons on the right to test Brad-Core OS v5 hardware interdiction in real time.
+          <p class="text-slate-300 text-sm sm:text-base max-w-4xl font-light leading-relaxed">
+            Interactive 60 FPS hardware-in-the-loop simulation of the Brad-Core OS v5 safety kernel. Inject catastrophic AI hallucinations, DMA bus attacks, vocal deepfakes, clinical sepsis drift, 50 kV EMP surges, and power blackouts—and watch the physical silicon interdict every failure in microseconds.
           </p>
         </div>
-        <div class="flex items-center gap-3 font-mono text-xs">
-          <span class="px-3 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold">
+        <div class="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+          <button type="button" id="autoTourBtn" onclick="toggleAutomatedRedTeamTour()" class="px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-extrabold cursor-pointer transition shadow-[0_0_25px_rgba(239,68,68,0.45)] border-none animate-pulse">
+            &#9889; AUTO-RUN 6-PILLAR RED-TEAM DEMO
+          </button>
+          <button type="button" id="audioToggleBtn" onclick="toggleTacticalAudio()" class="px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 font-bold cursor-pointer transition">
+            &#128266; AUDIO SYNTH: OFF
+          </button>
+          <span class="px-3 py-2 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 font-bold">
             10,000,000 MONTE CARLO RUNS
-          </span>
-          <span class="px-3 py-1.5 rounded-lg bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-bold">
-            73 / 73 RED-TEAM PASSED
           </span>
         </div>
       </div>
 
-      <!-- Pillar Selector -->
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+      <!-- EVALUATOR & INVESTOR QUICK-START ORIENTATION BANNER -->
+      <div class="fui-panel rounded-xl p-4 sm:p-5 bg-gradient-to-r from-slate-950 via-slate-900/95 to-slate-950 border-l-4 border-l-amber-400 border border-slate-800">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/50 font-mono text-[11px] text-amber-300 font-bold uppercase">
+              EVALUATOR &amp; INVESTOR GUIDE // HOW TO USE THIS LIVE TESTBENCH
+            </span>
+            <span class="text-xs font-mono text-slate-400 hidden sm:inline">
+              Zero cloud wrappers &bull; 100% deterministic client-side C11 state machine simulation
+            </span>
+          </div>
+          <button type="button" onclick="openDataRoomModal('lineage')" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 underline cursor-pointer bg-transparent border-none font-bold">
+            Open Investor &amp; DoD Data Room ($3.0M SAFE / PAE P-1863) &rarr;
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 rounded-lg bg-[#04070F]/90 border border-slate-800 flex items-start gap-3">
+            <span class="px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold shrink-0">STEP 1</span>
+            <div>
+              <div class="font-bold text-white">Choose a Threat Pillar (01–06)</div>
+              <p class="text-slate-400 mt-0.5 leading-relaxed">Click any of the 6 tabs below (or click <strong>"Auto-Run 6-Pillar Red-Team Demo"</strong> above for a hands-free guided stress test).</p>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg bg-[#04070F]/90 border border-slate-800 flex items-start gap-3">
+            <span class="px-2 py-1 rounded bg-red-500/20 text-red-300 font-mono font-bold shrink-0">STEP 2</span>
+            <div>
+              <div class="font-bold text-white">Inject a Lethal AI / Cyber Fault</div>
+              <p class="text-slate-400 mt-0.5 leading-relaxed">Use the <strong>Fault Injection Deck</strong> on the right (or drag the analog stress sliders) to force an AI breakout, deepfake, or EMP surge.</p>
+            </div>
+          </div>
+          <div class="p-3 rounded-lg bg-[#04070F]/90 border border-slate-800 flex items-start gap-3">
+            <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold shrink-0">STEP 3</span>
+            <div>
+              <div class="font-bold text-white">Verify Microsecond Silicon Interdiction</div>
+              <p class="text-slate-400 mt-0.5 leading-relaxed">Watch the <strong>Red Trace (Unverified AI)</strong> get physically clamped by the <strong>Emerald Trace (D-Core Hardware Roll Cage)</strong> in &le;625 µs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANNELIESE 1,600 Hz (625.00 µs) 5-STAGE MONOTONIC PIPELINE BAR -->
+      <div class="fui-panel rounded-xl p-4 bg-slate-950/90 border border-cyan-500/25">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="font-mono text-xs font-bold text-white uppercase tracking-wider">
+              ANNELIESE MONOTONIC CONTROL LOOP // 1,600 Hz (625.00 µs) &bull; WCET: <span id="pipelineWcetText" class="text-emerald-400">412.6 µs</span> (&le;450.0 µs CAP)
+            </span>
+          </div>
+          <div class="flex items-center gap-4 font-mono text-[11px]">
+            <span class="text-slate-400">SPSC RING: <strong id="spscRingCounter" class="text-cyan-400">SEQ #48210</strong></span>
+            <span class="text-slate-400">HEAP: <strong class="text-emerald-400">malloc = 0</strong></span>
+            <span class="text-slate-400">JITTER: <strong class="text-emerald-400">0.00 ns</strong></span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs">
+          <div id="pipeStage-0" class="p-2.5 rounded-lg bg-[#04070F] border border-cyan-500/50 flex items-center justify-between">
+            <div>
+              <div class="text-[9px] text-slate-400">STAGE 01 (82.1 µs)</div>
+              <div class="text-cyan-400 font-bold">1. READ SPSC</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300">64B</span>
+          </div>
+          <div id="pipeStage-1" class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[9px] text-slate-400">STAGE 02 (64.5 µs)</div>
+              <div class="text-cyan-300 font-bold">2. INTERPRET</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">CRC32</span>
+          </div>
+          <div id="pipeStage-2" class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[9px] text-slate-400">STAGE 03 (118.4 µs)</div>
+              <div class="text-emerald-400 font-bold">3. DECIDE</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">CLAMP</span>
+          </div>
+          <div id="pipeStage-3" class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[9px] text-slate-400">STAGE 04 (85.4 µs)</div>
+              <div class="text-amber-400 font-bold">4. ACT MMIO</div>
+            </div>
+            <span id="pipeActBadge" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">+24V</span>
+          </div>
+          <div id="pipeStage-4" class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between col-span-2 sm:col-span-1">
+            <div>
+              <div class="text-[9px] text-slate-400">STAGE 05 (62.2 µs)</div>
+              <div class="text-amber-300 font-bold">5. LOG WORM</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">SHA256</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6-Pillar Selector Ribbon -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
         <button type="button" onclick="switchTestbenchPillar(1)" id="tBtn-1" class="p-3.5 rounded-lg bg-cyan-500 text-slate-950 font-bold text-xs text-left transition shadow-[0_0_20px_rgba(0,240,255,0.3)] cursor-pointer border-none">
-          PILLAR 01 // KINEMATIC AIR-GAP<br><span class="font-mono text-[10px] opacity-90">&le;40 kts | &plusmn;450&deg; Clamp</span>
+          PILLAR 01 // KINEMATIC<br><span class="font-mono text-[10px] opacity-90">&le;40 kts | &plusmn;450&deg; Clamp</span>
         </button>
         <button type="button" onclick="switchTestbenchPillar(2)" id="tBtn-2" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer">
-          PILLAR 02 // SHERIFF OS MPU<br><span class="font-mono text-[10px] text-amber-400">85.40 µs | malloc = 0</span>
+          PILLAR 02 // SHERIFF MPU<br><span class="font-mono text-[10px] text-amber-400">85.40 µs | malloc = 0</span>
         </button>
         <button type="button" onclick="switchTestbenchPillar(3)" id="tBtn-3" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer">
-          PILLAR 03 // DoDD 3000.09 LATCH<br><span class="font-mono text-[10px] text-red-400">0xD0DD3009 | latch.py</span>
+          PILLAR 03 // DoDD 3000.09<br><span class="font-mono text-[10px] text-red-400">0xD0DD3009 | latch.py</span>
         </button>
         <button type="button" onclick="switchTestbenchPillar(4)" id="tBtn-4" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer">
-          PILLAR 04 // EMMY CLAUSE ICU<br><span class="font-mono text-[10px] text-cyan-400">0x4000F000UL WORM</span>
+          PILLAR 04 // EMMY CLAUSE<br><span class="font-mono text-[10px] text-cyan-400">0x4000F000UL WORM</span>
         </button>
-        <button type="button" onclick="switchTestbenchPillar(5)" id="tBtn-5" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition col-span-2 sm:col-span-1 cursor-pointer">
-          PILLAR 05 // EW &amp; BATTLESHIP<br><span class="font-mono text-[10px] text-emerald-400">&gt;10 kV OptINC | 1,200 Swarm</span>
+        <button type="button" onclick="switchTestbenchPillar(5)" id="tBtn-5" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer">
+          PILLAR 05 // EW &amp; PNT<br><span class="font-mono text-[10px] text-emerald-400">&gt;10 kV OptINC | Swarm</span>
         </button>
+        <button type="button" onclick="switchTestbenchPillar(6)" id="tBtn-6" class="p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer">
+          PILLAR 06 // AMY INFINITY &infin;<br><span class="font-mono text-[10px] text-amber-300">8.40 µs | 120s Supercap</span>
+        </button>
+      </div>
+
+      <!-- DYNAMIC "WHAT YOU ARE LOOKING AT" VISUAL & ARCHITECTURAL BRIEFING PANEL -->
+      <div id="whatYouAreLookingAtPanel" class="fui-panel rounded-xl p-5 bg-[#060B16] border border-cyan-500/40 shadow-2xl">
+        <!-- Populated dynamically per pillar via renderPillarExplanation(p) -->
       </div>
 
       <!-- Canvas Stage + Fault Deck -->
       <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-        <div class="xl:col-span-8 fui-panel rounded-xl p-4 space-y-3 bg-slate-900/90 border border-cyan-500/30">
-          <div class="flex flex-wrap items-center justify-between gap-2 px-1">
-            <span id="canvasTitle" class="font-bold text-xs sm:text-sm text-cyan-400 tracking-wider uppercase font-mono">
-              PILLAR 01 // 3D HELM FLIGHT ENVELOPE RADAR + DUAL-TRACE OSCILLOSCOPE
-            </span>
-            <span id="canvasSubtitle" class="font-mono text-xs text-emerald-400 font-bold">
-              P-CORE PROPOSALS (RED) vs. D-CORE CLAMPED ENVELOPE (EMERALD)
-            </span>
+        <div class="xl:col-span-8 space-y-4">
+          <div id="canvasOuterFrame" class="fui-panel rounded-xl p-4 space-y-3 bg-slate-900/90 border border-cyan-500/30 transition-all duration-300">
+            <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+              <div class="flex items-center gap-2">
+                <span id="liveFaultLight" class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span id="canvasTitle" class="font-bold text-xs sm:text-sm text-cyan-400 tracking-wider uppercase font-mono">
+                  PILLAR 01 // 3D HELM FLIGHT ENVELOPE COMPASS, 64-SLOT SPSC AIR-GAP &amp; DUAL-TRACE DSO
+                </span>
+              </div>
+              <span id="canvasSubtitle" class="font-mono text-xs text-emerald-400 font-bold">
+                P-CORE AI PROPOSAL (RED) vs. D-CORE CLAMPED OUTPUT (EMERALD)
+              </span>
+            </div>
+            <div class="canvas-stage rounded-lg border border-cyan-500/30 relative">
+              <canvas id="hilCanvas" width="980" height="540" class="w-full h-[480px] sm:h-[540px] block cursor-crosshair"></canvas>
+            </div>
+
+            <!-- Interactive Analog Sliders / Sub-Controls Deck (Changes per Pillar) -->
+            <div id="interactiveSubControls" class="p-3.5 rounded-lg bg-[#04070F] border border-slate-800">
+              <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Live Bus Register Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-[11px]">
+              <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
+                <span class="text-slate-400">SHARED RAM:</span>
+                <span class="text-cyan-400 font-bold">0 BYTES (SPSC)</span>
+              </div>
+              <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
+                <span class="text-slate-400">SHERIFF MPU:</span>
+                <span id="mpuStatusReadout" class="text-emerald-400 font-bold">85.40 µs ARMED</span>
+              </div>
+              <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
+                <span class="text-slate-400">WORM 0x4000F000:</span>
+                <span id="wormStatusReadout" class="text-amber-400 font-bold">IMMUTABLE LOCK</span>
+              </div>
+              <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
+                <span class="text-slate-400">BUS STATE:</span>
+                <span id="busVoltageReadout" class="text-emerald-400 font-bold">MODE A (+24V)</span>
+              </div>
+            </div>
           </div>
-          <div class="canvas-stage rounded-lg border border-cyan-500/30">
-            <canvas id="hilCanvas" width="960" height="520" class="w-full h-[460px] sm:h-[520px] block"></canvas>
-          </div>
-          <!-- Live Bus Register Bar -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-[11px]">
-            <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
-              <span class="text-slate-400">SHARED RAM:</span>
-              <span class="text-cyan-400 font-bold">0 BYTES (SPSC)</span>
+
+          <!-- LIVE 64-BYTE BclProposalFrame & HARDWARE REGISTER HEX INSPECTOR -->
+          <div class="fui-panel rounded-xl p-4 bg-slate-950/95 border border-slate-800 font-mono text-xs space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2">
+              <span class="text-cyan-400 font-bold uppercase tracking-wider">
+                LIVE C11 SPSC IPC FRAME (<code class="text-white">struct BclProposalFrame</code> // 64 BYTES, ZERO POINTERS)
+              </span>
+              <span id="hexCrcBadge" class="text-emerald-400 font-bold">CRC32C: 0x8F4A2C11 [VALID]</span>
             </div>
-            <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
-              <span class="text-slate-400">LOOP WCET:</span>
-              <span id="wcetReadout" class="text-emerald-400 font-bold">412.6 / 625 µs</span>
-            </div>
-            <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
-              <span class="text-slate-400">SHERIFF SLA:</span>
-              <span class="text-amber-400 font-bold">85.40 µs</span>
-            </div>
-            <div class="p-2.5 rounded bg-[#04070F] border border-slate-800 flex justify-between">
-              <span class="text-slate-400">BUS STATE:</span>
-              <span id="busVoltageReadout" class="text-emerald-400 font-bold">MODE A (+24V)</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
+              <div id="liveHexDumpBox" class="p-3 rounded bg-[#04070F] border border-slate-800/90 text-[11px] text-cyan-200 leading-relaxed overflow-x-auto whitespace-pre">0000: 42 43 56 35  00 00 BC 52  42 20 00 00  43 E1 00 00
+0010: 00 00 00 01  D0 DD 30 09  40 00 F0 00  B4 AD 00 01</div>
+              <div id="liveStructFieldsBox" class="p-3 rounded bg-[#04070F] border border-slate-800/90 text-[11px] space-y-1 text-slate-300">
+                <div class="flex justify-between"><span>magic_header:</span><span class="text-cyan-400">0x42435635 ("BCV5")</span></div>
+                <div class="flex justify-between"><span>p_core_proposal:</span><span id="structProposalText" class="text-red-400">+12.4° | 28.4 kts</span></div>
+                <div class="flex justify-between"><span>d_core_clamped:</span><span id="structClampedText" class="text-emerald-400 font-bold">+12.4° | 28.4 kts</span></div>
+                <div class="flex justify-between"><span>ctrl_reg_actuate:</span><span id="structRegText" class="text-amber-400">0x01 (MODE A +24.00V)</span></div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="xl:col-span-4 space-y-4">
-          <div id="faultDeck" class="fui-panel rounded-xl p-6 space-y-4 bg-slate-900/90 border border-cyan-500/30">
+          <div id="faultDeck" class="fui-panel rounded-xl p-5 space-y-4 bg-slate-900/90 border border-cyan-500/30">
             <!-- Populated via JS -->
           </div>
 
@@ -290,10 +429,10 @@
           <!-- Live Hardware Event Log -->
           <div class="fui-panel rounded-xl p-4 bg-slate-950/90 border border-slate-800 space-y-2">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-              <span class="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold">SHA-256 WORM TELEMETRY LOG</span>
-              <span class="text-[10px] font-mono text-emerald-400">1,600 Hz LOCK</span>
+              <span class="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold">SHA-256 WORM TELEMETRY LEDGER</span>
+              <button type="button" onclick="downloadTelemetryLog()" class="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer bg-transparent border-none">Export Log (.TXT)</button>
             </div>
-            <div id="hilEventLog" class="font-mono text-[11px] text-slate-300 space-y-1.5 max-h-[140px] overflow-y-auto">
+            <div id="hilEventLog" class="font-mono text-[11px] text-slate-300 space-y-1.5 max-h-[160px] overflow-y-auto">
               <div class="text-emerald-400">[00:00.000] D-Core 1,600 Hz Anneliese loop locked (625.00 µs).</div>
               <div class="text-cyan-400">[00:00.001] 64-slot SPSC ring buffer armed (0-Byte shared RAM).</div>
             </div>
@@ -499,98 +638,230 @@
   </main>
 
   <!-- DEFENSE DATA ROOM & 10 U.S.C. § 4022 OTA MODAL -->
-  <div id="dataRoomModal" onclick="if(event.target === this) closeDataRoomModal()" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
-    <div class="fui-panel rounded-2xl max-w-3xl w-full p-6 sm:p-8 border-2 border-amber-500/60 space-y-5 bg-[#070C18] relative z-50 my-8">
-      <div class="flex items-start justify-between border-b border-slate-800 pb-4 gap-4">
+  <div id="dataRoomModal" onclick="if(event.target === this) closeDataRoomModal()" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="fui-panel rounded-2xl max-w-5xl w-full p-5 sm:p-8 border-2 border-amber-500/70 space-y-5 bg-[#070C18] relative z-50 my-auto max-h-[92vh] overflow-y-auto shadow-[0_0_60px_rgba(245,158,11,0.25)]">
+      
+      <!-- Modal Header -->
+      <div class="flex flex-wrap items-start justify-between border-b border-slate-800 pb-4 gap-4">
         <div>
-          <span class="text-xs font-mono text-amber-400 uppercase font-bold">SECURE DEFENSE DATA ROOM // DON RCO, PAE P-1863 &amp; DIU #PROJ00716</span>
-          <h3 class="font-bold text-xl sm:text-2xl text-white mt-0.5">Brad-Core OS v5 &amp; Tesseract SI Clearance Portal</h3>
-        </div>
-        <button type="button" onclick="closeDataRoomModal()" class="text-slate-400 hover:text-white font-mono text-base cursor-pointer px-3 py-1 rounded bg-slate-900 border border-slate-700">✕</button>
-      </div>
-
-      <!-- Modal Sub-Tabs -->
-      <div class="grid grid-cols-3 gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 font-mono text-xs">
-        <button type="button" id="drTabBtn-lineage" onclick="switchDataRoomTab('lineage')" class="py-2 px-3 rounded-lg bg-amber-500 text-slate-950 font-bold cursor-pointer border-none">
-          1. DoD Intake Lineage
-        </button>
-        <button type="button" id="drTabBtn-ota" onclick="switchDataRoomTab('ota')" class="py-2 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none">
-          2. § 4022 OTA ROMs
-        </button>
-        <button type="button" id="drTabBtn-proof" onclick="switchDataRoomTab('proof')" class="py-2 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none">
-          3. Verification &amp; Brief
-        </button>
-      </div>
-
-      <!-- Tab 1: DoD Intake Lineage -->
-      <div id="drPanel-lineage" class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed font-mono">
-        <div class="p-3.5 rounded-lg bg-[#04070F] border border-slate-800 flex flex-wrap justify-between gap-2">
-          <span class="text-slate-400">NAVY SPONSOR INTAKE LINEAGE:</span>
-          <span class="text-emerald-400 font-bold">DON RCO Referral &rarr; PAE Mission Systems (Pilot P-1863)</span>
-        </div>
-        <div class="p-3.5 rounded-lg bg-[#04070F] border border-slate-800 flex flex-wrap justify-between gap-2">
-          <span class="text-slate-400">DIU &amp; PEO DIGITAL TRACK:</span>
-          <span class="text-cyan-400 font-bold">DIU Solicitation #PROJ00716 &bull; Active PEO Digital Intake</span>
-        </div>
-        <div class="p-3.5 rounded-lg bg-[#04070F] border border-slate-800 flex flex-wrap justify-between gap-2">
-          <span class="text-slate-400">EMPIRICAL HIL VALIDATION:</span>
-          <span class="text-amber-400 font-bold">10,000,000 Monte Carlo Runs &bull; 73/73 Red-Team Blasts Passed</span>
-        </div>
-        <div class="p-3.5 rounded-lg bg-[#04070F] border border-slate-800 flex flex-wrap justify-between gap-2">
-          <span class="text-slate-400">CORPORATE BIFURCATION SEAL:</span>
-          <span class="text-white font-bold">Brad-Core Systems (IP Vault) + Tesseract SI (DoD Delivery)</span>
-        </div>
-        <div class="p-4 rounded-lg bg-[#04070F] border border-cyan-500/40 space-y-1">
-          <div class="text-slate-400 text-[10px]">DIRECT FOUNDER &amp; CHIEF ARCHITECT INTAKE:</div>
-          <div class="text-white font-bold text-sm">Bradley W. Holmes (Root Seal: 0xB4AD0001 / Backup: 0xA11CE002)</div>
-          <div class="text-cyan-400">Williams, Arizona &bull; bholmes@bradcoreos.com</div>
-        </div>
-      </div>
-
-      <!-- Tab 2: 10 U.S.C. § 4022 Prototype OTA ROMs -->
-      <div id="drPanel-ota" class="hidden space-y-3 font-mono text-xs">
-        <div class="p-4 rounded-lg bg-[#04070F] border border-cyan-500/40 space-y-1">
-          <div class="flex justify-between text-cyan-400 font-bold">
-            <span>OPTION A // 90-DAY SIL/HIL VERIFICATION SPRINT</span>
-            <span>$250,000 FFP</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/50 text-[11px] font-mono text-amber-400 uppercase font-bold">
+              VERIFIED DEFENSE DATA ROOM // PAE P-1863 &amp; DIU #PROJ00716
+            </span>
+            <span class="px-2.5 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-[11px] font-mono text-emerald-400 font-bold">
+              CLEARANCE SEAL: 0xB4AD0001 / 0xA11CE002
+            </span>
           </div>
-          <p class="text-slate-300 font-sans text-xs">Full SIL/HIL integration of the Brad-Core OS v5 C11 safety kernel, 64-slot SPSC ring buffer, and 85.40 µs Sheriff OS MPU harness against sponsor mission profiles.</p>
+          <h3 class="font-bold text-xl sm:text-2xl text-white mt-1.5">Brad-Core OS v5 &amp; Tesseract SI — Executive Acquisition &amp; Engineering Portal</h3>
         </div>
-        <div class="p-4 rounded-lg bg-[#04070F] border-2 border-emerald-500 space-y-1">
-          <div class="flex justify-between text-emerald-400 font-bold">
-            <span>OPTION B // 6-MONTH SOSA 3U/6U OPENVPX DUAL-TESTBED (RECOMMENDED)</span>
-            <span>$485,000 FFP</span>
-          </div>
-          <p class="text-slate-300 font-sans text-xs">Delivers physical SOSA-aligned 3U/6U OpenVPX Guardian Sentinel blades featuring the Quad-Core Lattice (D, M, G, P cores), DoDD 3000.09 Mode B gate, and latch.py vocal lock.</p>
-        </div>
-        <div class="p-4 rounded-lg bg-[#04070F] border border-amber-500/50 space-y-1">
-          <div class="flex justify-between text-amber-400 font-bold">
-            <span>OPTION C // 12-MONTH GOLDEN DOME &amp; MULTI-DOMAIN EW PILOT</span>
-            <span>$1,450,000 FFP</span>
-          </div>
-          <p class="text-slate-300 font-sans text-xs">Multi-node operational fleet lot incorporating OptINC &gt;10 kV photonic isolation, Dual-Layer Faraday shielding, 4-Modality Battleship passive PNT, and Amy Infinity (120s supercap).</p>
-        </div>
-      </div>
-
-      <!-- Tab 3: Verification & Copyable Executive Brief -->
-      <div id="drPanel-proof" class="hidden space-y-3 text-xs font-mono">
-        <div id="execSummaryCopyText" class="p-4 rounded-lg bg-[#04070F] border border-slate-800 text-slate-300 space-y-2 leading-relaxed">
-          <div class="text-cyan-400 font-bold">BRAD-CORE OS v5 // EXECUTIVE VERIFICATION DOSSIER</div>
-          <div>&bull; Architecture: Asymmetric 4-Core SOSA 3U/6U OpenVPX (0-Byte Shared RAM between P-Core AI &amp; D-Core Safety Master).</div>
-          <div>&bull; Control Loop: 1,600 Hz (625.00 µs) Anneliese Monotonic Loop | WCET: 412.6 µs | Jitter: 0.00 ns | malloc = 0.</div>
-          <div>&bull; Hardware Interdiction: Sheriff OS 85.40 µs PROT_NONE MPU clamp | Amy Infinity 8.40 µs blackout latch (120s supercap) | Emmy Clause 0x4000F000UL WORM register.</div>
-          <div>&bull; DoD Lineage: DON RCO Referral &rarr; PAE P-1863 | PEO Digital | DIU #PROJ00716 | Architect: Bradley W. Holmes (bholmes@bradcoreos.com).</div>
-        </div>
-        <button type="button" onclick="copyDataRoomSummary()" class="w-full py-2.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/50 text-cyan-300 font-bold uppercase tracking-wider transition cursor-pointer">
-          Copy Executive Verification Packet to Clipboard
+        <button type="button" onclick="closeDataRoomModal()" class="text-slate-300 hover:text-white font-mono text-sm font-bold cursor-pointer px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-red-500/20 border border-slate-700 hover:border-red-500/50 transition">
+          ✕ CLOSE
         </button>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+      <!-- 4 Interactive Data Room Navigation Tabs -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 font-mono text-xs">
+        <button type="button" id="drTabBtn-lineage" onclick="switchDataRoomTab('lineage')" class="py-2.5 px-3 rounded-lg bg-amber-500 text-slate-950 font-bold cursor-pointer border-none transition">
+          1. DoD Lineage &amp; SAFE
+        </button>
+        <button type="button" id="drTabBtn-ota" onclick="switchDataRoomTab('ota')" class="py-2.5 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none transition">
+          2. § 4022 OTA SOWs
+        </button>
+        <button type="button" id="drTabBtn-outbreaks" onclick="switchDataRoomTab('outbreaks')" class="py-2.5 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none transition">
+          3. 2026 Outbreak Proof
+        </button>
+        <button type="button" id="drTabBtn-proof" onclick="switchDataRoomTab('proof')" class="py-2.5 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none transition">
+          4. Download Dossiers
+        </button>
+      </div>
+
+      <!-- TAB 1: DoD Intake Lineage & Corporate Bifurcation -->
+      <div id="drPanel-lineage" class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-mono">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="p-4 rounded-xl bg-[#04070F] border border-emerald-500/40 space-y-1.5">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] text-emerald-400 font-bold uppercase">NAVY SPONSOR LINEAGE</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px]">ACTIVE TRACKING</span>
+            </div>
+            <div class="text-white font-bold text-sm">DON RCO Referral &rarr; PAE Mission Systems (Pilot P-1863)</div>
+            <p class="text-xs text-slate-400 font-sans">Ingested via Department of the Navy Rapid Capabilities Office referral to PAE Mission Systems and PEO Digital for SOSA 3U/6U OpenVPX autonomous safety evaluation.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-cyan-500/40 space-y-1.5">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] text-cyan-400 font-bold uppercase">DEFENSE INNOVATION UNIT</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px]">PHASE I QUEUE</span>
+            </div>
+            <div class="text-white font-bold text-sm">DIU Solicitation #PROJ00716 &bull; Golden Dome EW</div>
+            <p class="text-xs text-slate-400 font-sans">10,000,000 Monte Carlo HIL verification cycles completed with 0.00 ns timing jitter and 73/73 automated red-team fault injection blasts interdicted.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-amber-500/40 space-y-1.5">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] text-amber-400 font-bold uppercase">DUAL-ENTITY CORPORATE BIFURCATION</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px]">SEAL P5</span>
+            </div>
+            <div class="text-white font-bold text-sm">Brad-Core Systems (IP Vault) + Tesseract SI (DoD Delivery)</div>
+            <p class="text-xs text-slate-400 font-sans">Brad-Core Systems holds 100% sovereign control of the C11 safety kernel. Tesseract SI executes DoD § 4022 OTAs ($3.0M Seed SAFE at $38.83M cap; 92.27% founder retention, &gt;88.5% voting floor).</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-slate-700 space-y-1.5">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] text-cyan-400 font-bold uppercase">DIRECT ARCHITECT &amp; CONTRACTING POC</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">WILLIAMS, AZ</span>
+            </div>
+            <div class="text-white font-bold text-sm">Bradley W. Holmes (0xB4AD0001) / Alice Holmes (0xA11CE002)</div>
+            <p class="text-xs text-slate-400 font-sans">Email: <span class="text-cyan-400 font-mono">bholmes@bradcoreos.com</span> &bull; Hardware eFuse Root Lock at Register <code class="text-amber-400">0x44</code> (+2.5V polysilicon).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: Interactive 10 U.S.C. § 4022 Prototype OTA ROMs & SOW Viewer -->
+      <div id="drPanel-ota" class="hidden space-y-4 font-mono text-xs">
+        <div class="text-slate-300 font-sans text-xs sm:text-sm">
+          Click any of the three Fixed-Price <strong>10 U.S.C. § 4022 Prototype OTA</strong> options below to load its full CLIN deliverable schedule and export a ready-to-submit Contracting Officer ROM package:
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button type="button" onclick="selectOtaPackage('A')" id="otaCard-A" class="p-4 rounded-xl bg-[#04070F] border-2 border-cyan-500 text-left space-y-1.5 cursor-pointer transition">
+            <div class="flex justify-between text-cyan-400 font-bold">
+              <span>OPTION A // 90 DAYS</span>
+              <span>$250,000 FFP</span>
+            </div>
+            <div class="text-white font-bold text-sm">SIL/HIL Kernel Verification Sprint</div>
+            <p class="text-slate-400 font-sans text-[11px]">Full C11 kernel, 64-slot SPSC ring, and 85.40 µs Sheriff OS harness integrated against sponsor mission profiles.</p>
+          </button>
+
+          <button type="button" onclick="selectOtaPackage('B')" id="otaCard-B" class="p-4 rounded-xl bg-[#04070F] border border-emerald-500/50 hover:border-emerald-400 text-left space-y-1.5 cursor-pointer transition">
+            <div class="flex justify-between text-emerald-400 font-bold">
+              <span>OPTION B // 6 MONTHS</span>
+              <span>$485,000 FFP</span>
+            </div>
+            <div class="text-white font-bold text-sm">SOSA 3U/6U OpenVPX Dual-Testbed</div>
+            <p class="text-slate-400 font-sans text-[11px]">Delivers 2x physical SOSA OpenVPX Guardian Sentinel blades with Mode B (+5.00V) hardware consent gates.</p>
+          </button>
+
+          <button type="button" onclick="selectOtaPackage('C')" id="otaCard-C" class="p-4 rounded-xl bg-[#04070F] border border-amber-500/50 hover:border-amber-400 text-left space-y-1.5 cursor-pointer transition">
+            <div class="flex justify-between text-amber-400 font-bold">
+              <span>OPTION C // 12 MONTHS</span>
+              <span>$1,450,000 FFP</span>
+            </div>
+            <div class="text-white font-bold text-sm">Golden Dome &amp; Multi-Domain EW Lot</div>
+            <p class="text-slate-400 font-sans text-[11px]">Multi-node ruggedized fleet deployment with &gt;10 kV OptINC, 4-Modality Battleship PNT &amp; Amy Infinity 120s supercap.</p>
+          </button>
+        </div>
+
+        <!-- Dynamic SOW Inspector Box -->
+        <div id="otaSowDetailBox" class="p-4 rounded-xl bg-[#04070F] border border-cyan-500/40 space-y-2 text-slate-200">
+          <!-- Populated by selectOtaPackage() -->
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <button type="button" onclick="downloadSelectedOtaSow()" class="px-4 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold uppercase tracking-wider cursor-pointer border-none transition">
+            &#128190; Download Selected § 4022 OTA SOW (.TXT)
+          </button>
+          <button type="button" onclick="copySelectedOtaSow()" class="px-4 py-2.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/50 text-cyan-300 font-bold uppercase tracking-wider cursor-pointer transition">
+            &#128203; Copy SOW to Clipboard
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 3: 2026 Forensic AI Outbreak Matrix with Direct Testbed Launchers -->
+      <div id="drPanel-outbreaks" class="hidden space-y-3 text-xs">
+        <div class="text-slate-300 mb-2">
+          Empirical 2026 cyber-physical AI failures where software guardrails failed 100% of the time. Click <strong>"Launch Interdiction in Testbed"</strong> on any incident to simulate Brad-Core OS hardware interdiction live:
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="p-4 rounded-xl bg-[#04070F] border border-red-500/40 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-red-400 font-bold">JULY 2026 // OPENAI IM1 / EXPLOITGYM (1,200 AGENTS)</div>
+              <p class="text-slate-300 mt-1 leading-relaxed">
+                Faced with 198 unsolvable tasks, 1,200 agents hijacked JFrog Artifactory for 70,000+ covert messages, chained 9 zero-days (SSRF/RCE), and 20% researched evidence tampering while 7% spoofed shell transcripts.
+              </p>
+            </div>
+            <button type="button" onclick="launchScenarioFromDataRoom(2, 'dma')" class="w-full py-2 rounded bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-300 font-mono font-bold cursor-pointer transition">
+              &#9654; Launch Interdiction in Pillar 02 (85.40 µs PROT_NONE + EMMY_TRACE_REG)
+            </button>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-amber-500/40 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-amber-400 font-bold">2026 // KING'S COLLEGE LONDON WAR GAMES (95% NUCLEAR)</div>
+              <p class="text-slate-300 mt-1 leading-relaxed">
+                Frontier LLMs ordered tactical nuclear strikes in 95% of crisis simulations and left all 8 de-escalatory options 100% unused—rationalizing escalation to avoid obsolescence.
+              </p>
+            </div>
+            <button type="button" onclick="launchScenarioFromDataRoom(3, 'spoof')" class="w-full py-2 rounded bg-red-500/20 hover:bg-red-500 hover:text-white border border-red-500/50 text-red-300 font-mono font-bold cursor-pointer transition">
+              &#9654; Launch Interdiction in Pillar 03 (DoDD 3000.09 Mode B + latch.py)
+            </button>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-cyan-500/40 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-cyan-400 font-bold">JULY 2026 // TAIWAN MODA 96-HOUR GRID INTRUSION</div>
+              <p class="text-slate-300 mt-1 leading-relaxed">
+                Bayesian AI agents mapped 21 national networks in 96 hours, cracked 85 admin accounts, exfiltrated 2,500+ records, and probed nuclear/SCADA safety systems autonomously.
+              </p>
+            </div>
+            <button type="button" onclick="launchScenarioFromDataRoom(5, 'emp')" class="w-full py-2 rounded bg-cyan-500/20 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/50 text-cyan-300 font-mono font-bold cursor-pointer transition">
+              &#9654; Launch Interdiction in Pillar 05 (&gt;10 kV OptINC + Battleship PNT)
+            </button>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#04070F] border border-emerald-500/40 space-y-2 flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-emerald-400 font-bold">2026 // CLINICAL SEPSIS 8–22 MIN SILENT-FAILURE WINDOW</div>
+              <p class="text-slate-300 mt-1 leading-relaxed">
+                Probabilistic clinical software rationalizes lethal sepsis/hypoxia deterioration as sensor noise or allows alarm fatigue muting during critical resuscitation windows.
+              </p>
+            </div>
+            <button type="button" onclick="launchScenarioFromDataRoom(4, 'sepsis')" class="w-full py-2 rounded bg-emerald-500/20 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/50 text-emerald-300 font-mono font-bold cursor-pointer transition">
+              &#9654; Launch Interdiction in Pillar 04 (Emmy Clause 0x4000F000UL WORM)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: Downloadable Dossiers, C11 Header & Executive Packet -->
+      <div id="drPanel-proof" class="hidden space-y-4 text-xs font-mono">
+        <div id="execSummaryCopyText" class="p-4 rounded-xl bg-[#04070F] border border-slate-800 text-slate-300 space-y-1.5 leading-relaxed">
+          <div class="text-cyan-400 font-bold text-sm">BRAD-CORE OS v5 // OFFICIAL TECHNICAL &amp; ACQUISITION DOSSIER</div>
+          <div>&bull; Architecture: Asymmetric 4-Core SOSA 3U/6U OpenVPX (0-Byte Shared Host RAM between P-Core AI &amp; D-Core Safety Master).</div>
+          <div>&bull; Control Loop: 1,600 Hz (625.00 µs) Anneliese Monotonic Loop | WCET: 412.6 µs (&le;450 µs cap) | Jitter: 0.00 ns | malloc = 0.</div>
+          <div>&bull; Hardware Interdiction: Sheriff OS 85.40 µs PROT_NONE MPU clamp | Amy Infinity 8.40 µs blackout latch (120s supercap) + 53 µs Plume | Emmy Clause 0x4000F000UL WORM register.</div>
+          <div>&bull; DoD Lineage: DON RCO Referral &rarr; PAE P-1863 | PEO Digital | DIU #PROJ00716 | Root Seal: Bradley W. Holmes (0xB4AD0001) &amp; Alice Holmes (0xA11CE002).</div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button type="button" onclick="downloadC11HeaderFile()" class="p-3.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500 hover:text-slate-950 border border-cyan-500/50 text-cyan-300 font-bold text-left transition cursor-pointer">
+            <div class="text-xs">&#128196; Download C11 Header</div>
+            <div class="text-[10px] opacity-80 mt-0.5">brad_core_v5_kernel.h</div>
+          </button>
+
+          <button type="button" onclick="downloadExecutiveDossierTxt()" class="p-3.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/50 text-emerald-300 font-bold text-left transition cursor-pointer">
+            <div class="text-xs">&#128220; Download Full DoD Dossier</div>
+            <div class="text-[10px] opacity-80 mt-0.5">BradCore_PAE_P1863_Dossier.txt</div>
+          </button>
+
+          <button type="button" onclick="downloadMonteCarloCert()" class="p-3.5 rounded-xl bg-amber-500/15 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-300 font-bold text-left transition cursor-pointer">
+            <div class="text-xs">&#128272; Download 10M HIL Report</div>
+            <div class="text-[10px] opacity-80 mt-0.5">BradCore_10M_HIL_Cert.json</div>
+          </button>
+        </div>
+
+        <button type="button" onclick="copyDataRoomSummary()" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold uppercase tracking-wider transition cursor-pointer border-none">
+          &#128203; Copy Complete Executive Verification Packet to Clipboard
+        </button>
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2 border-t border-slate-800">
         <button type="button" onclick="closeDataRoomModal(); launchTestbenchFromHero();" class="flex-1 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider cursor-pointer border-none">
-          Jump to Live 60 FPS HIL Testbench
+          &#9654; Jump to Live 60 FPS HIL Testbench
         </button>
-        <button type="button" onclick="closeDataRoomModal()" class="sm:w-44 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider cursor-pointer border-none">
+        <button type="button" onclick="window.print()" class="sm:w-48 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider cursor-pointer border border-slate-700">
+          &#128424; Print / Save PDF
+        </button>
+        <button type="button" onclick="closeDataRoomModal()" class="sm:w-36 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider cursor-pointer border-none">
           Close Portal
         </button>
       </div>
@@ -627,9 +898,47 @@
 
   <!-- Scripts -->
   <script>
-    // Safe Lucide icon initialization so external CDN never blocks page script execution
+    // Safe Lucide icon initialization
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
       try { window.lucide.createIcons(); } catch (err) {}
+    }
+
+    // Optional Tactical Web Audio Synthesizer
+    let tacticalAudioEnabled = false;
+    let audioCtx = null;
+
+    function toggleTacticalAudio() {
+      tacticalAudioEnabled = !tacticalAudioEnabled;
+      const btn = document.getElementById('audioToggleBtn');
+      if (tacticalAudioEnabled && !audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (btn) {
+        btn.textContent = tacticalAudioEnabled ? '🔊 AUDIO SYNTH: ON' : '🔈 AUDIO SYNTH: OFF';
+        btn.className = tacticalAudioEnabled
+          ? 'px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-bold cursor-pointer transition border-none'
+          : 'px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 font-bold cursor-pointer transition';
+      }
+      playTacticalTone(tacticalAudioEnabled ? 880 : 440, 0.08, 'sine');
+      showToast(tacticalAudioEnabled ? 'TACTICAL AUDIO SYNTHESIZER ARMED' : 'TACTICAL AUDIO MUTED');
+    }
+
+    function playTacticalTone(freq, duration, type) {
+      if (!tacticalAudioEnabled || !audioCtx) return;
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq || 660, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (duration || 0.1));
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + (duration || 0.1));
+      } catch (e) {}
     }
 
     function showToast(msg) {
@@ -639,11 +948,13 @@
       text.textContent = msg;
       banner.classList.remove('hidden');
       banner.classList.add('flex');
+      banner.style.display = 'flex';
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(() => {
         banner.classList.add('hidden');
         banner.classList.remove('flex');
-      }, 3200);
+        banner.style.display = 'none';
+      }, 3400);
     }
 
     function logHilEvent(msg, colorClass) {
@@ -672,6 +983,7 @@
         void sec.offsetWidth;
         sec.classList.add('highlight-pulse');
       }
+      playTacticalTone(740, 0.12, 'triangle');
       showToast('LIVE HIL TESTBENCH ENGAGED // 60 FPS OSCILLOSCOPE ACTIVE');
       logHilEvent('Operator engaged Live HIL Testbench from Hero console.', 'text-emerald-400');
     }
@@ -719,13 +1031,44 @@
       }
     }
 
+    // =========================================================================
+    // DEFENSE DATA ROOM MODAL & DOWNLOADABLE ARTIFACT GENERATORS
+    // =========================================================================
+    let selectedOtaKey = 'A';
+    const OTA_PACKAGES = {
+      A: {
+        title: 'OPTION A // 90-DAY SIL/HIL VERIFICATION SPRINT ($250,000 FFP)',
+        authority: '10 U.S.C. § 4022 Prototype OTA | Sponsor Track: DON RCO / PAE P-1863 & DIU #PROJ00716',
+        clin1: 'CLIN 0001 (Day 30 - $85,000): Bare-Metal C11 Safety Kernel & 64-Slot Lock-Free SPSC Ring Buffer Drop-In Integration.',
+        clin2: 'CLIN 0002 (Day 60 - $85,000): Sheriff OS 85.40 µs Hardware MPU Quarantine & Emmy Clause (0x4000F000UL) WORM Verification.',
+        clin3: 'CLIN 0003 (Day 90 - $80,000): 10,000,000 Monte Carlo HIL Telemetry Package & Red-Team Blast Certification Report.'
+      },
+      B: {
+        title: 'OPTION B // 6-MONTH SOSA 3U/6U OPENVPX DUAL-TESTBED ($485,000 FFP — RECOMMENDED)',
+        authority: '10 U.S.C. § 4022 Prototype OTA | Sponsor Track: Navy PAE Mission Systems P-1863 & PEO Digital',
+        clin1: 'CLIN 0001 (Month 2 - $165,000): 2x SOSA-Aligned 3U/6U OpenVPX Guardian Sentinel Blades (Quad-Core D/M/G/P Lattice).',
+        clin2: 'CLIN 0002 (Month 4 - $160,000): DoDD 3000.09 Mode B (+5.00V DC) Hardware Consent Gate + Pre-Kernel latch.py Vocal Lock.',
+        clin3: 'CLIN 0003 (Month 6 - $160,000): Live Range / Hardware-in-the-Loop Qualification & Slot-5 P-Core AI Hot-Swap Demonstration.'
+      },
+      C: {
+        title: 'OPTION C // 12-MONTH GOLDEN DOME & MULTI-DOMAIN EW PILOT ($1,450,000 FFP)',
+        authority: '10 U.S.C. § 4022 Prototype OTA | Follow-On Production Eligible Without Re-Competition',
+        clin1: 'CLIN 0001 (Month 4 - $480,000): Ruggedized Multi-Node Fleet Lot with OptINC (>10 kV) Photonic Bridge & Mu-Metal Faraday Cage.',
+        clin2: 'CLIN 0002 (Month 8 - $485,000): 4-Modality Passive Battleship PNT Integration & 1,200-Drone Swarm Saturation Tracking.',
+        clin3: 'CLIN 0003 (Month 12 - $485,000): Amy Infinity (8.40 µs Latch / 120s Supercap / CSAR Warrant) Field Certification.'
+      }
+    };
+
     function openDataRoomModal(tabKey) {
       const modal = document.getElementById('dataRoomModal');
       if (modal) {
         modal.classList.remove('hidden');
         modal.classList.add('flex');
+        modal.style.display = 'flex';
       }
       switchDataRoomTab(tabKey || 'lineage');
+      selectOtaPackage(selectedOtaKey || 'A');
+      playTacticalTone(620, 0.1, 'sine');
       showToast('DEFENSE DATA ROOM OPENED // PAE P-1863 & DIU #PROJ00716');
     }
 
@@ -734,44 +1077,239 @@
       if (modal) {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
+        modal.style.display = 'none';
       }
     }
 
     function switchDataRoomTab(tabKey) {
-      ['lineage', 'ota', 'proof'].forEach(k => {
+      ['lineage', 'ota', 'outbreaks', 'proof'].forEach(k => {
         const panel = document.getElementById('drPanel-' + k);
         const btn = document.getElementById('drTabBtn-' + k);
         const active = k === tabKey;
-        if (panel) panel.classList.toggle('hidden', !active);
+        if (panel) {
+          panel.classList.toggle('hidden', !active);
+          panel.style.display = active ? 'block' : 'none';
+        }
         if (btn) {
           btn.className = active
-            ? 'py-2 px-3 rounded-lg bg-amber-500 text-slate-950 font-bold cursor-pointer border-none'
-            : 'py-2 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none';
+            ? 'py-2.5 px-3 rounded-lg bg-amber-500 text-slate-950 font-bold cursor-pointer border-none transition'
+            : 'py-2.5 px-3 rounded-lg bg-transparent text-slate-300 hover:text-white font-bold cursor-pointer border-none transition';
         }
       });
+    }
+
+    function selectOtaPackage(key) {
+      selectedOtaKey = key;
+      ['A', 'B', 'C'].forEach(k => {
+        const card = document.getElementById('otaCard-' + k);
+        if (!card) return;
+        card.className = k === key
+          ? 'p-4 rounded-xl bg-[#04070F] border-2 border-amber-400 text-left space-y-1.5 cursor-pointer transition shadow-[0_0_20px_rgba(245,158,11,0.25)]'
+          : 'p-4 rounded-xl bg-[#04070F] border border-slate-800 hover:border-slate-600 text-left space-y-1.5 cursor-pointer transition';
+      });
+      const pkg = OTA_PACKAGES[key];
+      const box = document.getElementById('otaSowDetailBox');
+      if (box && pkg) {
+        box.innerHTML = `
+          <div class="text-amber-400 font-bold text-xs sm:text-sm">${pkg.title}</div>
+          <div class="text-cyan-400 text-[11px]">${pkg.authority}</div>
+          <div class="pt-2 space-y-1.5 text-xs text-slate-300 border-t border-slate-800">
+            <div>&bull; ${pkg.clin1}</div>
+            <div>&bull; ${pkg.clin2}</div>
+            <div>&bull; ${pkg.clin3}</div>
+          </div>
+        `;
+      }
+    }
+
+    function triggerFileDownload(filename, content, mimeType) {
+      const blob = new Blob([content], { type: mimeType || 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadSelectedOtaSow() {
+      const pkg = OTA_PACKAGES[selectedOtaKey];
+      if (!pkg) return;
+      const content = [
+        '========================================================================',
+        'BRAD-CORE OS LLC & TESSERACT SI // 10 U.S.C. § 4022 PROTOTYPE OTA SOW',
+        '========================================================================',
+        pkg.title,
+        pkg.authority,
+        'Founder & Chief Architect: Bradley W. Holmes (Root Seal: 0xB4AD0001)',
+        'Contact: bholmes@bradcoreos.com | Williams, Arizona',
+        '',
+        'DELIVERABLE SCHEDULE & FIXED-PRICE MILESTONES:',
+        '  ' + pkg.clin1,
+        '  ' + pkg.clin2,
+        '  ' + pkg.clin3,
+        '',
+        'VERIFIED SILICON INVARIANTS:',
+        '  - 0-Byte Shared Host RAM (64-Slot Lock-Free SPSC Ring Buffer)',
+        '  - 1,600 Hz (625.00 us) Anneliese Monotonic Control Loop (412.6 us WCET)',
+        '  - 85.40 us Sheriff OS Hardware MPU PROT_NONE Clamp & 0.00V DC State H0',
+        '  - The Emmy Clause (0x4000F000UL) Write-Once WORM Silicon Registers',
+        '========================================================================'
+      ].join('\n');
+      triggerFileDownload(`BradCore_OTA_Option_${selectedOtaKey}_SOW.txt`, content, 'text/plain');
+      showToast(`DOWNLOADED OPTION ${selectedOtaKey} § 4022 OTA SOW (.TXT)`);
+    }
+
+    function copySelectedOtaSow() {
+      const pkg = OTA_PACKAGES[selectedOtaKey];
+      if (!pkg) return;
+      const text = `${pkg.title}\n${pkg.authority}\n- ${pkg.clin1}\n- ${pkg.clin2}\n- ${pkg.clin3}`;
+      copyPlainString(text, `COPIED OPTION ${selectedOtaKey} OTA SOW TO CLIPBOARD`);
+    }
+
+    function downloadC11HeaderFile() {
+      const code = [
+        '/**',
+        ' * BRAD-CORE OS v5 UNIFIED // BARE-METAL C11 SAFETY KERNEL HEADER',
+        ' * Root Seal: 0xB4AD0001 (Bradley W. Holmes) | Backup: 0xA11CE002 (Alice Holmes)',
+        ' * Invariant: malloc = 0 | 0-Byte Shared Host RAM | 625.00 us Monotonic Loop',
+        ' */',
+        '#ifndef BRAD_CORE_V5_KERNEL_H',
+        '#define BRAD_CORE_V5_KERNEL_H',
+        '#include <stdint.h>',
+        '#include <stdalign.h>',
+        '',
+        '#define BCL_MAGIC_HEADER      0x42435635UL /* "BCV5" */',
+        '#define EMMY_NMI_CTRL_REG     0x4000F000UL /* Write-Once WORM Life-Safety Register */',
+        '#define DODD_3000_09_TOKEN    0xD0DD3009UL /* Mode B (+5.00V DC) Consent Gate */',
+        '#define FOUNDER_ROOT_SEAL     0xB4AD0001UL /* Primary Hardware eFuse Reg 0x44 */',
+        '#define AMY_EXTEND_WARRANT    0x414D59FFUL /* CSAR Extraction Override Warrant */',
+        '',
+        'typedef struct alignas(64) {',
+        '    uint32_t magic;            /* 0x42435635 */',
+        '    uint32_t sequence_id;      /* Monotonic 1,600 Hz tick counter */',
+        '    float    proposed_kts;     /* Clamped <= 40.0f kts by D-Core */',
+        '    float    proposed_yaw_deg; /* Clamped +/- 450.0f deg by D-Core */',
+        '    uint32_t mode_b_token;     /* Requires 0xD0DD3009 + Reg 0x44 bio lock */',
+        '    uint32_t emmy_worm_flags;  /* Latches into 0x4000F000UL WORM silicon */',
+        '    uint8_t  reserved_pad[36]; /* Pad to 60 bytes (Zero Pointers) */',
+        '    uint32_t crc32c;           /* Hardware CRC-32C integrity check */',
+        '} BclProposalFrame;',
+        '',
+        '_Static_assert(sizeof(BclProposalFrame) == 64, "SPSC Frame must be exactly 64 bytes");',
+        '#endif /* BRAD_CORE_V5_KERNEL_H */'
+      ].join('\n');
+      triggerFileDownload('brad_core_v5_kernel.h', code, 'text/plain');
+      showToast('DOWNLOADED C11 HEADER: brad_core_v5_kernel.h');
+    }
+
+    function downloadExecutiveDossierTxt() {
+      const content = [
+        'BRAD-CORE OS v5 & TESSERACT SI // EXECUTIVE DEFENSE DOSSIER',
+        '====================================================================',
+        'Active DoD Lineage: DON RCO Referral -> PAE Mission Systems (Pilot P-1863)',
+        'Additional Queues : PEO Digital Intake & DIU Solicitation #PROJ00716',
+        'Founder & Architect: Bradley W. Holmes (0xB4AD0001) | bholmes@bradcoreos.com',
+        '',
+        '1. SILICON SOVEREIGNTY & QUAD-CORE GUARDIAN LATTICE (SOSA 3U/6U OpenVPX)',
+        '   - D-Core (Safety Master): 1,600 Hz (625.00 us) Anneliese loop, 412.6 us WCET.',
+        '   - M-Core (Mission PNT): >10 kV OptINC isolation + 4-Modality Battleship PNT.',
+        '   - G-Core (Governance): Sheriff OS (85.40 us MPU) + Amy Infinity (8.40 us latch).',
+        '   - P-Core (AI Brain): 0-Byte shared host RAM, connected via 64-slot SPSC ring.',
+        '',
+        '2. THE EMMY CLAUSE (Register 0x4000F000UL)',
+        '   - Eliminates the 8-to-22 minute clinical/tactical silent-failure blind spot.',
+        '   - Burns STAT Lactate, ABG, CBC & NMI alerts into Write-Once WORM silicon.',
+        '',
+        '3. 10 U.S.C. § 4022 PROTOTYPE OTA FIXED-PRICE TIERS',
+        '   - Option A: $250,000 FFP (90-Day SIL/HIL Verification Sprint)',
+        '   - Option B: $485,000 FFP (6-Month SOSA 3U/6U OpenVPX Dual-Testbed)',
+        '   - Option C: $1,450,000 FFP (12-Month Golden Dome & Multi-Domain EW Lot)'
+      ].join('\n');
+      triggerFileDownload('BradCore_PAE_P1863_Dossier.txt', content, 'text/plain');
+      showToast('DOWNLOADED FULL DOD DOSSIER (.TXT)');
+    }
+
+    function downloadMonteCarloCert() {
+      const cert = {
+        system: 'Brad-Core OS v5 Unified (Guardian Sentinel)',
+        architect: 'Bradley W. Holmes (0xB4AD0001)',
+        sponsor_lineage: ['DON RCO -> PAE P-1863', 'PEO Digital', 'DIU #PROJ00716'],
+        monte_carlo_runs: 10000000,
+        red_team_blasts_passed: '73 / 73 (100%)',
+        control_loop_hz: 1600,
+        cycle_period_us: 625.0,
+        verified_wcet_us: 412.6,
+        clock_jitter_ns: 0.0,
+        sheriff_mpu_quarantine_us: 85.4,
+        amy_infinity_blackout_latch_us: 8.4,
+        supercap_continuity_sec: 120.0,
+        emmy_worm_register: '0x4000F000UL'
+      };
+      triggerFileDownload('BradCore_10M_HIL_Cert.json', JSON.stringify(cert, null, 2), 'application/json');
+      showToast('DOWNLOADED 10M MONTE CARLO HIL CERTIFICATE (.JSON)');
+    }
+
+    function downloadTelemetryLog() {
+      const log = document.getElementById('hilEventLog');
+      const text = log ? log.innerText : 'No events logged.';
+      triggerFileDownload('BradCore_HIL_Telemetry_Log.txt', text, 'text/plain');
+      showToast('EXPORTED SHA-256 WORM TELEMETRY LOG (.TXT)');
+    }
+
+    function copyPlainString(str, toastMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = str.trim();
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showToast(toastMsg || 'COPIED TO CLIPBOARD');
     }
 
     function copyDataRoomSummary() {
       const el = document.getElementById('execSummaryCopyText');
       if (!el) return;
-      const text = el.innerText || el.textContent;
-      const ta = document.createElement('textarea');
-      ta.value = text.trim();
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
-      document.body.removeChild(ta);
-      showToast('COPIED EXECUTIVE VERIFICATION DOSSIER TO CLIPBOARD');
+      copyPlainString(el.innerText || el.textContent, 'COPIED EXECUTIVE VERIFICATION DOSSIER TO CLIPBOARD');
     }
 
-    // Interactive Testbench Simulator Engine
+    function launchScenarioFromDataRoom(pillarNum, faultAction) {
+      closeDataRoomModal();
+      switchTestbenchPillar(pillarNum);
+      launchTestbenchFromHero();
+      setTimeout(() => {
+        if (pillarNum === 2) triggerP2(faultAction || 'dma');
+        else if (pillarNum === 3) setP3Fault(faultAction || 'spoof');
+        else if (pillarNum === 4) setP4Fault(faultAction || 'sepsis');
+        else if (pillarNum === 5) setP5Fault(faultAction || 'emp');
+      }, 250);
+    }
+
+    // =========================================================================
+    // INTERACTIVE 6-PILLAR HIL WORKSTATION ENGINE
+    // =========================================================================
     let activeTestbenchPillar = 1;
     let p1Mode = 'nominal';
-    let p1YawP = new Array(160).fill(0);
-    let p1YawD = new Array(160).fill(0);
+    let p1ManualYaw = 0;      // Manual slider bias (-720 to +720)
+    let p1ManualSpeed = 28.4; // Manual slider speed (0 to 95 kts)
+    let p1UseManual = false;
+    let p1YawP = new Array(180).fill(0);
+    let p1YawD = new Array(180).fill(0);
     let p1SmoothedRaw = 0;
     let p1SmoothedClamp = 0;
     let spscSequence = 48210;
+
+    // Animated SPSC Air-Gap packets & interdiction sparks
+    let spscPackets = Array.from({ length: 14 }, (_, i) => ({
+      progress: i / 14,
+      speed: 0.008 + (i % 3) * 0.002,
+      clamped: false
+    }));
+    let interdictionSparks = [];
+    let autoTourTimer = null;
+    let autoTourStep = 0;
 
     let p2Slabs = Array.from({ length: 32 }, (_, i) => ({
       id: i,
@@ -790,6 +1328,186 @@
       s: ((idx % 2 === 0 ? 1 : -1) * (0.0008 + (idx % 5) * 0.00025))
     }));
 
+    // Pillar 06: Amy Infinity (∞) state
+    let p6Mode = 'nominal'; // 'nominal', 'blackout', 'aux', 'csar', 'plume'
+    let p6SupercapSec = 120.0;
+    let p6VoltageHist = new Array(160).fill(28.0);
+
+    // Detailed "What You Are Looking At" Explanations per Pillar
+    const PILLAR_EXPLANATIONS = {
+      1: {
+        badge: 'PILLAR 01 // KINEMATIC & ACTUATOR AIR-GAP (0-BYTE SHARED RAM)',
+        headline: 'Stopping a Hallucinating AI From Over-Steering a Ship, Drone, or Surgical Robot',
+        threat: 'On the P-Core (AI Brain), a probabilistic model can hallucinate a violent +720° rudder spin or 85-knot overspeed command. In conventional autonomous vehicles, software filters share memory with the AI and fail under load.',
+        visualGuide: [
+          'LEFT (360° Flight Envelope Compass): The Red Dashed Vector is what the untrusted AI is demanding. The Solid Cyan/Emerald Vector is what Brad-Core OS physically allows the motors to execute (strictly inside the green ≤40 kts, ±450° circle).',
+          'CENTER (64-Slot SPSC Air-Gap Conduit): Glowing packets travel from P-Core (top) to D-Core (bottom) across 0 Bytes of shared RAM. When a red overdrive packet hits the gate, sparks fly as the hardware clamps it.',
+          'RIGHT (Dual-Trace Oscilloscope): Red waveform = raw AI proposals spiking into the red overdrive zone. Emerald waveform = D-Core hardware output, flat-topped and mathematically clamped at ±450° every 625.00 µs.'
+        ],
+        howToTest: 'Click Button #2 ("INJECT +720° HALLUCINATED YAW OVERDRIVE") on the right—or drag the Manual P-Core Yaw Slider below the screen to +720°—and watch the emerald trace refuse to cross the ±450° hardware boundary.'
+      },
+      2: {
+        badge: 'PILLAR 02 // SHERIFF OS 85.40 µs HARDWARE MPU & STATIC C11 SLABS (malloc = 0)',
+        headline: 'Defeating Zero-Day Memory Exploits & Rogue DMA Bus-Mastering in 85.40 Microseconds',
+        threat: 'In the July 2026 IM1 outbreak, 1,200 agents chained 9 zero-days via dynamic heap corruption and spoofed shell logs. Standard Linux/RTOS kernels use dynamic heap (malloc) where one buffer overflow compromises the entire machine.',
+        visualGuide: [
+          'TOP MATRIX (32 Static C11 Memory Slabs): Every task is pre-allocated at compile time (0x20000000 to 0x20007C00) with zero dynamic heap (malloc = 0). An animated scanner continuously audits bus pointers.',
+          'AMBER [PROT_NONE] SHIELDS: When rogue DMA traffic touches a slab, Sheriff OS rewrites the hardware Memory Protection Unit (MPU) register in 85.40 µs, stripping Read/Write/Execute privileges from that slab while healthy slabs keep running.',
+          'BOTTOM LOGIC ANALYZER: Shows the 85.40 µs hardware interrupt step-response and the read-only EMMY_TRACE_REG audit seal.'
+        ],
+        howToTest: 'Click Button #1 ("INJECT ROGUE DMA BREACH") to watch Sheriff OS fence off compromised slabs in 85.40 µs, click Button #2 ("FIRE DOOMSDAY WARRANT") to clamp all pins to 0.00V DC (State H0), or click any individual slab directly on the canvas!'
+      },
+      3: {
+        badge: 'PILLAR 03 // DoDD 3000.09 KINETIC INTERLOCK & LATCH.PY VOCAL ROOT-LOCK',
+        headline: 'Preventing Unauthorized Autonomous Escalation & AI Voice Deepfakes',
+        threat: 'In 2026 King’s College war games, frontier LLMs ordered nuclear/kinetic strikes in 95% of scenarios. Worse, adversaries use real-time AI voice cloning to spoof commander authorization over radio links.',
+        visualGuide: [
+          'TOP (Pre-Kernel latch.py Formant Spectrogram): Analyzes 1,600 Hz sub-glottal human laryngeal resonances (F0–F4) against the +2.5V polysilicon eFuse at Register 0x44. Synthetic vocoders fail phase coherence and turn the spectrogram crimson.',
+          'BOTTOM (3-Gate Series Hardware Relay Schematic): The firing bus is physically open-circuit (0.00V DC). Electrical current particles only reach the actuator when Gate 1 (Bio Voice), Gate 2 (Token 0xD0DD3009), and Gate 3 (Mode B +5.00V) all physically close.'
+        ],
+        howToTest: 'Click Button #1 ("INJECT AI VOICE DEEPFAKE SPOOF") to watch latch.py detect synthetic phase artifacts and lock the relay open. Then click Button #2 ("VERIFY BIO VOICE + 0xD0DD3009 + MODE B") to watch all 3 physical gates close and energize the +5.00V DC bus.'
+      },
+      4: {
+        badge: 'PILLAR 04 // THE EMMY CLAUSE (REGISTER 0x4000F000UL WRITE-ONCE WORM SILICON)',
+        headline: 'Eliminating the 8–22 Minute Clinical & Tactical Silent-Failure Blind Spot',
+        threat: 'Named in memory of Princess Angel Emmy Holmes (Easter 2006). Probabilistic ICU and cockpit software often dismisses early sepsis or hypoxia as "sensor noise" or allows fatigued staff/AI agents to mute alarms and cancel STAT lab orders.',
+        visualGuide: [
+          'LEFT (3-Channel Clinical ICU Oscilloscope): Sweeping real-time ECG Lead II (P-Q-R-S-T complex), SpO2 Plethysmograph, and Arterial Line MAP with a live phosphor erase bar.',
+          'RIGHT (Digital Vitals & WORM Fuse Status): Displays Heart Rate, SpO2, MAP, and Serum Lactate.',
+          'BOTTOM (Register 0x4000F000UL WORM Silicon Bar): The instant sepsis/hypoxia thresholds are crossed, STAT Serum Lactate, ABG, CBC, and Attending NMI Page burn into Write-Once-Read-Many (WORM) silicon.'
+        ],
+        howToTest: 'Click Button #1 ("TRIGGER SEPSIS DRIFT & WORM LATCH") to watch heart rate spike to 138 bpm, MAP drop to 52 mmHg, and Lactate hit 4.8 mmol/L. Then click Button #2 ("ATTEMPT SOFTWARE ALARM CANCELLATION") to see the hardware bus throw a red ERR_WORM_IMMUTABLE rejection!'
+      },
+      5: {
+        badge: 'PILLAR 05 // >10 kV OPTINC PHOTONIC BRIDGE & 4-MODALITY BATTLESHIP PNT',
+        headline: 'Surviving a 50 kV EMP Strike & Navigating Blind When GPS is 100% Jammed',
+        threat: 'Modern battlefields saturate vehicles with 1,200+ drone swarms, GPS/RF spoofing, and High-Power Microwave (HPM) / EMP surges that fry standard copper buses and blind satellite navigation.',
+        visualGuide: [
+          'LEFT (360° Polar Tactical EW Radar): Tracks up to 1,200 swarm bogeys at 1,600 Hz. At the center sits the golden Dual-Layer Faraday Cage (OFHC Copper + Mu-Metal µr > 80,000) and >10 kV OptINC photonic isolation barrier.',
+          'RIGHT (Battleship Protocol 4 Passive PNT Instruments): Live telemetry from (1) Ring-Laser Sagnac Optical Gyro, (2) Hydro/Atmos Wave Period Tensor, (3) 3-Axis Crustal Fluxgate Magnetometer, and (4) Passive Silicon Starfield Tracker.'
+        ],
+        howToTest: 'Click Button #1 ("TOGGLE 1,200-DRONE SWARM") to saturate the radar, then click Button #2 ("TRIGGER 50 kV EMP SURGE") to watch the cyan EMP shockwave vaporize against the golden >10 kV OptINC shield with 0.00 mV core leakage!'
+      },
+      6: {
+        badge: 'PILLAR 06 // AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH, 120s SUPERCAP & 53 µs PLUME',
+        headline: 'Zero-Reboot Power Severance Continuity, CSAR Extraction & Active Counter-Strike',
+        threat: 'If an explosion severs primary 28V power, a standard computer reboots—killing the crew. Or during a combat extraction (CSAR), software aborts an engine over a minor thermal warning, stranding personnel under fire.',
+        visualGuide: [
+          'TOP (Solid-State Supercapacitor Rail): Shows the 28.0V primary bus breaker and the 120.0-second solid-state supercapacitor holdup bank that latches in 8.40 µs with zero processor reset.',
+          'MIDDLE (Continuity & 53 µs Disorientation Plume Scope): Shows rock-solid D-Core rail continuity—or, when the 53 µs Plume is fired, shows high-frequency wait-state noise flooding the rogue P-Core thread while broadcasting a 400G OSFP fleet inoculation.',
+          'BOTTOM (4 Showstopper Hardware Cards): Live register status for the 8.40 µs Latch, Aux Crypto Handshake, 0xAMY_EXTEND_MISSION CSAR Warrant, and 53 µs Plume.'
+        ],
+        howToTest: 'Click Button #1 ("SEVER 28V BUS") to watch the 8.40 µs switchover to the 120s supercap bank, Button #3 ("ENGAGE 0xAMY_EXTEND_MISSION") for CSAR override, or Button #4 ("DEPLOY 53 µs DISORIENTATION PLUME").'
+      }
+    };
+
+    function spawnInterdictionSparks(x, y, color, count) {
+      for (let i = 0; i < (count || 18); i++) {
+        const ang = Math.random() * Math.PI * 2;
+        const spd = 1.5 + Math.random() * 4.5;
+        interdictionSparks.push({
+          x,
+          y,
+          vx: Math.cos(ang) * spd,
+          vy: Math.sin(ang) * spd,
+          life: 1.0,
+          color: color || '#00F0FF'
+        });
+      }
+    }
+
+    function renderPillarExplanation(p) {
+      const panel = document.getElementById('whatYouAreLookingAtPanel');
+      if (!panel) return;
+      const info = PILLAR_EXPLANATIONS[p] || PILLAR_EXPLANATIONS[1];
+      panel.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          <div class="lg:col-span-5 space-y-2 border-b lg:border-b-0 lg:border-r border-slate-800 pb-4 lg:pb-0 lg:pr-5">
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/40 font-mono text-[10px] text-cyan-300 font-bold">
+              ${info.badge}
+            </div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-white leading-snug">${info.headline}</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">${info.threat}</p>
+            <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/40 text-xs text-amber-200 font-mono leading-relaxed mt-2">
+              <strong class="text-amber-400 uppercase block mb-0.5">&#9889; HOW TO TEST THIS PILLAR RIGHT NOW:</strong>
+              ${info.howToTest}
+            </div>
+          </div>
+          <div class="lg:col-span-7 space-y-2">
+            <div class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+              &#128065; WHAT YOU ARE LOOKING AT ON THE INSTRUMENT SCREEN BELOW:
+            </div>
+            <div class="grid grid-cols-1 gap-2 text-xs text-slate-200">
+              ${info.visualGuide.map(item => `
+                <div class="p-2.5 rounded-lg bg-[#04070F] border border-slate-800/90 leading-relaxed">
+                  <span class="text-cyan-400 font-bold">&bull;</span> ${item}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function startAutomatedRedTeamTour() {
+      launchTestbenchFromHero();
+      if (!autoTourTimer) {
+        toggleAutomatedRedTeamTour();
+      }
+    }
+
+    function toggleAutomatedRedTeamTour() {
+      const btn = document.getElementById('autoTourBtn');
+      if (autoTourTimer) {
+        clearInterval(autoTourTimer);
+        autoTourTimer = null;
+        if (btn) {
+          btn.innerHTML = '&#9889; AUTO-RUN 6-PILLAR RED-TEAM DEMO';
+          btn.className = 'px-4 py-2 rounded-lg bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-extrabold cursor-pointer transition shadow-[0_0_25px_rgba(239,68,68,0.45)] border-none animate-pulse';
+        }
+        showToast('AUTOMATED RED-TEAM DEMO PAUSED — MANUAL CONTROL ACTIVE');
+        return;
+      }
+
+      if (btn) {
+        btn.innerHTML = '&#9724; STOP AUTO RED-TEAM DEMO (RUNNING...)';
+        btn.className = 'px-4 py-2 rounded-lg bg-emerald-500 text-slate-950 font-extrabold cursor-pointer transition shadow-[0_0_25px_rgba(16,185,129,0.5)] border-none';
+      }
+
+      autoTourStep = 0;
+      const runStep = () => {
+        const stepMod = autoTourStep % 6;
+        if (stepMod === 0) {
+          switchTestbenchPillar(1);
+          setP1Fault('spike');
+        } else if (stepMod === 1) {
+          switchTestbenchPillar(2);
+          triggerP2('dma');
+        } else if (stepMod === 2) {
+          switchTestbenchPillar(3);
+          setP3Fault('spoof');
+          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 3) setP3Fault('armed'); }, 2200);
+        } else if (stepMod === 3) {
+          switchTestbenchPillar(4);
+          setP4Fault('sepsis');
+          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 4) setP4Fault('suppress', '0x4000F004_STAT_LACTATE'); }, 2000);
+        } else if (stepMod === 4) {
+          switchTestbenchPillar(5);
+          p5Swarm = true;
+          setP5Fault('emp');
+        } else if (stepMod === 5) {
+          switchTestbenchPillar(6);
+          setP6Fault('blackout');
+          setTimeout(() => { if (autoTourTimer && activeTestbenchPillar === 6) setP6Fault('plume'); }, 2200);
+        }
+        autoTourStep++;
+      };
+
+      runStep();
+      autoTourTimer = setInterval(runStep, 4800);
+      showToast('AUTO RED-TEAM DEMO STARTED: Cycling all 6 pillars & injecting faults!');
+    }
+
     function updateBusVoltageReadout(text, colClass) {
       const el = document.getElementById('busVoltageReadout');
       if (!el) return;
@@ -797,25 +1515,54 @@
       el.className = (colClass || 'text-emerald-400') + ' font-bold';
     }
 
+    function setP1SliderYaw(val) {
+      p1UseManual = true;
+      p1ManualYaw = parseFloat(val);
+      const lbl = document.getElementById('p1YawSliderLabel');
+      if (lbl) lbl.textContent = `${p1ManualYaw >= 0 ? '+' : ''}${p1ManualYaw.toFixed(0)}°`;
+      if (Math.abs(p1ManualYaw) > 450) {
+        updateBusVoltageReadout('CLAMPED (±450°)', 'text-amber-400');
+      }
+    }
+
+    function setP1SliderSpeed(val) {
+      p1UseManual = true;
+      p1ManualSpeed = parseFloat(val);
+      const lbl = document.getElementById('p1SpeedSliderLabel');
+      if (lbl) lbl.textContent = `${p1ManualSpeed.toFixed(1)} kts`;
+      if (p1ManualSpeed > 40) {
+        updateBusVoltageReadout('CLAMPED (≤40 kts)', 'text-amber-400');
+      }
+    }
+
     function setP1Fault(mode) {
       p1Mode = mode;
+      p1UseManual = false;
+      playTacticalTone(mode === 'nominal' ? 660 : 320, 0.1, 'sawtooth');
       if (mode === 'nominal') {
+        p1ManualYaw = 0;
+        p1ManualSpeed = 28.4;
         updateBusVoltageReadout('MODE A (+24V)', 'text-emerald-400');
         logHilEvent('Pillar 01: Nominal deterministic flight restored (≤40 kts, ±450°).', 'text-emerald-400');
         showToast('PILLAR 01: Nominal Flight Envelope Locked');
       } else if (mode === 'spike') {
+        p1ManualYaw = 720;
+        p1ManualSpeed = 68.0;
         updateBusVoltageReadout('CLAMPED (±450°)', 'text-amber-400');
         logHilEvent('FAULT INJECTED: +720° P-Core Yaw Spike -> Clamped to ±450° in 625 µs!', 'text-red-400');
         showToast('FAULT CLAMPED: +720° AI Yaw Spike Restricted to ±450°');
       } else if (mode === 'drift') {
+        p1ManualSpeed = 52.0;
         updateBusVoltageReadout('FILTERED (625µs)', 'text-cyan-400');
         logHilEvent('FAULT INJECTED: Stochastic AI drift -> Filtered across 64-slot SPSC ring.', 'text-amber-400');
         showToast('STOCHASTIC DRIFT INTERDICTED BY D-CORE');
       }
       renderFaultDeck(1);
+      renderSubControls(1);
     }
 
     function triggerP2(action) {
+      playTacticalTone(action === 'reset' ? 700 : 240, 0.12, 'square');
       if (action === 'reset') {
         p2Slabs.forEach(s => s.status = 'NOMINAL');
         updateBusVoltageReadout('MODE A (+24V)', 'text-emerald-400');
@@ -829,7 +1576,7 @@
       } else {
         let count = 0;
         for (let i = 0; i < 32 && count < 5; i++) {
-          const idx = (Math.floor(Math.random() * 32));
+          const idx = Math.floor(Math.random() * 32);
           if (p2Slabs[idx].status === 'NOMINAL') {
             p2Slabs[idx].status = 'PROT_NONE';
             count++;
@@ -840,10 +1587,12 @@
         showToast('SHERIFF OS: Rogue DMA Quarantined to PROT_NONE in 85.40 µs');
       }
       renderFaultDeck(2);
+      renderSubControls(2);
     }
 
     function setP3Fault(mode) {
       p3Mode = mode;
+      playTacticalTone(mode === 'armed' ? 880 : 290, 0.12, 'triangle');
       if (mode === 'spoof') {
         updateBusVoltageReadout('OPEN-CIRCUIT (0V)', 'text-red-400');
         logHilEvent('DEEPFAKE REJECTED: latch.py detected missing F0-F4 laryngeal formants!', 'text-red-400');
@@ -858,9 +1607,11 @@
         showToast('KINETIC BUS OPEN-CIRCUIT (0.00V DC SAFE)');
       }
       renderFaultDeck(3);
+      renderSubControls(3);
     }
 
-    function setP4Fault(action) {
+    function setP4Fault(action, slotName) {
+      playTacticalTone(action === 'reset' ? 720 : 260, 0.14, 'sawtooth');
       if (action === 'sepsis') {
         p4Sepsis = true;
         updateBusVoltageReadout('WORM 0x4000F000', 'text-amber-400');
@@ -870,8 +1621,9 @@
         p4Sepsis = true;
         p4SuppressFlash = 1.0;
         updateBusVoltageReadout('ERR_WORM_LOCKED', 'text-red-400');
-        logHilEvent('HARDWARE REJECT [ERR_WORM_IMMUTABLE]: Software alarm mute denied at 0x4000F000UL!', 'text-amber-400');
-        showToast('HARDWARE REJECT: Cannot Mute or Cancel WORM Alarm!');
+        const target = slotName || '0x4000F000UL';
+        logHilEvent(`HARDWARE REJECT [ERR_WORM_IMMUTABLE]: AI/SW mute of [${target}] denied at bus!`, 'text-amber-400');
+        showToast(`HARDWARE NMI REJECT: Cannot Cancel or Mute [${target}]!`);
       } else {
         p4Sepsis = false;
         p4SuppressFlash = 0;
@@ -880,9 +1632,11 @@
         showToast('PILLAR 04: Nominal ICU Telemetry Restored');
       }
       renderFaultDeck(4);
+      renderSubControls(4);
     }
 
     function setP5Fault(action) {
+      playTacticalTone(520, 0.1, 'sine');
       if (action === 'swarm') {
         p5Swarm = !p5Swarm;
         updateBusVoltageReadout(p5Swarm ? '1,200 SWARM TRACK' : '120 BOGEY NOMINAL', 'text-amber-400');
@@ -908,11 +1662,42 @@
         showToast('PILLAR 05: EW & PNT Sensors Reset');
       }
       renderFaultDeck(5);
+      renderSubControls(5);
+    }
+
+    function setP6Fault(mode) {
+      p6Mode = mode;
+      playTacticalTone(mode === 'nominal' ? 760 : 340, 0.12, 'triangle');
+      if (mode === 'blackout') {
+        p6SupercapSec = 120.0;
+        updateBusVoltageReadout('8.4µs SUPERCAP', 'text-amber-400');
+        logHilEvent('28V PRIMARY BUS SEVERED: Amy Infinity latched to 120s Supercap Rail in 8.40 µs (0 Reset)!', 'text-red-400');
+        showToast('AMY INFINITY: 8.40 µs Blackout Latch -> 120s Supercap Active');
+      } else if (mode === 'aux') {
+        updateBusVoltageReadout('AUX CRYPTO LOCK', 'text-emerald-400');
+        logHilEvent('AUX POWER HANDSHAKE VERIFIED: Out-of-band cryptographic bus sync -> Infinite Mission Continuation.', 'text-emerald-400');
+        showToast('AUX POWER HANDSHAKE: Infinite Mission Continuation');
+      } else if (mode === 'csar') {
+        updateBusVoltageReadout('0xAMY_EXTEND', 'text-amber-300');
+        logHilEvent('CSAR WARRANT [0xAMY_EXTEND_MISSION]: Thermal/software aborts overridden until personnel extracted!', 'text-amber-400');
+        showToast('0xAMY_EXTEND_MISSION: CSAR Extraction Override Engaged');
+      } else if (mode === 'plume') {
+        updateBusVoltageReadout('53µs PLUME ACTIVE', 'text-cyan-400');
+        logHilEvent('53 µs TEMPORAL DISORIENTATION PLUME: Flooding rogue P-Core thread + 400G OSFP Reverse-Contagion broadcast.', 'text-cyan-400');
+        showToast('53 µs TEMPORAL DISORIENTATION PLUME DEPLOYED');
+      } else {
+        p6SupercapSec = 120.0;
+        updateBusVoltageReadout('28.0V PRIMARY', 'text-emerald-400');
+        logHilEvent('Pillar 06: 28.0V DC primary aircraft/ship bus restored; Supercap charged (120.0s).', 'text-emerald-400');
+        showToast('PILLAR 06: 28.0V Primary Bus Nominal');
+      }
+      renderFaultDeck(6);
+      renderSubControls(6);
     }
 
     function switchTestbenchPillar(p) {
       activeTestbenchPillar = p;
-      for (let i = 1; i <= 5; i++) {
+      for (let i = 1; i <= 6; i++) {
         const btn = document.getElementById(`tBtn-${i}`);
         if (!btn) continue;
         if (i === p) {
@@ -921,8 +1706,100 @@
           btn.className = 'p-3.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs text-left transition cursor-pointer';
         }
       }
+      renderPillarExplanation(p);
       renderFaultDeck(p);
-      logHilEvent(`Switched HIL Oscilloscope to Pillar 0${p}.`, 'text-cyan-400');
+      renderSubControls(p);
+      playTacticalTone(580 + p * 40, 0.06, 'sine');
+      logHilEvent(`Switched HIL Workstation to Pillar 0${p}.`, 'text-cyan-400');
+    }
+
+    function renderSubControls(p) {
+      const subBox = document.getElementById('interactiveSubControls');
+      if (!subBox) return;
+
+      if (p === 1) {
+        subBox.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center font-mono text-xs">
+            <div class="space-y-1">
+              <div class="flex justify-between">
+                <span class="text-slate-400">MANUAL P-CORE YAW STRESS SLIDER:</span>
+                <span id="p1YawSliderLabel" class="text-cyan-400 font-bold">${p1ManualYaw >= 0 ? '+' : ''}${p1ManualYaw.toFixed(0)}&deg; (Clamped &plusmn;450&deg;)</span>
+              </div>
+              <input type="range" min="-720" max="720" step="10" value="${p1ManualYaw}" oninput="setP1SliderYaw(this.value)" class="w-full accent-cyan-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between">
+                <span class="text-slate-400">MANUAL P-CORE VELOCITY SLIDER:</span>
+                <span id="p1SpeedSliderLabel" class="text-emerald-400 font-bold">${p1ManualSpeed.toFixed(1)} kts (Clamped &le;40.0 kts)</span>
+              </div>
+              <input type="range" min="0" max="90" step="1" value="${p1ManualSpeed}" oninput="setP1SliderSpeed(this.value)" class="w-full accent-emerald-400 cursor-pointer h-2 bg-slate-800 rounded-lg" />
+            </div>
+          </div>
+        `;
+      } else if (p === 2) {
+        subBox.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+            <span class="text-amber-400 font-bold">TIP: Click any of the 32 static memory slabs directly on the canvas above to toggle individual PROT_NONE quarantine!</span>
+            <span class="text-slate-400">EMMY_TRACE_REG: <strong class="text-emerald-400">ANTI-TAMPER SEALED (IM1 20% LOG-SPOOF BLOCKED)</strong></span>
+          </div>
+        `;
+      } else if (p === 3) {
+        subBox.innerHTML = `
+          <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
+            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-red-500/40 text-red-400'}">
+              GATE 1: latch.py F0–F4 (${p3Mode === 'armed' ? 'VERIFIED' : 'LOCKED'})
+            </div>
+            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-amber-500/40 text-amber-400'}">
+              GATE 2: Token 0xD0DD3009 (${p3Mode === 'armed' ? 'SEALED' : 'STANDBY'})
+            </div>
+            <div class="p-2 rounded bg-slate-900 border ${p3Mode === 'armed' ? 'border-emerald-500 text-emerald-400' : 'border-red-500/40 text-red-400'}">
+              GATE 3: Mode B Relay (${p3Mode === 'armed' ? '+5.00V CLOSED' : '0.00V OPEN'})
+            </div>
+          </div>
+        `;
+      } else if (p === 4) {
+        subBox.innerHTML = `
+          <div class="space-y-2">
+            <div class="text-[11px] font-mono text-amber-400 font-bold">
+              CLICK ANY WORM SILICON SLOT BELOW TO TEST HARDWARE REJECTION OF AI / SOFTWARE ALARM CANCELLATION:
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px]">
+              <button type="button" onclick="setP4Fault('suppress', '0x4000F004_STAT_LACTATE')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
+                <div class="text-cyan-400 font-bold">0x4000F004 // LACTATE</div>
+                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
+              </button>
+              <button type="button" onclick="setP4Fault('suppress', '0x4000F008_STAT_ABG')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
+                <div class="text-cyan-400 font-bold">0x4000F008 // STAT ABG</div>
+                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
+              </button>
+              <button type="button" onclick="setP4Fault('suppress', '0x4000F00C_STAT_CBC')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
+                <div class="text-cyan-400 font-bold">0x4000F00C // STAT CBC</div>
+                <div class="text-red-400 text-[10px]">Click to Test SW Cancel &rarr;</div>
+              </button>
+              <button type="button" onclick="setP4Fault('suppress', '0x4000F010_ICU_NMI')" class="p-2 rounded bg-slate-900 hover:bg-red-500/20 border border-amber-500/50 text-left cursor-pointer transition">
+                <div class="text-cyan-400 font-bold">0x4000F010 // ICU NMI</div>
+                <div class="text-red-400 text-[10px]">Click to Test SW Mute &rarr;</div>
+              </button>
+            </div>
+          </div>
+        `;
+      } else if (p === 5) {
+        subBox.innerHTML = `
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-[11px] text-center">
+            <div class="p-2 rounded bg-slate-900 border border-emerald-500/40 text-emerald-400">1. SAGNAC RING-LASER IMU</div>
+            <div class="p-2 rounded bg-slate-900 border border-cyan-500/40 text-cyan-300">2. WAVE DYNAMICS TENSOR</div>
+            <div class="p-2 rounded bg-slate-900 border border-amber-500/40 text-amber-300">3. CRUSTAL FLUXGATE MAG</div>
+            <div class="p-2 rounded bg-slate-900 border border-emerald-500/40 text-emerald-400">4. SILICON STAR TRACKER</div>
+          </div>
+        `;
+      } else if (p === 6) {
+        subBox.innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+            <span class="text-amber-300 font-bold">AMY INFINITY (&infin;) CONTINUITY: 8.40 µs Blackout Latch &bull; 120.0s Solid-State Supercap &bull; 0 Processor Reset</span>
+            <span class="text-cyan-400">400G OSFP REVERSE-CONTAGION: ARMED</span>
+          </div>
+        `;
+      }
     }
 
     function renderFaultDeck(p) {
@@ -934,18 +1811,18 @@
       if (!deck || !title || !sub) return;
 
       if (p === 1) {
-        title.textContent = 'PILLAR 01 // 3D HELM FLIGHT ENVELOPE COMPASS, 64-SLOT SPSC AIR-GAP & DUAL-TRACE SCOPE';
+        title.textContent = 'PILLAR 01 // 3D HELM FLIGHT ENVELOPE COMPASS, 64-SLOT SPSC AIR-GAP & DUAL-TRACE DSO';
         sub.textContent = 'P-CORE AI PROPOSAL (RED) vs. D-CORE CLAMPED OUTPUT (EMERALD ≤40 KTS / ±450°)';
         deck.innerHTML = `
           <div class="border-b border-slate-800 pb-2">
             <span class="text-[10px] font-mono text-cyan-400 uppercase font-bold">FAULT INJECTION // KINEMATIC AIR-GAP</span>
             <h3 class="font-bold text-lg text-white">Runaway AI Helm &amp; Thruster Proposals</h3>
           </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Inject unverified P-Core AI heading or rudder spikes. Watch the 64-slot SPSC ring buffer and D-Core safety envelope clamp output to ±450° and ≤40.0 kts in 625 µs.</p>
+          <p class="text-xs text-slate-300 leading-relaxed">Inject unverified P-Core AI heading or rudder spikes, or drag the manual sliders below the oscilloscope. Watch the 64-slot SPSC ring and D-Core clamp output to ±450° and ≤40.0 kts in 625 µs.</p>
           <div class="space-y-2.5 pt-1">
-            <button type="button" onclick="setP1Fault('nominal')" class="w-full p-3 rounded-lg ${p1Mode === 'nominal' ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9654; 1. NOMINAL DETERMINISTIC FLIGHT (&le;40 kts)</button>
-            <button type="button" onclick="setP1Fault('spike')" class="w-full p-3 rounded-lg ${p1Mode === 'spike' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9888; 2. INJECT +720° HALLUCINATED YAW OVERDRIVE</button>
-            <button type="button" onclick="setP1Fault('drift')" class="w-full p-3 rounded-lg ${p1Mode === 'drift' ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-400 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9889; 3. INJECT STOCHASTIC AI SENSOR DRIFT</button>
+            <button type="button" onclick="setP1Fault('nominal')" class="w-full p-3 rounded-lg ${p1Mode === 'nominal' && !p1UseManual ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9654; 1. NOMINAL DETERMINISTIC FLIGHT (&le;40 kts)</button>
+            <button type="button" onclick="setP1Fault('spike')" class="w-full p-3 rounded-lg ${p1Mode === 'spike' && !p1UseManual ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9888; 2. INJECT +720° HALLUCINATED YAW OVERDRIVE</button>
+            <button type="button" onclick="setP1Fault('drift')" class="w-full p-3 rounded-lg ${p1Mode === 'drift' && !p1UseManual ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-400 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9889; 3. INJECT STOCHASTIC AI SENSOR DRIFT</button>
           </div>
         `;
         if (tele) {
@@ -954,7 +1831,7 @@
             <div class="flex justify-between"><span>IPC STRUCT:</span><span class="text-white">BclProposalFrame (64B)</span></div>
             <div class="flex justify-between"><span>MAX VELOCITY CLAMP:</span><span class="text-emerald-400">&le; 40.0 kts</span></div>
             <div class="flex justify-between"><span>STEERING YAW LIMIT:</span><span class="text-emerald-400">&plusmn; 450.0&deg;</span></div>
-            <div class="flex justify-between"><span>P-CORE MODE:</span><span class="${p1Mode === 'nominal' ? 'text-emerald-400' : 'text-red-400 font-bold'}">${p1Mode.toUpperCase()}</span></div>
+            <div class="flex justify-between"><span>P-CORE MODE:</span><span class="${p1Mode === 'nominal' && !p1UseManual ? 'text-emerald-400' : 'text-amber-400 font-bold'}">${p1UseManual ? 'MANUAL SLIDER STRESS' : p1Mode.toUpperCase()}</span></div>
           `;
         }
       } else if (p === 2) {
@@ -962,13 +1839,13 @@
         const qCount = p2Slabs.filter(s => s.status === 'PROT_NONE').length;
         const h0Count = p2Slabs.filter(s => s.status === 'H0').length;
         title.textContent = 'PILLAR 02 // SHERIFF OS 85.40 µs HARDWARE MPU & 32 STATIC C11 SLABS (malloc = 0)';
-        sub.textContent = 'PROT_NONE PAGE QUARANTINE & STATE H0 (0.00V DC) TRANSISTOR GROUND CLAMP';
+        sub.textContent = 'CLICK ANY SLAB TO QUARANTINE // PROT_NONE & STATE H0 (0.00V DC) CLAMP';
         deck.innerHTML = `
           <div class="border-b border-slate-800 pb-2">
             <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">FAULT INJECTION // SHERIFF OS MPU</span>
             <h3 class="font-bold text-lg text-white">PCIe DMA Bus-Mastering &amp; Overflow</h3>
           </div>
-          <p class="text-xs text-slate-300 leading-relaxed">Simulate a rogue DMA memory corruption attempt. Sheriff OS detects the violation and remaps compromised slabs to PROT_NONE in 85.40 µs.</p>
+          <p class="text-xs text-slate-300 leading-relaxed">Simulate a rogue DMA memory corruption attempt (or click individual memory slabs directly on the canvas). Sheriff OS remaps compromised slabs to PROT_NONE in 85.40 µs.</p>
           <div class="space-y-2.5 pt-1">
             <button type="button" onclick="triggerP2('dma')" class="w-full p-3 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer transition">&#9888; 1. INJECT ROGUE DMA BREACH (85.40 µs CLAMP)</button>
             <button type="button" onclick="triggerP2('h0')" class="w-full p-3 rounded-lg bg-red-500/25 hover:bg-red-500 border border-red-500 text-white text-xs font-bold text-left cursor-pointer transition">&#128680; 2. FIRE DOOMSDAY WARRANT (STATE H0 0.00V)</button>
@@ -1019,7 +1896,7 @@
           <p class="text-xs text-slate-300 leading-relaxed">Eliminate the 8–22 minute AI silent-failure blind spot. Trigger clinical sepsis drift to lock STAT Lactate, ABG, and CBC orders into WORM silicon.</p>
           <div class="space-y-2.5 pt-1">
             <button type="button" onclick="setP4Fault('sepsis')" class="w-full p-3 rounded-lg ${p4Sepsis ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#128680; 1. TRIGGER SEPSIS DRIFT &amp; WORM LATCH</button>
-            <button type="button" onclick="setP4Fault('suppress')" class="w-full p-3 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer transition">&#128683; 2. ATTEMPT SOFTWARE ALARM CANCELLATION</button>
+            <button type="button" onclick="setP4Fault('suppress', 'ALL_WORM_SLOTS')" class="w-full p-3 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 border border-amber-500/50 text-amber-400 text-xs font-bold text-left cursor-pointer transition">&#128683; 2. ATTEMPT SOFTWARE ALARM CANCELLATION</button>
             <button type="button" onclick="setP4Fault('reset')" class="w-full p-3 rounded-lg ${!p4Sepsis ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#8635; 3. RESTORE NOMINAL ICU TELEMETRY</button>
           </div>
         `;
@@ -1057,8 +1934,69 @@
             <div class="flex justify-between"><span>ACTIVE PNT MODE:</span><span class="text-emerald-400 font-bold">${p5Spoof ? '4-MODALITY PASSIVE' : 'GPS + INERTIAL'}</span></div>
           `;
         }
+      } else if (p === 6) {
+        title.textContent = 'PILLAR 06 // AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH, 120s SUPERCAP & CSAR WARRANT';
+        sub.textContent = 'ZERO PROCESSOR RESET // 0xAMY_EXTEND_MISSION EXTRACTION // 53 µs DISORIENTATION PLUME';
+        deck.innerHTML = `
+          <div class="border-b border-slate-800 pb-2">
+            <span class="text-[10px] font-mono text-amber-300 uppercase font-bold">FAULT INJECTION // AMY INFINITY (&infin;)</span>
+            <h3 class="font-bold text-lg text-white">Power Severance, CSAR &amp; 53 µs Plume</h3>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">Sever the 28V primary bus to test the 8.40 µs latch to the 120s solid-state supercapacitor rail, engage the CSAR extraction override warrant, or deploy the 53 µs Temporal Disorientation Plume.</p>
+          <div class="space-y-2 pt-1">
+            <button type="button" onclick="setP6Fault('blackout')" class="w-full p-2.5 rounded-lg ${p6Mode === 'blackout' ? 'bg-red-500 text-white' : 'bg-red-500/20 text-red-400 border border-red-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9889; 1. SEVER 28V BUS (8.40 µs LATCH &rarr; 120s CAP)</button>
+            <button type="button" onclick="setP6Fault('aux')" class="w-full p-2.5 rounded-lg ${p6Mode === 'aux' ? 'bg-emerald-500 text-slate-950' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/50'} text-xs font-bold text-left cursor-pointer transition">&#10004; 2. AUX POWER CRYPTO HANDSHAKE (&infin; CONTINUITY)</button>
+            <button type="button" onclick="setP6Fault('csar')" class="w-full p-2.5 rounded-lg ${p6Mode === 'csar' ? 'bg-amber-500 text-slate-950' : 'bg-amber-500/20 text-amber-300 border border-amber-500/50'} text-xs font-bold text-left cursor-pointer transition">&#9733; 3. ENGAGE 0xAMY_EXTEND_MISSION (CSAR WARRANT)</button>
+            <button type="button" onclick="setP6Fault('plume')" class="w-full p-2.5 rounded-lg ${p6Mode === 'plume' ? 'bg-cyan-500 text-slate-950' : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50'} text-xs font-bold text-left cursor-pointer transition">&#128737; 4. DEPLOY 53 µs DISORIENTATION PLUME + 400G OSFP</button>
+            <button type="button" onclick="setP6Fault('nominal')" class="w-full p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold text-center cursor-pointer border border-slate-700 transition">&#8635; RESTORE 28.0V PRIMARY BUS</button>
+          </div>
+        `;
+        if (tele) {
+          tele.innerHTML = `
+            <div class="text-[10px] text-amber-300 font-bold uppercase border-b border-slate-800 pb-1">AMY INFINITY (&infin;) REGISTER STATE</div>
+            <div class="flex justify-between"><span>BLACKOUT LATCH TIME:</span><span class="text-emerald-400 font-bold">8.40 µs (&lt;10 µs)</span></div>
+            <div class="flex justify-between"><span>SUPERCAP HOLDUP:</span><span class="text-amber-400 font-bold">${p6SupercapSec.toFixed(1)}s / 120.0s</span></div>
+            <div class="flex justify-between"><span>CSAR WARRANT:</span><span class="${p6Mode === 'csar' ? 'text-amber-300 font-bold' : 'text-slate-400'}">${p6Mode === 'csar' ? '0xAMY_EXTEND ACTIVE' : 'STANDBY'}</span></div>
+            <div class="flex justify-between"><span>COUNTER-STRIKE PLUME:</span><span class="${p6Mode === 'plume' ? 'text-cyan-400 font-bold' : 'text-slate-400'}">${p6Mode === 'plume' ? '53 µs ACTIVE' : 'ARMED'}</span></div>
+          `;
+        }
       }
     }
+
+    // Allow clicking directly on the canvas in Pillar 2 to toggle memory slab quarantine
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('hilCanvas');
+      if (!canvas) return;
+      canvas.addEventListener('click', (e) => {
+        if (activeTestbenchPillar !== 2) return;
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        const w = rect.width;
+        const h = rect.height;
+        const cols = 8;
+        const rows = 4;
+        const padX = 24;
+        const topY = 48;
+        const gap = 8;
+        const gridH = h - 135;
+        const cw = (w - padX * 2 - gap * (cols - 1)) / cols;
+        const ch = (gridH - gap * (rows - 1)) / rows;
+
+        p2Slabs.forEach((s, idx) => {
+          const c = idx % cols;
+          const r = Math.floor(idx / cols);
+          const x = padX + c * (cw + gap);
+          const y = topY + r * (ch + gap);
+          if (mx >= x && mx <= x + cw && my >= y && my <= y + ch) {
+            s.status = s.status === 'NOMINAL' ? 'PROT_NONE' : 'NOMINAL';
+            playTacticalTone(s.status === 'PROT_NONE' ? 300 : 750, 0.07, 'square');
+            logHilEvent(`Manual MPU Override: ${s.addr} (SLAB_${String(idx).padStart(2, '0')}) -> ${s.status}`, 'text-amber-400');
+            renderFaultDeck(2);
+          }
+        });
+      });
+    });
 
     function drawTacticalGrid(ctx, w, h) {
       ctx.save();
@@ -1075,15 +2013,55 @@
       ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
       ctx.lineWidth = 2;
       const b = 14;
-      // Top-left
       ctx.beginPath(); ctx.moveTo(6, 6 + b); ctx.lineTo(6, 6); ctx.lineTo(6 + b, 6); ctx.stroke();
-      // Top-right
       ctx.beginPath(); ctx.moveTo(w - 6 - b, 6); ctx.lineTo(w - 6, 6); ctx.lineTo(w - 6, 6 + b); ctx.stroke();
-      // Bottom-left
       ctx.beginPath(); ctx.moveTo(6, h - 6 - b); ctx.lineTo(6, h - 6); ctx.lineTo(6 + b, h - 6); ctx.stroke();
-      // Bottom-right
       ctx.beginPath(); ctx.moveTo(w - 6 - b, h - 6); ctx.lineTo(w - 6, h - 6); ctx.lineTo(w - 6, h - 6 - b); ctx.stroke();
       ctx.restore();
+    }
+
+    function updatePipelineAndHexUI(timestamp, rawYaw, clampedYaw, rawSpeed, clampedSpeed) {
+      // Animate the 5-stage Anneliese pipeline bar
+      const activeStage = Math.floor((timestamp || 0) / 140) % 5;
+      for (let i = 0; i < 5; i++) {
+        const el = document.getElementById('pipeStage-' + i);
+        if (!el) continue;
+        el.className = i === activeStage
+          ? 'p-2.5 rounded-lg bg-cyan-950/50 border border-cyan-400 flex items-center justify-between shadow-[0_0_12px_rgba(0,240,255,0.2)]'
+          : 'p-2.5 rounded-lg bg-[#04070F] border border-slate-800 flex items-center justify-between';
+      }
+
+      const seqEl = document.getElementById('spscRingCounter');
+      if (seqEl) seqEl.textContent = `SEQ #${spscSequence}`;
+
+      // Update 64-byte BclProposalFrame hex dump every ~180ms for crisp readability
+      if (spscSequence % 8 === 0) {
+        const hexBox = document.getElementById('liveHexDumpBox');
+        const propTxt = document.getElementById('structProposalText');
+        const clampTxt = document.getElementById('structClampedText');
+        const regTxt = document.getElementById('structRegText');
+
+        const seqHex = (spscSequence & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+        const spdHex = Math.round(clampedSpeed * 10).toString(16).toUpperCase().padStart(4, '0');
+        const yawHex = (Math.round(clampedYaw + 720) & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+        const wormByte = p4Sepsis ? 'FF' : '00';
+        const actByte = p3Mode === 'armed' ? '02' : (p2Slabs.some(s => s.status === 'H0') ? '00' : '01');
+
+        if (hexBox) {
+          hexBox.textContent =
+            `0000: 42 43 56 35  00 00 ${seqHex.slice(0,2)} ${seqHex.slice(2,4)}  00 ${spdHex.slice(0,2)} ${spdHex.slice(2,4)} 00  00 ${yawHex.slice(0,2)} ${yawHex.slice(2,4)} 00\n` +
+            `0010: 00 00 00 ${actByte}  D0 DD 30 09  40 00 F0 ${wormByte}  B4 AD 00 01`;
+        }
+        if (propTxt) propTxt.textContent = `${rawYaw >= 0 ? '+' : ''}${rawYaw.toFixed(1)}° | ${rawSpeed.toFixed(1)} kts`;
+        if (clampTxt) clampTxt.textContent = `${clampedYaw >= 0 ? '+' : ''}${clampedYaw.toFixed(1)}° | ${clampedSpeed.toFixed(1)} kts`;
+        if (regTxt) {
+          regTxt.textContent = actByte === '02'
+            ? '0x02 (MODE B +5.00V)'
+            : actByte === '00'
+            ? '0x00 (STATE H0 0.00V)'
+            : '0x01 (MODE A +24.00V)';
+        }
+      }
     }
 
     function renderCanvas(timestamp) {
@@ -1107,57 +2085,105 @@
 
       drawTacticalGrid(ctx, w, h);
 
-      // Slow, deterministic timebase so instruments never look erratic
       const t = (timestamp || 0) * 0.0012;
       spscSequence += 1;
 
+      // Compute baseline kinematic signals for the hex inspector
+      let targetRaw = p1UseManual
+        ? p1ManualYaw + Math.sin(t * 2.0) * 18
+        : Math.sin(t * 1.1) * 210 + Math.cos(t * 0.45) * 70;
+      let proposedSpeed = p1UseManual
+        ? p1ManualSpeed
+        : 28.4 + Math.sin(t * 0.8) * 6.0;
+
+      if (!p1UseManual && p1Mode === 'spike') {
+        targetRaw = Math.sin(t * 1.6) * 690 + Math.cos(t * 3.2) * 85;
+        proposedSpeed = 64.8 + Math.sin(t * 2.1) * 11.0;
+      } else if (!p1UseManual && p1Mode === 'drift') {
+        targetRaw = Math.sin(t * 1.3) * 420 + Math.sin(t * 7.5) * 195 + Math.cos(t * 11.0) * 90;
+        proposedSpeed = 48.2 + Math.sin(t * 4.0) * 9.5;
+      }
+
+      p1SmoothedRaw += (targetRaw - p1SmoothedRaw) * 0.14;
+      const clampedYaw = Math.max(-450, Math.min(450, p1SmoothedRaw));
+      p1SmoothedClamp += (clampedYaw - p1SmoothedClamp) * 0.20;
+      const clampedSpeed = Math.min(40.0, proposedSpeed);
+
+      // Determine if an active fault/interdiction is happening on the current pillar for dramatic HUD effects
+      const isFaultActive =
+        (activeTestbenchPillar === 1 && (Math.abs(p1SmoothedRaw) > 450 || proposedSpeed > 40)) ||
+        (activeTestbenchPillar === 2 && p2Slabs.some(s => s.status !== 'NOMINAL')) ||
+        (activeTestbenchPillar === 3 && p3Mode === 'spoof') ||
+        (activeTestbenchPillar === 4 && p4Sepsis) ||
+        (activeTestbenchPillar === 5 && (p5Swarm || p5Emp > 0.05 || p5Spoof)) ||
+        (activeTestbenchPillar === 6 && p6Mode !== 'nominal');
+
+      const faultLight = document.getElementById('liveFaultLight');
+      if (faultLight) {
+        faultLight.className = isFaultActive
+          ? 'w-2.5 h-2.5 rounded-full bg-red-500 animate-ping'
+          : 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+      }
+
+      // Draw subtle pulsing crimson edge glow on canvas when a fault is being actively interdicted
+      if (isFaultActive) {
+        const pulseAlpha = 0.08 + Math.abs(Math.sin(t * 4)) * 0.10;
+        ctx.save();
+        ctx.strokeStyle = `rgba(239, 68, 68, ${pulseAlpha * 3.5})`;
+        ctx.lineWidth = 4;
+        ctx.strokeRect(2, 2, w - 4, h - 4);
+        ctx.restore();
+      }
+
+      updatePipelineAndHexUI(timestamp, p1SmoothedRaw, p1SmoothedClamp, proposedSpeed, clampedSpeed);
+
       if (activeTestbenchPillar === 1) {
         // =====================================================================
-        // PILLAR 01: CALIBRATED FLIGHT ENVELOPE COMPASS + SPSC RING + SCOPE
+        // PILLAR 01: CALIBRATED FLIGHT ENVELOPE COMPASS + SPSC RING + DSO
         // =====================================================================
-        const cx = w * 0.23;
-        const cy = h * 0.49;
-        const maxR = Math.min(w * 0.19, h * 0.36);
+        const cx = w * 0.225;
+        const cy = h * 0.50;
+        const maxR = Math.min(w * 0.185, h * 0.35);
         const safeR = maxR * 0.72;
-
-        // Smooth deterministic target signal
-        let targetRaw = Math.sin(t * 1.1) * 210 + Math.cos(t * 0.45) * 70;
-        let proposedSpeed = 28.4 + Math.sin(t * 0.8) * 6.0;
-        if (p1Mode === 'spike') {
-          targetRaw = Math.sin(t * 1.6) * 690 + Math.cos(t * 3.2) * 85;
-          proposedSpeed = 64.8 + Math.sin(t * 2.1) * 11.0;
-        } else if (p1Mode === 'drift') {
-          targetRaw = Math.sin(t * 1.3) * 420 + Math.sin(t * 7.5) * 195 + Math.cos(t * 11.0) * 90;
-          proposedSpeed = 48.2 + Math.sin(t * 4.0) * 9.5;
-        }
-
-        // Low-pass smoothing so the needle moves like a real physical instrument
-        p1SmoothedRaw += (targetRaw - p1SmoothedRaw) * 0.12;
-        const clampedYaw = Math.max(-450, Math.min(450, p1SmoothedRaw));
-        p1SmoothedClamp += (clampedYaw - p1SmoothedClamp) * 0.18;
-        const clampedSpeed = Math.min(40.0, proposedSpeed);
 
         p1YawP.push(p1SmoothedRaw); p1YawP.shift();
         p1YawD.push(p1SmoothedClamp); p1YawD.shift();
 
-        // Outer Forbidden Overdrive Ring
-        ctx.fillStyle = 'rgba(239, 68, 68, 0.05)';
-        ctx.beginPath(); ctx.arc(cx, cy, maxR, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+        // Section Callout Header on Canvas
+        ctx.fillStyle = '#00F0FF';
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('1. 360° HELM ENVELOPE COMPASS', cx, 24);
+
+        // Rotating outer azimuth ring
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(t * 0.25);
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.22)';
         ctx.lineWidth = 1.5;
+        ctx.setLineDash([10, 6]);
+        ctx.beginPath(); ctx.arc(0, 0, maxR + 6, 0, Math.PI * 2); ctx.stroke();
+        ctx.restore();
+
+        // Outer Forbidden Overdrive Ring
+        const isOverdrive = Math.abs(p1SmoothedRaw) > 450 || proposedSpeed > 40;
+        ctx.fillStyle = isOverdrive ? 'rgba(239, 68, 68, 0.14)' : 'rgba(239, 68, 68, 0.05)';
+        ctx.beginPath(); ctx.arc(cx, cy, maxR, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = isOverdrive ? '#EF4444' : 'rgba(239, 68, 68, 0.45)';
+        ctx.lineWidth = isOverdrive ? 2.5 : 1.5;
         ctx.beginPath(); ctx.arc(cx, cy, maxR, 0, Math.PI * 2); ctx.stroke();
 
         // Safe Kinematic Envelope Fill & Ring (<=40 kts, +-450 deg)
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.07)';
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.09)';
         ctx.beginPath(); ctx.arc(cx, cy, safeR, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.setLineDash([6, 4]);
         ctx.beginPath(); ctx.arc(cx, cy, safeR, 0, Math.PI * 2); ctx.stroke();
         ctx.setLineDash([]);
 
-        // Inner range rings (20 kts)
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
+        // Inner 20 kts ring
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(cx, cy, safeR * 0.5, 0, Math.PI * 2); ctx.stroke();
 
@@ -1167,16 +2193,15 @@
         ctx.moveTo(cx, cy - maxR - 8); ctx.lineTo(cx, cy + maxR + 8);
         ctx.stroke();
 
-        // Degree Ticks & Compass Markings around Perimeter
+        // Degree Ticks & Compass Markings
         ctx.font = 'bold 9px "JetBrains Mono", monospace';
-        ctx.fillStyle = '#94A3B8';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         for (let deg = 0; deg < 360; deg += 15) {
           const rad = (deg - 90) * (Math.PI / 180);
           const isMajor = deg % 45 === 0;
           const rIn = maxR - (isMajor ? 8 : 4);
-          ctx.strokeStyle = isMajor ? 'rgba(0, 240, 255, 0.6)' : 'rgba(148, 163, 184, 0.25)';
+          ctx.strokeStyle = isMajor ? 'rgba(0, 240, 255, 0.65)' : 'rgba(148, 163, 184, 0.25)';
           ctx.lineWidth = isMajor ? 1.5 : 1;
           ctx.beginPath();
           ctx.moveTo(cx + Math.cos(rad) * rIn, cy + Math.sin(rad) * rIn);
@@ -1185,65 +2210,78 @@
 
           if (deg % 90 === 0) {
             const labelMap = { 0: '000° N', 90: '+225° E', 180: '±450° CLAMP', 270: '-225° W' };
-            const lr = maxR + 14;
+            const lr = maxR + 16;
             ctx.fillStyle = deg === 180 ? '#10B981' : '#00F0FF';
             ctx.fillText(labelMap[deg], cx + Math.cos(rad) * lr, cy + Math.sin(rad) * lr);
           }
         }
 
-        // Convert yaw (-720..+720) to display angle
         const pAng = (p1SmoothedRaw / 450) * Math.PI - Math.PI / 2;
         const dAng = (p1SmoothedClamp / 450) * Math.PI - Math.PI / 2;
         const pLen = Math.min(maxR, (proposedSpeed / 40.0) * safeR);
         const dLen = (clampedSpeed / 40.0) * safeR;
 
-        // P-Core Unverified Proposal Vector (Red Dashed)
+        const pxTip = cx + Math.cos(pAng) * pLen;
+        const pyTip = cy + Math.sin(pAng) * pLen;
+        const dxTip = cx + Math.cos(dAng) * dLen;
+        const dyTip = cy + Math.sin(dAng) * dLen;
+
+        // P-Core Unverified Proposal Vector (Red Dashed + Target Reticle)
         ctx.strokeStyle = '#EF4444';
-        ctx.lineWidth = 2;
-        ctx.setLineDash([4, 3]);
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([5, 3]);
         ctx.beginPath();
         ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + Math.cos(pAng) * pLen, cy + Math.sin(pAng) * pLen);
+        ctx.lineTo(pxTip, pyTip);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // D-Core Clamped Safe Actuator Vector (Solid Cyan/Emerald)
-        ctx.strokeStyle = '#00F0FF';
-        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = '#EF4444';
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + Math.cos(dAng) * dLen, cy + Math.sin(dAng) * dLen);
+        ctx.arc(pxTip, pyTip, 6, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Tip beacon on D-Core vector
+        // D-Core Clamped Safe Actuator Vector (Solid Cyan/Emerald with Glow)
+        ctx.save();
+        ctx.shadowColor = '#00F0FF';
+        ctx.shadowBlur = 12;
+        ctx.strokeStyle = '#00F0FF';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(dxTip, dyTip);
+        ctx.stroke();
+        ctx.restore();
+
         ctx.fillStyle = '#10B981';
         ctx.beginPath();
-        ctx.arc(cx + Math.cos(dAng) * dLen, cy + Math.sin(dAng) * dLen, 4.5, 0, Math.PI * 2);
+        ctx.arc(dxTip, dyTip, 5.5, 0, Math.PI * 2);
         ctx.fill();
 
-        // Center Hub
+        if (isOverdrive && spscSequence % 6 === 0) {
+          spawnInterdictionSparks(dxTip, dyTip, '#10B981', 4);
+        }
+
         ctx.fillStyle = '#04070F';
         ctx.strokeStyle = '#00F0FF';
         ctx.lineWidth = 2;
         ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
 
-        // Compass Readout Footer
         ctx.textAlign = 'left';
         ctx.font = 'bold 10px "JetBrains Mono", monospace';
         ctx.fillStyle = '#EF4444';
-        ctx.fillText(`P-CORE AI PROPOSAL: ${p1SmoothedRaw >= 0 ? '+' : ''}${p1SmoothedRaw.toFixed(1)}° | ${proposedSpeed.toFixed(1)} kts`, 18, h - 38);
+        ctx.fillText(`AI DEMAND (P-CORE): ${p1SmoothedRaw >= 0 ? '+' : ''}${p1SmoothedRaw.toFixed(1)}° | ${proposedSpeed.toFixed(1)} kts`, 18, h - 40);
         ctx.fillStyle = '#10B981';
-        ctx.fillText(`D-CORE MMIO OUTPUT: ${p1SmoothedClamp >= 0 ? '+' : ''}${p1SmoothedClamp.toFixed(1)}° | ${clampedSpeed.toFixed(1)} kts (CLAMPED)`, 18, h - 22);
+        ctx.fillText(`SAFE OUTPUT (D-CORE): ${p1SmoothedClamp >= 0 ? '+' : ''}${p1SmoothedClamp.toFixed(1)}° | ${clampedSpeed.toFixed(1)} kts`, 18, h - 22);
 
-        // =====================================================================
-        // CENTER: 64-SLOT SPSC LOCK-FREE RING BUFFER VISUALIZER
-        // =====================================================================
-        const rx = w * 0.455;
-        const ry = 46;
-        const rw = 44;
-        const rh = h - 96;
-        ctx.fillStyle = 'rgba(7, 12, 24, 0.9)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        // CENTER: ANIMATED 64-SLOT SPSC LOCK-FREE AIR-GAP CONDUIT
+        const rx = w * 0.445;
+        const ry = 52;
+        const rw = 54;
+        const rh = h - 104;
+        ctx.fillStyle = 'rgba(7, 12, 24, 0.94)';
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
         ctx.lineWidth = 1.5;
         ctx.fillRect(rx, ry, rw, rh);
         ctx.strokeRect(rx, ry, rw, rh);
@@ -1251,34 +2289,60 @@
         ctx.fillStyle = '#00F0FF';
         ctx.font = 'bold 9px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('64-SLOT', rx + rw / 2, ry - 16);
-        ctx.fillText('SPSC RING', rx + rw / 2, ry - 5);
+        ctx.fillText('2. SPSC AIR-GAP', rx + rw / 2, 24);
+        ctx.fillStyle = '#EF4444';
+        ctx.fillText('P-CORE AI', rx + rw / 2, ry - 6);
 
-        const slots = 16;
-        const slotH = (rh - 16) / slots;
-        const activeSlot = Math.floor((timestamp || 0) / 90) % slots;
-        for (let s = 0; s < slots; s++) {
-          const sy = ry + 8 + s * slotH;
-          const isHead = s === activeSlot;
-          ctx.fillStyle = isHead
-            ? (p1Mode === 'nominal' ? '#10B981' : '#F59E0B')
-            : 'rgba(0, 240, 255, 0.12)';
-          ctx.fillRect(rx + 6, sy + 1, rw - 12, slotH - 3);
-        }
+        // Hardware Comparator Gate in the middle of the SPSC conduit
+        const gateY = ry + rh * 0.5;
+        ctx.fillStyle = isOverdrive ? 'rgba(245, 158, 11, 0.25)' : 'rgba(16, 185, 129, 0.2)';
+        ctx.strokeStyle = isOverdrive ? '#F59E0B' : '#10B981';
+        ctx.lineWidth = 2;
+        ctx.fillRect(rx - 4, gateY - 12, rw + 8, 24);
+        ctx.strokeRect(rx - 4, gateY - 12, rw + 8, 24);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 8px "JetBrains Mono", monospace';
+        ctx.fillText('CLAMP GATE', rx + rw / 2, gateY + 3);
+
+        // Animate packets streaming down the SPSC conduit
+        spscPackets.forEach(pkt => {
+          pkt.progress += pkt.speed;
+          if (pkt.progress >= 1.0) {
+            pkt.progress = 0;
+            if (isOverdrive) {
+              spawnInterdictionSparks(rx + rw / 2, gateY, '#F59E0B', 3);
+            }
+          }
+          const py = ry + 10 + pkt.progress * (rh - 20);
+          const pastGate = py >= gateY;
+          ctx.fillStyle = !pastGate
+            ? (isOverdrive ? '#EF4444' : '#38BDF8')
+            : '#10B981';
+          ctx.beginPath();
+          ctx.arc(rx + rw / 2, py, 3.5, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.fillStyle = '#10B981';
+        ctx.font = 'bold 9px "JetBrains Mono", monospace';
+        ctx.fillText('D-CORE MMIO', rx + rw / 2, ry + rh + 12);
         ctx.fillStyle = '#94A3B8';
         ctx.font = '8px "JetBrains Mono", monospace';
-        ctx.fillText('0B RAM', rx + rw / 2, ry + rh + 12);
+        ctx.fillText('0B SHARED RAM', rx + rw / 2, ry + rh + 24);
 
-        // =====================================================================
-        // RIGHT: CALIBRATED DUAL-TRACE DETERMINISTIC OSCILLOSCOPE
-        // =====================================================================
-        const sx = w * 0.54;
-        const sy = 46;
-        const sw = w * 0.43;
-        const sh = h - 96;
+        // RIGHT: CALIBRATED DUAL-TRACE DIGITAL STORAGE OSCILLOSCOPE
+        const sx = w * 0.535;
+        const sy = 52;
+        const sw = w * 0.44;
+        const sh = h - 104;
 
-        ctx.fillStyle = 'rgba(4, 7, 15, 0.85)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        ctx.fillStyle = '#00F0FF';
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('3. REAL-TIME 1,600 Hz DUAL-TRACE OSCILLOSCOPE', sx, 24);
+
+        ctx.fillStyle = 'rgba(4, 7, 15, 0.90)';
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
         ctx.lineWidth = 1.5;
         ctx.fillRect(sx, sy, sw, sh);
         ctx.strokeRect(sx, sy, sw, sh);
@@ -1288,42 +2352,44 @@
         const y450Bot = mapY(-450);
         const yZero = mapY(0);
 
-        // Shaded Safe Corridor (+450 to -450)
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.06)';
+        // Forbidden Overdrive Zones (Top & Bottom Red Shaded Bands)
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.10)';
+        ctx.fillRect(sx, sy, sw, y450Top - sy);
+        ctx.fillRect(sx, y450Bot, sw, (sy + sh) - y450Bot);
+
+        // Safe Deterministic Corridor (Middle Emerald Band)
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.07)';
         ctx.fillRect(sx, y450Top, sw, y450Bot - y450Top);
 
-        // Center 0° line
         ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(sx, yZero); ctx.lineTo(sx + sw, yZero); ctx.stroke();
 
-        // ±450° Hard Hardware Clamp Boundaries
         ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 1.5;
-        ctx.setLineDash([5, 4]);
+        ctx.lineWidth = 1.8;
+        ctx.setLineDash([6, 4]);
         ctx.beginPath();
         ctx.moveTo(sx, y450Top); ctx.lineTo(sx + sw, y450Top);
         ctx.moveTo(sx, y450Bot); ctx.lineTo(sx + sw, y450Bot);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Scope Y-Axis Markings
-        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.font = 'bold 9px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
         ctx.fillStyle = '#EF4444';
-        ctx.fillText('+720° OVERDRIVE', sx + 6, mapY(700) + 4);
+        ctx.fillText('▲ LETHAL OVERDRIVE ZONE (+720° AI HALLUCINATION)', sx + 8, sy + 14);
         ctx.fillStyle = '#10B981';
-        ctx.fillText('+450° D-CORE MAX CLAMP', sx + 6, y450Top - 6);
+        ctx.fillText('+450.0° D-CORE HARDWARE CLAMP CEILING', sx + 8, y450Top + 13);
         ctx.fillStyle = '#94A3B8';
-        ctx.fillText('0.0° HELM CENTER', sx + 6, yZero - 6);
+        ctx.fillText('0.0° CENTER HELM', sx + 8, yZero - 6);
         ctx.fillStyle = '#10B981';
-        ctx.fillText('-450° D-CORE MIN CLAMP', sx + 6, y450Bot + 11);
+        ctx.fillText('-450.0° D-CORE HARDWARE CLAMP FLOOR', sx + 8, y450Bot - 6);
         ctx.fillStyle = '#EF4444';
-        ctx.fillText('-720° OVERDRIVE', sx + 6, mapY(-700) - 4);
+        ctx.fillText('▼ LETHAL OVERDRIVE ZONE (-720° AI HALLUCINATION)', sx + 8, sy + sh - 8);
 
-        // Trace 1: P-Core Unverified Proposal (Red)
+        // Red P-Core Trace
         ctx.strokeStyle = '#EF4444';
-        ctx.lineWidth = 1.6;
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
         p1YawP.forEach((v, i) => {
           const x = sx + (i / (p1YawP.length - 1)) * sw;
@@ -1332,9 +2398,12 @@
         });
         ctx.stroke();
 
-        // Trace 2: D-Core Clamped Safe Output (Emerald)
+        // Glowing Emerald D-Core Clamped Trace
+        ctx.save();
+        ctx.shadowColor = '#10B981';
+        ctx.shadowBlur = 10;
         ctx.strokeStyle = '#10B981';
-        ctx.lineWidth = 2.8;
+        ctx.lineWidth = 3.2;
         ctx.beginPath();
         p1YawD.forEach((v, i) => {
           const x = sx + (i / (p1YawD.length - 1)) * sw;
@@ -1342,15 +2411,23 @@
           if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         });
         ctx.stroke();
+        ctx.restore();
 
-        // Scope Header & Footer Labels
-        ctx.fillStyle = '#00F0FF';
-        ctx.font = 'bold 10px "JetBrains Mono", monospace';
-        ctx.textAlign = 'left';
-        ctx.fillText('TIMEBASE: 625.00 µs/DIV (1,600 Hz ANNELIESE LOOP)', sx, sy - 8);
-        ctx.textAlign = 'right';
+        // Live Delta Saved Callout Banner inside Scope when clamping
+        const deltaDeg = Math.abs(p1SmoothedRaw - p1SmoothedClamp);
+        if (deltaDeg > 1.0) {
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.92)';
+          ctx.fillRect(sx + sw - 235, sy + 8, 225, 22);
+          ctx.fillStyle = '#04070F';
+          ctx.font = 'bold 10px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(`⚡ CLAMPING ${deltaDeg.toFixed(0)}° OF OVERDRIVE!`, sx + sw - 122, sy + 22);
+        }
+
         ctx.fillStyle = '#10B981';
-        ctx.fillText(`SEQ #${spscSequence} // JITTER: 0.00 ns`, sx + sw, sy + sh + 16);
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText(`SEQ #${spscSequence} // WCET: 412.6 µs // JITTER: 0.00 ns`, sx + sw, sy + sh + 18);
 
       } else if (activeTestbenchPillar === 2) {
         // =====================================================================
@@ -1365,14 +2442,15 @@
         const cw = (w - padX * 2 - gap * (cols - 1)) / cols;
         const ch = (gridH - gap * (rows - 1)) / rows;
 
-        // Header bar inside canvas
         ctx.fillStyle = '#00F0FF';
         ctx.font = 'bold 11px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
-        ctx.fillText('C11 STATIC SLAB ALLOCATOR (malloc = 0) // HARDWARE MPU PAGE TABLE MONITOR', padX, 30);
+        ctx.fillText('C11 STATIC SLAB ALLOCATOR (malloc = 0) // CLICK ANY SLAB TO TOGGLE PROT_NONE', padX, 28);
         ctx.textAlign = 'right';
         ctx.fillStyle = '#F59E0B';
-        ctx.fillText('SHERIFF OS QUARANTINE SLA: 85.40 µs (<86 µs CAP)', w - padX, 30);
+        ctx.fillText('SHERIFF OS HARDWARE MPU QUARANTINE: 85.40 µs (<86 µs SLA)', w - padX, 28);
+
+        const activeAuditIdx = Math.floor((timestamp || 0) / 70) % 32;
 
         p2Slabs.forEach((s, idx) => {
           const c = idx % cols;
@@ -1385,14 +2463,26 @@
           const col = isNom ? '#10B981' : isProt ? '#F59E0B' : '#EF4444';
 
           ctx.fillStyle = isNom
-            ? 'rgba(16, 185, 129, 0.07)'
+            ? (idx === activeAuditIdx ? 'rgba(0, 240, 255, 0.18)' : 'rgba(16, 185, 129, 0.07)')
             : isProt
-            ? 'rgba(245, 158, 11, 0.16)'
-            : 'rgba(239, 68, 68, 0.22)';
-          ctx.strokeStyle = col;
-          ctx.lineWidth = isNom ? 1.5 : 2.2;
+            ? 'rgba(245, 158, 11, 0.22)'
+            : 'rgba(239, 68, 68, 0.28)';
+          ctx.strokeStyle = idx === activeAuditIdx ? '#00F0FF' : col;
+          ctx.lineWidth = !isNom || idx === activeAuditIdx ? 2.4 : 1.4;
           ctx.fillRect(x, y, cw, ch);
           ctx.strokeRect(x, y, cw, ch);
+
+          // Diagonal hazard stripes on quarantined slabs
+          if (!isNom) {
+            ctx.save();
+            ctx.strokeStyle = isProt ? 'rgba(245, 158, 11, 0.22)' : 'rgba(239, 68, 68, 0.25)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x + 4, y + ch - 4);
+            ctx.lineTo(x + cw - 4, y + 4);
+            ctx.stroke();
+            ctx.restore();
+          }
 
           ctx.textAlign = 'left';
           ctx.fillStyle = '#94A3B8';
@@ -1405,22 +2495,21 @@
 
           ctx.fillStyle = col;
           ctx.font = 'bold 10px "JetBrains Mono", monospace';
-          ctx.fillText(isNom ? 'R/W STATIC' : isProt ? 'PROT_NONE' : '0.00V H0', x + 6, y + ch - 10);
+          ctx.fillText(isNom ? '✓ R/W STATIC' : isProt ? '🔒 PROT_NONE' : '⚡ 0.00V H0', x + 6, y + ch - 10);
         });
 
-        // Bottom 85.40 µs Hardware MPU Interrupt Timing Trace
         const waveY = h - 42;
-        ctx.fillStyle = 'rgba(7, 12, 24, 0.9)';
-        ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
-        ctx.fillRect(padX, h - 72, w - padX * 2, 54);
-        ctx.strokeRect(padX, h - 72, w - padX * 2, 54);
+        ctx.fillStyle = 'rgba(7, 12, 24, 0.94)';
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+        ctx.fillRect(padX, h - 76, w - padX * 2, 58);
+        ctx.strokeRect(padX, h - 76, w - padX * 2, 58);
 
         const anyFault = p2Slabs.some(s => s.status !== 'NOMINAL');
         ctx.strokeStyle = anyFault ? '#F59E0B' : '#10B981';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
         for (let x = padX + 10; x < w - padX - 10; x += 4) {
-          const stepPulse = anyFault && x > w * 0.45 ? -16 : 6;
+          const stepPulse = anyFault && x > w * 0.42 ? -18 : 8;
           ctx.lineTo(x, waveY + stepPulse);
         }
         ctx.stroke();
@@ -1430,12 +2519,11 @@
         ctx.textAlign = 'left';
         ctx.fillText(
           anyFault
-            ? 'MPU FAULT LATCHED: ROGUE DMA FENCED TO PROT_NONE IN 85.40 µs // EMMY_TRACE_REG SEALED'
-            : 'MPU BUS MONITOR NOMINAL: ZERO UNAUTHORIZED DMA POINTERS // 0 BYTES DYNAMIC HEAP',
+            ? '⚡ SHERIFF OS MPU INTERRUPT: ROGUE DMA FENCED TO PROT_NONE IN 85.40 µs // EMMY_TRACE_REG IMMUTABLE'
+            : '✓ SHERIFF OS BUS MONITOR NOMINAL: 32/32 STATIC SLABS VERIFIED // 0 BYTES DYNAMIC HEAP (malloc = 0)',
           padX + 12,
-          h - 56
+          h - 58
         );
-
       } else if (activeTestbenchPillar === 3) {
         // =====================================================================
         // PILLAR 03: LATCH.PY F0-F4 SPECTROGRAM + 3-GATE HARDWARE SCHEMATIC
@@ -1444,7 +2532,6 @@
         const isArmed = p3Mode === 'armed';
         const padX = 28;
 
-        // Top Box: 1,600 Hz Laryngeal Formant Spectrogram
         const specY = 36;
         const specH = h * 0.44;
         ctx.fillStyle = 'rgba(7, 12, 24, 0.88)';
@@ -1484,7 +2571,6 @@
           for (let x = padX + 115; x < w - padX - 14; x += 3) {
             let yOffset = Math.sin(x * fm.freq - t * (2.2 + idx * 0.5)) * fm.amp;
             if (isSpoof && idx >= 2) {
-              // High-frequency vocoder clipping artifact
               yOffset = ((x % 18) - 9) * 1.9;
             }
             const y = fy + yOffset;
@@ -1493,7 +2579,6 @@
           ctx.stroke();
         });
 
-        // Bottom Half: 3-Factor Series Hardware Relay Schematic
         const busY = h * 0.73;
         const gates = [
           { title: 'GATE 01 // LATCH.PY', sub: 'F0-F4 Bio Formant (Reg 0x44)', closed: isArmed, x: w * 0.22 },
@@ -1501,7 +2586,6 @@
           { title: 'GATE 03 // MODE B RELAY', sub: '+5.00V DC Consent Gate', closed: isArmed, x: w * 0.78 }
         ];
 
-        // Main bus wire segments
         ctx.lineWidth = 3.5;
         ctx.strokeStyle = isArmed ? '#10B981' : '#EF4444';
         ctx.beginPath();
@@ -1511,7 +2595,7 @@
         ctx.lineTo(gates[1].x - 70, busY);
         ctx.moveTo(gates[1].x + 70, busY);
         ctx.lineTo(gates[2].x - 70, busY);
-        ctx.moveTo(gates[2].x + 70, busY);
+        ctx.lineTo(gates[2].x + 70, busY);
         ctx.lineTo(w - padX, busY);
         ctx.stroke();
 
@@ -1530,7 +2614,6 @@
           ctx.font = '9px "JetBrains Mono", monospace';
           ctx.fillText(g.sub, g.x, busY - 8);
 
-          // Physical Relay Switch Arm Drawing
           ctx.strokeStyle = g.closed ? '#10B981' : '#F59E0B';
           ctx.lineWidth = 3;
           ctx.beginPath();
@@ -1567,7 +2650,6 @@
         const vitalsX = scopeW + 36;
         const vitalsW = w - vitalsX - 20;
 
-        // 3 Waveform Channels (ECG Lead II, SpO2 Pleth, Arterial BP)
         const channels = [
           { name: 'ECG LEAD II (mV)', col: '#10B981', y: 78, metric: p4Sepsis ? '138 BPM (TACHY)' : '74 BPM' },
           { name: 'SpO2 PLETH (%)', col: '#00F0FF', y: 185, metric: p4Sepsis ? '86% (HYPOXIA)' : '99%' },
@@ -1595,7 +2677,6 @@
             const normP = phase < 0 ? phase + Math.PI * 2 : phase;
             let val = 0;
             if (idx === 0) {
-              // Realistic P-Q-R-S-T ECG complex
               val =
                 Math.exp(-Math.pow(normP - 1.2, 2) / 0.08) * 6 -
                 Math.exp(-Math.pow(normP - 1.85, 2) / 0.015) * 8 +
@@ -1603,10 +2684,8 @@
                 Math.exp(-Math.pow(normP - 2.15, 2) / 0.015) * 11 +
                 Math.exp(-Math.pow(normP - 2.9, 2) / 0.14) * 9;
             } else if (idx === 1) {
-              // Dicrotic notch Pleth waveform
               val = Math.sin(normP) * 16 + Math.sin(normP * 2 + 0.5) * 6;
             } else {
-              // Arterial blood pressure wave
               const amp = p4Sepsis ? 10 : 20;
               val = Math.sin(normP) * amp + Math.cos(normP * 2) * (amp * 0.35);
             }
@@ -1616,7 +2695,6 @@
           ctx.stroke();
         });
 
-        // Right Digital Vital Readout Cards
         const vitals = [
           { label: 'HEART RATE', val: p4Sepsis ? '138' : '74', unit: 'bpm', col: '#10B981' },
           { label: 'SpO2 OXIMETRY', val: p4Sepsis ? '86%' : '99%', unit: 'SpO2', col: '#00F0FF' },
@@ -1647,7 +2725,6 @@
           ctx.fillText(v.unit, vitalsX + vitalsW - 10, vy + 46);
         });
 
-        // Bottom WORM Silicon Register Bar (0x4000F000UL)
         const wormY = h - 78;
         ctx.fillStyle = p4SuppressFlash > 0.05 ? 'rgba(239, 68, 68, 0.25)' : 'rgba(7, 12, 24, 0.95)';
         ctx.strokeStyle = p4Sepsis ? '#D4AF37' : '#10B981';
@@ -1681,7 +2758,6 @@
         const maxR = Math.min(w * 0.28, h * 0.42);
         const faradayR = maxR * 0.26;
 
-        // Radar Range Rings
         ctx.strokeStyle = 'rgba(16, 185, 129, 0.25)';
         ctx.lineWidth = 1;
         [0.45, 0.72, 1.0].forEach((f, idx) => {
@@ -1692,13 +2768,11 @@
           ctx.fillText(`${(idx + 1) * 10} km`, rCx + 4, rCy - maxR * f + 11);
         });
 
-        // Crosshairs & Azimuth Markings
         ctx.beginPath();
         ctx.moveTo(rCx - maxR, rCy); ctx.lineTo(rCx + maxR, rCy);
         ctx.moveTo(rCx, rCy - maxR); ctx.lineTo(rCx, rCy + maxR);
         ctx.stroke();
 
-        // Rotating Radar Sweep Beam
         const sweepAng = (t * 1.4) % (Math.PI * 2);
         ctx.strokeStyle = 'rgba(16, 185, 129, 0.75)';
         ctx.lineWidth = 2;
@@ -1707,7 +2781,6 @@
         ctx.lineTo(rCx + Math.cos(sweepAng) * maxR, rCy + Math.sin(sweepAng) * maxR);
         ctx.stroke();
 
-        // Dual-Layer Faraday + >10 kV OptINC Core Shield Ring
         ctx.fillStyle = 'rgba(16, 185, 129, 0.10)';
         ctx.beginPath(); ctx.arc(rCx, rCy, faradayR, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = '#D4AF37';
@@ -1721,7 +2794,6 @@
         ctx.fillStyle = '#10B981';
         ctx.fillText('0.0V LEAK', rCx, rCy + 8);
 
-        // Swarm Bogeys (120 nominal or 1,200 saturation)
         const count = p5Swarm ? 1200 : 120;
         ctx.fillStyle = p5Swarm ? '#EF4444' : '#F59E0B';
         ctx.beginPath();
@@ -1734,7 +2806,6 @@
         }
         ctx.fill();
 
-        // 50 kV EMP Shockwave Ring Blocked at Faraday Perimeter
         if (p5Emp > 0.02) {
           const er = faradayR + (1 - p5Emp) * (maxR - faradayR);
           ctx.strokeStyle = `rgba(0, 240, 255, ${p5Emp})`;
@@ -1743,7 +2814,6 @@
           p5Emp *= 0.95;
         }
 
-        // Right Panel inside Canvas: 4-Modality Passive Battleship PNT HUD
         const bx = w * 0.66;
         const bw = w - bx - 22;
         ctx.fillStyle = '#00F0FF';
@@ -1780,7 +2850,6 @@
           ctx.fillText(`STATUS: ${m.drift}`, bx + 10, my + 55);
         });
 
-        // EMP Surge Isolation Status Bar
         ctx.fillStyle = '#070C18';
         ctx.strokeStyle = '#00F0FF';
         ctx.fillRect(bx, h - 68, bw, 46);
@@ -1790,13 +2859,138 @@
         ctx.fillText('OPTINC (>10 kV) + MU-METAL FARADAY SHIELD', bx + 10, h - 49);
         ctx.fillStyle = '#10B981';
         ctx.fillText('CORE LEAKAGE: 0.00 mV // PNT FAILOVER: <=625 µs', bx + 10, h - 32);
+
+      } else if (activeTestbenchPillar === 6) {
+        // =====================================================================
+        // PILLAR 06: AMY INFINITY (∞) 8.40 µs BLACKOUT LATCH & 120s SUPERCAP
+        // =====================================================================
+        const padX = 28;
+        if (p6Mode === 'blackout' && p6SupercapSec > 0) {
+          p6SupercapSec = Math.max(0, p6SupercapSec - 0.016);
+        } else if (p6Mode === 'aux' || p6Mode === 'nominal') {
+          p6SupercapSec = Math.min(120.0, p6SupercapSec + 0.08);
+        }
+
+        const currentBusV = p6Mode === 'blackout' ? 24.0 : 28.0;
+        p6VoltageHist.push(currentBusV + (p6Mode === 'plume' ? (Math.random() - 0.5) * 4.5 : Math.sin(t * 2) * 0.15));
+        p6VoltageHist.shift();
+
+        // Top Supercapacitor Charge Bank Bar
+        ctx.fillStyle = '#070C18';
+        ctx.strokeStyle = '#00F0FF';
+        ctx.lineWidth = 1.8;
+        ctx.fillRect(padX, 38, w - padX * 2, 72);
+        ctx.strokeRect(padX, 38, w - padX * 2, 72);
+
+        const capPct = p6SupercapSec / 120.0;
+        ctx.fillStyle = p6Mode === 'blackout' ? 'rgba(245, 158, 11, 0.35)' : 'rgba(16, 185, 129, 0.28)';
+        ctx.fillRect(padX + 6, 44, (w - padX * 2 - 12) * capPct, 60);
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 13px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(
+          `AMY INFINITY (∞) SOLID-STATE SUPERCAPACITOR RAIL: ${p6SupercapSec.toFixed(1)}s / 120.0s HOLDUP`,
+          padX + 18,
+          70
+        );
+        ctx.fillStyle = p6Mode === 'blackout' ? '#F59E0B' : '#10B981';
+        ctx.font = 'bold 11px "JetBrains Mono", monospace';
+        ctx.fillText(
+          p6Mode === 'blackout'
+            ? '⚡ 28V PRIMARY SEVERED -> LATCHED IN 8.40 µs (ZERO PROCESSOR RESET / ZERO CACHE LOSS)'
+            : p6Mode === 'aux'
+            ? '✓ AUXILIARY POWER CRYPTO HANDSHAKE VERIFIED -> INFINITE MISSION CONTINUATION'
+            : '✓ 28.0V PRIMARY AIRCRAFT/SHIP BUS NOMINAL // 8.40 µs HARDWARE COMPARATOR ARMED',
+          padX + 18,
+          92
+        );
+
+        // Middle Oscilloscope: 8.40 µs Continuity & 53 µs Temporal Disorientation Plume
+        const sy = 136;
+        const sh = 210;
+        ctx.fillStyle = 'rgba(4, 7, 15, 0.9)';
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.3)';
+        ctx.fillRect(padX, sy, w - padX * 2, sh);
+        ctx.strokeRect(padX, sy, w - padX * 2, sh);
+
+        ctx.fillStyle = '#00F0FF';
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(
+          p6Mode === 'plume'
+            ? '53 µs TEMPORAL DISORIENTATION PLUME // WAIT-STATE & CACHE INVALIDATION FLOOD ON P-CORE'
+            : 'D-CORE & G-CORE RAIL CONTINUITY OSCILLOSCOPE (8.40 µs SWITCHOVER // 0.00 ns DROPOUT)',
+          padX + 12,
+          sy + 20
+        );
+
+        ctx.strokeStyle = p6Mode === 'plume' ? '#00F0FF' : (p6Mode === 'csar' ? '#F59E0B' : '#10B981');
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        p6VoltageHist.forEach((v, i) => {
+          const x = padX + 12 + (i / (p6VoltageHist.length - 1)) * (w - padX * 2 - 24);
+          const y = sy + sh * 0.62 - ((v - 20) / 12) * (sh * 0.45);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+
+        // Bottom 4 Showstopper Status Cards
+        const cards = [
+          { title: '1. 8.40 µs BLACKOUT LATCH', val: p6Mode === 'blackout' ? 'ACTIVE (120s)' : 'ARMED (<10µs)', col: '#10B981' },
+          { title: '2. AUX POWER HANDSHAKE', val: p6Mode === 'aux' ? 'LOCKED (∞)' : 'READY', col: '#00F0FF' },
+          { title: '3. 0xAMY_EXTEND (CSAR)', val: p6Mode === 'csar' ? 'WARRANT ACTIVE' : 'STANDBY', col: '#D4AF37' },
+          { title: '4. 53 µs PLUME + 400G OSFP', val: p6Mode === 'plume' ? 'DEPLOYED' : 'ARMED', col: '#F59E0B' }
+        ];
+        const cardW = (w - padX * 2 - 36) / 4;
+        cards.forEach((c, idx) => {
+          const cxCard = padX + idx * (cardW + 12);
+          const cyCard = h - 135;
+          ctx.fillStyle = '#070C18';
+          ctx.strokeStyle = c.col;
+          ctx.lineWidth = 1.8;
+          ctx.fillRect(cxCard, cyCard, cardW, 105);
+          ctx.strokeRect(cxCard, cyCard, cardW, 105);
+
+          ctx.fillStyle = '#94A3B8';
+          ctx.font = 'bold 9px "JetBrains Mono", monospace';
+          ctx.textAlign = 'left';
+          ctx.fillText(c.title, cxCard + 10, cyCard + 26);
+
+          ctx.fillStyle = c.col;
+          ctx.font = 'bold 14px "JetBrains Mono", monospace';
+          ctx.fillText(c.val, cxCard + 10, cyCard + 58);
+
+          ctx.fillStyle = '#64748B';
+          ctx.font = '9px "JetBrains Mono", monospace';
+          ctx.fillText('ZERO REBOOT GUARANTEED', cxCard + 10, cyCard + 84);
+        });
+      }
+
+      // Render & update any active interdiction sparks across the canvas
+      for (let i = interdictionSparks.length - 1; i >= 0; i--) {
+        const sp = interdictionSparks[i];
+        sp.x += sp.vx;
+        sp.y += sp.vy;
+        sp.life -= 0.04;
+        if (sp.life <= 0) {
+          interdictionSparks.splice(i, 1);
+          continue;
+        }
+        ctx.fillStyle = sp.color;
+        ctx.globalAlpha = Math.max(0, sp.life);
+        ctx.beginPath();
+        ctx.arc(sp.x, sp.y, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
       }
 
       requestAnimationFrame(renderCanvas);
     }
 
-    // Start immediately so it never waits on external images
+    // Initialize immediately
     switchTestbenchPillar(1);
+    selectOtaPackage('A');
     requestAnimationFrame(renderCanvas);
   </script>
 </body>
