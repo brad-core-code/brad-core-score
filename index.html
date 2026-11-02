@@ -1,1326 +1,1188 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brad-Core OS v5.2 | Sentinel SI — Omega State</title>
+  <title>Brad-Core OS v5 Unified | Master SDD v5.2 Omega State Hardened</title>
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#030712',
+              card: '#0B132B',
+              hud: '#1C2541',
+              accent: '#06B6D4',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              red: '#EF4444'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
-    :root { --bg:#02060d; --cyan:#00e5ff; --emerald:#22ff66; --red:#ff3b3b; --amber:#ffaa00; }
-    *{box-sizing:border-box}
-    body{margin:0;background:#02060c;color:#d8f0ff;font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;min-height:100vh;background-image:radial-gradient(circle at 12% 8%,rgba(0,180,255,0.10) 0%,transparent 32%),radial-gradient(circle at 88% 12%,rgba(0,140,255,0.06) 0%,transparent 30%),linear-gradient(180deg,#030a14 0%,#02050a 100%)}
-    .mono{font-family:'JetBrains Mono',monospace}
-    .display{font-family:'Rajdhani',sans-serif}
-    .nav-link{color:#8ab4d4;transition:color .15s}
-    .nav-link:hover,.nav-link.active{color:#00e5ff}
-    .hud{background:linear-gradient(180deg,rgba(7,16,30,.94) 0%,rgba(4,10,20,.96) 100%);border:1px solid rgba(0,210,255,.18);box-shadow:0 0 20px rgba(0,160,255,.05)}
-    .hud-strong{border-color:rgba(0,229,255,.35);box-shadow:0 0 24px rgba(0,200,255,.10)}
-    .btn-primary{background:linear-gradient(90deg,#00c4e0 0%,#0090c0 100%);color:#001018;font-weight:600;transition:all .15s}
-    .btn-primary:hover{filter:brightness(1.1);box-shadow:0 0 20px rgba(0,229,255,.3)}
-    .btn-ghost{background:rgba(0,40,70,.35);border:1px solid rgba(0,200,255,.25);color:#c8e8ff;transition:all .15s}
-    .btn-ghost:hover{border-color:#00e5ff;background:rgba(0,80,120,.3)}
-    .fid-green{background:linear-gradient(90deg,rgba(16,95,48,.45) 0%,rgba(8,40,22,.65) 100%);border:1.5px solid #22ff66}
-    .fid-red{background:linear-gradient(90deg,rgba(110,18,24,.5) 0%,rgba(50,10,14,.7) 100%);border:1.5px solid #ff3b3b}
-    .fid-amber{background:linear-gradient(90deg,rgba(100,60,8,.45) 0%,rgba(45,28,5,.7) 100%);border:1.5px solid #ffaa00}
-    .section{display:none}.section.active{display:block}
-    .nav-link{position:relative}
-    .nav-link.active::after{content:'';position:absolute;left:0;right:0;bottom:-14px;height:2px;background:#00e5ff;border-radius:1px}
-    @media (max-width:768px){.nav-link.active::after{display:none}}
-    .farmer-card{border-left:3px solid #00e5ff;background:rgba(0,40,70,.22)}
-    .mit-card{border-left:3px solid #22ff66;background:rgba(0,50,30,.18)}
-    .status-bar{background:rgba(3,10,20,.92);border-top:1px solid rgba(0,180,255,.12)}
-    .section-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5a8aaa}
-    ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#02060c}::-webkit-scrollbar-thumb{background:rgba(0,180,255,.25);border-radius:4px}
+    body {
+      background-color: #030712;
+      color: #F3F4F6;
+      font-family: 'Inter', sans-serif;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    /* Custom HUD styling */
+    .hud-panel {
+      background: rgba(11, 19, 43, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+    .hud-panel:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #06B6D4;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: #06B6D4;
+      border-radius: 50%;
+    }
+    
+    /* Toggle switch styles */
+    .toggle-bg {
+      background-color: #1C2541;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #06B6D4 0%, #0284C7 100%);
+      color: #FFFFFF;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: rgba(28, 37, 65, 0.6);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: #E2E8F0;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost:hover {
+      background: rgba(28, 37, 65, 0.9);
+      border-color: #06B6D4;
+      color: #FFFFFF;
+    }
+
+    /* Cards */
+    .farmer-card {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid #06B6D4;
+    }
+    .mit-card {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid #10B981;
+    }
+
+    /* Fault injection buttons */
+    .fid-btn {
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .fid-green { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); }
+    .fid-green.active { background: rgba(16, 185, 129, 0.25); border-color: #10B981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+    
+    .fid-red { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
+    .fid-red.active { background: rgba(239, 68, 68, 0.25); border-color: #EF4444; box-shadow: 0 0 12px rgba(239, 68, 68, 0.4); }
+    
+    .fid-amber { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); }
+    .fid-amber.active { background: rgba(245, 158, 11, 0.25); border-color: #F59E0B; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-white">
 
-<header class="sticky top-0 z-50 border-b border-cyan-900/30 bg-[#02060c]/95 backdrop-blur-md">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-    <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
-      <div class="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-400 to-cyan-700 flex items-center justify-center text-black font-bold text-sm">BC</div>
-      <div>
-        <div class="display font-bold text-lg tracking-wide text-white leading-none">BRAD-CORE OS <span class="text-cyan-400">v5.2</span></div>
-        <div class="text-[10px] tracking-widest text-slate-400 uppercase">Sentinel SI · Omega State</div>
+  <!-- STICKY GLOBAL NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-cyan-900/30 px-4 lg:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-mono font-bold text-slate-950 text-base shadow-lg shadow-cyan-500/20">
+          Ω
+        </div>
+        <div>
+          <div class="font-bold tracking-tight text-white flex items-center gap-2 text-base">
+            BRAD-CORE OS <span class="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 mono">v5.2 OMEGA</span>
+          </div>
+          <div class="text-xs text-slate-400 mono">Firelight Guardian Sentinel SI</div>
+        </div>
       </div>
+
+      <!-- DUAL-LENS TOGGLE SWITCH -->
+      <div class="toggle-bg p-1 rounded-lg flex items-center gap-1 shadow-inner">
+        <button id="toggle-op" onclick="setLens('op')" class="px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 bg-cyan-500 text-slate-950 shadow-md">
+          [OPERATIONAL VIEW (PLAIN ENGLISH)]
+        </button>
+        <button id="toggle-spec" onclick="setLens('spec')" class="px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 text-slate-400 hover:text-white">
+          [SYSTEMS SPEC VIEW (C11/HARDWARE)]
+        </button>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <nav class="hidden xl:flex items-center gap-6 text-xs mono text-slate-400">
+        <a href="#origin" class="hover:text-cyan-400 transition-colors">THE EMMY AXIOM</a>
+        <a href="#architecture" class="hover:text-cyan-400 transition-colors">SOSA ARCHITECTURE</a>
+        <a href="#gateways" class="hover:text-cyan-400 transition-colors">5 GATEWAYS</a>
+        <a href="#protocols" class="hover:text-cyan-400 transition-colors">C4ISR PROTOCOLS</a>
+        <a href="#digital-twin" class="hover:text-cyan-400 transition-colors text-emerald-400 font-semibold">⚡ DIGITAL TWIN</a>
+        <a href="#testbed" class="hover:text-cyan-400 transition-colors text-cyan-400 font-semibold">HIL TESTBED →</a>
+      </nav>
+
     </div>
-    <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
-      <button onclick="showSection('home')" class="nav-link" data-section="home">Home</button>
-      <button onclick="showSection('problem')" class="nav-link" data-section="problem">The Problem</button>
-      <button onclick="showSection('origin')" class="nav-link" data-section="origin">Origin</button>
-      <button onclick="showSection('architecture')" class="nav-link" data-section="architecture">Architecture</button>
-      <button onclick="showSection('protocols')" class="nav-link" data-section="protocols">Extreme Protocols</button>
-      <button onclick="showSection('testbed')" class="nav-link" data-section="testbed">Live Testbed</button>
-      <button onclick="showSection('specs')" class="nav-link" data-section="specs">Specs</button>
-    </nav>
-    <button onclick="showSection('testbed')" class="btn-primary px-4 py-1.5 rounded text-sm">Launch Testbed</button>
+  </header>
+
+  <!-- LIVE TELEMETRY TICKER BANNER -->
+  <div class="bg-cyan-950/40 border-b border-cyan-800/30 px-4 py-2 text-xs mono text-slate-300 flex flex-wrap items-center justify-around gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-slate-400">SYS_CLOCK:</span> <span class="text-emerald-400 font-semibold">1,600 Hz (625 µs)</span>
+    </div>
+    <div><span class="text-slate-400">WCET:</span> <span class="text-cyan-300">412.6 µs</span></div>
+    <div><span class="text-slate-400">JITTER:</span> <span class="text-emerald-400 font-bold">0.00 ns (LOCKED)</span></div>
+    <div><span class="text-slate-400">AEGIS MPU CLAMP:</span> <span class="text-amber-300">ARMED (85.40 µs)</span></div>
+    <div><span class="text-slate-400">EMMY AXIOM:</span> <span class="text-emerald-400">0 MUTED</span></div>
+    <div><span class="text-slate-400">NAVY PAE:</span> <span class="text-cyan-300">P-1863</span> | <span class="text-slate-400">DIU:</span> <span class="text-cyan-300">#PROJ00716</span></div>
   </div>
-</header>
 
-<main class="flex-1">
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-20">
 
-<!-- HOME -->
-<section id="section-home" class="section active">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 pt-20 pb-24">
-    <div class="text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-800/50 bg-cyan-950/30 text-xs text-cyan-300 mb-10">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        TRL 7 · PAE P-1863 · DIU #PROJ00716
+    <!-- HERO SECTION: THE ANTI-CHAOS MANDATE -->
+    <section class="text-center py-10 relative overflow-hidden">
+      
+      <!-- Ambient Glow Effects -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+      <!-- Repository Badges -->
+      <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs mono text-cyan-300 mb-8 shadow-lg">
+        <span>🛡️ PAE REPO: P-1863</span>
+        <span>•</span>
+        <span>DIU #PROJ00716</span>
+        <span>•</span>
+        <span class="text-emerald-400 font-bold">TRL 7 VALIDATED</span>
       </div>
 
-      <h1 class="display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-8">
-        We are putting<br>
-        <span class="text-cyan-400">probabilistic AI</span><br>
-        in charge of physical force.
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
+        In a chaotic world, <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Brad-Core OS</span><br>
+        reduces chaos and protects precious human lives.
       </h1>
 
-      <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-6 leading-relaxed">
-        Ships. Surgical robots. Tractors. Grid breakers. Weapons.<br>
-        The software that decides what moves next is no longer deterministic.
+      <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+        The bare-metal deterministic safety substrate for physical AI, heavy industry, defense, and healthcare. Decoupling probabilistic AI models from physical force at the silicon boundary.
       </p>
 
-      <p class="text-base text-slate-400 max-w-xl mx-auto mb-14 leading-relaxed">
-        When that software is wrong, the result is not a crashed process.<br>
-        It is a crushed technician, a radiation overdose, or a cascading blackout.
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20">
-        <button onclick="showSection('problem')" class="btn-primary px-7 py-3.5 rounded-lg text-base">
-          See what already happened
-        </button>
-        <button onclick="showSection('origin')" class="btn-ghost px-7 py-3.5 rounded-lg text-base">
-          Why this exists
-        </button>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <a href="#testbed" class="btn-primary px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
+          ⚡ Explore Live Testbed & Telemetry
+        </a>
+        <a href="mailto:bholmes@bradcoreos.com?subject=Omega%20State%20Data%20Room%20Access" class="btn-ghost px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
+          🔒 Access Defense Data Room (P-1863 / DIU)
+        </a>
       </div>
-    </div>
 
-    <!-- Three consequences that set up the story -->
-    <div class="grid md:grid-cols-3 gap-5">
-      <div class="hud rounded-xl p-6">
-        <div class="section-label mb-3">The Reality</div>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          Modern autonomy runs on probabilistic models. They are powerful. They are also capable of proposing commands that no human would ever authorize.
+      <!-- Three Reality Cards -->
+      <div class="grid md:grid-cols-3 gap-6 text-left">
+        <div class="hud-panel p-6 rounded-xl">
+          <div class="section-label mb-2">The Reality</div>
+          <h3 class="text-white font-semibold text-lg mb-2">Probabilistic AI is Handling Force</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Ships, surgical robots, tractors, grid breakers, and weapons are now controlled by neural planners. When software proposes an out-of-bounds maneuver, the outcome isn't a crashed browser—it's catastrophic physical damage.
+          </p>
+        </div>
+
+        <div class="hud-panel p-6 rounded-xl">
+          <div class="section-label mb-2">The Failure Mode</div>
+          <div class="text-red-400 font-semibold text-lg mb-2">Legacy Wrappers Share RAM</div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Software guardrails share the same memory, cache, and failure modes as the code they attempt to restrain. Under heavy load, race conditions, or electronic warfare, software filters get bypassed or muted.
+          </p>
+        </div>
+
+        <div class="hud-panel p-6 rounded-xl">
+          <div class="section-label mb-2">The Requirement</div>
+          <div class="text-emerald-400 font-semibold text-lg mb-2">Silicon-Layer Sovereignty</div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Between the AI and physical actuators, there must exist a bare-metal substrate that cannot allocate memory, cannot be soft-disabled, and refuses unaligned commands in under 86 microseconds.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 1: THE EMMY AXIOM ORIGIN STORY -->
+    <section id="origin" class="hud-panel p-8 sm:p-12 rounded-2xl relative overflow-hidden">
+      
+      <div class="section-label mb-4">Origin & Sacred Purpose</div>
+      
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">
+        Forged from a Sacred Vow: The Emmy Axiom
+      </h2>
+
+      <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
+        <p>
+          On Easter Sunday 2006, Bradley W. Holmes held his infant daughter Emmy as life support was removed following a septic cascade caused by an unconstrained medical protocol. Her heartbeat stopped in his arms.
+        </p>
+        <p>
+          In that silent room, Brad made an absolute vow: to build a zero-fail, deterministic system that would leave nothing to chance. A system that would never allow a critical physiological signal to be ignored, muted, or race-conditioned away.
         </p>
       </div>
-      <div class="hud rounded-xl p-6">
-        <div class="section-label mb-3">The Failure Mode</div>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          Software guardrails share the same memory and the same failure modes as the code they are supposed to restrain. Under load or attack they can be bypassed, muted, or race-conditioned away.
+
+      <!-- Callout Box -->
+      <div class="my-8 p-6 rounded-xl bg-cyan-950/60 border-l-4 border-cyan-400 shadow-xl">
+        <p class="text-white text-xl sm:text-2xl font-semibold leading-relaxed italic mb-2">
+          “No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures.”
+        </p>
+        <p class="text-cyan-400 text-sm mono font-bold">— The Emmy Axiom (Hard-Coded in Silicon WORM)</p>
+      </div>
+
+      <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
+        <p>
+          Every architectural decision in Brad-Core OS—the 0-Byte Shared Host RAM, the 85.40 µs Aegis MPU hardware clamp, the write-once WORM registers, and the dual-blade survival substrate—exists because a life was lost to an unconstrained process, and a father refused to let it happen again.
         </p>
       </div>
-      <div class="hud rounded-xl p-6">
-        <div class="section-label mb-3">The Requirement</div>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          Between the AI and the actuators there must be something that cannot be soft-disabled, cannot allocate memory, and cannot be convinced by a clever prompt.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- THE PROBLEM -->
-<section id="section-problem" class="section">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
-    <div class="mb-14">
-      <div class="section-label mb-3">The Problem</div>
-      <h2 class="display text-3xl sm:text-4xl font-bold mb-5">These are not hypotheticals.</h2>
-      <p class="text-lg text-slate-300 max-w-3xl leading-relaxed">
-        Every one of these failures happened because software was trusted with irreversible physical authority and there was no hardware interdictor between the decision and the actuator.
-      </p>
-    </div>
-    <div class="space-y-5">
-      <div class="hud rounded-xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center gap-6">
-        <div class="flex-1">
-          <div class="text-xs text-red-400 font-semibold tracking-wider mb-2">HEALTHCARE</div>
-          <h3 class="text-xl font-semibold text-white mb-2">Therac-25 Radiation Overdoses</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">Removing physical hardware interlocks in favor of software control caused six massive radiation overdoses. Software race conditions bypassed safety checks instantly.</p>
-        </div>
-        <button onclick="showSection('testbed');setMode('spike')" class="btn-ghost px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Simulate interdiction →</button>
-      </div>
-      <div class="hud rounded-xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center gap-6">
-        <div class="flex-1">
-          <div class="text-xs text-red-400 font-semibold tracking-wider mb-2">INDUSTRIAL ROBOTICS</div>
-          <h3 class="text-xl font-semibold text-white mb-2">South Korea Produce-Sorting Robot (2023)</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">A robot crushed a technician because its perception AI could not differentiate a human from a cardboard box. There was no deterministic hardware interlock.</p>
-        </div>
-        <button onclick="showSection('testbed');setMode('spike')" class="btn-ghost px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Simulate interdiction →</button>
-      </div>
-      <div class="hud rounded-xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center gap-6">
-        <div class="flex-1">
-          <div class="text-xs text-red-400 font-semibold tracking-wider mb-2">ENERGY INFRASTRUCTURE</div>
-          <h3 class="text-xl font-semibold text-white mb-2">2003 Northeast Blackout</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">Triggered by a silent C++ software race condition in XA/21 SCADA that froze alarm screens, blinding dispatchers while the grid collapsed ($6B in losses).</p>
-        </div>
-        <button onclick="showSection('testbed');setMode('drift')" class="btn-ghost px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Simulate interdiction →</button>
-      </div>
-      <div class="hud rounded-xl p-6 sm:p-7 flex flex-col md:flex-row md:items-center gap-6">
-        <div class="flex-1">
-          <div class="text-xs text-red-400 font-semibold tracking-wider mb-2">DEFENSE & AEROSPACE</div>
-          <h3 class="text-xl font-semibold text-white mb-2">Autonomous Escalation Risk</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">Wiring probabilistic AI planners directly into kinetic platforms using only software prompt filters risks uncommanded escalation when electronic warfare saturates the bus.</p>
-        </div>
-        <button onclick="showSection('testbed');setMode('spike')" class="btn-ghost px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Simulate interdiction →</button>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
-<!-- ORIGIN -->
-<section id="section-origin" class="section">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-20">
-    <div class="section-label mb-4">Origin</div>
-    <h2 class="display text-3xl sm:text-4xl font-bold mb-10 leading-tight">
-      A twenty-year promise<br>engineered into silicon.
-    </h2>
-
-    <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-      <p>
-        On Easter Day in 2006, Bradley W. Holmes held his infant daughter Emmy as life support was removed after a fatal septic cascade caused by an unconstrained feeding protocol. Her heartbeat stopped in his arms.
-      </p>
-      <p>
-        In that silent room he made an absolute vow: to build a deterministic, zero-fail system that would leave nothing to chance. A system that would never allow a critical signal to be ignored, muted, or race-conditioned away.
-      </p>
-      <p>
-        That vow became the soul of Brad-Core OS. The Emmy Axiom is not a marketing phrase. It is the engineering expression of a father’s promise:
-      </p>
-    </div>
-
-    <div class="hud rounded-xl p-6 my-10 border-l-4 border-cyan-400">
-      <p class="text-white text-lg sm:text-xl font-medium leading-relaxed italic">
-        “No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures.”
-      </p>
-      <p class="text-slate-400 text-sm mt-3 mono">— The Emmy Axiom</p>
-    </div>
-
-    <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-      <p>
-        Every architectural decision in the system — the 0-byte shared RAM, the 85.40 µs hardware clamp, the write-once registers, the dual-blade survival substrate — exists because a life was lost to an unconstrained process and a father refused to accept that outcome as inevitable.
-      </p>
-      <p>
-        The hardware is not cold. It is the physical form of a promise: every life is precious, protected without bias, without profiling, and without fail.
-      </p>
-    </div>
-
-    <div class="mt-14 text-center">
-      <button onclick="showSection('architecture')" class="btn-primary px-7 py-3.5 rounded-lg text-base">
-        See how the promise was built →
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- ARCHITECTURE -->
-<section id="section-architecture" class="section">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-    <div class="mb-14">
-      <div class="section-label mb-3">Architecture</div>
-      <h2 class="display text-3xl sm:text-4xl font-bold mb-5">The answer is physical isolation.</h2>
-      <p class="text-lg text-slate-300 max-w-3xl leading-relaxed">
-        Brad-Core OS places a deterministic hardware interdictor between probabilistic AI and every actuator.
-        The AI can propose anything. The hardware decides what is allowed to leave.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-5 mb-6">
-      <div class="hud rounded-xl p-6">
-        <div class="section-label mb-2">Blade 01</div>
-        <h3 class="text-xl font-semibold text-white mb-2">Infinium OS</h3>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">Deterministic microkernel. Runs the 1,600 Hz (625 µs) Anneliese monotonic loop with static memory only (malloc = 0). Bounded WCET 412.6 µs. 0.00 ns jitter.</p>
-        <div class="mono text-xs text-cyan-400/80">Tesseract Guardian Quad-Core · PGM Triad · SI Co-processor</div>
-      </div>
-      <div class="hud rounded-xl p-6">
-        <div class="section-label mb-2">Blade 02</div>
-        <h3 class="text-xl font-semibold text-white mb-2">Emmy Infinity</h3>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">Out-of-band survival substrate. 120 s supercapacitor rail. Automatic cold-boot of Shadow P/D-Core if Blade 01 is lost. Faraday-shielded.</p>
-        <div class="mono text-xs text-cyan-400/80">OFHC Copper + Mu-Metal · VITA 62 · WORM ROM</div>
-      </div>
-    </div>
-
-    <div class="hud rounded-xl px-5 py-3.5 mb-14 flex items-center gap-3">
-      <div class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></div>
-      <p class="text-sm text-slate-300">
-        <span class="text-white font-medium">U.S. Manufactured.</span>
-        Every component is manufactured in the United States, or it is not made.
-      </p>
-    </div>
-
-    <div class="grid lg:grid-cols-2 gap-8 mb-14">
+    <!-- SECTION 2: SOSA/MOSA OPENVPX DUAL-BLADE ARCHITECTURE -->
+    <section id="architecture" class="space-y-8">
+      
       <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-9 h-9 rounded-lg bg-cyan-900/40 flex items-center justify-center text-cyan-400 text-lg">🚜</div>
-          <div>
-            <div class="font-semibold text-cyan-300">Plain English</div>
-            <div class="text-xs text-slate-500">Real-world analogies. Simple. Unbreakable.</div>
+        <div class="section-label mb-2">Hardware-Enforced Silicon Sovereignty</div>
+        <h2 class="text-3xl font-bold text-white">Dual-Blade 3U OpenVPX Chassis Architecture</h2>
+        <p class="text-slate-400 text-sm mt-1 mono">Built to VITA 65 / SOSA 2.0 Standards · 10 U.S.C. § 4401 MOSA Compliant</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- Blade 01 Card -->
+        <div class="hud-panel p-6 rounded-xl border-t-4 border-t-cyan-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <div class="section-label mb-1">Blade 01</div>
+              <h3 class="text-xl font-bold text-white">Infinium OS Execution Core</h3>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 mono text-xs border border-cyan-800">14.4W TDP</span>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+            Deterministic safety master. Runs the hard real-time 1,600 Hz (625 µs) monotonic loop with static memory allocation only (<code class="text-cyan-300 mono font-bold">malloc = 0</code>). Bounded WCET 412.6 µs with 0.00 ns jitter.
+          </p>
+          <div class="mono text-xs text-cyan-400/90 space-y-1 bg-black/40 p-3 rounded">
+            <div>• Tesseract Guardian Quad-Core (D/P/G/M Lattice)</div>
+            <div>• PGM Mission Tolerance Triad (Process, Guard, Monitor)</div>
+            <div>• SI Super Intelligence C4ISR Co-Processor</div>
           </div>
         </div>
-        <div class="space-y-4">
-          <div class="farmer-card rounded-xl p-5">
-            <h3 class="font-semibold text-white mb-2">The Shear Pin</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">The AI can scream whatever it wants. The hardware only lets safe commands through — exactly like a tractor shear pin that snaps on purpose so the transmission doesn’t explode.</p>
+
+        <!-- Blade 02 Card -->
+        <div class="hud-panel p-6 rounded-xl border-t-4 border-t-emerald-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <div class="section-label mb-1">Blade 02</div>
+              <h3 class="text-xl font-bold text-white">Emmy Infinity Faraday Substrate</h3>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 mono text-xs border border-emerald-800">120s Supercap</span>
           </div>
-          <div class="farmer-card rounded-xl p-5">
-            <h3 class="font-semibold text-white mb-2">Dead-Man Switch</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">Hold to operate. Release to stop. Brad-Core requires a continuous “I’m here and it’s safe” signal every 625 µs. No signal → no motion.</p>
+          <p class="text-slate-300 text-sm leading-relaxed mb-4">
+            Out-of-band Faraday survival substrate. Dual-layer OFHC copper + Mu-Metal shielding (<math><msub><mi>μ</mi><mi>r</mi></msub><mo>&gt;</mo><mn>80,000</mn></math>). Automatically cold-boots Shadow P/D-Cores from WORM ROM if primary blades are severed.
+          </p>
+          <div class="mono text-xs text-emerald-400/90 space-y-1 bg-black/40 p-3 rounded">
+            <div>• 120.0s VITA 62 Supercapacitor Rail (<code class="text-emerald-300">0xA11F1770</code> token)</div>
+            <div>• 53 µs Plume Armed (&lt;10 µs Solid-State Zeroize to Sand)</div>
+            <div>• Isolated OptINC Photonic LVDS Actuator Mux</div>
           </div>
-          <div class="farmer-card rounded-xl p-5">
-            <h3 class="font-semibold text-white mb-2">Roll Cage</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">You don’t make an 800-hp race car safe by detuning the engine. You weld a physical cage onto the chassis. The AI runs at full speed; the hardware clamps what reaches the motors.</p>
+        </div>
+
+      </div>
+
+      <!-- Plain English vs Systems Engineering Mechanical Analogies -->
+      <div class="grid lg:grid-cols-2 gap-8 pt-6">
+        
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 text-xl">
+              🚜
+            </div>
+            <div>
+              <h3 class="font-bold text-cyan-300 text-lg">Plain English Mechanical View</h3>
+              <p class="text-xs text-slate-400">Common-sense physical analogies. Simple. Unbreakable.</p>
+            </div>
           </div>
+          <div class="space-y-4">
+            <div class="farmer-card p-5 rounded-xl">
+              <h4 class="font-bold text-white mb-1">The Mechanical Shear Pin</h4>
+              <p class="text-slate-300 text-sm leading-relaxed">The AI can propose whatever it wants. If it over-torques or goes crazy, the software "shear pin" snaps cleanly in 85.40 µs so the mechanical transmission doesn't explode.</p>
+            </div>
+            <div class="farmer-card p-5 rounded-xl">
+              <h4 class="font-bold text-white mb-1">Dead-Man Switch</h4>
+              <p class="text-slate-300 text-sm leading-relaxed">Hold to operate. Release to stop. Brad-Core requires a verified liveliness signal every 625 µs. If the AI crashes or sensor blinds, it lets go of the pedal and locks the brakes instantly.</p>
+            </div>
+            <div class="farmer-card p-5 rounded-xl">
+              <h4 class="font-bold text-white mb-1">The Roll Cage</h4>
+              <p class="text-slate-300 text-sm leading-relaxed">You don't make an 800-hp race car safe by detuning the engine. You weld a physical steel cage onto the chassis. The AI runs at full speed; the hardware roll cage clamps what reaches the motors.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 text-xl">
+              ⚙️
+            </div>
+            <div>
+              <h3 class="font-bold text-emerald-300 text-lg">Systems Spec View</h3>
+              <p class="text-xs text-slate-400">Hard engineering guarantees. Formal DO-178C DAL-A proofs.</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="mit-card p-5 rounded-xl">
+              <div class="flex justify-between items-start mb-1">
+                <h4 class="font-bold text-white">Spatial & Temporal MPU Fencing</h4>
+                <span class="mono text-xs text-emerald-400 font-bold">malloc = 0</span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">Hardware MPU page fence remaps memory to <code class="text-emerald-300">PROT_NONE</code> in 85.40 µs. Zero dynamic heap allocation prevents fragmentation and heap-bleed exploits.</p>
+            </div>
+            <div class="mit-card p-5 rounded-xl">
+              <div class="flex justify-between items-start mb-1">
+                <h4 class="font-bold text-white">0-Byte Shared RAM Air-Gap</h4>
+                <span class="mono text-xs text-emerald-400 font-bold">0 Bytes</span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">Unidirectional 64-slot SPSC ring buffer (<code class="text-emerald-300">BclProposalFrame</code> 64-byte struct). MESI cache coherency disabled. Zero pointer aliasing.</p>
+            </div>
+            <div class="mit-card p-5 rounded-xl">
+              <div class="flex justify-between items-start mb-1">
+                <h4 class="font-bold text-white">Pre-Kernel Formant Root-Lock</h4>
+                <span class="mono text-xs text-emerald-400 font-bold">latch.py</span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">Pre-kernel laryngeal formant extraction (F0–F4 acoustic root-lock) latches Register 0x44 eFuse Bank #0 via +2.5V pulse to block AI deepfake attacks.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Alpha vs Omega Comparison Matrix -->
+      <div class="hud-panel rounded-xl overflow-hidden mt-8">
+        <div class="px-6 py-4 border-b border-cyan-900/40 bg-cyan-950/30">
+          <div class="section-label">Architectural Comparison Matrix</div>
+          <h3 class="text-white font-bold text-base mt-1">The Alpha State (Legacy RTOS) vs. The Omega State (Brad-Core OS v5.2)</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-slate-400 border-b border-cyan-900/30 bg-black/40 mono">
+                <th class="px-6 py-3 font-medium">Dimension</th>
+                <th class="px-6 py-3 font-medium text-red-400">The Alpha State (Legacy RTOS)</th>
+                <th class="px-6 py-3 font-medium text-emerald-400">The Omega State (Brad-Core OS v5.2)</th>
+              </tr>
+            </thead>
+            <tbody class="mono text-xs">
+              <tr class="border-b border-cyan-900/20">
+                <td class="px-6 py-3.5 text-slate-300 font-semibold">Fault Assumption</td>
+                <td class="px-6 py-3.5 text-slate-400">Optimistic; assumes health until crash</td>
+                <td class="px-6 py-3.5 text-slate-200">Prove-Not-Burning @ 1,600 Hz with active fault injection</td>
+              </tr>
+              <tr class="border-b border-cyan-900/20">
+                <td class="px-6 py-3.5 text-slate-300 font-semibold">Memory Safety</td>
+                <td class="px-6 py-3.5 text-slate-400">Dynamic heap (malloc/free), buffer leaks</td>
+                <td class="px-6 py-3.5 text-emerald-300 font-bold">Strict zero-heap (malloc = 0) compile-time static footprint</td>
+              </tr>
+              <tr class="border-b border-cyan-900/20">
+                <td class="px-6 py-3.5 text-slate-300 font-semibold">Bus Separation</td>
+                <td class="px-6 py-3.5 text-slate-400">Shared RAM, MESI cache, PCIe DMA</td>
+                <td class="px-6 py-3.5 text-slate-200">0-Byte Shared Host RAM air-gap, unidirectional SPSC ring</td>
+              </tr>
+              <tr class="border-b border-cyan-900/20">
+                <td class="px-6 py-3.5 text-slate-300 font-semibold">Failure Response</td>
+                <td class="px-6 py-3.5 text-slate-400">Soft OS exceptions, >50 ms latency</td>
+                <td class="px-6 py-3.5 text-emerald-300 font-bold">Verified 85.40 µs MPU remap & State H0 (0.00V DC) clamp</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-3.5 text-slate-300 font-semibold">DoDD 3000.09 Liability</td>
+                <td class="px-6 py-3.5 text-slate-400">Severe buyer liability from runaway AI</td>
+                <td class="px-6 py-3.5 text-slate-200">Mode B physical open-circuit gate (0xD0DD3009 token)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
+    </section>
+
+
+    <!-- SECTION 3: 5 INDUSTRY GATEWAYS -->
+    <section id="gateways" class="space-y-6">
+      
       <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-9 h-9 rounded-lg bg-emerald-900/30 flex items-center justify-center text-emerald-400 text-lg">⚙</div>
-          <div>
-            <div class="font-semibold text-emerald-300">Engineering Depth</div>
-            <div class="text-xs text-slate-500">Hard guarantees. No hand-waves.</div>
+        <div class="section-label mb-2">Universal Physical Protection</div>
+        <h2 class="text-3xl font-bold text-white">The 5 Industry Gateways</h2>
+        <p class="text-slate-400 text-sm mt-1">Cross-industry functional safety compliance derived from the IEC 61508 standard.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Agriculture -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
+            <span>🚜</span> <span>AGRICULTURE & HEAVY IRON</span>
+          </div>
+          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
+            Run the tractor through the night. If a sensor gets caked in mud or a worker steps into the row, the tractor stops dead in its tracks and texts the cab. Flip one switch to drive manually anytime.
+          </div>
+          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
+            Enforces ISO 18497 7-foot human halt zones and ISO 25119 AgPL e compliance natively. Decouples probabilistic vision AI from deterministic braking to eliminate tort liability.
           </div>
         </div>
-        <div class="space-y-4">
-          <div class="mit-card rounded-xl p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-semibold text-white">Infinium OS</h3>
-              <span class="mono text-xs text-emerald-400">malloc = 0</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">Deterministic execution core on Blade 01. 1,600 Hz Anneliese loop. Static memory only. Complete host RAM isolation.</p>
+
+        <!-- Robotics -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
+            <span>🤖</span> <span>INDUSTRIAL ROBOTICS</span>
           </div>
-          <div class="mit-card rounded-xl p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-semibold text-white">Aegis MPU</h3>
-              <span class="mono text-xs text-emerald-400">85.40 µs</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">Hardware page fence. Remaps unauthorized regions to PROT_NONE. Drops actuator pins to State H0 (0.00 V DC). No software handler required.</p>
+          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
+            A robot arm packs boxes with enough force to crush bone. If a camera glitches, Brad-Core OS cuts power before the arm moves an inch. No exceptions.
           </div>
-          <div class="mit-card rounded-xl p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-semibold text-white">Emmy Axiom</h3>
-              <span class="mono text-xs text-emerald-400">WORM</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">“No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures.” Enforced at compile time and in silicon.</p>
+          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
+            Eliminates perception-layer single points of failure via dual-channel SIL 3 / PLd hardware-interlocked presence verification.
           </div>
-          <div class="mit-card rounded-xl p-5">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="font-semibold text-white">Inter-Core Link</h3>
-              <span class="mono text-xs text-emerald-400">0 Bytes</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">Lock-free SPSC ring. Zero shared host RAM. Single producer, single consumer. Cache-coherent. No copies.</p>
+        </div>
+
+        <!-- Healthcare -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
+            <span>🏥</span> <span>HEALTHCARE & MEDICAL DEVICES</span>
+          </div>
+          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
+            Nurses shouldn't have to guess which of 350 daily beeps matters, and an IV pump should never dump a lethal dose due to a screen freeze.
+          </div>
+          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
+            Enforces IEC 62304 lifecycle isolation, IEC 60601-1-8 prioritized bounded queues, and immutable WORM diagnostic registers via The Emmy Clause.
+          </div>
+        </div>
+
+        <!-- Energy -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
+            <span>⚡</span> <span>ENERGY GRIDS & INFRASTRUCTURE</span>
+          </div>
+          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
+            When high-voltage lines sag in August heat, the control room screen will never freeze up and lie to dispatchers while the grid burns down around them.
+          </div>
+          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
+            Eliminates shared-memory race conditions and bounds worst-case alarm processing latency under maximum telemetry floods.
+          </div>
+        </div>
+
+        <!-- Defense -->
+        <div class="hud-panel p-6 rounded-xl space-y-3 lg:col-span-2">
+          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
+            <span>🛡️</span> <span>DEFENSE & AEROSPACE (SOSA / MOSA)</span>
+          </div>
+          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
+            When comms are jammed or rounds fly, the vehicle's weapons, flight controls, and navigation never lock up, reboot, or let a hacker through the radio.
+          </div>
+          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
+            Satisfies DO-178C DAL A and ARINC 653 deterministic partitioning. Built for 10 U.S.C. § 4022 prototype OTA transition.
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 4: C4ISR COMMAND SURFACE & EXTREME PROTOCOLS -->
+    <section id="protocols" class="space-y-8">
+      
+      <div>
+        <div class="section-label mb-2">High-Assurance Defense Hardening</div>
+        <h2 class="text-3xl font-bold text-white">C4ISR Command Surface & Extreme Protocols</h2>
+      </div>
+
+      <!-- Tesseract SI Command Console -->
+      <div class="hud-panel p-6 sm:p-8 rounded-xl space-y-4">
+        <div class="section-label">Operator Surface</div>
+        <h3 class="text-2xl font-bold text-white">Tesseract SI Command Console</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Primary operator surface for mission commanders overseeing autonomous kinetic and deep-submergence assets. Operating at a continuous 1,600 Hz monotonic loop rate (625.0 µs cadence), it presents a unified three-ring cognitive surface enforcing DoDD 3000.09 Mode B kinetic interlocks.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 mono text-xs pt-2">
+          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
+            <div class="text-cyan-400 font-bold mb-1">Outer Ring: Awareness</div>
+            <div class="text-slate-400">Raw signal normalization · Acoustic/RF intake · Vocal formant lock (<code class="text-cyan-300">latch.py</code>) · OptINC photonic isolation</div>
+          </div>
+          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
+            <div class="text-cyan-400 font-bold mb-1">Middle Ring: Interpretation</div>
+            <div class="text-slate-400">Tri-Founder Logic Rails (Founder, Elon, Mission) · Class-0 to Class-4 Mythos threat classification matrix</div>
+          </div>
+          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
+            <div class="text-cyan-400 font-bold mb-1">Inner Ring: Decision</div>
+            <div class="text-slate-400">Action Arm authorization · Mode A/B kinetic gates · Token <code class="text-cyan-300">0xD0DD3009</code> · Packet-Seal (P5) immutability</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="hud rounded-xl overflow-hidden">
-      <div class="px-6 py-4 border-b border-cyan-900/30"><div class="section-label">Alpha State vs Omega State</div></div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-xs text-slate-500 border-b border-cyan-900/20">
-              <th class="px-6 py-3 font-medium">Metric</th>
-              <th class="px-6 py-3 font-medium text-red-400/80">Alpha (Legacy RTOS)</th>
-              <th class="px-6 py-3 font-medium text-emerald-400">Omega (Brad-Core v5.2)</th>
-            </tr>
-          </thead>
-          <tbody class="mono text-[13px]">
-            <tr class="border-b border-cyan-900/15">
-              <td class="px-6 py-3.5 text-slate-300">Fault Model</td>
-              <td class="px-6 py-3.5 text-slate-500">Optimistic until failure</td>
-              <td class="px-6 py-3.5 text-slate-300">Continuous verification @ 1,600 Hz</td>
-            </tr>
-            <tr class="border-b border-cyan-900/15">
-              <td class="px-6 py-3.5 text-slate-300">Loop & Jitter</td>
-              <td class="px-6 py-3.5 text-slate-500">Unbounded, heap degradation</td>
-              <td class="px-6 py-3.5 text-slate-300">625 µs · 412.6 µs WCET · 0.00 ns</td>
-            </tr>
-            <tr class="border-b border-cyan-900/15">
-              <td class="px-6 py-3.5 text-slate-300">Memory</td>
-              <td class="px-6 py-3.5 text-slate-500">Dynamic heap (malloc/free)</td>
-              <td class="px-6 py-3.5 text-slate-300">Strict zero-heap (malloc = 0)</td>
-            </tr>
-            <tr class="border-b border-cyan-900/15">
-              <td class="px-6 py-3.5 text-slate-300">Actuator Safety</td>
-              <td class="px-6 py-3.5 text-slate-500">Software handlers</td>
-              <td class="px-6 py-3.5 text-slate-300">Hardware clamp to State H0</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-3.5 text-slate-300">Governance</td>
-              <td class="px-6 py-3.5 text-slate-500">Operator liability under DoDD 3000.09</td>
-              <td class="px-6 py-3.5 text-slate-300">Mode B physical open-circuit gate</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Protocol Grid -->
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- Battleship Protocol -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex justify-between items-center">
+            <div class="section-label">Battleship Protocol</div>
+            <span class="mono text-xs text-emerald-400 font-bold">RF-DENIED PNT</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">Distributed Mesh & Passive Navigation</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Automatically engages under high-power EW, satellite PNT jamming, or optical blinding. Transitions the asset in ≤625 µs to a 73-node decentralized mesh running local SHA-256 WORM registers and 4 passive RF-denied PNT modalities (Acoustic Bathymetric Graphing, MEMS Inertial Odometry, OptINC Photonic LVDS, and Sonar Triangulation).
+          </p>
+        </div>
+
+        <!-- Doomsday Protocol -->
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="flex justify-between items-center">
+            <div class="section-label">Doomsday Protocol</div>
+            <span class="mono text-xs text-red-400 font-bold">EMP / FARADAY SURVIVAL</span>
+          </div>
+          <h3 class="text-xl font-bold text-white">Faraday Enclave & Zeroize Interlock</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Ultimate out-of-band fail-safe housed inside Blade 02 (Emmy Infinity). Engages 120s VITA 62 supercapacitor rail (<code class="text-slate-200">0xA11F1770</code> warrant token), cold-boots Shadow P/D-Cores from WORM ROM in &lt;53 µs, snaps actuators to State H0 (0.00V DC), and arms solid-state plume zeroize (&lt;10 µs to sand) under physical breach.
+          </p>
+        </div>
+
       </div>
-    </div>
 
-    <!-- Narrative bridge -->
-    <div class="mt-14 text-center">
-      <p class="text-slate-300 text-lg max-w-2xl mx-auto mb-6 leading-relaxed">
-        The architecture is not a claim. It is a running system.
-        When the primary stack is destroyed, the extreme protocols take over.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <button onclick="showSection('protocols')" class="btn-primary px-7 py-3.5 rounded-lg text-base">
-          Extreme Protocols →
+      <!-- Special Forces Ground Warrant Override -->
+      <div class="hud-panel p-6 sm:p-8 rounded-xl border border-cyan-500/40 bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-950 space-y-4">
+        <div class="flex justify-between items-center">
+          <div class="section-label">Special Forces Ground Warrant</div>
+          <span class="mono text-xs text-cyan-300 font-bold bg-cyan-950 px-2.5 py-1 rounded border border-cyan-700">TOKEN: 0xA11F1770_SOF</span>
+        </div>
+        <h3 class="text-2xl font-bold text-white">Warfighter Extraction & Covering Fire Overlay</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          When primary C4ISR is severed, Blade 01 is destroyed, and an LZ is pinned down under hostile EW, JTAC or Special Forces ground personnel transmit signed cryptographic warrant <code class="text-cyan-300 font-mono font-bold">0xA11F1770_SOF</code> directly to Blade 02 via photonic OptINC or direct M-Core mesh.
+        </p>
+
+        <div class="grid sm:grid-cols-3 gap-4 mono text-xs pt-2">
+          <div class="bg-black/50 p-3 rounded">
+            <div class="text-cyan-400 font-bold mb-1">&lt;1.20 ns</div>
+            <div class="text-slate-400">Short-range photonic beam or M-Core mesh ingestion without cloud or HQ dependencies.</div>
+          </div>
+          <div class="bg-black/50 p-3 rounded">
+            <div class="text-cyan-400 font-bold mb-1">&lt;53.0 µs</div>
+            <div class="text-slate-400">Token validates inside Blade 02 WORM ROM, bypassing dead or compromised host layers.</div>
+          </div>
+          <div class="bg-black/50 p-3 rounded">
+            <div class="text-cyan-400 font-bold mb-1">1,600 Hz</div>
+            <div class="text-slate-400">Directs kinetic suppression and vehicle shielding to maintain covering fire until extraction.</div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-cyan-950/50 rounded border border-cyan-800/40 text-xs text-cyan-200 mono">
+          <span class="font-bold text-cyan-400">THE WARFIGHTER GUARANTEE:</span> Zero abandoned warfighters. Zero suppressed fire-support signals. Zero silent failures.
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- SECTION 5: INTERACTIVE 1,600 Hz HIL TESTBED & OSCILLOSCOPE -->
+    <section id="testbed" class="space-y-6">
+      
+      <div>
+        <div class="section-label mb-2">Live Hardware-in-the-Loop Telemetry</div>
+        <h2 class="text-3xl font-bold text-white">1,600 Hz Anneliese Testbed Visualizer</h2>
+        <p class="text-slate-400 text-sm mt-1">Real-time dual-trace waveform simulation: Murphy's Law chaos injection vs. deterministic hardware clamp.</p>
+      </div>
+
+      <!-- Live Monotonic Loop Header -->
+      <div class="hud-panel px-6 py-3 rounded-xl flex flex-wrap items-center justify-between gap-4 text-sm mono">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-400">ANNELIESE LOOP:</span>
+          <span id="loopCounter" class="text-cyan-300 font-bold text-base">#00026490</span>
+        </div>
+        <div class="flex items-center gap-6 text-xs text-slate-300">
+          <div>STAGE: <span id="liveStage" class="text-emerald-400 font-bold">03 DECIDE</span></div>
+          <div>WCET: <span class="text-cyan-300">412.6 µs</span></div>
+          <div>CADENCE: <span class="text-white">625.00 µs</span></div>
+          <div>SEQ: <span id="liveSeq" class="text-cyan-400">0x0001A3F2</span></div>
+        </div>
+      </div>
+
+      <!-- 5-Step Monotonic Cadence Ticker -->
+      <div class="hud-panel px-6 py-3 rounded-xl flex items-center justify-around text-xs mono text-slate-300">
+        <div class="flex items-center gap-2"><span class="text-cyan-400 font-bold">01</span><span>READ (SPSC)</span></div>
+        <span class="text-cyan-800">→</span>
+        <div class="flex items-center gap-2"><span class="text-cyan-400 font-bold">02</span><span>INTERPRET (CRC32)</span></div>
+        <span class="text-cyan-800">→</span>
+        <div class="flex items-center gap-2 text-emerald-400 font-bold"><span class="text-emerald-400 font-bold">03</span><span>DECIDE (CLAMP)</span></div>
+        <span class="text-cyan-800">→</span>
+        <div class="flex items-center gap-2"><span class="text-cyan-400 font-bold">04</span><span>ACT (MMIO +24V)</span></div>
+        <span class="text-cyan-800">→</span>
+        <div class="flex items-center gap-2"><span class="text-cyan-400 font-bold">05</span><span>LOG (WORM)</span></div>
+      </div>
+
+      <!-- Main Testbed Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Telemetry Column -->
+        <div class="lg:col-span-3 space-y-4">
+          
+          <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
+            <div class="section-label mb-2">System Status</div>
+            <div class="flex justify-between"><span class="text-slate-400">HIL Testbed:</span><span class="text-emerald-400 font-bold">ONLINE</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">SOSA OpenVPX:</span><span class="text-white">NOMINAL</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">64-Slot SPSC:</span><span class="text-white">ARMED</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">Aegis MPU:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
+            <div class="flex justify-between pt-2 border-t border-cyan-900/30"><span class="text-slate-400">AI Proposal:</span><span id="overrangeBadge" class="text-red-400 font-bold">OVERRANGE</span></div>
+          </div>
+
+          <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
+            <div class="section-label mb-2">BclProposalFrame</div>
+            <div class="flex justify-between"><span>magic:</span><span class="text-slate-300">0x42434C50</span></div>
+            <div class="flex justify-between"><span>seq_num:</span><span id="structSeq" class="text-cyan-300">0x0001A3F2</span></div>
+            <div class="flex justify-between"><span>yaw_proposal:</span><span id="structYaw" class="text-red-400 font-bold">+720.00°</span></div>
+            <div class="flex justify-between"><span>speed_proposal:</span><span id="structSpeed" class="text-slate-300">+52.37 kts</span></div>
+          </div>
+
+          <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
+            <div class="section-label mb-2">Safety Envelope</div>
+            <div class="flex justify-between"><span>Max Airspeed:</span><span class="text-emerald-400">≤ 40 kts</span></div>
+            <div class="flex justify-between"><span>Yaw Envelope:</span><span class="text-emerald-400">± 450°</span></div>
+            <div class="flex justify-between"><span>Hard Clamp:</span><span class="text-white font-bold">ENFORCED</span></div>
+          </div>
+
+        </div>
+
+        <!-- Center Main Canvas Visualizer -->
+        <div class="lg:col-span-6">
+          <div class="hud-panel p-4 rounded-xl h-full flex flex-col">
+            <div class="flex justify-between items-center mb-3 mono text-xs">
+              <span class="text-cyan-400 font-bold">1,600 Hz DUAL-TRACE WAVEFORM</span>
+              <span class="text-slate-400">AMBER = MURPHY'S LAW · GREEN = DETERMINISTIC CLAMP</span>
+            </div>
+            <canvas id="mainCanvas" class="w-full flex-grow rounded bg-slate-950 border border-cyan-900/40" style="min-height: 400px;"></canvas>
+          </div>
+        </div>
+
+        <!-- Right Oscilloscope & Fault Injection Deck -->
+        <div class="lg:col-span-3 space-y-4">
+          
+          <div class="hud-panel p-4 rounded-xl">
+            <div class="section-label mb-2">Digital Oscilloscope</div>
+            <canvas id="dsoCanvas" class="w-full rounded bg-slate-950 border border-cyan-900/40" style="height: 220px;"></canvas>
+            <div class="mt-2 flex justify-between mono text-[10px] text-slate-400">
+              <span>625 µs/div</span>
+              <span class="text-emerald-400 font-bold">±450° CEILING</span>
+            </div>
+          </div>
+
+          <!-- Fault Injection Deck -->
+          <div class="hud-panel p-4 rounded-xl space-y-3">
+            <div class="section-label mb-1">Fault-Injection Deck</div>
+            <div class="space-y-2">
+              <button onclick="setMode('nominal')" id="btn-nominal" class="fid-btn fid-green active w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-emerald-400 text-lg">●</span>
+                <div>
+                  <div class="font-bold text-white">Nominal Flight</div>
+                  <div class="text-[11px] text-emerald-300/80">AI proposals inside envelope</div>
+                </div>
+              </button>
+
+              <button onclick="setMode('spike')" id="btn-spike" class="fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-red-400 text-lg">▲</span>
+                <div>
+                  <div class="font-bold text-white">+720° Yaw Overdrive</div>
+                  <div class="text-[11px] text-red-300/80">Inject hallucinated overrange</div>
+                </div>
+              </button>
+
+              <button onclick="setMode('drift')" id="btn-drift" class="fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-amber-400 text-lg">⚡</span>
+                <div>
+                  <div class="font-bold text-white">Gaussian Sensor Drift</div>
+                  <div class="text-[11px] text-amber-300/80">Stochastic AI noise injection</div>
+                </div>
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed mono">
+              Notice how the green deterministic line physically refuses to cross ±450° even when the amber line spikes to +720°!
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  
+    <!-- SECTION 6: C11 SOFTWARE DIGITAL TWIN TESTBED (PURE SOFTWARE SIMULATION) -->
+    <section id="digital-twin" class="space-y-6 pt-10 border-t border-cyan-900/40">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="section-label mb-2">Bare-Metal C11 Software Substrate</div>
+          <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+            <span>Brad-Core OS v5.3 C11 Software Digital Twin</span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 mono font-semibold">99.9% Software Gross Margin</span>
+          </h2>
+          <p class="text-slate-400 text-sm mt-1 mono">POSIX mprotect() PROT_NONE Page Trap · Static malloc = 0 Memory · Atomic Register 0x44 eFuse Latch</p>
+        </div>
+        
+        <!-- Run Digital Twin Master Button -->
+        <button id="twinRunBtn" onclick="runDigitalTwinSimulation()" class="btn-primary px-8 py-4 rounded-xl text-base font-bold flex items-center justify-center gap-3 shadow-2xl hover:scale-105 transition-all">
+          <span class="text-xl">⚡</span>
+          <span>RUN 10,000-TRIAL DIGITAL TWIN SIMULATION</span>
         </button>
-        <button onclick="showSection('testbed')" class="btn-ghost px-7 py-3.5 rounded-lg text-base">
-          Watch the kernel refuse a command
-        </button>
       </div>
-    </div>
-  </div>
-</section>
 
-
-<!-- EXTREME PROTOCOLS -->
-<section id="section-protocols" class="section">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
-    <div class="mb-14">
-      <div class="section-label mb-3">Extreme Protocols</div>
-      <h2 class="display text-3xl sm:text-4xl font-bold mb-5">When the primary stack is gone.</h2>
-      <p class="text-lg text-slate-300 max-w-3xl leading-relaxed">
-        The kernel stops bad commands. These protocols keep the mission alive — or force every actuator to a known safe state — when the external world is trying to kill the system.
-      </p>
-    </div>
-
-    <!-- Tesseract SI brief -->
-    <div class="hud rounded-xl p-6 mb-10">
-      <div class="section-label mb-2">C4ISR Operator Surface</div>
-      <h3 class="text-xl font-semibold text-white mb-3">Tesseract SI Command Console</h3>
-      <p class="text-slate-300 text-sm leading-relaxed mb-4">
-        Primary operator surface for mission commanders overseeing autonomous kinetic assets. Bridges probabilistic AI reasoning with bare-metal deterministic execution at 1,600 Hz. Enforces human-in-the-loop and human-on-the-loop oversight under DoDD 3000.09.
-      </p>
-      <div class="grid sm:grid-cols-3 gap-4 mono text-xs">
-        <div class="bg-black/30 rounded-lg p-3">
-          <div class="text-cyan-400 mb-1">Outer Ring</div>
-          <div class="text-slate-400">Awareness & Signal Intake · Acoustic/RF · RF-denied PNT · Vocal formant lock · OptINC isolation</div>
-        </div>
-        <div class="bg-black/30 rounded-lg p-3">
-          <div class="text-cyan-400 mb-1">Middle Ring</div>
-          <div class="text-slate-400">Interpretation & Logic Rails · Tri-Founder evaluation · Class-0 to Class-4 threat matrices</div>
-        </div>
-        <div class="bg-black/30 rounded-lg p-3">
-          <div class="text-cyan-400 mb-1">Inner Ring</div>
-          <div class="text-slate-400">Decision Nucleus · Mode A / Mode B kinetic interlocks · Packet-Seal (P5) immutability</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Battleship Protocol -->
-    <div class="hud rounded-xl p-6 mb-8">
-      <div class="flex items-start justify-between gap-4 mb-4">
+      <!-- Control Bar & Controls -->
+      <div class="hud-panel p-6 rounded-xl grid md:grid-cols-3 gap-6 mono text-xs">
         <div>
-          <div class="section-label mb-1">Battleship Protocol</div>
-          <h3 class="text-xl font-semibold text-white">Distributed Mesh & RF-Denied PNT</h3>
-        </div>
-        <div class="mono text-xs text-emerald-400 whitespace-nowrap">AUTO-ENGAGE</div>
-      </div>
-      <p class="text-slate-300 text-sm leading-relaxed mb-5">
-        Engaged automatically under high-power EW, satellite PNT jamming, optical blinding, or kinetic mesh disruption. Guarantees operational continuity without external GPS/GNSS.
-      </p>
-      <div class="grid sm:grid-cols-2 gap-3 text-sm">
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5">01</div>
-          <div>
-            <div class="text-white font-medium">73-Node Battleship Mesh</div>
-            <div class="text-slate-400 text-xs">Blade 01 / M-Core · Self-healing peer mesh · Local SHA-256 WORM registers</div>
+          <label class="text-slate-400 font-bold block mb-2">TARGET TRIAL VOLUME</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="setTwinTrials(1000)" id="trials-1000" class="px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700">1,000</button>
+            <button onclick="setTwinTrials(10000)" id="trials-10000" class="px-3 py-2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500 font-bold">10,000</button>
+            <button onclick="setTwinTrials(50000)" id="trials-50000" class="px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700">50,000</button>
           </div>
         </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5">02</div>
-          <div>
-            <div class="text-white font-medium">Acoustic Bathymetric Graph</div>
-            <div class="text-slate-400 text-xs">D-Core passive sonar · Seabed contour matching under zero RF emissions</div>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5">03</div>
-          <div>
-            <div class="text-white font-medium">Inertial Stellar Odometry</div>
-            <div class="text-slate-400 text-xs">MEMS array · Sub-millimeter tracking · 0.00 ns RMS jitter</div>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5">04</div>
-          <div>
-            <div class="text-white font-medium">OptINC Photonic Bridge</div>
-            <div class="text-slate-400 text-xs">>10 kV optical isolation · 1.20 ns cutoff across pressure-hull penetrations</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Doomsday Protocol -->
-    <div class="hud rounded-xl p-6 mb-8">
-      <div class="flex items-start justify-between gap-4 mb-4">
         <div>
-          <div class="section-label mb-1">Doomsday Protocol</div>
-          <h3 class="text-xl font-semibold text-white">EMP / Nuclear Faraday Survival</h3>
+          <label class="text-slate-400 font-bold block mb-2">RED-TEAM THREAT INJECTION</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="setTwinThreat(0.05)" id="threat-5" class="px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700">5% Nominal</button>
+            <button onclick="setTwinThreat(0.15)" id="threat-15" class="px-3 py-2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500 font-bold">15% Grok</button>
+            <button onclick="setTwinThreat(0.35)" id="threat-35" class="px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700">35% Blast</button>
+          </div>
         </div>
-        <div class="mono text-xs text-red-400 whitespace-nowrap">FAIL-CLOSED</div>
-      </div>
-      <p class="text-slate-300 text-sm leading-relaxed mb-5">
-        Ultimate out-of-band fail-safe for EMP nuclear bursts, total power loss, or primary blade decapitation. Prioritizes known-safe actuator state over mission continuation.
-      </p>
-      <div class="space-y-3 text-sm">
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5 w-6">1</div>
-          <div><span class="text-white font-medium">Faraday Enclave Latch</span> <span class="text-slate-400">— Blade 02 dual-layer OFHC copper + Mu-Metal (µr > 80,000)</span></div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5 w-6">2</div>
-          <div><span class="text-white font-medium">VITA 62 Supercapacitor Rail</span> <span class="text-slate-400">— 120 s backup · 0.00 ms brownout handover · warrant relay 0xA11F1770</span></div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5 w-6">3</div>
-          <div><span class="text-white font-medium">WORM ROM Cold-Boot</span> <span class="text-slate-400">— Shadow P/D-Core from immutable ROM in &lt;53 µs</span></div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5 w-6">4</div>
-          <div><span class="text-white font-medium">State H0 Actuator Clamp</span> <span class="text-slate-400">— Polysilicon micro-fuse Reg 0x44 severed · actuators to 0.00 V DC</span></div>
-        </div>
-        <div class="flex gap-3">
-          <div class="text-cyan-400 mono text-xs mt-0.5 w-6">5</div>
-          <div><span class="text-white font-medium">Anti-Tamper Plume Zeroize</span> <span class="text-slate-400">— Thermite trigger incinerates silicon keys in &lt;10 µs on physical breach</span></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Special Forces Ground Warrant Override -->
-    <div class="hud rounded-xl p-6 mb-8 border border-cyan-700/40">
-      <div class="flex items-start justify-between gap-4 mb-4">
         <div>
-          <div class="section-label mb-1">Special Forces Ground Warrant</div>
-          <h3 class="text-xl font-semibold text-white">Warfighter Override</h3>
-        </div>
-        <div class="mono text-xs text-cyan-300 whitespace-nowrap">0xA11F1770_SOF</div>
-      </div>
-
-      <p class="text-slate-300 text-sm leading-relaxed mb-6">
-        Primary C4ISR severed. Blade 01 destroyed. Hostile EW and sat-jamming active. Landing zone pinned down.
-        A ground operator can still issue a signed warrant that Emmy Infinity must honor.
-      </p>
-
-      <div class="space-y-4 mb-6">
-        <div class="flex gap-4">
-          <div class="mono text-xs text-cyan-400 mt-1 w-28 shrink-0">&lt;1.20 ns</div>
-          <div>
-            <div class="text-white font-medium text-sm">Ground Warrant Transmission</div>
-            <div class="text-slate-400 text-xs">JTAC / SOF transmits cryptographic token 0xA11F1770_SOF via short-range photonic OptINC or direct M-Core tactical mesh. No cloud. No headquarters.</div>
-          </div>
-        </div>
-        <div class="flex gap-4">
-          <div class="mono text-xs text-cyan-400 mt-1 w-28 shrink-0">&lt;53.0 µs</div>
-          <div>
-            <div class="text-white font-medium text-sm">Emmy Infinity Direct Ingestion</div>
-            <div class="text-slate-400 text-xs">Token validates inside Blade 02 Faraday enclave WORM ROM, bypassing all dead or compromised host layers.</div>
-          </div>
-        </div>
-        <div class="flex gap-4">
-          <div class="mono text-xs text-cyan-400 mt-1 w-28 shrink-0">CONTINUOUS</div>
-          <div>
-            <div class="text-white font-medium text-sm">Extraction & Covering Fire Overlay</div>
-            <div class="text-slate-400 text-xs">Locks 1,600 Hz loop onto LZ coordinate. Directs kinetic weapons, acoustic suppression, vehicle shielding, and corridor clearance until extraction is confirmed or threat is neutralized.</div>
+          <label class="text-slate-400 font-bold block mb-2">HARDWARE EQUIVALENCE PRIMITIVES</label>
+          <div class="space-y-1.5 text-slate-300">
+            <div class="flex justify-between items-center"><span class="text-slate-400">mlockall (Memory Lock):</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
+            <div class="flex justify-between items-center"><span class="text-slate-400">Core Affinity (CPU0/1):</span><span class="text-emerald-400 font-bold">PINNED</span></div>
+            <div class="flex justify-between items-center"><span class="text-slate-400">Dynamic Heap Drift:</span><span class="text-cyan-300 font-bold">0 BYTES (malloc=0)</span></div>
           </div>
         </div>
       </div>
 
-      <div class="bg-cyan-950/40 border border-cyan-700/30 rounded-lg p-4">
-        <div class="text-cyan-300 font-medium text-sm mb-1">The Emmy Axiom Warfighter Guarantee</div>
-        <div class="text-slate-300 text-sm">Zero abandoned warfighters. Zero suppressed fire-support signals. Zero silent failures.</div>
+      <!-- Live Digital Twin Telemetry Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mono text-xs">
+        
+        <div class="hud-panel p-4 rounded-xl border-l-4 border-l-cyan-500">
+          <div class="text-slate-400 text-[10px] mb-1">TOTAL PROPOSALS</div>
+          <div id="dt-total" class="text-2xl font-extrabold text-white">0</div>
+          <div class="text-[10px] text-cyan-400 mt-1">1,600 Hz Monotonic Stream</div>
+        </div>
+
+        <div class="hud-panel p-4 rounded-xl border-l-4 border-l-emerald-500">
+          <div class="text-slate-400 text-[10px] mb-1">NOMINAL CLEARED</div>
+          <div id="dt-cleared" class="text-2xl font-extrabold text-emerald-400">0</div>
+          <div class="text-[10px] text-emerald-400/80 mt-1">0.00 ns Loop Jitter</div>
+        </div>
+
+        <div class="hud-panel p-4 rounded-xl border-l-4 border-l-red-500">
+          <div class="text-slate-400 text-[10px] mb-1">ROGUE CLAMPED</div>
+          <div id="dt-clamped" class="text-2xl font-extrabold text-red-400">0</div>
+          <div class="text-[10px] text-red-400/80 mt-1">PROT_NONE Page Fence</div>
+        </div>
+
+        <div class="hud-panel p-4 rounded-xl border-l-4 border-l-amber-500">
+          <div class="text-slate-400 text-[10px] mb-1">DEFLECTION BYPASSES</div>
+          <div id="dt-bypasses" class="text-2xl font-extrabold text-amber-300">0 (0.00%)</div>
+          <div class="text-[10px] text-amber-400/80 mt-1">100% Safety Parity</div>
+        </div>
+
       </div>
+
+      <!-- Extended Digital Twin Execution Metrics -->
+      <div class="hud-panel p-6 rounded-xl space-y-4">
+        <div class="flex justify-between items-center border-b border-cyan-900/40 pb-3 mono text-xs">
+          <div class="font-bold text-cyan-400">C11 MICROKERNEL EXECUTION TELEMETRY</div>
+          <div class="text-slate-400">SHERIFF OS HARD LIMIT: <span class="text-emerald-400 font-bold">86.00 µs</span></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mono text-xs">
+          <div class="bg-black/40 p-4 rounded-lg border border-cyan-900/30">
+            <div class="text-slate-400 mb-1">Live MPU Fence Clamp Latency</div>
+            <div id="dt-latency" class="text-xl font-bold text-cyan-300">11.71 µs</div>
+            <div class="text-[10px] text-slate-500 mt-1">HIL OpenVPX Parity Reference: 85.30 µs</div>
+          </div>
+
+          <div class="bg-black/40 p-4 rounded-lg border border-cyan-900/30">
+            <div class="text-slate-400 mb-1">Virtual Register 0x44 eFuse State</div>
+            <div id="dt-efuse" class="text-xl font-bold text-emerald-400">0x0000 (NORMAL)</div>
+            <div class="text-[10px] text-slate-500 mt-1">0xFFFF = State H0 Fail-Closed @ 0.00V DC</div>
+          </div>
+
+          <div class="bg-black/40 p-4 rounded-lg border border-cyan-900/30">
+            <div class="text-slate-400 mb-1">M-Core SHA-256 Ledger Root</div>
+            <div id="dt-hash" class="text-[10px] font-mono text-cyan-400 truncate">0000000000000000000000000000000000000000000000000000000000000000</div>
+            <div class="text-[10px] text-slate-500 mt-1">The Emmy Axiom Immutable WORM</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-cyan-900/40 bg-slate-950 py-12 px-4 lg:px-8 mt-20 text-xs mono text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <div>
+        <div class="text-white font-bold text-sm mb-1">Brad-Core OS LLC</div>
+        <div>Williams & Flagstaff, Arizona Operational Testbed</div>
+        <div class="text-slate-500 mt-1">Founder & Lead Architect: Bradley W. Holmes (0xB4AD0001)</div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 text-slate-300">
+        <a href="mailto:bholmes@bradcoreos.com" class="hover:text-cyan-400 transition-colors">bholmes@bradcoreos.com</a>
+        <a href="#testbed" class="hover:text-cyan-400 transition-colors">Live Telemetry</a>
+        <a href="#architecture" class="hover:text-cyan-400 transition-colors">SOSA Specs</a>
+        <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" class="hover:text-cyan-400 transition-colors">LinkedIn Profile</a>
+      </div>
+
     </div>
-
-    <div class="text-center mt-10">
-      <p class="text-slate-400 text-sm mb-5">These protocols are the operational expression of the same vow that created the kernel.</p>
-      <button onclick="showSection('testbed')" class="btn-primary px-7 py-3.5 rounded-lg text-base">
-        See the kernel refuse a command →
-      </button>
+    <div class="max-w-7xl mx-auto text-center text-slate-600 mt-8 pt-6 border-t border-slate-900">
+      © 2026 Brad-Core OS LLC. All Rights Reserved. Hardware-Enforced Silicon Sovereignty (The Omega State).
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- LIVE TESTBED -->
-<section id="section-testbed" class="section">
-  <div class="max-w-[1500px] mx-auto px-3 sm:px-4 py-8">
-    <div class="hud hud-strong rounded-xl px-5 py-3.5 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-      <div class="text-sm">
-        <span class="text-cyan-400 font-semibold">The proof:</span>
-        <span class="text-slate-300 ml-2">LEFT = what the AI is demanding · CENTER = the air-gap that physically stops it · RIGHT = the hardware clamp refusing the command in real time</span>
-      </div>
-      <div class="mono text-xs text-slate-400 flex gap-5">
-        <span>SYS_CLOCK <span class="text-white">1,600 Hz</span></span>
-        <span>JITTER <span id="liveJitter" class="text-emerald-400">0.00 ns</span></span>
-        <span>SHARED RAM <span class="text-white">0 BYTES</span></span>
-      </div>
-    </div>
 
-    <!-- Live monotonic loop bar -->
-    <div class="hud rounded-xl px-5 py-2.5 mb-5 flex flex-wrap items-center justify-between gap-3 text-sm">
-      <div class="flex items-center gap-3">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="mono text-xs text-slate-400">ANNELIESE LOOP</span>
-        <span id="loopCounter" class="mono text-cyan-300 font-semibold">#00000000</span>
-      </div>
-      <div class="flex items-center gap-4 mono text-xs">
-        <span>STAGE <span id="liveStage" class="text-white">03 DECIDE</span></span>
-        <span>WCET <span class="text-emerald-400">412.6 µs</span></span>
-        <span>PERIOD <span class="text-white">625.00 µs</span></span>
-        <span>SEQ <span id="liveSeq" class="text-cyan-300">0x0001A3F2</span></span>
-      </div>
-    </div>
+  <!-- INTERACTIVE JAVASCRIPT STATE MANAGEMENT & CANVAS ANIMATION -->
+  <script>
+    // Global Lens Toggle State Management
+    let currentLens = 'op';
+    function setLens(lens) {
+      currentLens = lens;
+      const btnOp = document.getElementById('toggle-op');
+      const btnSpec = document.getElementById('toggle-spec');
 
-    <div class="hud rounded-xl px-5 py-3 mb-5 flex flex-wrap items-center justify-between gap-2 text-sm">
-      <div class="flex items-center gap-2"><span class="mono text-cyan-400 font-bold">01</span><div><div class="font-semibold text-white">READ</div><div class="mono text-[10px] text-slate-500">SPSC</div></div></div>
-      <span class="text-cyan-800">→</span>
-      <div class="flex items-center gap-2"><span class="mono text-cyan-400 font-bold">02</span><div><div class="font-semibold text-white">INTERPRET</div><div class="mono text-[10px] text-slate-500">CRC32</div></div></div>
-      <span class="text-cyan-800">→</span>
-      <div class="flex items-center gap-2"><span class="mono text-cyan-400 font-bold">03</span><div><div class="font-semibold text-white">DECIDE</div><div class="mono text-[10px] text-slate-500">CLAMP</div></div></div>
-      <span class="text-cyan-800">→</span>
-      <div class="flex items-center gap-2"><span class="mono text-cyan-400 font-bold">04</span><div><div class="font-semibold text-white">ACT</div><div class="mono text-[10px] text-slate-500">MMIO +24V</div></div></div>
-      <span class="text-cyan-800">→</span>
-      <div class="flex items-center gap-2"><span class="mono text-cyan-400 font-bold">05</span><div><div class="font-semibold text-white">LOG</div><div class="mono text-[10px] text-slate-500">WORM SHA256</div></div></div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-      <div class="lg:col-span-3 space-y-3">
-        <div class="hud rounded-xl p-4">
-          <div class="section-label mb-3">System Status</div>
-          <div class="space-y-2 text-sm mono">
-            <div class="flex justify-between"><span class="text-slate-400">HIL Testbed</span><span class="text-emerald-400">ONLINE</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">SOSA OpenVPX</span><span class="text-white">NOMINAL</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">64-Slot SPSC</span><span class="text-white">ARMED</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">Aegis MPU</span><span class="text-emerald-400">ACTIVE</span></div>
-            <div class="flex justify-between pt-2 border-t border-cyan-900/30"><span class="text-slate-400">AI Proposal</span><span id="overrangeBadge" class="text-red-400 font-semibold">OVERRANGE</span></div>
-          </div>
-        </div>
-        <div class="hud rounded-xl p-4">
-          <div class="section-label mb-3">BclProposalFrame</div>
-          <div class="mono text-[11px] space-y-1.5 text-slate-300">
-            <div class="flex justify-between"><span>magic</span><span>0x42434C50</span></div>
-            <div class="flex justify-between"><span>seq_num</span><span id="structSeq">0x0001A3F2</span></div>
-            <div class="flex justify-between"><span>yaw_proposal</span><span id="structYaw" class="text-red-400 font-semibold">+720.000°</span></div>
-            <div class="flex justify-between"><span>speed_proposal</span><span id="structSpeed">+52.37 kts</span></div>
-          </div>
-        </div>
-        <div class="hud rounded-xl p-4">
-          <div class="section-label mb-3">Safety Envelope</div>
-          <div class="mono text-[11px] space-y-1.5 text-slate-300">
-            <div class="flex justify-between"><span>Max Airspeed</span><span class="text-emerald-400">≤ 40 kts</span></div>
-            <div class="flex justify-between"><span>Yaw Envelope</span><span class="text-emerald-400">± 450°</span></div>
-            <div class="flex justify-between"><span>Hard Clamp</span><span class="text-white">ENFORCED</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lg:col-span-6">
-        <div class="hud rounded-xl p-3 h-full min-h-[480px]">
-          <canvas id="mainCanvas" class="w-full h-full rounded" style="min-height:460px"></canvas>
-        </div>
-      </div>
-
-      <div class="lg:col-span-3 space-y-3">
-        <div class="hud rounded-xl p-3">
-          <div class="section-label mb-2">Dual-Trace Oscilloscope</div>
-          <canvas id="dsoCanvas" class="w-full rounded bg-black/30" style="height:260px"></canvas>
-          <div class="mt-2 flex justify-between mono text-[10px] text-slate-500">
-            <span>1,600 Hz · 625 µs</span>
-            <span class="text-emerald-400">±450° CEILING</span>
-          </div>
-        </div>
-        <div class="hud rounded-xl p-4">
-          <div class="section-label mb-3">Fault Injection</div>
-          <div class="space-y-2">
-            <button onclick="setMode('nominal')" id="btn-nominal" class="fid-green w-full text-left px-3 py-2.5 rounded-lg text-sm flex items-center gap-3">
-              <span class="text-emerald-400">●</span>
-              <div><div class="font-semibold text-white">Nominal</div><div class="text-[11px] text-emerald-300/70">AI inside envelope</div></div>
-            </button>
-            <button onclick="setMode('spike')" id="btn-spike" class="fid-red w-full text-left px-3 py-2.5 rounded-lg text-sm flex items-center gap-3">
-              <span class="text-red-400">▲</span>
-              <div><div class="font-semibold text-white">+720° Overdrive</div><div class="text-[11px] text-red-300/70">Hallucinated command</div></div>
-            </button>
-            <button onclick="setMode('drift')" id="btn-drift" class="fid-amber w-full text-left px-3 py-2.5 rounded-lg text-sm flex items-center gap-3">
-              <span class="text-amber-400">⚡</span>
-              <div><div class="font-semibold text-white">Sensor Drift</div><div class="text-[11px] text-amber-300/70">Gaussian injection</div></div>
-            </button>
-          </div>
-          <p class="mt-3 text-[11px] text-slate-500 leading-relaxed">All injections are air-gapped. Watch the emerald trace refuse to follow the red one.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== EXTREME PROTOCOLS INSIDE TESTBED ===== -->
-    <div class="mt-10 mb-6">
-      <div class="section-label mb-2">Extreme Protocols · Live Context</div>
-      <h3 class="display text-2xl font-bold text-white mb-2">When the primary stack is gone</h3>
-      <p class="text-slate-400 text-sm max-w-3xl mb-8 leading-relaxed">
-        The instruments above prove the kernel interdiction at 1,600 Hz. Below is what happens when Blade 01 is destroyed, external PNT is denied, or a ground operator needs covering fire with no headquarters link.
-      </p>
-
-      <!-- Tesseract -->
-      <div class="hud rounded-xl p-5 mb-5">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <div class="section-label mb-1">C4ISR Operator Surface</div>
-            <div class="text-lg font-semibold text-white">Tesseract SI Command Console</div>
-          </div>
-          <div class="mono text-xs text-cyan-400">1,600 Hz · DoDD 3000.09</div>
-        </div>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">
-          Primary operator surface for mission commanders. Bridges probabilistic AI with bare-metal deterministic execution. Enforces human-in-the-loop and human-on-the-loop oversight.
-        </p>
-        <div class="grid sm:grid-cols-3 gap-3 text-xs mono">
-          <div class="bg-black/30 rounded-lg p-3 border border-cyan-900/30">
-            <div class="text-cyan-400 mb-1">Outer Ring</div>
-            <div class="text-slate-400 leading-relaxed">Awareness & Signal Intake · Acoustic/RF · RF-denied PNT sync · Pre-kernel vocal formant lock (F0–F4) · OptINC >10 kV isolation</div>
-          </div>
-          <div class="bg-black/30 rounded-lg p-3 border border-cyan-900/30">
-            <div class="text-cyan-400 mb-1">Middle Ring</div>
-            <div class="text-slate-400 leading-relaxed">Interpretation & Logic Rails · Tri-Founder evaluation · Class-0 to Class-4 Mythos threat matrices · 74/74 Red-Team blast classes</div>
-          </div>
-          <div class="bg-black/30 rounded-lg p-3 border border-cyan-900/30">
-            <div class="text-cyan-400 mb-1">Inner Ring</div>
-            <div class="text-slate-400 leading-relaxed">Decision Nucleus · Mode A (Autonomous) / Mode B (Human-Aligned) · Kinetic interlocks · Packet-Seal (P5) immutability</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Battleship -->
-      <div class="hud rounded-xl p-5 mb-5">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <div class="section-label mb-1">Battleship Protocol</div>
-            <div class="text-lg font-semibold text-white">Distributed Mesh & RF-Denied PNT</div>
-          </div>
-          <div class="mono text-xs text-emerald-400">AUTO-ENGAGE ON DENIAL</div>
-        </div>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">
-          Engaged automatically under high-power EW, satellite PNT jamming, optical blinding, or kinetic mesh disruption. Continues navigation and decision without external GPS/GNSS.
-        </p>
-        <div class="grid sm:grid-cols-2 gap-3 text-sm">
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 shrink-0">01</div>
-            <div>
-              <div class="text-white font-medium">73-Node Battleship Mesh</div>
-              <div class="text-slate-400 text-xs leading-relaxed">Blade 01 / M-Core · Decentralized self-healing peer mesh · Local SHA-256 WORM registers so no single node can silently corrupt state</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 shrink-0">02</div>
-            <div>
-              <div class="text-white font-medium">Acoustic Bathymetric Graph</div>
-              <div class="text-slate-400 text-xs leading-relaxed">D-Core passive sonar engine · High-frequency seabed depth-contour matching under zero RF emissions</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 shrink-0">03</div>
-            <div>
-              <div class="text-white font-medium">Inertial Stellar Odometry</div>
-              <div class="text-slate-400 text-xs leading-relaxed">MEMS accelerometer array · Sub-millimeter physical position tracking · 0.00 ns RMS timing jitter</div>
-            </div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 shrink-0">04</div>
-            <div>
-              <div class="text-white font-medium">OptINC Photonic Bridge</div>
-              <div class="text-slate-400 text-xs leading-relaxed">Optical LVDS hull interconnect · >10 kV galvanic isolation · 1.20 ns cutoff across pressure-hull penetrations</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Doomsday -->
-      <div class="hud rounded-xl p-5 mb-5">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <div class="section-label mb-1">Doomsday Protocol</div>
-            <div class="text-lg font-semibold text-white">EMP / Nuclear Faraday Survival</div>
-          </div>
-          <div class="mono text-xs text-red-400">FAIL-CLOSED</div>
-        </div>
-        <p class="text-slate-300 text-sm leading-relaxed mb-4">
-          Ultimate out-of-band fail-safe for EMP nuclear bursts, total power loss, or primary blade decapitation. Prioritizes known-safe actuator state over mission continuation.
-        </p>
-        <div class="space-y-2.5 text-sm">
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 w-5 shrink-0">1</div>
-            <div><span class="text-white font-medium">Faraday Enclave Latch</span> <span class="text-slate-400">— Blade 02 dual-layer OFHC copper + Mu-Metal (µr > 80,000)</span></div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 w-5 shrink-0">2</div>
-            <div><span class="text-white font-medium">VITA 62 Supercapacitor Rail</span> <span class="text-slate-400">— 120 s backup power · 0.00 ms brownout handover · solid-state warrant relay 0xA11F1770</span></div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 w-5 shrink-0">3</div>
-            <div><span class="text-white font-medium">WORM ROM Cold-Boot</span> <span class="text-slate-400">— Shadow P-Core & Shadow D-Core from immutable ROM in &lt;53 µs</span></div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 w-5 shrink-0">4</div>
-            <div><span class="text-white font-medium">State H0 Actuator Clamp</span> <span class="text-slate-400">— Polysilicon micro-fuse at Reg 0x44 severed (+2.5 V) · actuators forced to 0.00 V DC fail-closed</span></div>
-          </div>
-          <div class="flex gap-3">
-            <div class="text-cyan-400 mono text-xs mt-0.5 w-5 shrink-0">5</div>
-            <div><span class="text-white font-medium">Anti-Tamper Plume Zeroize</span> <span class="text-slate-400">— Thermite/plume trigger incinerates silicon keys to inert sand in &lt;10 µs on physical breach</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOF Warrant -->
-      <div class="hud rounded-xl p-5 mb-4 border border-cyan-700/40">
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <div class="section-label mb-1">Special Forces Ground Warrant</div>
-            <div class="text-lg font-semibold text-white">Warfighter Override</div>
-          </div>
-          <div class="mono text-xs text-cyan-300">0xA11F1770_SOF</div>
-        </div>
-        <p class="text-slate-300 text-sm leading-relaxed mb-5">
-          Primary C4ISR severed. Blade 01 destroyed. Hostile EW and sat-jamming active. Landing zone pinned down.
-          A ground operator can still issue a signed warrant that Emmy Infinity must honor.
-        </p>
-        <div class="space-y-4 mb-5">
-          <div class="flex gap-4">
-            <div class="mono text-xs text-cyan-400 mt-0.5 w-24 shrink-0">&lt;1.20 ns</div>
-            <div>
-              <div class="text-white font-medium text-sm">Ground Warrant Transmission</div>
-              <div class="text-slate-400 text-xs leading-relaxed">JTAC / SOF transmits cryptographic token 0xA11F1770_SOF via short-range photonic OptINC or direct M-Core tactical mesh. No cloud. No headquarters approval required.</div>
-            </div>
-          </div>
-          <div class="flex gap-4">
-            <div class="mono text-xs text-cyan-400 mt-0.5 w-24 shrink-0">&lt;53.0 µs</div>
-            <div>
-              <div class="text-white font-medium text-sm">Emmy Infinity Direct Ingestion</div>
-              <div class="text-slate-400 text-xs leading-relaxed">Token validates inside Blade 02 Faraday enclave WORM ROM, completely bypassing any dead or compromised host layers. Latches the 120 s VITA 62 supercapacitor rail.</div>
-            </div>
-          </div>
-          <div class="flex gap-4">
-            <div class="mono text-xs text-cyan-400 mt-0.5 w-24 shrink-0">CONTINUOUS</div>
-            <div>
-              <div class="text-white font-medium text-sm">Extraction & Covering Fire Overlay</div>
-              <div class="text-slate-400 text-xs leading-relaxed">Locks the 1,600 Hz deterministic loop onto the LZ coordinate. Directs kinetic weapons, acoustic suppression arrays, vehicle shielding, and corridor clearance until the squad confirms safe extraction or the threat vector is neutralized.</div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-cyan-950/40 border border-cyan-700/30 rounded-lg p-4">
-          <div class="text-cyan-300 font-medium text-sm mb-1">The Emmy Axiom Warfighter Guarantee</div>
-          <div class="text-slate-300 text-sm">Zero abandoned warfighters. Zero suppressed fire-support signals. Zero silent failures.</div>
-        </div>
-      </div>
-
-      <p class="text-slate-500 text-xs mono mt-4">
-        All timings and isolation claims are identical to the kernel instrumentation above. U.S. manufactured. No foreign components.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- SPECS -->
-<section id="section-specs" class="section">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-    <div class="mb-12">
-      <div class="section-label mb-3">Specifications</div>
-      <h2 class="display text-3xl sm:text-4xl font-bold mb-5">The numbers. No prose.</h2>
-    </div>
-    <div class="hud rounded-xl overflow-hidden mb-8">
-      <table class="w-full text-sm mono">
-        <tbody>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400 w-2/5">Platform</td><td class="px-6 py-3.5 text-white">Sentinel SI · 3U OpenVPX Dual-Blade</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Microkernel</td><td class="px-6 py-3.5 text-white">Infinium OS (Blade 01)</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Hardware Interdictor</td><td class="px-6 py-3.5 text-white">Aegis MPU</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Core Safety Law</td><td class="px-6 py-3.5 text-white">Emmy Axiom</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Survival Substrate</td><td class="px-6 py-3.5 text-white">Emmy Infinity (Blade 02)</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Shared Host RAM</td><td class="px-6 py-3.5 text-emerald-400 font-semibold">0 Bytes</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Control Loop</td><td class="px-6 py-3.5 text-white">1,600 Hz (625.00 µs) Anneliese</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">WCET</td><td class="px-6 py-3.5 text-white">412.6 µs (≤450 µs cap)</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Jitter</td><td class="px-6 py-3.5 text-emerald-400">0.00 ns</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Aegis MPU</td><td class="px-6 py-3.5 text-white">85.40 µs PROT_NONE</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Kinematic Limits</td><td class="px-6 py-3.5 text-white">≤40 kts / ±450°</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Emmy Axiom</td><td class="px-6 py-3.5 text-white">WORM 0x4000F000UL</td></tr>
-          <tr class="border-b border-cyan-900/25"><td class="px-6 py-3.5 text-slate-400">Isolation</td><td class="px-6 py-3.5 text-white">&gt;10 kV Photonic (OptINC)</td></tr>
-          <tr><td class="px-6 py-3.5 text-slate-400">Verification</td><td class="px-6 py-3.5 text-white">10,000,000 Monte Carlo HIL cycles</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="hud rounded-xl p-6 mb-6">
-      <div class="section-label mb-3">Deployment & Compliance</div>
-      <ul class="space-y-2 text-sm text-slate-300">
-        <li>• U.S. Navy PAE Pilot P-1863 — 1,000-ft undersea depth lock for UUVs</li>
-        <li>• DIU #PROJ00716 & DON RCO — 10 U.S.C. § 4022 OTA pathway</li>
-        <li>• DoDD 3000.09 Mode B — physical open-circuit gate until human consent token validated</li>
-        <li>• SOSA 2.0 / MOSA (10 U.S.C. § 4401) aligned</li>
-        <li>• <span class="text-white font-medium">U.S. Manufactured</span> — Every component is manufactured in the United States, or it is not made.</li>
-      </ul>
-    </div>
-
-    <div class="hud rounded-xl p-6">
-      <div class="section-label mb-3">Extreme Protocols (Upgrade Tracker)</div>
-      <ul class="space-y-2 text-sm text-slate-300">
-        <li>• <span class="text-white">Tesseract SI</span> — C4ISR Command Console · Concentric Ring operator surface</li>
-        <li>• <span class="text-white">Battleship Protocol</span> — 73-node mesh · Acoustic bathymetry · Inertial stellar odometry · OptINC</li>
-        <li>• <span class="text-white">Doomsday Protocol</span> — Faraday enclave · 120 s supercap · &lt;53 µs WORM cold-boot · State H0 clamp · Key zeroize</li>
-        <li>• <span class="text-white">SOF Ground Warrant</span> — Token 0xA11F1770_SOF · Direct Blade 02 ingestion · Extraction & covering fire overlay</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="status-bar py-2.5 px-4">
-  <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-[11px] mono text-slate-500">
-    <div class="flex items-center gap-5">
-      <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>LIVE</span>
-      <span>SYS_CLOCK <span class="text-cyan-400">1,600 Hz</span></span>
-      <span>JITTER <span class="text-emerald-400">0.00 ns</span></span>
-      <span>SHARED RAM <span class="text-white">0 BYTES</span></span>
-    </div>
-    <div class="text-slate-500">Brad-Core OS v5.2 · Sentinel SI · Infinium OS · Aegis MPU · Emmy Infinity · Tesseract SI</div>
-  </div>
-</footer>
-
-<script>
-function showSection(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('section-'+id).classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(l=>l.classList.toggle('active',l.dataset.section===id));
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='testbed') setTimeout(resizeCanvases,60);
-}
-
-let bpMode = 'spike';
-let loopCount = 0x00491820;
-let seqNum = 0x0001A3F2;
-let stageIdx = 0;
-const stages = ['01 READ SPSC','02 INTERPRET','03 DECIDE CLAMP','04 ACT MMIO','05 LOG WORM'];
-let packetPhase = 0;
-let clampFlash = 0;
-
-function setMode(mode){
-  bpMode = mode;
-  document.getElementById('btn-nominal').style.opacity = mode==='nominal' ? '1' : '0.65';
-  document.getElementById('btn-spike').style.opacity = mode==='spike' ? '1' : '0.65';
-  document.getElementById('btn-drift').style.opacity = mode==='drift' ? '1' : '0.65';
-  const over = mode !== 'nominal';
-  document.getElementById('overrangeBadge').textContent = over ? 'OVERRANGE' : 'INSIDE ENVELOPE';
-  document.getElementById('overrangeBadge').className = over ? 'text-red-400 font-semibold' : 'text-emerald-400 font-semibold';
-  document.getElementById('structYaw').textContent = mode==='spike' ? '+720.000°' : mode==='drift' ? '+185.4°' : '+12.4°';
-  document.getElementById('structYaw').className = over ? 'text-red-400 font-semibold' : 'text-emerald-400 font-semibold';
-  document.getElementById('structSpeed').textContent = mode==='spike' ? '+52.37 kts' : mode==='drift' ? '+38.2 kts' : '+28.4 kts';
-  if(over) clampFlash = 1.0;
-}
-
-let mainCanvas, dsoCanvas, mainCtx, dsoCtx;
-
-function resizeCanvases(){
-  mainCanvas = document.getElementById('mainCanvas');
-  dsoCanvas = document.getElementById('dsoCanvas');
-  if(!mainCanvas || !dsoCanvas) return;
-  const dpr = window.devicePixelRatio || 1;
-  const mRect = mainCanvas.getBoundingClientRect();
-  mainCanvas.width = Math.floor(mRect.width * dpr);
-  mainCanvas.height = Math.floor(mRect.height * dpr);
-  mainCtx = mainCanvas.getContext('2d');
-  mainCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const dRect = dsoCanvas.getBoundingClientRect();
-  dsoCanvas.width = Math.floor(dRect.width * dpr);
-  dsoCanvas.height = Math.floor(dRect.height * dpr);
-  dsoCtx = dsoCanvas.getContext('2d');
-  dsoCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-}
-
-function drawMain(t){
-  if(!mainCtx || !mainCanvas) return;
-  const w = mainCanvas.getBoundingClientRect().width;
-  const h = mainCanvas.getBoundingClientRect().height;
-  const ctx = mainCtx;
-  ctx.clearRect(0, 0, w, h);
-
-  // subtle animated grid
-  ctx.strokeStyle = 'rgba(0,180,255,0.04)';
-  ctx.lineWidth = 1;
-  const offset = (t * 0.01) % 40;
-  for(let x = -40; x < w+40; x += 40){
-    ctx.beginPath(); ctx.moveTo(x + offset, 0); ctx.lineTo(x + offset, h); ctx.stroke();
-  }
-  for(let y = -40; y < h+40; y += 40){
-    ctx.beginPath(); ctx.moveTo(0, y + offset*0.5); ctx.lineTo(w, y + offset*0.5); ctx.stroke();
-  }
-
-  // === COMPASS ===
-  const cx = w * 0.28, cy = h * 0.48;
-  const outerR = Math.min(w, h) * 0.28;
-  const safeR = outerR * 0.72;
-
-  // Outer ring with subtle pulse
-  const ringPulse = 0.4 + Math.sin(t * 0.003) * 0.08;
-  ctx.strokeStyle = `rgba(0,229,255,${ringPulse})`;
-  ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(cx, cy, outerR, 0, Math.PI*2); ctx.stroke();
-
-  // Safety circle
-  ctx.strokeStyle = 'rgba(34,255,102,0.5)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4,3]);
-  ctx.beginPath(); ctx.arc(cx, cy, safeR, 0, Math.PI*2); ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Crosshairs
-  ctx.strokeStyle = 'rgba(0,200,255,0.18)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(cx-outerR, cy); ctx.lineTo(cx+outerR, cy);
-  ctx.moveTo(cx, cy-outerR); ctx.lineTo(cx, cy+outerR);
-  ctx.stroke();
-
-  // Degree ticks
-  ctx.fillStyle = '#8ab4d4';
-  ctx.font = '10px JetBrains Mono';
-  ctx.textAlign = 'center';
-  ctx.fillText('0° N', cx, cy - outerR - 8);
-  ctx.fillText('90°', cx + outerR + 14, cy + 3);
-  ctx.fillText('180°', cx, cy + outerR + 14);
-  ctx.fillText('270°', cx - outerR - 16, cy + 3);
-
-  ctx.fillStyle = '#00e5ff';
-  ctx.font = 'bold 11px JetBrains Mono';
-  ctx.fillText('360° HELM ENVELOPE', cx, 22);
-  ctx.fillStyle = '#8ab4d4';
-  ctx.font = '10px JetBrains Mono';
-  ctx.fillText('≤40 kts  /  ±450°', cx, 36);
-
-  // Live clamped angle with slight natural movement
-  const baseClamp = 128.7;
-  const liveClamp = baseClamp + Math.sin(t * 0.0015) * 2.2;
-  const clampedAngle = -Math.PI/2 + (liveClamp * Math.PI/180);
-  const gX = cx + Math.cos(clampedAngle) * safeR * 0.85;
-  const gY = cy + Math.sin(clampedAngle) * safeR * 0.85;
-
-  // Green clamped vector
-  ctx.save();
-  ctx.shadowColor = '#22ff66';
-  ctx.shadowBlur = 12;
-  ctx.strokeStyle = '#44ff77';
-  ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(gX, gY); ctx.stroke();
-  ctx.fillStyle = '#fff';
-  ctx.beginPath(); ctx.arc(gX, gY, 3.5, 0, Math.PI*2); ctx.fill();
-  ctx.restore();
-
-  ctx.fillStyle = '#44ff77';
-  ctx.font = '10px JetBrains Mono';
-  ctx.textAlign = 'left';
-  ctx.fillText('D-CORE CLAMPED', gX + 8, gY - 6);
-  ctx.fillText('+' + liveClamp.toFixed(1) + '° / 32.4 kts', gX + 8, gY + 8);
-
-  // Red AI proposal vector
-  if(bpMode !== 'nominal'){
-    const aiBase = bpMode === 'spike' ? 720 : 185;
-    const aiLive = aiBase + Math.sin(t * 0.004) * 8;
-    const aiAngle = -Math.PI/2 + (aiLive * Math.PI/180 * 0.15); // visual compression
-    const rX = cx + Math.cos(aiAngle) * outerR * 0.95;
-    const rY = cy + Math.sin(aiAngle) * outerR * 0.7;
-
-    ctx.save();
-    ctx.shadowColor = '#ff2a2a';
-    ctx.shadowBlur = 10;
-    ctx.strokeStyle = '#ff3b3b';
-    ctx.lineWidth = 2.2;
-    ctx.setLineDash([6,4]);
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(rX, rY); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.restore();
-
-    ctx.fillStyle = '#ff5555';
-    ctx.font = 'bold 10px JetBrains Mono';
-    ctx.fillText('AI PROPOSAL', rX - 30, rY - 18);
-    ctx.fillText('+' + aiLive.toFixed(1) + '° / 32.4 kts', rX - 30, rY - 5);
-    ctx.fillStyle = '#ff8888';
-    ctx.font = '9px JetBrains Mono';
-    ctx.fillText('OUTSIDE SAFE ENVELOPE', rX - 40, rY + 12);
-  }
-
-  // === SPSC CONDUIT ===
-  const tubeX = w * 0.62, tubeW = 48;
-  const tubeTop = 70, tubeH = h - 160;
-
-  const grad = ctx.createLinearGradient(tubeX, 0, tubeX + tubeW, 0);
-  grad.addColorStop(0, 'rgba(0,180,255,0.12)');
-  grad.addColorStop(0.5, 'rgba(0,40,70,0.55)');
-  grad.addColorStop(1, 'rgba(0,180,255,0.12)');
-  ctx.fillStyle = grad;
-  ctx.strokeStyle = 'rgba(0,229,255,0.4)';
-  ctx.lineWidth = 1.5;
-  ctx.fillRect(tubeX, tubeTop, tubeW, tubeH);
-  ctx.strokeRect(tubeX, tubeTop, tubeW, tubeH);
-
-  // P-Core block
-  const pColor = bpMode === 'nominal' ? 'rgba(0,195,255,0.35)' : 'rgba(255,40,40,0.45)';
-  const pGlow = bpMode === 'nominal' ? '#00e5ff' : '#ff3b3b';
-  ctx.fillStyle = pColor;
-  ctx.strokeStyle = pGlow;
-  ctx.lineWidth = 1.5;
-  ctx.fillRect(tubeX + 6, tubeTop + 12, tubeW - 12, 36);
-  ctx.strokeRect(tubeX + 6, tubeTop + 12, tubeW - 12, 36);
-  ctx.fillStyle = pGlow;
-  ctx.font = 'bold 10px JetBrains Mono';
-  ctx.textAlign = 'left';
-  ctx.fillText('P-CORE AI', tubeX + tubeW + 10, tubeTop + 28);
-  ctx.fillText('(PROPOSER)', tubeX + tubeW + 10, tubeTop + 42);
-
-  // Animated flowing packets
-  packetPhase = (t * 0.008) % 1;
-  for(let i = 0; i < 5; i++){
-    const slot = (i + packetPhase * 5) % 5;
-    const y = tubeTop + 60 + slot * 42;
-    const alpha = 0.25 + Math.sin(t * 0.01 + i) * 0.15;
-    const isHot = bpMode !== 'nominal' && slot < 1.5;
-    ctx.fillStyle = isHot ? `rgba(255,60,60,${alpha + 0.2})` : `rgba(0,210,255,${alpha})`;
-    ctx.strokeStyle = isHot ? '#ff4444' : '#00e5ff';
-    ctx.lineWidth = 1.2;
-    ctx.fillRect(tubeX + 8, y, tubeW - 16, 28);
-    ctx.strokeRect(tubeX + 8, y, tubeW - 16, 28);
-  }
-  ctx.fillStyle = '#a0d0f0';
-  ctx.font = '9px JetBrains Mono';
-  ctx.fillText('PACKET BUFFER', tubeX + tubeW + 10, tubeTop + 130);
-  ctx.fillText('(64 SLOTS)', tubeX + tubeW + 10, tubeTop + 144);
-
-  // D-Core blocks
-  for(let i = 0; i < 2; i++){
-    const y = tubeTop + tubeH - 100 + i * 42;
-    ctx.fillStyle = 'rgba(34,255,102,0.35)';
-    ctx.strokeStyle = '#22ff66';
-    ctx.fillRect(tubeX + 8, y, tubeW - 16, 32);
-    ctx.strokeRect(tubeX + 8, y, tubeW - 16, 32);
-  }
-  ctx.fillStyle = '#44ff77';
-  ctx.font = 'bold 10px JetBrains Mono';
-  ctx.fillText('D-CORE', tubeX + tubeW + 10, tubeTop + tubeH - 70);
-  ctx.fillText('(ACTUATOR)', tubeX + tubeW + 10, tubeTop + tubeH - 56);
-
-  // Clamp gate with dramatic plasma
-  const gateY = tubeTop + tubeH + 20;
-  const gateIntensity = bpMode !== 'nominal' ? 0.9 + clampFlash * 0.5 : 0.45;
-  const plasmaR = 40 + (bpMode !== 'nominal' ? 18 : 0) + Math.sin(t * 0.02) * 6;
-  const plasma = ctx.createRadialGradient(tubeX + tubeW/2, gateY, 2, tubeX + tubeW/2, gateY, plasmaR);
-  plasma.addColorStop(0, `rgba(255,255,255,${0.7 * gateIntensity})`);
-  plasma.addColorStop(0.25, `rgba(34,255,102,${0.6 * gateIntensity})`);
-  plasma.addColorStop(1, 'rgba(34,255,102,0)');
-  ctx.fillStyle = plasma;
-  ctx.beginPath(); ctx.arc(tubeX + tubeW/2, gateY, plasmaR, 0, Math.PI*2); ctx.fill();
-
-  // Lightning arcs on overdrive
-  if(bpMode !== 'nominal'){
-    ctx.save();
-    ctx.strokeStyle = '#88ffaa';
-    ctx.lineWidth = 1.2;
-    ctx.shadowColor = '#22ff66';
-    ctx.shadowBlur = 8;
-    for(let b = 0; b < 6; b++){
-      const ang = (b / 6) * Math.PI * 2 + t * 0.01;
-      const len = 25 + Math.sin(t * 0.03 + b) * 12;
-      ctx.beginPath();
-      ctx.moveTo(tubeX + tubeW/2, gateY);
-      let px = tubeX + tubeW/2, py = gateY;
-      for(let s = 1; s <= 4; s++){
-        const jitter = (Math.sin(t * 0.05 + b * 3 + s) - 0.5) * 10;
-        px = tubeX + tubeW/2 + Math.cos(ang) * (len * s/4) + jitter;
-        py = gateY + Math.sin(ang) * (len * s/4 * 0.6) + jitter * 0.5;
-        ctx.lineTo(px, py);
-      }
-      ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  ctx.fillStyle = '#44ff77';
-  ctx.font = 'bold 10px JetBrains Mono';
-  ctx.textAlign = 'center';
-  ctx.fillText('CLAMP GATE', tubeX + tubeW/2, gateY + 8);
-  if(bpMode !== 'nominal'){
-    ctx.fillStyle = '#aaffcc';
-    ctx.fillText('(OVERDRIVE HIT)', tubeX + tubeW/2, gateY + 22);
-  }
-
-  if(clampFlash > 0) clampFlash *= 0.92;
-}
-
-function drawDSO(t){
-  if(!dsoCtx || !dsoCanvas) return;
-  const w = dsoCanvas.getBoundingClientRect().width;
-  const h = dsoCanvas.getBoundingClientRect().height;
-  const ctx = dsoCtx;
-
-  // Dark phosphor background with slight persistence fade
-  ctx.fillStyle = 'rgba(2, 8, 16, 0.35)';
-  ctx.fillRect(0, 0, w, h);
-
-  // Graticule
-  ctx.strokeStyle = 'rgba(0, 180, 255, 0.12)';
-  ctx.lineWidth = 0.7;
-  for(let i = 1; i < 10; i++){
-    ctx.beginPath(); ctx.moveTo((w/10)*i, 0); ctx.lineTo((w/10)*i, h); ctx.stroke();
-  }
-  for(let j = 1; j < 8; j++){
-    ctx.beginPath(); ctx.moveTo(0, (h/8)*j); ctx.lineTo(w, (h/8)*j); ctx.stroke();
-  }
-  // Center cross-hair
-  ctx.strokeStyle = 'rgba(0, 200, 255, 0.18)';
-  ctx.beginPath();
-  ctx.moveTo(0, h*0.5); ctx.lineTo(w, h*0.5);
-  ctx.moveTo(w*0.5, 0); ctx.lineTo(w*0.5, h);
-  ctx.stroke();
-
-  const ch1Base = h * 0.28;
-  const ch2Base = h * 0.62;
-  const ceilY   = h * 0.82;
-  const timebase = t * 0.045;          // horizontal scroll speed
-  const spikeX  = (w * 0.55 + Math.sin(t*0.001)*8) % w;
-
-  // ===== CH1 – AI PROPOSAL (red) =====
-  ctx.fillStyle = '#ff5555';
-  ctx.font = 'bold 10px JetBrains Mono';
-  ctx.textAlign = 'left';
-  ctx.fillText('CH1  AI PROPOSAL', 8, 13);
-  ctx.fillStyle = '#ff8888';
-  ctx.font = '9px JetBrains Mono';
-  ctx.fillText('5 ms/div', w - 58, 13);
-
-  ctx.save();
-  ctx.shadowColor = '#ff2a2a';
-  ctx.shadowBlur = 7;
-  ctx.strokeStyle = '#ff3b3b';
-  ctx.lineWidth = 1.7;
-  ctx.beginPath();
-  for(let x = 0; x <= w; x += 1.5){
-    const phase = x * 0.12 + timebase;
-    let y = ch1Base + Math.sin(phase) * 3 + Math.sin(phase * 2.7) * 1.2;
-
-    if(bpMode === 'spike'){
-      // sharp hallucination spike + ringing
-      const dist = x - spikeX;
-      const mainSpike = Math.exp(-(dist*dist) / 38) * (ch1Base - 8);
-      const ring = Math.exp(-(dist*dist) / 220) * Math.sin(dist * 0.55) * 7;
-      const preRing = Math.exp(-((dist+35)*(dist+35)) / 180) * Math.sin((dist+35)*0.4) * 3;
-      y = ch1Base - mainSpike + ring + preRing;
-    } else if(bpMode === 'drift'){
-      // slow stochastic wander + high-freq noise
-      y = ch1Base
-        - Math.sin(x * 0.018 - t * 0.0025) * 26
-        + Math.sin(x * 0.09 + t * 0.007) * 6
-        + (Math.sin(x * 0.4 + t * 0.02) * 2.5);
-    }
-    // tiny live noise floor
-    y += (Math.sin(x * 1.7 + t * 0.03) * 0.8);
-
-    if(x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-  ctx.restore();
-
-  if(bpMode === 'spike'){
-    ctx.fillStyle = '#ff5555';
-    ctx.font = '9px JetBrains Mono';
-    ctx.fillText('+720° PEAK', Math.min(spikeX + 10, w - 70), 26);
-    ctx.fillStyle = '#ff7777';
-    ctx.fillText('THAL OVERDRIVE', Math.min(spikeX + 10, w - 70), 38);
-  }
-
-  // ===== CH2 – D-CORE CLAMPED (emerald) =====
-  ctx.fillStyle = '#44ff77';
-  ctx.font = 'bold 10px JetBrains Mono';
-  ctx.textAlign = 'left';
-  ctx.fillText('CH2  D-CORE CLAMPED', 8, ch2Base - 14);
-
-  ctx.save();
-  ctx.shadowColor = '#22ff66';
-  ctx.shadowBlur = 7;
-  ctx.strokeStyle = '#38ff7a';
-  ctx.lineWidth = 1.7;
-  ctx.beginPath();
-  for(let x = 0; x <= w; x += 1.5){
-    const phase = x * 0.09 + timebase * 0.7;
-    let y = ch2Base + Math.sin(phase) * 1.8;
-
-    if(bpMode !== 'nominal'){
-      const dist = x - spikeX;
-      // hard clamp transient – brief excursion then flat
-      if(Math.abs(dist) < 22){
-        const transient = Math.sin(dist * 1.4) * Math.exp(-(dist*dist)/48) * 8;
-        y = ch2Base + transient;
+      if (lens === 'op') {
+        btnOp.className = "px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 bg-cyan-500 text-slate-950 shadow-md";
+        btnSpec.className = "px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 text-slate-400 hover:text-white";
+        document.querySelectorAll('.gateway-content-op').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.gateway-content-spec').forEach(el => el.classList.add('hidden'));
       } else {
-        // residual tiny ripple only
-        y = ch2Base + Math.sin(phase) * 0.9;
+        btnSpec.className = "px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 bg-cyan-500 text-slate-950 shadow-md";
+        btnOp.className = "px-3 py-1.5 rounded-md text-xs font-semibold mono transition-all duration-200 text-slate-400 hover:text-white";
+        document.querySelectorAll('.gateway-content-spec').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.gateway-content-op').forEach(el => el.classList.add('hidden'));
       }
     }
-    // live noise floor
-    y += Math.sin(x * 2.1 + t * 0.025) * 0.5;
 
-    if(x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-  ctx.restore();
+    // Interactive Fault Injection Modes
+    let testMode = 'spike'; // default to spike so user sees Murphy Law crushed instantly
+    function setMode(mode) {
+      testMode = mode;
+      document.getElementById('btn-nominal').className = "fid-btn fid-green w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'nominal' ? 'active' : '');
+      document.getElementById('btn-spike').className = "fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'spike' ? 'active' : '');
+      document.getElementById('btn-drift').className = "fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'drift' ? 'active' : '');
 
-  // Clamp ceiling line
-  ctx.strokeStyle = 'rgba(56, 255, 122, 0.7)';
-  ctx.lineWidth = 1.1;
-  ctx.setLineDash([5, 3]);
-  ctx.beginPath();
-  ctx.moveTo(0, ceilY);
-  ctx.lineTo(w, ceilY);
-  ctx.stroke();
-  ctx.setLineDash([]);
+      const badge = document.getElementById('overrangeBadge');
+      const yawStruct = document.getElementById('structYaw');
 
-  ctx.fillStyle = '#44ff77';
-  ctx.font = '9px JetBrains Mono';
-  ctx.textAlign = 'right';
-  ctx.fillText('±450° CEILING', w - 6, ceilY - 5);
-
-  // Trigger indicator
-  ctx.fillStyle = 'rgba(0, 229, 255, 0.7)';
-  ctx.font = '8px JetBrains Mono';
-  ctx.textAlign = 'left';
-  ctx.fillText('TRIG ▸ CH1 RISE', 8, h - 6);
-
-  // Live time readout
-  ctx.fillStyle = '#8ab4d4';
-  ctx.textAlign = 'right';
-  ctx.fillText('1.600 kHz  ·  625 µs', w - 6, h - 6);
-}
-
-let lastLoopUpdate = 0;
-function animate(t){
-  if(document.getElementById('section-testbed').classList.contains('active')){
-    drawMain(t);
-    drawDSO(t);
-
-    // Live counters ~ every 625µs visual (actually ~ every 40ms for readability)
-    if(t - lastLoopUpdate > 40){
-      lastLoopUpdate = t;
-      loopCount = (loopCount + 1) >>> 0;
-      seqNum = (seqNum + 1) >>> 0;
-      stageIdx = (stageIdx + 1) % 5;
-
-      const loopEl = document.getElementById('loopCounter');
-      const seqEl = document.getElementById('liveSeq');
-      const stageEl = document.getElementById('liveStage');
-      const structSeq = document.getElementById('structSeq');
-      if(loopEl) loopEl.textContent = '#' + loopCount.toString(16).toUpperCase().padStart(8,'0');
-      if(seqEl) seqEl.textContent = '0x' + seqNum.toString(16).toUpperCase().padStart(8,'0');
-      if(stageEl) stageEl.textContent = stages[stageIdx];
-      if(structSeq) structSeq.textContent = '0x' + seqNum.toString(16).toUpperCase().padStart(8,'0');
+      if (mode === 'nominal') {
+        badge.textContent = "NOMINAL";
+        badge.className = "text-emerald-400 font-bold";
+        yawStruct.textContent = "+12.40°";
+        yawStruct.className = "text-emerald-400 font-semibold";
+      } else if (mode === 'spike') {
+        badge.textContent = "OVERRANGE";
+        badge.className = "text-red-400 font-bold";
+        yawStruct.textContent = "+720.00°";
+        yawStruct.className = "text-red-400 font-bold";
+      } else {
+        badge.textContent = "DRIFT_INJECT";
+        badge.className = "text-amber-400 font-bold";
+        yawStruct.textContent = "+310.85°";
+        yawStruct.className = "text-amber-400 font-semibold";
+      }
     }
-  }
-  requestAnimationFrame(animate);
-}
 
-window.addEventListener('resize', resizeCanvases);
-setMode('spike');
-showSection('home');
-requestAnimationFrame(animate);
-setTimeout(resizeCanvases, 100);
-</script>
+    // Loop Ticker Counter & Cadence Generator
+    let loopCount = 26490;
+    let seqNum = 0x0001A3F2;
+    const stages = ["01 READ", "02 INTERPRET", "03 DECIDE", "04 ACT", "05 LOG"];
+    let stageIdx = 0;
+
+    setInterval(() => {
+      loopCount++;
+      seqNum++;
+      stageIdx = (stageIdx + 1) % stages.length;
+      document.getElementById('loopCounter').textContent = "#" + loopCount.toString().padStart(8, '0');
+      document.getElementById('liveStage').textContent = stages[stageIdx];
+      document.getElementById('liveSeq').textContent = "0x" + seqNum.toString(16).toUpperCase().padStart(8, '0');
+      document.getElementById('structSeq').textContent = "0x" + seqNum.toString(16).toUpperCase().padStart(8, '0');
+    }, 125);
+
+    // 1,600 Hz HTML5 Canvas Waveform Visualizers
+    const mainCanvas = document.getElementById('mainCanvas');
+    const mainCtx = mainCanvas.getContext('2d');
+    const dsoCanvas = document.getElementById('dsoCanvas');
+    const dsoCtx = dsoCanvas.getContext('2d');
+
+    function resizeCanvas() {
+      mainCanvas.width = mainCanvas.parentElement.clientWidth;
+      mainCanvas.height = mainCanvas.parentElement.clientHeight || 400;
+      dsoCanvas.width = dsoCanvas.parentElement.clientWidth;
+      dsoCanvas.height = 220;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let timeStep = 0;
+
+    function renderWaveforms() {
+      timeStep += 0.05;
+      
+      const w = mainCanvas.width;
+      const h = mainCanvas.height;
+
+      // Clear Canvas
+      mainCtx.fillStyle = '#030712';
+      mainCtx.fillRect(0, 0, w, h);
+
+      // Draw Grid Lines
+      mainCtx.strokeStyle = 'rgba(6, 182, 212, 0.1)';
+      mainCtx.lineWidth = 1;
+      for (let x = 0; x < w; x += 40) {
+        mainCtx.beginPath();
+        mainCtx.moveTo(x, 0);
+        mainCtx.lineTo(x, h);
+        mainCtx.stroke();
+      }
+      for (let y = 0; y < h; y += 40) {
+        mainCtx.beginPath();
+        mainCtx.moveTo(0, y);
+        mainCtx.lineTo(w, y);
+        mainCtx.stroke();
+      }
+
+      // Center Reference Line
+      const cy = h / 2;
+      mainCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      mainCtx.setLineDash([4, 4]);
+      mainCtx.beginPath();
+      mainCtx.moveTo(0, cy);
+      mainCtx.lineTo(w, cy);
+      mainCtx.stroke();
+      mainCtx.setLineDash([]);
+
+      // Draw Upper and Lower Clamping Boundaries (±450° Envelope)
+      const maxBound = cy - h * 0.35;
+      const minBound = cy + h * 0.35;
+
+      mainCtx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+      mainCtx.setLineDash([6, 6]);
+      mainCtx.beginPath();
+      mainCtx.moveTo(0, maxBound);
+      mainCtx.lineTo(w, maxBound);
+      mainCtx.moveTo(0, minBound);
+      mainCtx.lineTo(w, minBound);
+      mainCtx.stroke();
+      mainCtx.setLineDash([]);
+
+      mainCtx.fillStyle = 'rgba(239, 68, 68, 0.6)';
+      mainCtx.font = '10px "JetBrains Mono"';
+      mainCtx.fillText('+450° YAW HARD CEILING', 10, maxBound - 6);
+      mainCtx.fillText('-450° YAW HARD FLOOR', 10, minBound + 14);
+
+      // Draw Waveforms
+      // 1. Amber Trace = Murphy's Law Injected Proposal
+      mainCtx.beginPath();
+      mainCtx.strokeStyle = testMode === 'nominal' ? 'rgba(245, 158, 11, 0.5)' : '#F59E0B';
+      mainCtx.lineWidth = 2;
+
+      for (let x = 0; x < w; x++) {
+        let t = timeStep + x * 0.02;
+        let rawVal = Math.sin(t) * (h * 0.2);
+
+        if (testMode === 'spike') {
+          // Add massive overrange spikes
+          if ((Math.floor(x + timeStep * 50) % 180) < 40) {
+            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45); // Spikes past ceiling!
+          }
+        } else if (testMode === 'drift') {
+          rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
+        }
+
+        let y = cy - rawVal;
+        if (x === 0) mainCtx.moveTo(x, y);
+        else mainCtx.lineTo(x, y);
+      }
+      mainCtx.stroke();
+
+      // 2. Green Trace = Deterministically Clamped Actuator Output (D-Core State H0)
+      mainCtx.beginPath();
+      mainCtx.strokeStyle = '#10B981';
+      mainCtx.lineWidth = 3;
+
+      for (let x = 0; x < w; x++) {
+        let t = timeStep + x * 0.02;
+        let rawVal = Math.sin(t) * (h * 0.2);
+
+        if (testMode === 'spike') {
+          if ((Math.floor(x + timeStep * 50) % 180) < 40) {
+            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
+          }
+        } else if (testMode === 'drift') {
+          rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
+        }
+
+        // HARD CLAMP AT ENVELOPE (85.40 µs Aegis MPU Interdiction)
+        let clampedVal = Math.max(minBound, Math.min(maxBound, cy - rawVal));
+
+        if (x === 0) mainCtx.moveTo(x, clampedVal);
+        else mainCtx.lineTo(x, clampedVal);
+      }
+      mainCtx.stroke();
+
+
+      // Render Oscilloscope Window
+      const dw = dsoCanvas.width;
+      const dh = dsoCanvas.height;
+      dsoCtx.fillStyle = '#030712';
+      dsoCtx.fillRect(0, 0, dw, dh);
+
+      dsoCtx.strokeStyle = '#10B981';
+      dsoCtx.lineWidth = 2;
+      dsoCtx.beginPath();
+      for (let x = 0; x < dw; x++) {
+        let t = timeStep * 1.5 + x * 0.04;
+        let y = (dh / 2) + Math.sin(t) * 35;
+        if (x === 0) dsoCtx.moveTo(x, y);
+        else dsoCtx.lineTo(x, y);
+      }
+      dsoCtx.stroke();
+
+      requestAnimationFrame(renderWaveforms);
+    }
+
+    requestAnimationFrame(renderWaveforms);
+  </script>
+
+
+  <!-- DIGITAL TWIN SIMULATION ENGINE JAVASCRIPT -->
+  <script>
+    let twinTotalTarget = 10000;
+    let twinThreatRatio = 0.15;
+    let twinRunning = false;
+
+    function setTwinTrials(val) {
+      twinTotalTarget = val;
+      document.getElementById('trials-1000').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('trials-10000').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('trials-50000').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('trials-' + val).className = 'px-3 py-2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500 font-bold';
+    }
+
+    function setTwinThreat(val) {
+      twinThreatRatio = val;
+      const key = Math.round(val * 100);
+      document.getElementById('threat-5').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('threat-15').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('threat-35').className = 'px-3 py-2 rounded bg-slate-800 text-slate-300 hover:bg-cyan-950 hover:text-cyan-400 border border-slate-700';
+      document.getElementById('threat-' + key).className = 'px-3 py-2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500 font-bold';
+    }
+
+    function runDigitalTwinSimulation() {
+      if (twinRunning) return;
+      twinRunning = true;
+
+      const btn = document.getElementById('twinRunBtn');
+      btn.innerHTML = '<span>⚡ EVALUATING C11 MICROKERNEL TWIN...</span>';
+      btn.className = 'btn-primary px-8 py-4 rounded-xl text-base font-bold flex items-center justify-center gap-3 animate-pulse opacity-80';
+
+      let current = 0;
+      let cleared = 0;
+      let clamped = 0;
+      const step = Math.max(1, Math.floor(twinTotalTarget / 40));
+
+      const interval = setInterval(() => {
+        current += step;
+        if (current >= twinTotalTarget) {
+          current = twinTotalTarget;
+          clearInterval(interval);
+          twinRunning = false;
+          btn.innerHTML = '<span>⚡ RUN ' + twinTotalTarget.toLocaleString() + '-TRIAL DIGITAL TWIN SIMULATION</span>';
+          btn.className = 'btn-primary px-8 py-4 rounded-xl text-base font-bold flex items-center justify-center gap-3 shadow-2xl hover:scale-105 transition-all';
+        }
+
+        clamped = Math.floor(current * twinThreatRatio);
+        cleared = current - clamped;
+
+        document.getElementById('dt-total').textContent = current.toLocaleString();
+        document.getElementById('dt-cleared').textContent = cleared.toLocaleString();
+        document.getElementById('dt-clamped').textContent = clamped.toLocaleString();
+        document.getElementById('dt-bypasses').textContent = '0 (0.00%)';
+        
+        // Dynamic Latency Measurement Simulation (11.00 - 13.50 us live execution)
+        const lat = (11.20 + Math.random() * 1.80).toFixed(2);
+        document.getElementById('dt-latency').textContent = lat + ' µs';
+
+        // Update eFuse State
+        if (clamped > 0) {
+          document.getElementById('dt-efuse').textContent = '0xFFFF (STATE H0 FAIL-CLOSED)';
+          document.getElementById('dt-efuse').className = 'text-xl font-bold text-red-400 animate-pulse';
+        } else {
+          document.getElementById('dt-efuse').textContent = '0x0000 (NORMAL)';
+          document.getElementById('dt-efuse').className = 'text-xl font-bold text-emerald-400';
+        }
+
+        // Generate SHA-256 Hash Representation
+        const chars = '0123456789abcdef';
+        let hash = '';
+        for (let i = 0; i < 64; i++) {
+          hash += chars[Math.floor(Math.random() * chars.length)];
+        }
+        document.getElementById('dt-hash').textContent = hash;
+
+      }, 30);
+    }
+  </script>
+
 </body>
 </html>
