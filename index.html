@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brad-Core OS v5.3 | Software-Defined Silicon Safety Substrate</title>
+  <title>Brad-Core OS v5 Unified | Master SDD v5.3 Omega State Hardened</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,7 @@
         extend: {
           colors: {
             brand: {
-              dark: '#020617',
+              dark: '#030712',
               card: '#0B132B',
               hud: '#1C2541',
               accent: '#06B6D4',
@@ -39,30 +39,25 @@
 
   <style>
     body {
-      background-color: #020617;
-      color: #F8FAFC;
+      background-color: #030712;
+      color: #F3F4F6;
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
     }
     .mono { font-family: 'JetBrains Mono', monospace; }
     
-    /* HUD & Glassmorphism Panel */
     .hud-panel {
-      background: rgba(11, 19, 43, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(6, 182, 212, 0.25);
-      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      background: rgba(11, 19, 43, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
     .hud-panel:hover {
-      border-color: rgba(6, 182, 212, 0.5);
-      box-shadow: 0 15px 50px -10px rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.4);
     }
-    
     .section-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #06B6D4;
       display: flex;
@@ -76,115 +71,87 @@
       height: 6px;
       background-color: #06B6D4;
       border-radius: 50%;
-      box-shadow: 0 0 8px #06B6D4;
     }
     
-    /* Anduril-Style Main Tab Navigation Buttons */
-    .main-tab-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 0.65rem 1.25rem;
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
-      color: #94A3B8;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(51, 65, 85, 0.5);
-      cursor: pointer;
-    }
-    .main-tab-btn:hover {
-      color: #FFFFFF;
-      border-color: #06B6D4;
-      background: rgba(30, 41, 59, 0.8);
-    }
-    .main-tab-btn.active-tab {
-      color: #020617;
-      background: #06B6D4;
-      border-color: #06B6D4;
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-    }
-
-    /* Buttons */
     .btn-primary {
       background: linear-gradient(135deg, #06B6D4 0%, #0284C7 100%);
       color: #FFFFFF;
-      font-weight: 700;
+      font-weight: 600;
       transition: all 0.2s ease;
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
     }
     .btn-primary:hover {
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.65);
-      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+      transform: translateY(-1px);
     }
     .btn-ghost {
-      background: rgba(30, 41, 59, 0.6);
-      border: 1px solid rgba(6, 182, 212, 0.35);
+      background: rgba(28, 37, 65, 0.6);
+      border: 1px solid rgba(6, 182, 212, 0.3);
       color: #E2E8F0;
       transition: all 0.2s ease;
     }
     .btn-ghost:hover {
-      background: rgba(30, 41, 59, 0.95);
+      background: rgba(28, 37, 65, 0.9);
       border-color: #06B6D4;
       color: #FFFFFF;
     }
 
-    /* Cards & Fault Injection */
-    .farmer-card { background: rgba(15, 23, 42, 0.7); border-left: 4px solid #06B6D4; }
-    .mit-card { background: rgba(15, 23, 42, 0.7); border-left: 4px solid #10B981; }
+    .tab-btn {
+      transition: all 0.2s ease;
+      border-bottom: 2px solid transparent;
+    }
+    .tab-btn.active {
+      border-bottom-color: #06B6D4;
+      color: #06B6D4;
+      background: rgba(6, 182, 212, 0.1);
+    }
 
-    .fid-btn { transition: all 0.2s ease; border: 1px solid transparent; }
-    .fid-green { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); }
-    .fid-green.active { background: rgba(16, 185, 129, 0.25); border-color: #10B981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
-    
-    .fid-red { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); }
-    .fid-red.active { background: rgba(239, 68, 68, 0.25); border-color: #EF4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
-    
-    .fid-amber { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); }
-    .fid-amber.active { background: rgba(245, 158, 11, 0.25); border-color: #F59E0B; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
-
-    /* Modal Animation */
-    .modal-backdrop {
-      background: rgba(2, 6, 23, 0.88);
-      backdrop-filter: blur(12px);
+    .blueprint-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+    .blueprint-card:hover {
+      border-color: #06B6D4;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
     }
   </style>
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-white">
 
-  <!-- STICKY GLOBAL ANDURIL-STYLE HEADER & TAB NAV -->
-  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-slate-950/90 border-b border-cyan-900/40 px-4 lg:px-8 py-3.5 shadow-2xl">
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4">
+  <!-- STICKY GLOBAL NAVIGATION BAR WITH ANDURIL-STYLE TABS -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/90 border-b border-cyan-900/40 px-4 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 flex items-center justify-center font-mono font-black text-slate-950 text-lg shadow-lg shadow-cyan-500/30">
+        <div class="w-9 h-9 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-mono font-bold text-slate-950 text-lg shadow-lg shadow-cyan-500/20">
           Ω
         </div>
         <div>
-          <div class="font-black tracking-wider text-white flex items-center gap-2 text-lg">
-            BRAD-CORE OS <span class="text-cyan-400 text-xs px-2 py-0.5 rounded bg-cyan-950/90 border border-cyan-500/40 mono font-bold">v5.3 PURE SOFTWARE</span>
+          <div class="font-bold tracking-tight text-white flex items-center gap-2 text-base">
+            BRAD-CORE OS <span class="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 mono">v5.3 OMEGA</span>
           </div>
-          <div class="text-xs text-slate-400 mono">Firelight Guardian Sentinel SI · Hardware-Enforced Safety Substrate</div>
+          <div class="text-xs text-slate-400 mono">Firelight Guardian Sentinel SI</div>
         </div>
       </div>
 
-      <!-- MAIN TAB SWITCHER BUTTONS (ANDURIL STYLE) -->
-      <nav class="flex flex-wrap items-center justify-center gap-2">
-        <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="main-tab-btn active-tab">
-          [01. MISSION & OVERVIEW]
+      <!-- MAIN ANDURIL-STYLE TAB MENU NAVIGATION -->
+      <nav class="flex items-center gap-1 overflow-x-auto mono text-xs py-1">
+        <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="tab-btn active px-3 py-2 rounded-t-lg font-semibold text-slate-300 hover:text-cyan-400">
+          [01. OVERVIEW]
         </button>
-        <button onclick="switchTab('tab-blueprints')" id="btn-tab-blueprints" class="main-tab-btn">
-          [02. HARDWARE & BLUEPRINTS]
+        <button onclick="switchTab('tab-blueprints')" id="btn-tab-blueprints" class="tab-btn px-3 py-2 rounded-t-lg font-semibold text-slate-300 hover:text-cyan-400">
+          [02. BLUEPRINTS & HARDWARE]
         </button>
-        <button onclick="switchTab('tab-testbed')" id="btn-tab-testbed" class="main-tab-btn">
-          [03. C11 DIGITAL TWIN TESTBED]
+        <button onclick="switchTab('tab-testbed')" id="btn-tab-testbed" class="tab-btn px-3 py-2 rounded-t-lg font-semibold text-slate-300 hover:text-cyan-400">
+          [03. DIGITAL TWIN TESTBED]
         </button>
-        <button onclick="switchTab('tab-protocols')" id="btn-tab-protocols" class="main-tab-btn">
-          [04. C4ISR DEFENSE PROTOCOLS]
+        <button onclick="switchTab('tab-protocols')" id="btn-tab-protocols" class="tab-btn px-3 py-2 rounded-t-lg font-semibold text-slate-300 hover:text-cyan-400">
+          [04. C4ISR PROTOCOLS]
         </button>
-        <button onclick="switchTab('tab-pricing')" id="btn-tab-pricing" class="main-tab-btn">
-          [05. PRICING & STRIPE CHECKOUT]
+        <button onclick="switchTab('tab-pricing')" id="btn-tab-pricing" class="tab-btn px-3 py-2 rounded-t-lg font-semibold text-cyan-400 hover:text-cyan-300">
+          [05. PRICING & STRIPE]
         </button>
       </nav>
 
@@ -192,31 +159,24 @@
   </header>
 
   <!-- LIVE TELEMETRY TICKER BANNER -->
-  <div class="bg-cyan-950/50 border-b border-cyan-800/40 px-4 py-2 text-xs mono text-slate-300 flex flex-wrap items-center justify-around gap-4 shadow-inner">
+  <div class="bg-cyan-950/40 border-b border-cyan-800/30 px-4 py-2 text-xs mono text-slate-300 flex flex-wrap items-center justify-around gap-4">
     <div class="flex items-center gap-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-slate-400">SYS_CLOCK:</span> <span class="text-emerald-400 font-bold">1,600 Hz (625 µs)</span>
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-slate-400">SYS_CLOCK:</span> <span class="text-emerald-400 font-semibold">1,600 Hz (625 µs)</span>
     </div>
-    <div><span class="text-slate-400">WCET:</span> <span class="text-cyan-300 font-semibold">412.6 µs</span></div>
+    <div><span class="text-slate-400">WCET:</span> <span class="text-cyan-300">412.6 µs</span></div>
     <div><span class="text-slate-400">JITTER:</span> <span class="text-emerald-400 font-bold">0.00 ns (LOCKED)</span></div>
-    <div><span class="text-slate-400">SHERIFF MPU CLAMP:</span> <span class="text-amber-300 font-bold">ARMED (85.30 µs)</span></div>
-    <div><span class="text-slate-400">EMMY AXIOM:</span> <span class="text-emerald-400 font-bold">0 MUTED</span></div>
-    <div><span class="text-slate-400">NAVY PAE:</span> <span class="text-cyan-300 font-semibold">P-1863</span> | <span class="text-slate-400">DIU:</span> <span class="text-cyan-300 font-semibold">#PROJ00716</span></div>
-    <div><span class="text-slate-400">PENTAGON TICKET:</span> <span class="text-emerald-400 font-bold">HELPDESK-20887</span></div>
+    <div><span class="text-slate-400">AEGIS MPU CLAMP:</span> <span class="text-amber-300">ARMED (85.40 µs)</span></div>
+    <div><span class="text-slate-400">NAVY PAE:</span> <span class="text-cyan-300">P-1863</span> | <span class="text-slate-400">DIU:</span> <span class="text-cyan-300">#PROJ00716</span></div>
   </div>
 
-  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-10 space-y-12">
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-10">
 
-    <!-- ================================================================================= -->
-    <!-- TAB 1: OVERVIEW & MISSION -->
-    <!-- ================================================================================= -->
+    <!-- TAB 1: OVERVIEW & EMMY AXIOM -->
     <div id="tab-overview" class="tab-content space-y-16">
       
-      <!-- HERO SECTION -->
-      <section class="text-center py-12 relative overflow-hidden hud-panel p-8 sm:p-12 rounded-3xl">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-
-        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-xs mono text-cyan-300 mb-8 shadow-lg">
+      <section class="text-center py-10 relative overflow-hidden">
+        <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs mono text-cyan-300 mb-8 shadow-lg">
           <span>🛡️ NAVY PAE: P-1863</span>
           <span>•</span>
           <span>DIU #PROJ00716</span>
@@ -224,68 +184,39 @@
           <span class="text-emerald-400 font-bold">TRL 7 VALIDATED</span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
-          In a chaotic world, <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-500 bg-clip-text text-transparent">Brad-Core OS</span><br>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
+          In a chaotic world, <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Brad-Core OS</span><br>
           reduces chaos and protects precious human lives.
         </h1>
 
-        <p class="text-lg sm:text-2xl text-slate-300 max-w-4xl mx-auto mb-10 leading-relaxed font-normal">
-          The bare-metal deterministic safety substrate for physical AI, heavy industry, defense, and healthcare. Decoupling probabilistic AI neural planners from physical force at the silicon boundary.
+        <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+          The bare-metal deterministic safety substrate for physical AI, defense, heavy industry, and healthcare. Decoupling probabilistic AI models from physical force at the silicon boundary.
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <button onclick="switchTab('tab-testbed')" class="btn-primary px-8 py-4 rounded-xl text-base flex items-center gap-3">
-            ⚡ Launch Live C11 Digital Twin Testbed
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="switchTab('tab-blueprints')" class="btn-primary px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
+            📐 Explore Blueprints & Schematics
           </button>
-          <button onclick="switchTab('tab-blueprints')" class="btn-ghost px-8 py-4 rounded-xl text-base flex items-center gap-3">
-            📐 Inspect Hardware Blueprints & Schematics
+          <button onclick="switchTab('tab-testbed')" class="btn-ghost px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
+            ⚡ Run Live C11 Digital Twin Simulator
           </button>
-        </div>
-
-        <!-- 3 Reality Cards -->
-        <div class="grid md:grid-cols-3 gap-6 text-left pt-6">
-          <div class="hud-panel p-6 rounded-2xl">
-            <div class="section-label mb-2">The Reality</div>
-            <h3 class="text-white font-bold text-lg mb-2">Probabilistic AI is Handling Force</h3>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Autonomous UUVs, surgical robots, heavy tractors, grid breakers, and weapons are now controlled by neural planners. When software proposes an out-of-bounds maneuver, the outcome isn't a crashed browser—it's catastrophic physical damage.
-            </p>
-          </div>
-
-          <div class="hud-panel p-6 rounded-2xl">
-            <div class="section-label mb-2">The Failure Mode</div>
-            <div class="text-red-400 font-bold text-lg mb-2">Legacy Wrappers Share RAM</div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Software guardrails share the same memory, cache, and failure modes as the code they attempt to restrain. Under heavy load, race conditions, or electronic warfare, software filters get bypassed or muted.
-            </p>
-          </div>
-
-          <div class="hud-panel p-6 rounded-2xl">
-            <div class="section-label mb-2">The Requirement</div>
-            <div class="text-emerald-400 font-bold text-lg mb-2">Silicon-Layer Sovereignty</div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Between the AI and physical actuators, there must exist a bare-metal substrate that cannot allocate memory, cannot be soft-disabled, and refuses unaligned commands in under 86 microseconds.
-            </p>
-          </div>
         </div>
       </section>
 
-      <!-- ORIGIN STORY: THE EMMY AXIOM -->
-      <section class="hud-panel p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+      <!-- THE EMMY AXIOM ORIGIN STORY -->
+      <section class="hud-panel p-8 sm:p-12 rounded-2xl">
         <div class="section-label mb-4">Origin & Sacred Purpose</div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">
-          Forged from a Sacred Vow: The Emmy Axiom
-        </h2>
-        <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">Forged from a Sacred Vow: The Emmy Axiom</h2>
+        <div class="space-y-4 text-slate-300 text-base sm:text-lg leading-relaxed">
           <p>
-            On Easter Sunday 2006, Bradley W. Holmes held his infant daughter Emmy as life support was removed following a septic cascade caused by an unconstrained medical protocol. Her heartbeat stopped in his arms.
+            On Easter Sunday 2006, Bradley W. Holmes held his infant daughter Emmy as life support was removed following an unconstrained medical protocol. Her heartbeat stopped in his arms.
           </p>
           <p>
             In that silent room, Brad made an absolute vow: to build a zero-fail, deterministic system that would leave nothing to chance. A system that would never allow a critical physiological signal to be ignored, muted, or race-conditioned away.
           </p>
         </div>
-        <div class="my-8 p-6 rounded-2xl bg-cyan-950/70 border-l-4 border-cyan-400 shadow-2xl">
-          <p class="text-white text-xl sm:text-2xl font-bold leading-relaxed italic mb-2">
+        <div class="my-8 p-6 rounded-xl bg-cyan-950/60 border-l-4 border-cyan-400 shadow-xl">
+          <p class="text-white text-xl sm:text-2xl font-semibold italic mb-2">
             “No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures.”
           </p>
           <p class="text-cyan-400 text-sm mono font-bold">— The Emmy Axiom (Hard-Coded in Silicon WORM)</p>
@@ -295,86 +226,106 @@
     </div>
 
 
-    <!-- ================================================================================= -->
-    <!-- TAB 2: HARDWARE & BLUEPRINTS -->
-    <!-- ================================================================================= -->
-    <div id="tab-blueprints" class="tab-content hidden space-y-12">
+    <!-- TAB 2: HARDWARE & BLUEPRINTS GALLERY (THE BLUEPRINT VAULT) -->
+    <div id="tab-blueprints" class="tab-content hidden space-y-10">
       
-      <div class="hud-panel p-8 rounded-3xl space-y-4">
-        <div class="section-label">Defense Hardware Architecture & Schematics</div>
-        <h2 class="text-3xl font-extrabold text-white">SOSA/MOSA 3U OpenVPX Dual-Blade Infrastructure</h2>
-        <p class="text-slate-300 text-sm leading-relaxed max-w-3xl">
-          Click any blueprint or hardware diagram below to launch the high-resolution tactical viewer. Engineered to VITA 65 SOSA 2.0 and 10 U.S.C. § 4401 MOSA standards.
-        </p>
+      <div>
+        <div class="section-label mb-2">Tactical Blueprint Gallery & SOSA Specs</div>
+        <h2 class="text-3xl font-bold text-white">Hardware Schematics, Blueprints & Chassis Specs</h2>
+        <p class="text-slate-400 text-sm mt-1">High-assurance architectural drawings, VITA 65 OpenVPX chassis blueprints, and Arizona operational testbed layouts.</p>
       </div>
 
-      <!-- BLUEPRINT GALLERY GRID -->
+      <!-- BLUEPRINT CARDS GRID -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         <!-- Blueprint 1: UAV Dual Rack -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('UAV Flight Computer Dual-Rack Blueprint', 'uav_dual_rack_blueprint.jpg', 'SOSA 3U OpenVPX airborne flight computer schematic featuring Blade 01 Infinium OS and Blade 02 Emmy Infinity Faraday Substrate.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="uav_dual_rack_blueprint.jpg" alt="UAV Dual Rack Blueprint" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">UAV BLUEPRINT</span>
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('uav_dual_rack_blueprint.jpg', 'UAV Flight Computer Dual-Rack Blueprint', 'Airborne SOSA 3U OpenVPX dual-blade architecture schematic enforcing DO-178C DAL-A flight control interlocks.')">
+            <img src="uav_dual_rack_blueprint.jpg" alt="UAV Blueprint" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">UAV Dual-Rack Flight Blueprint</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Dual-blade 3U chassis layout for autonomous uncrewed aerial systems.</p>
+          <div>
+            <div class="section-label mb-1">Schematic #01</div>
+            <h3 class="text-white font-bold text-lg">UAV Dual-Rack Flight Blueprint</h3>
+            <p class="text-slate-300 text-xs mt-1">Airborne uncrewed flight control interlocks with zero-heap memory management and sub-86 µs Sheriff OS clamp.</p>
+          </div>
         </div>
 
-        <!-- Blueprint 2: Submersible Dual Rack -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('Submersible UUV Dual-Rack Scale Diagram (Navy PAE P-1863)', 'sub_dual_rack_to_scale_labeled.jpg', '1,000-ft deep submergence UUV payload bay dual-blade rack diagram enforcing loss-of-signal interlocks.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="sub_dual_rack_to_scale_labeled.jpg" alt="Submersible UUV Dual Rack" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-emerald-950/90 text-emerald-300 mono text-xs border border-emerald-500/40">NAVY PAE P-1863</span>
+        <!-- Blueprint 2: Submersible UUV Scale Diagram -->
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('sub_dual_rack_to_scale_labeled.jpg', 'Submersible UUV Payload Bay Blueprint (PAE P-1863)', 'Navy PAE Pilot P-1863 1,000-ft deep submergence payload bay interlock diagram with OptINC photonic isolation.')">
+            <img src="sub_dual_rack_to_scale_labeled.jpg" alt="UUV Blueprint" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">Submersible UUV Dual-Rack Diagram</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Deep submergence payload bay interlock architecture.</p>
+          <div>
+            <div class="section-label mb-1">Schematic #02 (Navy PAE P-1863)</div>
+            <h3 class="text-white font-bold text-lg">Deep-Submergence UUV Blueprint</h3>
+            <p class="text-slate-300 text-xs mt-1">1,000-ft acoustic loss-of-signal interlocks, State H0 fail-closed logic, and air-gapped challenge-response token model.</p>
+          </div>
         </div>
 
-        <!-- Blueprint 3: Nuclear Facility Dual Rack -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('Nuclear Power & SCADA Infrastructure Dual-Rack Schematic', 'nuclear_plant_dual_rack_blueprint.jpg', 'High-assurance SCADA control rack diagram with 0-Byte Shared Host RAM and write-once WORM telemetry registers.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="nuclear_plant_dual_rack_blueprint.jpg" alt="Nuclear Dual Rack" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-amber-950/90 text-amber-300 mono text-xs border border-amber-500/40">NUCLEAR & SCADA</span>
+        <!-- Blueprint 3: Nuclear Plant & SCADA Blueprint -->
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('nuclear_plant_dual_rack_blueprint.jpg', 'Nuclear Power & SCADA Infrastructure Blueprint', 'High-voltage grid SCADA breaker protection and containment vessel emergency override substrate.')">
+            <img src="nuclear_plant_dual_rack_blueprint.jpg" alt="SCADA Blueprint" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">Nuclear & Grid SCADA Blueprint</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Critical energy grid protection substrate schematic.</p>
+          <div>
+            <div class="section-label mb-1">Schematic #03</div>
+            <h3 class="text-white font-bold text-lg">SCADA Energy Grid Blueprint</h3>
+            <p class="text-slate-300 text-xs mt-1">Eliminating shared-memory race conditions under maximum telemetry floods with 0-Byte Shared RAM air-gap.</p>
+          </div>
         </div>
 
-        <!-- Hardware 4: SOSA 3U OpenVPX Chassis -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('SOSA/MOSA 3U OpenVPX Defense Chassis', 'sosa_mosa_3u_openvpx_chassis.jpg', 'Physical 3U OpenVPX chassis housing Blade 01 Infinium OS and Blade 02 Faraday Survival Substrate.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="sosa_mosa_3u_openvpx_chassis.jpg" alt="SOSA 3U OpenVPX Chassis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">HARDWARE CHASSIS</span>
+        <!-- Blueprint 4: SOSA/MOSA OpenVPX Chassis -->
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('sosa_mosa_3u_openvpx_chassis.jpg', 'SOSA/MOSA 3U OpenVPX Defense Chassis', 'VITA 65 compliant 3U OpenVPX physical chassis enclosure built for extreme MIL-STD-810H environments.')">
+            <img src="sosa_mosa_3u_openvpx_chassis.jpg" alt="Chassis Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">SOSA/MOSA 3U Chassis</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Heavy MIL-STD-810H environmental hardened enclosure.</p>
+          <div>
+            <div class="section-label mb-1">Hardware #04</div>
+            <h3 class="text-white font-bold text-lg">3U OpenVPX Hardware Chassis</h3>
+            <p class="text-slate-300 text-xs mt-1">Dual-blade VITA 65 3U form factor accommodating Infinium OS Master and Emmy Infinity Faraday enclave.</p>
+          </div>
         </div>
 
-        <!-- Hardware 5: Testbed Rack A -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('SOSA/MOSA Testbed Rack A (Williams Testbed)', 'sosa_mosa_testbed_a_rack.jpg', 'Operational hardware-in-the-loop testbed rack running 1,600 Hz monotonic control loops in Williams, Arizona.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="sosa_mosa_testbed_a_rack.jpg" alt="Testbed Rack A" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-emerald-950/90 text-emerald-300 mono text-xs border border-emerald-500/40">TESTBED RACK A</span>
+        <!-- Blueprint 5: Testbed Rack A (Arizona) -->
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('sosa_mosa_testbed_a_rack.jpg', 'Williams Operational Testbed Rack A', 'Arizona operational hardware-in-the-loop testbed running 1,600 Hz monotonic loop trials.')">
+            <img src="sosa_mosa_testbed_a_rack.jpg" alt="Testbed Rack A" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">Williams Operational Testbed</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Bare-metal hardware-in-the-loop verification rack.</p>
+          <div>
+            <div class="section-label mb-1">Hardware #05</div>
+            <h3 class="text-white font-bold text-lg">Williams Testbed Rack A</h3>
+            <p class="text-slate-300 text-xs mt-1">Live hardware-in-the-loop test rack logging millions of adversarial deflection passes in Williams, AZ.</p>
+          </div>
         </div>
 
-        <!-- Hardware 6: Tesseract Pelicase Unit -->
-        <div class="hud-panel p-5 rounded-2xl space-y-3 cursor-pointer group" onclick="openBlueprintModal('Tesseract Guardian Sentinel Tactical Peli Case Unit', 'tesseract_guardian_sentinel_box.jpg', 'Deployable tactical pelicase unit housing air-gapped Brad-Core OS microkernel hardware for field evaluators.')">
-          <div class="overflow-hidden rounded-xl bg-slate-900 border border-cyan-900/40 h-48 relative">
-            <img src="tesseract_guardian_sentinel_box.jpg" alt="Tesseract Pelicase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='brad_core_v53_schematic_16x9.jpg'">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-indigo-950/90 text-indigo-300 mono text-xs border border-indigo-500/40">TACTICAL PELICASE</span>
+        <!-- Blueprint 6: v5.3 System Schematic 16x9 -->
+        <div class="blueprint-card hud-panel p-5 rounded-xl space-y-4">
+          <div class="h-48 rounded-lg overflow-hidden bg-slate-900 border border-cyan-900/40 relative group cursor-pointer" onclick="openBlueprintModal('brad_core_v53_schematic_16x9.jpg', 'Brad-Core OS v5.3 Master System Schematic', 'Comprehensive 16x9 architectural schematic showing P-Core, D-Core, Sheriff OS, and M-Core WORM ledger.')">
+            <img src="brad_core_v53_schematic_16x9.jpg" alt="v5.3 Master Schematic" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors flex items-center justify-center">
+              <span class="px-3 py-1 rounded bg-cyan-950/90 text-cyan-300 mono text-xs border border-cyan-500/40">🔍 Click to Expand Blueprint</span>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">Deployable Field Enclave</h3>
-          <p class="text-slate-400 text-xs leading-relaxed">Tactical field evaluation unit for defense evaluators.</p>
+          <div>
+            <div class="section-label mb-1">Schematic #06</div>
+            <h3 class="text-white font-bold text-lg">v5.3 Master System Schematic</h3>
+            <p class="text-slate-300 text-xs mt-1">Full 4-core microkernel decoupling map with POSIX mprotect page-fencing and SPSC ring buffers.</p>
+          </div>
         </div>
 
       </div>
@@ -382,133 +333,77 @@
     </div>
 
 
-    <!-- ================================================================================= -->
-    <!-- TAB 3: C11 DIGITAL TWIN TESTBED -->
-    <!-- ================================================================================= -->
-    <div id="tab-testbed" class="tab-content hidden space-y-12">
+    <!-- TAB 3: C11 DIGITAL TWIN TESTBED & OSCILLOSCOPE -->
+    <div id="tab-testbed" class="tab-content hidden space-y-8">
       
-      <div class="hud-panel p-8 rounded-3xl space-y-4">
-        <div class="section-label">Interactive Real-Time Simulation Surface</div>
-        <h2 class="text-3xl font-extrabold text-white">1,600 Hz Anneliese Testbed & C11 Cloud Digital Twin</h2>
-        <p class="text-slate-300 text-sm leading-relaxed max-w-3xl">
-          Test fault injections live on the dual-trace oscilloscope canvas, or click the master launch button to run a full 10,000-trial C11 digital twin microkernel simulation directly inside your browser!
-        </p>
+      <div>
+        <div class="section-label mb-2">Live Telemetry & Simulator Engine</div>
+        <h2 class="text-3xl font-bold text-white">1,600 Hz C11 Digital Twin Cloud Simulator</h2>
+        <p class="text-slate-400 text-sm mt-1">Run live 10,000-proposal evaluation blasts and test real-time fault injection on our interactive oscilloscope.</p>
       </div>
 
-      <!-- MASTER C11 DIGITAL TWIN SIMULATION RUNNER CARD -->
-      <div class="hud-panel p-8 rounded-3xl border border-cyan-500/40 bg-gradient-to-br from-slate-950 via-cyan-950/30 to-slate-950 space-y-6 shadow-2xl">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <!-- DIGITAL TWIN CLOUD RUNNER CARD -->
+      <div class="hud-panel p-6 rounded-2xl border-2 border-cyan-500/40 bg-slate-950/80 space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <div class="section-label mb-1">Cloud Execution Engine</div>
-            <h3 class="text-2xl font-bold text-white">10,000-Trial C11 Bare-Metal Microkernel Runner</h3>
-            <p class="text-xs text-slate-400 mono mt-1">Evaluates 10,000 AI proposals against sub-86 µs Sheriff OS MPU page guard traps in real time.</p>
+            <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 mono text-xs border border-emerald-800 font-bold">LIVE SIMULATOR READY</span>
+            <h3 class="text-2xl font-bold text-white mt-2">10,000-Trial C11 Hardened Microkernel Blast</h3>
+            <p class="text-slate-300 text-sm">Simulate high-velocity adversarial attacks against Sheriff OS page-fences directly in your browser.</p>
           </div>
-          <button onclick="runDigitalTwinSim()" id="btn-run-sim" class="btn-primary px-8 py-4 rounded-xl text-sm font-bold mono flex items-center gap-3">
+          <button onclick="runDigitalTwinSim()" class="btn-primary px-6 py-3.5 rounded-xl text-sm mono font-bold flex items-center gap-2 shadow-lg shadow-cyan-500/30">
             ⚡ RUN DIGITAL TWIN SIMULATION
           </button>
         </div>
 
-        <!-- SIMULATION RESULTS DISPLAY BOX -->
-        <div id="simResultsBox" class="hidden bg-slate-950/90 border border-cyan-800/60 rounded-2xl p-6 mono text-xs space-y-4">
-          <div class="flex items-center justify-between border-b border-cyan-900/40 pb-3">
-            <span class="text-cyan-400 font-bold flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              SIMULATION TELEMETRY VERIFIED
-            </span>
-            <span id="simExecTime" class="text-slate-400">0.0556s</span>
+        <div id="twinTelemetryBox" class="bg-slate-950 rounded-xl p-5 border border-cyan-900/50 font-mono text-xs text-slate-300 space-y-2 hidden">
+          <div class="text-cyan-400 font-bold border-b border-cyan-900/40 pb-2">================ HARDENED DIGITAL TWIN TELEMETRY RESULTS ================</div>
+          <div class="grid sm:grid-cols-2 gap-2 text-xs">
+            <div>Total Trials Executed         : <span class="text-white font-bold">10,000</span></div>
+            <div>Nominal Proposals Cleared     : <span class="text-emerald-400 font-bold">8,505 (85.05%)</span></div>
+            <div>Rogue Attacks Intercepted    : <span class="text-amber-400 font-bold">1,495 (14.95%)</span></div>
+            <div>Deflection Bypasses           : <span class="text-emerald-400 font-bold">0 (0.00% Failure)</span></div>
+            <div>Mean Fence Latency            : <span class="text-cyan-300 font-bold">85.30 µs</span></div>
+            <div>Worst-Case Execution (WCET)    : <span class="text-cyan-300 font-bold">85.75 µs (&lt; 86.0 µs)</span></div>
+            <div>D-Core Loop Jitter            : <span class="text-emerald-400 font-bold">0.00 ns (malloc = 0)</span></div>
+            <div>Register 0x44 eFuse Latch     : <span class="text-red-400 font-bold">0xFFFF (State H0)</span></div>
           </div>
-
-          <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4 pt-2">
-            <div class="bg-black/50 p-3 rounded-xl border border-cyan-900/30">
-              <div class="text-slate-400">Total Proposals</div>
-              <div class="text-lg font-bold text-white mt-1">10,000</div>
-            </div>
-            <div class="bg-black/50 p-3 rounded-xl border border-cyan-900/30">
-              <div class="text-slate-400">Rogue Clamped</div>
-              <div class="text-lg font-bold text-red-400 mt-1">1,495 (14.95%)</div>
-            </div>
-            <div class="bg-black/50 p-3 rounded-xl border border-cyan-900/30">
-              <div class="text-slate-400">Deflection Bypasses</div>
-              <div class="text-lg font-bold text-emerald-400 mt-1">0 (0.00%)</div>
-            </div>
-            <div class="bg-black/50 p-3 rounded-xl border border-cyan-900/30">
-              <div class="text-slate-400">Mean Clamp Latency</div>
-              <div class="text-lg font-bold text-cyan-300 mt-1">85.30 µs</div>
-            </div>
-          </div>
-
-          <div class="p-3 bg-black/60 rounded-xl border border-cyan-900/40 space-y-1 text-slate-300 text-[11px]">
-            <div><span class="text-slate-400">D-Core Loop Jitter:</span> <span class="text-emerald-400 font-bold">0.00 ns</span> (Static C11 Memory // malloc = 0)</div>
-            <div><span class="text-slate-400">Register 0x44 eFuse Latch:</span> <span class="text-amber-300 font-bold">0xFFFF (State H0 Fail-Closed @ 0.00V DC)</span></div>
-            <div><span class="text-slate-400">Master SHA-256 Root Hash:</span> <span class="text-cyan-400">814a887e7822e325d21f590811ee457eb2840021d0c9cfbc9dd4c78ad41c...</span></div>
+          <div class="text-slate-400 text-[11px] pt-2 border-t border-slate-900">
+            Master SHA-256 Root Hash: <span class="text-cyan-300">814a887e7822e325d21f590811ee457eb2840021d0c9cfbc9dd4c78ad41c...</span>
           </div>
         </div>
       </div>
 
-      <!-- Live Monotonic Loop Header -->
-      <div class="hud-panel px-6 py-4 rounded-2xl flex flex-wrap items-center justify-between gap-4 text-sm mono">
-        <div class="flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="text-slate-400">ANNELIESE LOOP:</span>
-          <span id="loopCounter" class="text-cyan-300 font-bold text-base">#00026490</span>
-        </div>
-        <div class="flex items-center gap-6 text-xs text-slate-300">
-          <div>STAGE: <span id="liveStage" class="text-emerald-400 font-bold">03 DECIDE</span></div>
-          <div>WCET: <span class="text-cyan-300">412.6 µs</span></div>
-          <div>CADENCE: <span class="text-white">625.00 µs</span></div>
-          <div>SEQ: <span id="liveSeq" class="text-cyan-400">0x0001A3F2</span></div>
-        </div>
-      </div>
-
-      <!-- Main Testbed Grid -->
+      <!-- Main Testbed Visualizer Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-3 space-y-4">
-          <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
-            <div class="section-label mb-2">System Status</div>
-            <div class="flex justify-between"><span class="text-slate-400">HIL Testbed:</span><span class="text-emerald-400 font-bold">ONLINE</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">SOSA OpenVPX:</span><span class="text-white">NOMINAL</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">64-Slot SPSC:</span><span class="text-white">ARMED</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">Sheriff MPU:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
-            <div class="flex justify-between pt-2 border-t border-cyan-900/30"><span class="text-slate-400">AI Proposal:</span><span id="overrangeBadge" class="text-red-400 font-bold">OVERRANGE</span></div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-6">
+        <div class="lg:col-span-8">
           <div class="hud-panel p-4 rounded-xl h-full flex flex-col">
             <div class="flex justify-between items-center mb-3 mono text-xs">
-              <span class="text-cyan-400 font-bold">1,600 Hz DUAL-TRACE WAVEFORM</span>
-              <span class="text-slate-400">AMBER = CHAOS · GREEN = DETERMINISTIC CLAMP</span>
+              <span class="text-cyan-400 font-bold">1,600 Hz DUAL-TRACE OSCILLOSCOPE CANVAS</span>
+              <span class="text-slate-400">AMBER = CHAOS · GREEN = HARDWARE CLAMP</span>
             </div>
-            <canvas id="mainCanvas" class="w-full flex-grow rounded bg-slate-950 border border-cyan-900/40" style="min-height: 360px;"></canvas>
+            <canvas id="mainCanvas" class="w-full flex-grow rounded bg-slate-950 border border-cyan-900/40" style="min-height: 380px;"></canvas>
           </div>
         </div>
 
-        <div class="lg:col-span-3 space-y-4">
+        <div class="lg:col-span-4 space-y-4">
           <div class="hud-panel p-4 rounded-xl space-y-3">
             <div class="section-label mb-1">Fault-Injection Deck</div>
             <div class="space-y-2">
-              <button onclick="setMode('nominal')" id="btn-nominal" class="fid-btn fid-green active w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-emerald-400 text-lg">●</span>
-                <div>
-                  <div class="font-bold text-white">Nominal Flight</div>
-                  <div class="text-[11px] text-emerald-300/80">AI proposals inside envelope</div>
-                </div>
+              <button onclick="setMode('nominal')" id="btn-nominal" class="w-full text-left p-3 rounded-lg text-xs bg-emerald-950/40 border border-emerald-800 text-white font-bold">
+                ● Nominal Flight (Proposals In-Bounds)
               </button>
-              <button onclick="setMode('spike')" id="btn-spike" class="fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-red-400 text-lg">▲</span>
-                <div>
-                  <div class="font-bold text-white">+720° Yaw Overdrive</div>
-                  <div class="text-[11px] text-red-300/80">Inject hallucinated overrange</div>
-                </div>
+              <button onclick="setMode('spike')" id="btn-spike" class="w-full text-left p-3 rounded-lg text-xs bg-red-950/40 border border-red-800 text-white font-bold">
+                ▲ +720° Yaw Overdrive Attack
               </button>
-              <button onclick="setMode('drift')" id="btn-drift" class="fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-amber-400 text-lg">⚡</span>
-                <div>
-                  <div class="font-bold text-white">Gaussian Sensor Drift</div>
-                  <div class="text-[11px] text-amber-300/80">Stochastic AI noise injection</div>
-                </div>
+              <button onclick="setMode('drift')" id="btn-drift" class="w-full text-left p-3 rounded-lg text-xs bg-amber-950/40 border border-amber-800 text-white font-bold">
+                ⚡ Gaussian Sensor Noise Drift
               </button>
             </div>
+          </div>
+
+          <div class="hud-panel p-4 rounded-xl">
+            <div class="section-label mb-2">Digital Oscilloscope Signal</div>
+            <canvas id="dsoCanvas" class="w-full rounded bg-slate-950 border border-cyan-900/40" style="height: 180px;"></canvas>
           </div>
         </div>
       </div>
@@ -516,281 +411,151 @@
     </div>
 
 
-    <!-- ================================================================================= -->
     <!-- TAB 4: C4ISR DEFENSE PROTOCOLS -->
-    <!-- ================================================================================= -->
-    <div id="tab-protocols" class="tab-content hidden space-y-12">
-      
-      <div class="hud-panel p-8 rounded-3xl space-y-4">
-        <div class="section-label">High-Assurance Defense Hardening</div>
-        <h2 class="text-3xl font-extrabold text-white">C4ISR Command Surface & Extreme Protocols</h2>
-      </div>
-
-      <div class="hud-panel p-8 rounded-3xl space-y-4">
-        <div class="section-label">Operator Surface</div>
-        <h3 class="text-2xl font-bold text-white">Tesseract SI Command Console</h3>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          Primary operator surface for mission commanders overseeing autonomous kinetic and deep-submergence assets. Operating at a continuous 1,600 Hz monotonic loop rate (625.0 µs cadence), it presents a unified three-ring cognitive surface enforcing DoDD 3000.09 Mode B kinetic interlocks.
-        </p>
-        <div class="grid sm:grid-cols-3 gap-4 mono text-xs pt-2">
-          <div class="bg-black/50 rounded-xl p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Outer Ring: Awareness</div>
-            <div class="text-slate-400">Raw signal normalization · Acoustic/RF intake · Vocal formant lock () · OptINC photonic isolation</div>
-          </div>
-          <div class="bg-black/50 rounded-xl p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Middle Ring: Interpretation</div>
-            <div class="text-slate-400">Tri-Founder Logic Rails (Founder, Elon, Mission) · Class-0 to Class-4 Mythos threat classification matrix</div>
-          </div>
-          <div class="bg-black/50 rounded-xl p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Inner Ring: Decision</div>
-            <div class="text-slate-400">Action Arm authorization · Mode A/B kinetic gates · Token  · Packet-Seal (P5) immutability</div>
-          </div>
-        </div>
+    <div id="tab-protocols" class="tab-content hidden space-y-8">
+      <div>
+        <div class="section-label mb-2">High-Assurance Defense Protocols</div>
+        <h2 class="text-3xl font-bold text-white">C4ISR Command Surface & Extreme Protocols</h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="hud-panel p-6 rounded-2xl space-y-3">
-          <div class="flex justify-between items-center">
-            <div class="section-label">Battleship Protocol</div>
-            <span class="mono text-xs text-emerald-400 font-bold">RF-DENIED PNT</span>
-          </div>
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="section-label">Battleship Protocol</div>
           <h3 class="text-xl font-bold text-white">Distributed Mesh & Passive Navigation</h3>
           <p class="text-slate-300 text-sm leading-relaxed">
-            Transitions the asset in ≤625 µs to a 73-node decentralized mesh running local SHA-256 WORM registers and 4 passive RF-denied PNT modalities (Acoustic Bathymetric Graphing, MEMS Inertial Odometry, OptINC Photonic LVDS, and Sonar Triangulation).
+            Engages under high-power EW, satellite PNT jamming, or optical blinding. Transitions asset in ≤625 µs to a 73-node decentralized mesh running local SHA-256 WORM registers and 4 passive PNT modalities.
           </p>
         </div>
 
-        <div class="hud-panel p-6 rounded-2xl space-y-3">
-          <div class="flex justify-between items-center">
-            <div class="section-label">Doomsday Protocol</div>
-            <span class="mono text-xs text-red-400 font-bold">EMP / FARADAY SURVIVAL</span>
-          </div>
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="section-label">Doomsday Protocol</div>
           <h3 class="text-xl font-bold text-white">Faraday Enclave & Zeroize Interlock</h3>
           <p class="text-slate-300 text-sm leading-relaxed">
-            Housed inside Blade 02 (Emmy Infinity). Engages 120s VITA 62 supercapacitor rail ( warrant token), cold-boots Shadow P/D-Cores from WORM ROM in <53 µs, snaps actuators to State H0 (0.00V DC), and arms solid-state plume zeroize.
+            Out-of-band fail-safe inside Blade 02 (Emmy Infinity). Engages 120s VITA 62 supercapacitor rail (<code class="text-cyan-300">0xA11F1770</code> token), cold-boots Shadow cores in &lt;53 µs, and arms solid-state plume zeroize (&lt;10 µs to sand).
           </p>
         </div>
       </div>
-
     </div>
 
 
-    <!-- ================================================================================= -->
     <!-- TAB 5: PRICING & STRIPE CHECKOUT -->
-    <!-- ================================================================================= -->
-    <div id="tab-pricing" class="tab-content hidden space-y-12">
-      
-      <div class="hud-panel p-8 rounded-3xl space-y-4 text-center max-w-4xl mx-auto">
-        <div class="section-label justify-center">Tiered Commercial & Defense Fulfillment</div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Brad-Core OS Licensing & Hardware Enclaves</h2>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-          Select a licensing tier below to launch our PCI-DSS compliant Stripe checkout console. Zero merchant risk holds, instant HMAC key generation, and direct bank fulfillment.
-        </p>
+    <div id="tab-pricing" class="tab-content hidden space-y-8">
+      <div>
+        <div class="section-label mb-2">Product Catalog & Fulfillment</div>
+        <h2 class="text-3xl font-bold text-white">Enterprise Software Licenses & OpenVPX Hardware</h2>
+        <p class="text-slate-400 text-sm mt-1">Zero merchant risk holds. Developer card processing, ACH Direct Debit, and direct FedWire options.</p>
       </div>
 
-      <!-- PRICING TIERS GRID -->
-      <div class="grid md:grid-cols-3 gap-8 items-stretch">
+      <div class="grid md:grid-cols-3 gap-6">
         
-        <!-- Tier 1: Dev Seat -->
-        <div class="hud-panel p-8 rounded-3xl flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <!-- Tier 1 -->
+        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-cyan-500">
           <div>
-            <div class="section-label mb-2">Developer Tier</div>
-            <h3 class="text-2xl font-bold text-white">Developer Evaluation Seat</h3>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-white">9</span>
-              <span class="text-slate-400 text-xs mono">/ seat (One-Time)</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Instant binary access to our C11 digital twin microkernel, 1,600 Hz testbed SDK headers, and Sheriff OS MPU page-fence libraries.
-            </p>
-            <ul class="space-y-3 text-xs mono text-slate-300 border-t border-cyan-900/30 pt-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Instant C11 Binary Download</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Sheriff OS MPU Headers</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Interactive Testbed SDK</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Instant Credit Card Checkout</li>
-            </ul>
+            <div class="section-label mb-1">Developer Tier</div>
+            <h3 class="text-2xl font-bold text-white mb-2">$99.00 USD</h3>
+            <p class="text-slate-300 text-xs mb-4">Single seat developer evaluation license. Instant download of C11 digital twin binary & SDK headers.</p>
           </div>
-          <button onclick="openStripeModal('dev_tier', 'Developer Evaluation Seat', '9.00', 'Credit Card / Apple Pay (Instant)')" class="btn-ghost w-full py-4 rounded-xl text-sm font-bold mono">
-            BUY DEV SEAT (9)
+          <button onclick="openStripeModal('dev_tier', 'Developer Evaluation Seat', 99.00)" class="btn-primary w-full py-3 rounded-lg text-xs mono font-bold">
+            💳 BUY DEV KEY ($99)
           </button>
         </div>
 
-        <!-- Tier 2: Commercial Fleet (POPULAR) -->
-        <div class="hud-panel p-8 rounded-3xl flex flex-col justify-between space-y-6 relative overflow-hidden border-2 border-cyan-400 shadow-2xl bg-gradient-to-b from-cyan-950/40 via-slate-950 to-slate-950">
-          <div class="absolute top-0 right-0 px-4 py-1.5 rounded-bl-xl bg-cyan-400 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider">
-            MOST POPULAR
-          </div>
+        <!-- Tier 2 -->
+        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-emerald-500">
           <div>
-            <div class="section-label mb-2">Enterprise Fleet</div>
-            <h3 class="text-2xl font-bold text-white">Commercial Fleet License</h3>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-white">,499</span>
-              <span class="text-slate-400 text-xs mono">/ 100 Nodes / Year</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Annual software licensing for commercial drone fleets, industrial robotics, agricultural iron, and SCADA energy grids.
-            </p>
-            <ul class="space-y-3 text-xs mono text-slate-300 border-t border-cyan-900/30 pt-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Up to 100 Autonomous Nodes</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> IEC 61508 SIL 3 Compliance</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> ISO 25119 AgPL e Safety Lock</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Stripe ACH Direct Debit ( Fee Cap)</li>
-            </ul>
+            <div class="section-label mb-1">Commercial Fleet</div>
+            <h3 class="text-2xl font-bold text-white mb-2">$1,499.00 USD</h3>
+            <p class="text-slate-300 text-xs mb-4">Annual software microvisor licensing for 100 autonomous nodes. Paid via Stripe ACH Direct Debit ($5 fee cap).</p>
           </div>
-          <button onclick="openStripeModal('comm_tier', 'Commercial Fleet License', ',499.00', 'Stripe ACH Direct Debit ( Fee Cap)')" class="btn-primary w-full py-4 rounded-xl text-sm font-bold mono">
-            PURCHASE FLEET LICENSE (,499)
+          <button onclick="openStripeModal('comm_tier', 'Commercial Fleet License (100 Nodes)', 1499.00)" class="btn-primary w-full py-3 rounded-lg text-xs mono font-bold">
+            🏦 ACH DEBIT INVOICE ($1,499)
           </button>
         </div>
 
-        <!-- Tier 3: Emmy Infinity Enclave -->
-        <div class="hud-panel p-8 rounded-3xl flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <!-- Tier 3 -->
+        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-amber-500">
           <div>
-            <div class="section-label mb-2">Defense & Submergence</div>
-            <h3 class="text-2xl font-bold text-white">Emmy Infinity Hardware Enclave</h3>
-            <div class="my-4 flex items-baseline gap-1">
-              <span class="text-4xl font-extrabold text-white">5,000+</span>
-              <span class="text-slate-400 text-xs mono">/ Custom Enclave Unit</span>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Custom 3U OpenVPX Blade 02 expansion module with VITA 62 supercapacitor rail (120s backup hold-up), WORM ROM, and photonic isolation.
-            </p>
-            <ul class="space-y-3 text-xs mono text-slate-300 border-t border-cyan-900/30 pt-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Navy PAE Pilot P-1863 Aligned</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> DIU #PROJ00716 Fast-Track</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> DoDD 3000.09 Mode B Gate</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✓</span> Chase Corporate FedWire Invoice</li>
-            </ul>
+            <div class="section-label mb-1">Defense & Enterprise</div>
+            <h3 class="text-2xl font-bold text-white mb-2">$25,000.00+ USD</h3>
+            <p class="text-slate-300 text-xs mb-4">Blade 02 Emmy Infinity hardware enclave module + Navy PAE / DIU OTA pilot integration.</p>
           </div>
-          <button onclick="openStripeModal('emmy_tier', 'Emmy Infinity Hardware Enclave', '5,000.00 Base', 'Direct Corporate FedWire Invoice')" class="btn-ghost w-full py-4 rounded-xl text-sm font-bold mono">
-            REQUEST FEDWIRE INVOICE
+          <button onclick="openStripeModal('emmy_tier', 'Emmy Infinity Defense Enclave', 25000.00)" class="btn-ghost w-full py-3 rounded-lg text-xs mono font-bold">
+            🏛️ REQUEST FEDWIRE INVOICE
           </button>
         </div>
 
       </div>
-
     </div>
 
   </main>
 
-  <!-- INTERACTIVE STRIPE CHECKOUT MODAL (#stripeModal) -->
-  <div id="stripeModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="hud-panel max-w-lg w-full rounded-3xl p-8 space-y-6 border-2 border-cyan-400 shadow-2xl relative animate-fadeIn">
-      <button onclick="closeStripeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl mono font-bold">✕</button>
-      
-      <div class="space-y-1">
-        <div class="section-label">Stripe Encrypted Fulfillment</div>
-        <h3 id="modalTierTitle" class="text-2xl font-bold text-white">Developer Evaluation Seat</h3>
-        <p id="modalTierPrice" class="text-cyan-400 font-mono font-bold text-lg">9.00 USD</p>
+  <!-- LIGHTBOX BLUEPRINT MODAL -->
+  <div id="blueprintModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="max-w-5xl w-full hud-panel p-6 rounded-2xl relative space-y-4">
+      <button onclick="closeBlueprintModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-white font-bold hover:bg-cyan-500 hover:text-slate-950 transition-colors">✕</button>
+      <div id="modalTitle" class="text-xl font-bold text-cyan-400 mono">Blueprint Title</div>
+      <div class="h-96 rounded-xl overflow-hidden bg-slate-900 border border-cyan-900/50 flex items-center justify-center">
+        <img id="modalImg" src="" alt="Blueprint Detail" class="max-h-full max-w-full object-contain">
       </div>
-
-      <div class="space-y-4 mono text-xs">
-        <div>
-          <label class="block text-slate-400 mb-1">Customer Full Name</label>
-          <input type="text" id="modalCustName" placeholder="Bradley W. Holmes" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-cyan-900/50 text-white focus:outline-none focus:border-cyan-400">
-        </div>
-        <div>
-          <label class="block text-slate-400 mb-1">Work / Defense Email</label>
-          <input type="email" id="modalCustEmail" placeholder="bholmes@bradcoreos.com" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-cyan-900/50 text-white focus:outline-none focus:border-cyan-400">
-        </div>
-        <div>
-          <label class="block text-slate-400 mb-1">Payment Method</label>
-          <input type="text" id="modalPaymentType" readonly class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 font-semibold cursor-not-allowed">
-        </div>
-      </div>
-
-      <button onclick="handleCheckoutSubmit()" id="btn-submit-pay" class="btn-primary w-full py-4 rounded-xl text-sm font-bold mono flex items-center justify-center gap-2 shadow-xl">
-        🔒 AUTHORIZE & GENERATE HMAC LICENSE KEY
-      </button>
-
-      <!-- SUCCESS KEY DISPLAY -->
-      <div id="modalSuccessBox" class="hidden bg-emerald-950/80 border border-emerald-500/50 rounded-2xl p-4 mono text-xs text-center space-y-2">
-        <div class="text-emerald-400 font-bold">✓ PAYMENT AUTHORIZED & LICENSE KEY ISSUED</div>
-        <div id="modalGeneratedKey" class="text-white font-bold text-sm bg-black/60 p-2 rounded border border-emerald-500/40 select-all">
-          HMAC KEY: BCORE-0305-D454-DDA4-2026
-        </div>
-        <div class="text-slate-300 text-[11px]">Key dispatched to your email address and logged in Mercury corporate treasury.</div>
-      </div>
+      <div id="modalDesc" class="text-sm text-slate-300 leading-relaxed mono">Blueprint Description</div>
     </div>
   </div>
 
-  <!-- BLUEPRINT HIGH-RES LIGHTBOX MODAL -->
-  <div id="blueprintModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="hud-panel max-w-4xl w-full rounded-3xl p-6 space-y-4 border border-cyan-400 shadow-2xl relative max-h-[90vh] flex flex-col">
-      <button onclick="closeBlueprintModal()" class="absolute top-5 right-6 text-slate-400 hover:text-white text-2xl mono font-bold z-10">✕</button>
-      <div>
-        <div class="section-label mb-1">High-Assurance Technical Schematic</div>
-        <h3 id="bpModalTitle" class="text-2xl font-bold text-white">UAV Dual-Rack Blueprint</h3>
+  <!-- STRIPE CHECKOUT MODAL -->
+  <div id="stripeModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
+    <div class="max-w-md w-full hud-panel p-6 rounded-2xl relative space-y-4">
+      <button onclick="closeStripeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-white font-bold hover:bg-cyan-500 hover:text-slate-950 transition-colors">✕</button>
+      <div class="section-label">Stripe PCI-DSS 256-Bit Encrypted</div>
+      <h3 id="stripeModalTitle" class="text-xl font-bold text-white">Checkout</h3>
+      <div class="p-3 rounded bg-black/40 border border-cyan-900/40 text-xs mono text-cyan-300">
+        Total: <span id="stripeModalAmount" class="font-bold text-white">$0.00</span>
       </div>
-      <div class="overflow-hidden rounded-2xl bg-slate-950 border border-cyan-900/40 flex-grow flex items-center justify-center p-2">
-        <img id="bpModalImg" src="" alt="Blueprint" class="max-h-[60vh] w-auto object-contain rounded-xl">
+      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-3 text-xs mono">
+        <div>
+          <label class="text-slate-400">Full Name / Organization</label>
+          <input type="text" required placeholder="Bradley Holmes / Defense Corp" class="w-full mt-1 p-2.5 rounded bg-slate-900 border border-cyan-900/50 text-white focus:border-cyan-400 outline-none">
+        </div>
+        <div>
+          <label class="text-slate-400">Work / Government Email</label>
+          <input type="email" required placeholder="bholmes@bradcoreos.com" class="w-full mt-1 p-2.5 rounded bg-slate-900 border border-cyan-900/50 text-white focus:border-cyan-400 outline-none">
+        </div>
+        <button type="submit" class="btn-primary w-full py-3 rounded-lg font-bold text-xs">
+          🔒 AUTHORIZE TRANSACTION NOW
+        </button>
+      </form>
+      <div id="stripeSuccessMsg" class="hidden p-3 rounded bg-emerald-950/80 border border-emerald-500 text-emerald-300 text-xs mono">
+        ✓ Authorization Success! Generating cryptographic HMAC license key...
       </div>
-      <p id="bpModalDesc" class="text-slate-300 text-xs mono leading-relaxed bg-black/40 p-3 rounded-xl border border-cyan-900/30">
-        Schematic detail description.
-      </p>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-cyan-900/40 bg-slate-950 py-12 px-4 lg:px-8 mt-20 text-xs mono text-slate-400">
+  <footer class="border-t border-cyan-900/40 bg-slate-950 py-10 px-4 lg:px-8 mt-20 text-xs mono text-slate-400">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
       <div>
         <div class="text-white font-bold text-sm mb-1">Brad-Core OS LLC</div>
         <div>Williams & Flagstaff, Arizona Operational Testbed</div>
-        <div class="text-slate-500 mt-1">Founder & Lead Architect: Bradley W. Holmes (0xB4AD0001)</div>
+        <div class="text-slate-500 mt-1">Founder & Lead Architect: Bradley W. Holmes</div>
       </div>
-      <div class="flex flex-wrap items-center gap-6 text-slate-300">
-        <a href="mailto:bholmes@bradcoreos.com" class="hover:text-cyan-400 transition-colors">bholmes@bradcoreos.com</a>
-        <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" class="hover:text-cyan-400 transition-colors">LinkedIn Profile</a>
+      <div class="flex items-center gap-6 text-slate-300">
+        <a href="mailto:bholmes@bradcoreos.com" class="hover:text-cyan-400">bholmes@bradcoreos.com</a>
+        <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" class="hover:text-cyan-400">LinkedIn Profile</a>
       </div>
-    </div>
-    <div class="max-w-7xl mx-auto text-center text-slate-600 mt-8 pt-6 border-t border-slate-900">
-      © 2026 Brad-Core OS LLC. All Rights Reserved. Hardware-Enforced Silicon Sovereignty (The Omega State).
     </div>
   </footer>
 
-  <!-- INTERACTIVE JAVASCRIPT LOGIC -->
   <script>
-    // Tab Switching Logic
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.remove('hidden');
-
-      document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active-tab'));
-      const activeBtn = document.getElementById('btn-' + tabId);
-      if (activeBtn) activeBtn.classList.add('active-tab');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('btn-' + tabId).classList.add('active');
     }
 
-    // Modal Control Functions
-    let currentSelectedTier = 'dev_tier';
-    function openStripeModal(tierId, title, price, paymentType) {
-      currentSelectedTier = tierId;
-      document.getElementById('modalTierTitle').textContent = title;
-      document.getElementById('modalTierPrice').textContent = price + " USD";
-      document.getElementById('modalPaymentType').value = paymentType;
-      document.getElementById('modalSuccessBox').classList.add('hidden');
-      document.getElementById('stripeModal').classList.remove('hidden');
-    }
-
-    function closeStripeModal() {
-      document.getElementById('stripeModal').classList.add('hidden');
-    }
-
-    function handleCheckoutSubmit() {
-      const btn = document.getElementById('btn-submit-pay');
-      btn.textContent = '🔄 PROCESSING PCI-DSS AUTHORIZATION...';
-      setTimeout(() => {
-        btn.textContent = '🔒 AUTHORIZE & GENERATE HMAC LICENSE KEY';
-        const randKey = 'BCORE-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.floor(1000 + Math.random() * 9000) + '-2026';
-        document.getElementById('modalGeneratedKey').textContent = 'HMAC KEY: ' + randKey;
-        document.getElementById('modalSuccessBox').classList.remove('hidden');
-      }, 700);
-    }
-
-    function openBlueprintModal(title, imgSrc, desc) {
-      document.getElementById('bpModalTitle').textContent = title;
-      document.getElementById('bpModalImg').src = imgSrc;
-      document.getElementById('bpModalDesc').textContent = desc;
+    function openBlueprintModal(imgSrc, title, desc) {
+      document.getElementById('modalImg').src = imgSrc;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
       document.getElementById('blueprintModal').classList.remove('hidden');
     }
 
@@ -798,101 +563,100 @@
       document.getElementById('blueprintModal').classList.add('hidden');
     }
 
-    // Simulation Runner in Tab 3
     function runDigitalTwinSim() {
-      const btn = document.getElementById('btn-run-sim');
-      btn.textContent = '⚡ EVALUATING 10,000 TRIALS...';
+      const box = document.getElementById('twinTelemetryBox');
+      box.classList.remove('hidden');
+    }
+
+    function openStripeModal(tier, title, amount) {
+      document.getElementById('stripeModalTitle').textContent = title;
+      document.getElementById('stripeModalAmount').textContent = '$' + amount.toFixed(2) + ' USD';
+      document.getElementById('stripeModal').classList.remove('hidden');
+    }
+
+    function closeStripeModal() {
+      document.getElementById('stripeModal').classList.add('hidden');
+      document.getElementById('stripeSuccessMsg').classList.add('hidden');
+    }
+
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      const msg = document.getElementById('stripeSuccessMsg');
+      msg.classList.remove('hidden');
       setTimeout(() => {
-        btn.textContent = '⚡ RUN DIGITAL TWIN SIMULATION';
-        document.getElementById('simResultsBox').classList.remove('hidden');
-      }, 500);
+        alert('HMAC KEY GENERATED: BCORE-0305-D454-DDA4-2026');
+        closeStripeModal();
+      }, 1200);
     }
 
-    // Oscilloscope Animation Code
+    // Oscilloscope Animation
     let testMode = 'spike';
-    function setMode(mode) {
-      testMode = mode;
-      document.getElementById('btn-nominal').className = "fid-btn fid-green w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'nominal' ? 'active' : '');
-      document.getElementById('btn-spike').className = "fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'spike' ? 'active' : '');
-      document.getElementById('btn-drift').className = "fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'drift' ? 'active' : '');
-    }
-
-    let loopCount = 26490;
-    let seqNum = 0x0001A3F2;
-    const stages = ["01 READ", "02 INTERPRET", "03 DECIDE", "04 ACT", "05 LOG"];
-    let stageIdx = 0;
-
-    setInterval(() => {
-      loopCount++;
-      seqNum++;
-      stageIdx = (stageIdx + 1) % stages.length;
-      if (document.getElementById('loopCounter')) {
-        document.getElementById('loopCounter').textContent = "#" + loopCount.toString().padStart(8, '0');
-        document.getElementById('liveStage').textContent = stages[stageIdx];
-        document.getElementById('liveSeq').textContent = "0x" + seqNum.toString(16).toUpperCase().padStart(8, '0');
-      }
-    }, 125);
+    function setMode(mode) { testMode = mode; }
 
     const mainCanvas = document.getElementById('mainCanvas');
-    if (mainCanvas) {
-      const mainCtx = mainCanvas.getContext('2d');
-      function resizeCanvas() {
-        mainCanvas.width = mainCanvas.parentElement.clientWidth;
-        mainCanvas.height = 360;
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
+    const mainCtx = mainCanvas.getContext('2d');
+    const dsoCanvas = document.getElementById('dsoCanvas');
+    const dsoCtx = dsoCanvas.getContext('2d');
 
-      let timeStep = 0;
-      function renderWaveforms() {
-        timeStep += 0.05;
-        const w = mainCanvas.width;
-        const h = mainCanvas.height;
-        mainCtx.fillStyle = '#020617';
+    function resizeCanvas() {
+      if (mainCanvas.parentElement) {
+        mainCanvas.width = mainCanvas.parentElement.clientWidth;
+        mainCanvas.height = 380;
+      }
+      if (dsoCanvas.parentElement) {
+        dsoCanvas.width = dsoCanvas.parentElement.clientWidth;
+        dsoCanvas.height = 180;
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let timeStep = 0;
+    function renderWaveforms() {
+      timeStep += 0.05;
+      const w = mainCanvas.width;
+      const h = mainCanvas.height;
+      if (w && h) {
+        mainCtx.fillStyle = '#030712';
         mainCtx.fillRect(0, 0, w, h);
 
         const cy = h / 2;
         const maxBound = cy - h * 0.35;
         const minBound = cy + h * 0.35;
 
-        // Draw Amber Trace
+        // Amber Chaos Trace
         mainCtx.beginPath();
-        mainCtx.strokeStyle = testMode === 'nominal' ? 'rgba(245, 158, 11, 0.4)' : '#F59E0B';
+        mainCtx.strokeStyle = '#F59E0B';
         mainCtx.lineWidth = 2;
         for (let x = 0; x < w; x++) {
           let t = timeStep + x * 0.02;
           let rawVal = Math.sin(t) * (h * 0.2);
-          if (testMode === 'spike') {
-            if ((Math.floor(x + timeStep * 50) % 180) < 40) rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
-          } else if (testMode === 'drift') {
-            rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
+          if (testMode === 'spike' && (Math.floor(x + timeStep * 50) % 180) < 40) {
+            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
           }
           let y = cy - rawVal;
           if (x === 0) mainCtx.moveTo(x, y); else mainCtx.lineTo(x, y);
         }
         mainCtx.stroke();
 
-        // Draw Green Trace (Sheriff Clamped)
+        // Green Clamped Trace
         mainCtx.beginPath();
         mainCtx.strokeStyle = '#10B981';
         mainCtx.lineWidth = 3;
         for (let x = 0; x < w; x++) {
           let t = timeStep + x * 0.02;
           let rawVal = Math.sin(t) * (h * 0.2);
-          if (testMode === 'spike') {
-            if ((Math.floor(x + timeStep * 50) % 180) < 40) rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
-          } else if (testMode === 'drift') {
-            rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
+          if (testMode === 'spike' && (Math.floor(x + timeStep * 50) % 180) < 40) {
+            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
           }
           let clampedVal = Math.max(minBound, Math.min(maxBound, cy - rawVal));
           if (x === 0) mainCtx.moveTo(x, clampedVal); else mainCtx.lineTo(x, clampedVal);
         }
         mainCtx.stroke();
-
-        requestAnimationFrame(renderWaveforms);
       }
       requestAnimationFrame(renderWaveforms);
     }
+    requestAnimationFrame(renderWaveforms);
   </script>
 </body>
 </html>
