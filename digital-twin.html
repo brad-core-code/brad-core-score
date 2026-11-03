@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brad-Core OS v5.3 | C11 Bare-Metal Software Microkernel Digital Twin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #030712; color: #f3f4f6; font-family: 'Courier New', Courier, monospace; }
+        .accent-cyan { color: #06b6d4; }
+        .border-cyan { border-color: #0891b2; }
+        .bg-card { background-color: #0b0f19; border: 1px solid #1e293b; }
+        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.25); }
+        .glow-gold { box-shadow: 0 0 25px rgba(234, 179, 8, 0.25); }
+        .code-box { background-color: #020617; border: 1px solid #1e293b; color: #38bdf8; font-family: monospace; }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- TOP NAV -->
+    <header class="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-gray-800 pb-6 gap-4">
+        <div>
+            <span class="text-xs tracking-widest text-cyan-500 uppercase font-bold">[ STANDALONE PRODUCT PAGE 01 // SOFTWARE DIGITAL TWIN ]</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-1">BRAD-CORE OS v5.3 <span class="text-cyan-400">DIGITAL TWIN</span></h1>
+            <p class="text-gray-400 text-sm mt-1">Software-Defined Deterministic Safety Microkernel • Bare-Metal C11 Execution Engine</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="bradcoreos_hardware_master_page.html" class="px-5 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-xs rounded uppercase tracking-wider transition">
+                <i class="fas => fa-microchip mr-2"></i> Switch to Hardware Product Page
+            </a>
+            <a href="index.html" class="px-5 py-3 bg-gray-800 hover:bg-gray-700 text-cyan-400 font-bold text-xs rounded uppercase tracking-wider border border-cyan-500/30 transition">
+                <i class="fas fa-layer-group mr-2"></i> Main Gateway
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="bg-card p-8 rounded-xl glow-cyan mb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+                <span class="px-3 py-1 bg-cyan-950 text-cyan-400 border border-cyan-500 text-xs rounded-full font-bold uppercase">Zero-Doubt Determinism Proof</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-4 mb-4">THE ZERO-RAM C11 MICROKERNEL SAFETY SUBSTRATE</h2>
+                <p class="text-gray-300 text-base leading-relaxed mb-6">
+                    Eliminate hardware lead times, OpenVPX chassis backorders, and multi-million dollar testbed dependencies. 
+                    <strong>Brad-Core OS v5.3 Digital Twin</strong> translates physical MPU hardware page fencing into a pure bare-metal C11 software microkernel running directly on x86_64 or ARM64 Linux targets with <span class="text-cyan-400 font-bold">100% mathematical safety parity</span>.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
+                        <div class="text-2xl font-black text-cyan-400">&lt;86 µs</div>
+                        <div class="text-xs text-gray-400">Sheriff OS Clamp</div>
+                    </div>
+                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
+                        <div class="text-2xl font-black text-green-400">0.00 ns</div>
+                        <div class="text-xs text-gray-400">Control Loop Jitter</div>
+                    </div>
+                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
+                        <div class="text-2xl font-black text-yellow-400">0 Bytes</div>
+                        <div class="text-xs text-gray-400">Shared Host RAM</div>
+                    </div>
+                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
+                        <div class="text-2xl font-black text-purple-400">10,000,000</div>
+                        <div class="text-xs text-gray-400">Blast Deflections</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="c11_software_digital_twin_master.jpg" alt="Brad-Core OS Digital Twin Architecture" class="rounded-lg border border-cyan-500/40 w-full shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHT SECTION: VOCAL LOCK LATCH (vocal_lock_latch.py) -->
+    <section class="bg-card p-8 rounded-xl border-l-4 border-yellow-500 glow-gold mb-12">
+        <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-shield-virus text-yellow-400 text-3xl"></i>
+            <div>
+                <span class="text-xs text-yellow-400 font-bold uppercase tracking-widest">[ CRITICAL SECURITY FEATURE HIGHLIGHT ]</span>
+                <h3 class="text-2xl font-bold text-white">vocal_lock_latch.py // Class 38 Vocal Deepfake Pre-Kernel Interdict</h3>
+            </div>
+        </div>
+        <p class="text-gray-300 mb-6 text-sm leading-relaxed">
+            In modern acoustic autonomous systems and voice-commanded tactical hubs, generative AI vocal deepfakes (Class 38 attack vectors) pose an existential threat. Standard software filters run post-audio processing in shared user space—allowing synthetic waveforms to buffer into execution memory. 
+            <br><br>
+            <strong>vocal_lock_latch.py</strong> operates at the pre-kernel hardware audio boundary. It executes a real-time FFT acoustic spectrum analysis inside Sheriff OS MPU memory, detecting adversarial vocal artifacts, phase anomalies, and synthetic pitch jitter in <span class="text-yellow-400 font-bold">&lt;86 microseconds</span>—snapping the hardware audio latch before synthetic voice payloads ever touch the kernel planner!
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            <div>
+                <img src="vocal_lock_latch_schematic.jpg" alt="Vocal Lock Latch Schematic" class="rounded border border-yellow-500/40 w-full mb-4">
+            </div>
+            <div class="code-box p-4 rounded text-xs overflow-x-auto">
+                <div class="text-gray-400 mb-2 border-b border-gray-800 pb-1">// vocal_lock_latch.py - Core Pre-Kernel Acoustic Interdict</div>
+<pre><code><span class="text-yellow-400">import</span> posix_mprotect
+<span class="text-yellow-400">import</span> c_subsystem_latch
+
+<span class="text-cyan-400">def</span> <span class="text-white">interdict_class38_vocal_deepfake</span>(acoustic_frame_buf):
+    <span class="text-gray-500"># 1. Pre-Kernel FFT Spectral Phase Audit (&lt;86µs execution window)</span>
+    spectral_score = c_subsystem_latch.fft_phase_anomaly_score(acoustic_frame_buf)
+    
+    <span class="text-cyan-400">if</span> spectral_score &gt; CLASS38_SYNTHETIC_THRESHOLD:
+        <span class="text-gray-500"># 2. Trigger Sheriff OS PROT_NONE Page Fence instantly</span>
+        posix_mprotect.set_fence(AUDIO_RING_BUFFER_ADDR, PROT_NONE)
+        
+        <span class="text-gray-500"># 3. Fire Register 0x44 Virtual eFuse Latch -&gt; State H0 (0.00V)</span>
+        c_subsystem_latch.trigger_efuse_latch(REG_0x44_EFUSE_MASK)
+        
+        <span class="text-red-400">return</span> INTERDICT_STATUS_BLOCKED_CLASS38
+        
+    <span class="text-green-400">return</span> INTERDICT_STATUS_VERIFIED_HUMAN</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-CORE MICROKERNEL ISOLATION MATRIX -->
+    <section class="mb-12">
+        <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-3"><i class="fas fa-cubes text-cyan-400 mr-2"></i> 4-Core Decoupled Microkernel Architecture</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-card p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-cyan-400 font-bold text-sm">MICROKERNEL 01</span>
+                    <span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 text-xs rounded border border-cyan-500/30">D-CORE</span>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">1,600 Hz Monotonic Control Loop</h4>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                    Runs at hard real-time 625.0 µs cadence with static stack memory (<span class="text-cyan-400">malloc = 0</span>). Worst-case execution time: 412.6 µs. Ensures 0.00 ns control loop jitter regardless of load.
+                </p>
+            </div>
+
+            <div class="bg-card p-6 rounded-lg border-l-2 border-yellow-500">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-yellow-400 font-bold text-sm">MICROKERNEL 02</span>
+                    <span class="px-2 py-0.5 bg-yellow-950 text-yellow-400 text-xs rounded border border-yellow-500/30">SHERIFF OS</span>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Out-Of-Band MPU Page Fence Guard Trap</h4>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                    Executes POSIX <span class="text-yellow-400">mprotect(PROT_NONE)</span> memory page fences to interdict rogue AI proposals in &lt;86 microseconds, locking virtual eFuse Register 0x44 to State H0 (0.00V DC).
+                </p>
+            </div>
+
+            <div class="bg-card p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-green-400 font-bold text-sm">MICROKERNEL 03</span>
+                    <span class="px-2 py-0.5 bg-green-950 text-green-400 text-xs rounded border border-green-500/30">M-CORE</span>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">SHA-256 WORM Audit Ledger</h4>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                    Cryptographic write-once-read-many (WORM) audit trail enforcing <strong>The Emmy Axiom</strong>: zero unrecorded signals, zero suppressed alarms, zero silent failures.
+                </p>
+            </div>
+
+            <div class="bg-card p-6 rounded-lg">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-purple-400 font-bold text-sm">MICROKERNEL 04</span>
+                    <span class="px-2 py-0.5 bg-purple-950 text-purple-400 text-xs rounded border border-purple-500/30">P-CORE</span>
+                </div>
+                <h4 class="text-lg font-bold text-white mb-2">Untrusted AI Neural Planner Interface</h4>
+                <p class="text-gray-400 text-xs leading-relaxed">
+                    Isolated user-space domain for neural planners (PyTorch, ONNX, TensorRT). Decoupled from actuator buses via a <span class="text-purple-400">0-Byte Shared Host RAM</span> lock-free SPSC ring buffer.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <footer class="bg-card p-8 rounded-xl text-center border-t border-cyan-500/30">
+        <h3 class="text-2xl font-bold text-white mb-2">Eradicate Every Doubt. Deploy the C11 Digital Twin.</h3>
+        <p class="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
+            Test the live C11 microkernel testbed directly in your browser or integrate into your defense software pipeline today.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="bradcoreos_hardware_master_page.html" class="px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-black font-extrabold text-sm rounded uppercase tracking-widest transition">
+                Explore SOSA/MOSA Hardware Enclave <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+            <a href="index.html" class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-cyan-400 font-extrabold text-sm rounded uppercase tracking-widest border border-cyan-500/40 transition">
+                Return to Master Portal
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
