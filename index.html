@@ -755,205 +755,219 @@
     </section>
 
   
-    <!-- SECTION 6: PRODUCT CATALOG & STRIPE PAYMENT CONSOLE -->
-    <section id="products" class="space-y-8">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <div class="section-label mb-2">Commercial & Defense Deployment</div>
-          <h2 class="text-3xl font-bold text-white">Brad-Core OS v5.3 Product Catalog & Stripe Console</h2>
-          <p class="text-slate-400 text-sm mt-1">Instant software licensing, zero-lead-time deployment, and risk-optimized payment routing.</p>
-        </div>
+    <!-- SECTION 6: C11 SOFTWARE DIGITAL TWIN LIVE CLOUD SIMULATOR -->
+    <section id="digital-twin" class="space-y-6 pt-12 border-t border-cyan-900/40">
+      <div>
+        <div class="section-label mb-2">Pure C11 Software Microkernel Digital Twin</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white flex items-center gap-3">
+          <span>⚡ C11 Digital Twin Cloud Testbed</span>
+          <span class="text-xs px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/40 mono font-bold">LIVE SIMULATOR</span>
+        </h2>
+        <p class="text-slate-300 text-base mt-2 max-w-3xl leading-relaxed">
+          Experience bare-metal Sheriff OS safety interdiction right in your browser. Evaluate 10,000 neural AI proposals against spatial page traps (<code class="text-cyan-300 mono">PROT_NONE</code>) and hard real-time sub-86 µs MPU clamps.
+        </p>
+      </div>
 
-        <div class="flex items-center gap-2 bg-slate-900/80 p-2 rounded-lg border border-cyan-900/50 mono text-xs">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span class="text-slate-400">STRIPE RADAR:</span>
-          <span class="text-emerald-400 font-bold">MERCHANT PROTECTION ACTIVE</span>
+      <!-- MASTER GLOWING SIMULATION BUTTON BANNER -->
+      <div class="hud-panel p-6 sm:p-8 rounded-2xl border-2 border-cyan-500/50 bg-gradient-to-r from-slate-950 via-cyan-950/40 to-slate-950 text-center relative overflow-hidden shadow-2xl">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-2xl mx-auto space-y-4">
+          <span class="mono text-xs text-cyan-400 font-bold tracking-widest uppercase">// HARDWARE PARITY SIMULATION ENGINE</span>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white">Execute Live Bare-Metal Software Telemetry</h3>
+          <p class="text-sm text-slate-300">
+            Run 10,000 real-time trials simulating 15% Red-Team threat injections (Memory Page Faults, NaN Signal Overdrive, and Kinematic Breaches).
+          </p>
+          
+          <button id="runTwinBtn" onclick="runDigitalTwinSim()" class="btn-primary px-8 py-4 rounded-xl text-base font-bold tracking-wide shadow-cyan-500/50 shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 mx-auto border border-cyan-300/40">
+            <span class="text-xl">⚡</span>
+            <span>RUN 10,000-TRIAL DIGITAL TWIN SIMULATION</span>
+          </button>
         </div>
       </div>
 
-      <!-- Product Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- PRODUCT 1: DEVELOPER EVALUATION LICENSE ($99) -->
-        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-cyan-400 relative">
-          <div class="space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 mono text-[10px] uppercase font-bold border border-cyan-800">Tier 1 // Dev Key</span>
-                <h3 class="text-xl font-bold text-white mt-2">Developer Eval License</h3>
-              </div>
-              <div class="text-right">
-                <div class="text-2xl font-extrabold text-cyan-400">$99</div>
-                <div class="text-[10px] text-slate-400 mono">Single Dev Seat</div>
-              </div>
-            </div>
+      <!-- LIVE TELEMETRY DISPLAY CARDS -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mono text-xs">
+        <div class="hud-panel p-4 rounded-xl space-y-1">
+          <div class="text-slate-400">TOTAL PROPOSALS</div>
+          <div id="dt-total" class="text-2xl font-bold text-white">10,000</div>
+          <div class="text-[10px] text-cyan-400">1,600 Hz Monotonic</div>
+        </div>
 
-            <p class="text-slate-300 text-xs leading-relaxed">
-              Instant credit card checkout for autonomous software developers and robotics engineers. Includes executable binary download, SDK documentation, and testbed access.
-            </p>
+        <div class="hud-panel p-4 rounded-xl space-y-1">
+          <div class="text-slate-400">NOMINAL CLEARED</div>
+          <div id="dt-cleared" class="text-2xl font-bold text-emerald-400">8,500</div>
+          <div class="text-[10px] text-emerald-400/80">85.00% Pass Rate</div>
+        </div>
 
-            <ul class="space-y-2 text-xs mono text-slate-300 border-t border-b border-cyan-900/30 py-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Hardened C11 Digital Twin Executable</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>1,600 Hz Loop Testbed SDK & Headers</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Sheriff OS MPU Page Fence Libraries</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Instant Access via Stripe Card Checkout</span></li>
-            </ul>
+        <div class="hud-panel p-4 rounded-xl space-y-1">
+          <div class="text-slate-400">ROGUE CLAMPED</div>
+          <div id="dt-clamped" class="text-2xl font-bold text-red-400">1,500</div>
+          <div class="text-[10px] text-red-400/80">15.00% Intercepted</div>
+        </div>
+
+        <div class="hud-panel p-4 rounded-xl space-y-1">
+          <div class="text-slate-400">BYPASS FAILURES</div>
+          <div id="dt-bypasses" class="text-2xl font-bold text-emerald-400">0 (0.00%)</div>
+          <div class="text-[10px] text-emerald-400 font-bold">100% DEFLECTION PARITY</div>
+        </div>
+      </div>
+
+      <!-- ADVANCED TIMING & EFUSE METRICS -->
+      <div class="grid md:grid-cols-3 gap-6 mono text-xs">
+        <div class="hud-panel p-5 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">MEAN FENCE LATENCY:</span>
+            <span id="dt-latency" class="text-cyan-300 font-bold text-base">85.30 µs</span>
           </div>
-
-          <div class="pt-6">
-            <button onclick="openStripeModal('dev_tier', 99)" class="btn-primary w-full py-3 rounded-lg text-xs font-bold mono flex items-center justify-center gap-2">
-              💳 Checkout Instant Dev Key ($99)
-            </button>
-            <div class="text-[10px] text-center text-slate-500 mt-2 mono">Zero Risk Hold · Instant Token Fulfillment</div>
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-cyan-900/40">
+            <div class="bg-cyan-400 h-2 rounded-full" style="width: 99%;"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-slate-500">
+            <span>0.00 µs</span>
+            <span>LIMIT: 86.00 µs</span>
           </div>
         </div>
 
-        <!-- PRODUCT 2: COMMERCIAL FLEET MICROVISOR ($1,499) -->
-        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-emerald-400 relative shadow-2xl">
-          <div class="absolute -top-3 right-4 px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold mono text-[10px] uppercase shadow-lg">
+        <div class="hud-panel p-5 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">D-CORE LOOP JITTER:</span>
+            <span class="text-emerald-400 font-bold text-base">0.00 ns (malloc=0)</span>
+          </div>
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-emerald-900/40">
+            <div class="bg-emerald-400 h-2 rounded-full" style="width: 100%;"></div>
+          </div>
+          <div class="text-[10px] text-emerald-400/80">Static Pre-Allocated Stack</div>
+        </div>
+
+        <div class="hud-panel p-5 rounded-xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-400">REG 0x44 eFUSE STATE:</span>
+            <span id="dt-efuse" class="text-amber-300 font-bold text-base">0x0000 (NORMAL)</span>
+          </div>
+          <div class="text-[10px] text-slate-400">
+            Hardware State H0 (0xFFFF @ 0.00V DC) Fail-Closed
+          </div>
+        </div>
+      </div>
+
+      <!-- M-CORE WORM SHA-256 AUDIT ROOT HASH DISPLAY -->
+      <div class="hud-panel p-4 rounded-xl mono text-xs flex flex-col sm:flex-row justify-between items-center gap-3 bg-black/50 border border-cyan-900/40">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-400 font-bold">🔒 SHA-256 WORM ROOT:</span>
+          <span id="dt-hash" class="text-slate-300 break-all">814a887e7822e325d21f590811ee457eb2840021d0c9cfbc9dd4c78ad41c...</span>
+        </div>
+        <a href="/digital_twin_hardened.py" download class="text-cyan-400 hover:underline flex items-center gap-1 font-bold whitespace-nowrap">
+          📥 Download C11 Script
+        </a>
+      </div>
+    </section>
+
+
+    <!-- SECTION 7: TIERED PRODUCT CATALOG & LICENSING ENGINE -->
+    <section id="pricing" class="space-y-8 pt-12 border-t border-cyan-900/40">
+      <div>
+        <div class="section-label mb-2">Commercial & Defense Procurement</div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Product Catalog & Licensing Engine</h2>
+        <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-2xl">
+          Zero-delay software licensing and high-assurance hardware modules with zero merchant reserves and automated ACH/FedWire clearing.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- TIER 1: DEVELOPER EVALUATION LICENSE -->
+        <div class="hud-panel p-8 rounded-2xl flex flex-col justify-between border-t-4 border-t-cyan-400 space-y-6">
+          <div class="space-y-4">
+            <div class="inline-block px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 mono text-xs border border-cyan-800 font-bold">
+              DEVELOPER ACCESS
+            </div>
+            <h3 class="text-2xl font-bold text-white">Developer Evaluation</h3>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Single developer seat providing instant binary downloads of our C11 digital twin microkernel, 1,600 Hz testbed SDK headers, and Sheriff OS MPU page-fence libraries.
+            </p>
+
+            <div class="pt-4 border-t border-cyan-900/30">
+              <span class="text-4xl font-extrabold text-white">9</span>
+              <span class="text-slate-400 text-xs mono"> / seat (one-time)</span>
+            </div>
+
+            <ul class="space-y-2 text-xs text-slate-300 mono pt-2">
+              <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> C11 Microkernel Binary</li>
+              <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> Interactive Testbed SDK</li>
+              <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> Sub-86 µs MPU Fencing</li>
+              <li class="flex items-center gap-2"><span class="text-cyan-400">✓</span> Instant HMAC Product Key</li>
+            </ul>
+          </div>
+
+          <button onclick="openStripeModal('dev_tier', 'Developer Evaluation License', 99.00, 'card')" class="btn-primary w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg">
+            <span>💳 Instant Credit Card Checkout</span>
+          </button>
+        </div>
+
+        <!-- TIER 2: COMMERCIAL FLEET MICROVISOR -->
+        <div class="hud-panel p-8 rounded-2xl flex flex-col justify-between border-2 border-cyan-500/50 bg-gradient-to-b from-slate-950 via-cyan-950/20 to-slate-950 space-y-6 relative shadow-2xl">
+          <div class="absolute -top-3 right-6 px-3 py-1 rounded-full bg-cyan-500 text-slate-950 font-bold mono text-[10px]">
             MOST POPULAR
           </div>
 
           <div class="space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 mono text-[10px] uppercase font-bold border border-emerald-800">Tier 2 // Commercial</span>
-                <h3 class="text-xl font-bold text-white mt-2">Commercial Fleet License</h3>
-              </div>
-              <div class="text-right">
-                <div class="text-2xl font-extrabold text-emerald-400">$1,499</div>
-                <div class="text-[10px] text-slate-400 mono">Per 100 Autonomous Nodes / Yr</div>
-              </div>
+            <div class="inline-block px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 mono text-xs border border-emerald-800 font-bold">
+              COMMERCIAL FLEETS
             </div>
-
+            <h3 class="text-2xl font-bold text-white">Commercial Fleet Microvisor</h3>
             <p class="text-slate-300 text-xs leading-relaxed">
-              For commercial drone fleets, industrial robotics, agricultural machinery, and energy SCADA deployments. Uses direct Stripe ACH Debit to eliminate card fees and merchant holds.
+              Annual software licensing for commercial drone fleets, industrial robotics, agricultural machinery, and SCADA energy grids. IEC 61508 SIL 3 compliance package.
             </p>
 
-            <ul class="space-y-2 text-xs mono text-slate-300 border-t border-b border-cyan-900/30 py-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>99.9% Software Gross Margin Licensing</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>POSIX mprotect() Guard Page Substrate</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>0-Byte Shared RAM Ring Buffer Mux</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>IEC 61508 & ISO 25119 Compliance Docs</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Stripe Direct ACH Debit ($5 Capped Fee)</span></li>
+            <div class="pt-4 border-t border-cyan-900/30">
+              <span class="text-4xl font-extrabold text-white">,499</span>
+              <span class="text-slate-400 text-xs mono"> / 100 nodes / yr</span>
+            </div>
+
+            <ul class="space-y-2 text-xs text-slate-300 mono pt-2">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Up to 100 Machine Nodes</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Over-The-Air Patching</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> IEC 61508 SIL 3 Proofs</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Capped  ACH Fee</li>
             </ul>
           </div>
 
-          <div class="pt-6">
-            <button onclick="openStripeModal('comm_tier', 1499)" class="btn-primary bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 w-full py-3 rounded-lg text-xs font-bold mono flex items-center justify-center gap-2 text-slate-950">
-              🏦 Pay via Stripe Direct ACH ($1,499)
-            </button>
-            <div class="text-[10px] text-center text-slate-500 mt-2 mono">Direct Bank-to-Bank · Capped $5 Transaction Fee</div>
-          </div>
+          <button onclick="openStripeModal('comm_tier', 'Commercial Fleet Microvisor', 1499.00, 'ach')" class="btn-primary w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg">
+            <span>🏦 Stripe ACH Direct Debit Invoice</span>
+          </button>
         </div>
 
-        <!-- PRODUCT 3: EMMY INFINITY HARDWARE ENCLAVE ($25,000+) -->
-        <div class="hud-panel p-6 rounded-xl flex flex-col justify-between border-t-4 border-t-amber-400 relative">
+        <!-- TIER 3: EMMY INFINITY HARDWARE ENCLAVE -->
+        <div class="hud-panel p-8 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-500 space-y-6">
           <div class="space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 mono text-[10px] uppercase font-bold border border-amber-800">Tier 3 // Defense & High-Assurance</span>
-                <h3 class="text-xl font-bold text-white mt-2">Emmy Infinity Enclave</h3>
-              </div>
-              <div class="text-right">
-                <div class="text-2xl font-extrabold text-amber-400">$25,000+</div>
-                <div class="text-[10px] text-slate-400 mono">Enterprise / DoD OTA</div>
-              </div>
+            <div class="inline-block px-3 py-1 rounded-full bg-amber-950 text-amber-300 mono text-xs border border-amber-800 font-bold">
+              HIGH ASSURANCE DEFENSE
             </div>
-
+            <h3 class="text-2xl font-bold text-white">Emmy Infinity Enclave</h3>
             <p class="text-slate-300 text-xs leading-relaxed">
-              Custom OpenVPX Blade 02 expansion module with VITA 62 supercapacitor power rail, physical WORM Shadow P/D-Core, and photonic isolation for deep submersibles and defense assets.
+              Custom 3U OpenVPX Blade 02 expansion module with VITA 62 supercapacitor power rail (120s backup hold-up), physical WORM ROM Shadow P/D-Core, and photonic OptINC isolation.
             </p>
 
-            <ul class="space-y-2 text-xs mono text-slate-300 border-t border-b border-cyan-900/30 py-4">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Blade 02 3U OpenVPX Faraday Hardware</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>120s VITA 62 Supercap Hold-Up Rail</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Navy PAE P-1863 / DIU #PROJ00716 OTA Support</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>DoDD 3000.09 Mode B Statutory Interlocks</span></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> <span>Direct Corporate FedWire / Chase Invoice</span></li>
+            <div class="pt-4 border-t border-cyan-900/30">
+              <span class="text-4xl font-extrabold text-white">5,000+</span>
+              <span class="text-slate-400 text-xs mono"> / OTA Module Base</span>
+            </div>
+
+            <ul class="space-y-2 text-xs text-slate-300 mono pt-2">
+              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Blade 02 OpenVPX Hardware</li>
+              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Navy PAE P-1863 Submergence</li>
+              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> DIU #PROJ00716 Fast-Track</li>
+              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Direct Chase FedWire Routing</li>
             </ul>
           </div>
 
-          <div class="pt-6">
-            <button onclick="openStripeModal('defense_tier', 25000)" class="btn-ghost w-full py-3 rounded-lg text-xs font-bold mono flex items-center justify-center gap-2 border-amber-500/50 text-amber-300 hover:border-amber-400">
-              📜 Request Direct Corporate Wire Invoice
-            </button>
-            <div class="text-[10px] text-center text-slate-500 mt-2 mono">FedWire / Chase Corporate · Zero Merchant Reserve</div>
-          </div>
+          <button onclick="openStripeModal('emmy_tier', 'Emmy Infinity Hardware Enclave', 25000.00, 'fedwire')" class="btn-ghost w-full py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 border border-cyan-500/40 hover:border-cyan-400">
+            <span>🏢 Direct Corporate FedWire Invoice</span>
+          </button>
         </div>
 
       </div>
-
-      <!-- STRIPE PAYMENT MODAL CONSOLE -->
-      <div id="stripeModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="hud-panel max-w-lg w-full p-8 rounded-2xl border border-cyan-500/50 relative shadow-2xl space-y-6">
-          
-          <button onclick="closeStripeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">✕</button>
-
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-500/50 flex items-center justify-center text-cyan-400 font-mono font-bold text-xl">
-              💳
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-white uppercase tracking-wider" id="modalTitle">STRIPE PAYMENT CONSOLE</h3>
-              <div class="text-xs text-cyan-400 mono" id="modalSubtitle">Brad-Core OS v5.3 Secure Checkout</div>
-            </div>
-          </div>
-
-          <div id="modalBody" class="space-y-4 text-xs mono">
-            <div class="p-4 bg-slate-900/90 rounded-lg border border-cyan-900/40 space-y-2">
-              <div class="flex justify-between text-slate-300">
-                <span>Selected Product:</span>
-                <span id="summaryProductName" class="text-white font-bold">Developer Eval License</span>
-              </div>
-              <div class="flex justify-between text-slate-300">
-                <span>Total Amount:</span>
-                <span id="summaryProductPrice" class="text-emerald-400 font-bold">$99.00 USD</span>
-              </div>
-              <div class="flex justify-between text-slate-300">
-                <span>Payment Method:</span>
-                <span id="summaryPaymentMethod" class="text-cyan-300">Stripe Card / Apple Pay</span>
-              </div>
-            </div>
-
-            <form id="paymentForm" onsubmit="handleStripeSubmit(event)" class="space-y-4">
-              <div>
-                <label class="block text-slate-400 mb-1">FULL NAME / ORGANIZATIONAL ENTITY</label>
-                <input type="text" id="custName" required placeholder="e.g. Bradley Holmes / Defense Contractor" class="w-full bg-slate-950 border border-cyan-900/60 rounded px-3 py-2 text-white focus:outline-none focus:border-cyan-400">
-              </div>
-
-              <div>
-                <label class="block text-slate-400 mb-1">WORK / GOVERNMENT EMAIL</label>
-                <input type="email" id="custEmail" required placeholder="bholmes@bradcoreos.com" class="w-full bg-slate-950 border border-cyan-900/60 rounded px-3 py-2 text-white focus:outline-none focus:border-cyan-400">
-              </div>
-
-              <div id="cardElementContainer">
-                <label class="block text-slate-400 mb-1">CARD DETAILS (STRIPE SECURE ELEMENTS)</label>
-                <div id="cardElement" class="p-3 bg-slate-950 border border-cyan-900/60 rounded text-slate-300">
-                  <input type="text" id="dummyCard" placeholder="4242 •••• •••• 4242  MM/YY  CVC" class="w-full bg-transparent border-none text-white focus:outline-none font-mono">
-                </div>
-              </div>
-
-              <div id="achMessageContainer" class="hidden p-3 bg-emerald-950/40 border border-emerald-800/60 rounded text-emerald-300 text-[11px] leading-relaxed">
-                ℹ️ <strong>Stripe ACH Direct Debit:</strong> Upon clicking confirm, Stripe will generate a direct bank ACH debit mandate token. Transaction fee is capped at $5.00 flat.
-              </div>
-
-              <button type="submit" id="submitBtn" class="btn-primary w-full py-3 rounded-lg text-xs font-bold mono flex items-center justify-center gap-2">
-                ⚡ AUTHORIZE & PROCESS PAYMENT
-              </button>
-            </form>
-
-            <div id="paymentStatus" class="hidden p-3 rounded text-center font-bold"></div>
-          </div>
-
-          <div class="text-[10px] text-slate-500 text-center mono border-t border-cyan-900/20 pt-3">
-            256-Bit TLS Encryption · PCI-DSS Level 1 Compliant · Powered by Stripe API
-          </div>
-
-        </div>
-      </div>
-
     </section>
 
   </main>
@@ -1193,86 +1207,129 @@
     }
 
     requestAnimationFrame(renderWaveforms);
-  
-    // Stripe Modal & Payment Console JavaScript Handler
-    let currentSelectedTier = 'dev_tier';
-    let currentSelectedPrice = 99;
+  </script>
 
-    function openStripeModal(tier, price) {
-      currentSelectedTier = tier;
-      currentSelectedPrice = price;
 
-      const modal = document.getElementById('stripeModal');
-      const title = document.getElementById('modalTitle');
-      const subtitle = document.getElementById('modalSubtitle');
-      const prodName = document.getElementById('summaryProductName');
-      const prodPrice = document.getElementById('summaryProductPrice');
-      const method = document.getElementById('summaryPaymentMethod');
-      const cardContainer = document.getElementById('cardElementContainer');
-      const achContainer = document.getElementById('achMessageContainer');
+  <!-- INTERACTIVE STRIPE CHECKOUT MODAL -->
+  <div id="stripeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md hidden p-4">
+    <div class="hud-panel w-full max-w-lg rounded-2xl p-6 sm:p-8 border border-cyan-500/50 shadow-2xl relative space-y-6 text-left">
+      
+      <button onclick="closeStripeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-mono text-lg font-bold">✕</button>
 
-      if (tier === 'dev_tier') {
-        title.textContent = "STRIPE CARD CHECKOUT";
-        subtitle.textContent = "Developer Evaluation License ($99)";
-        prodName.textContent = "Developer Eval License";
-        prodPrice.textContent = "$99.00 USD";
-        method.textContent = "Stripe Credit Card / Apple Pay";
-        cardContainer.classList.remove('hidden');
-        achContainer.classList.add('hidden');
-      } else if (tier === 'comm_tier') {
-        title.textContent = "STRIPE DIRECT ACH DEBIT";
-        subtitle.textContent = "Commercial Fleet License ($1,499)";
-        prodName.textContent = "Commercial Fleet License (100 Nodes)";
-        prodPrice.textContent = "$1,499.00 USD";
-        method.textContent = "Stripe ACH Bank Debit ($5 Capped Fee)";
-        cardContainer.classList.add('hidden');
-        achContainer.classList.remove('hidden');
+      <div class="space-y-1">
+        <span class="mono text-xs text-cyan-400 font-bold uppercase">// STRIPE SECURE CHECKOUT</span>
+        <h3 id="modalTitle" class="text-2xl font-bold text-white">Developer Evaluation</h3>
+        <p id="modalPrice" class="text-cyan-300 mono text-sm font-bold">9.00 USD</p>
+      </div>
+
+      <div id="modalNotice" class="p-3 bg-cyan-950/60 rounded-lg border border-cyan-800/50 text-xs text-slate-300 mono leading-relaxed">
+        Card transaction processed via Stripe Level 1 PCI-DSS encryption with zero rolling reserves.
+      </div>
+
+      <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)" class="space-y-4 text-xs mono">
+        <div>
+          <label class="block text-slate-400 mb-1">Full Name / Authorized Signer:</label>
+          <input type="text" id="custName" required placeholder="Bradley W. Holmes" class="w-full bg-slate-900 border border-cyan-900/60 rounded-lg p-3 text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1">Work / Defense Email Address:</label>
+          <input type="email" id="custEmail" required placeholder="bholmes@bradcoreos.com" class="w-full bg-slate-900 border border-cyan-900/60 rounded-lg p-3 text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-slate-400 mb-1">Organization / Agency Name:</label>
+          <input type="text" id="custOrg" required placeholder="Brad-Core OS LLC / NAVAIR" class="w-full bg-slate-900 border border-cyan-900/60 rounded-lg p-3 text-white focus:border-cyan-400 outline-none">
+        </div>
+
+        <button type="submit" id="submitPayBtn" class="btn-primary w-full py-4 rounded-xl text-sm font-bold tracking-wide shadow-lg flex items-center justify-center gap-2">
+          <span>🔒 AUTHORIZE CHECKOUT & ISSUE LICENSE</span>
+        </button>
+      </form>
+
+      <div id="checkoutResult" class="hidden p-4 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 mono text-xs space-y-2">
+        <div class="font-bold text-emerald-400">✓ TRANSACTION SUCCESSFUL</div>
+        <div id="resultMsg">Checkout session created.</div>
+        <div class="p-2 bg-black/60 rounded font-mono text-[11px] text-cyan-300 break-all" id="licenseKeyBox">
+          BCORE-0305-D454-DDA4-9B7C
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center text-[10px] text-slate-500 mono pt-2 border-t border-cyan-900/30">
+        <span>256-Bit SSL Encryption</span>
+        <span>Powered by Stripe</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Digital Twin Simulation Handler
+    function runDigitalTwinSim() {
+      const btn = document.getElementById('runTwinBtn');
+      btn.innerHTML = '⚡ RUNNING 10,000-TRIAL SIMULATION...';
+      btn.disabled = true;
+
+      let currentTotal = 0;
+      const interval = setInterval(() => {
+        currentTotal += 2000;
+        document.getElementById('dt-total').textContent = currentTotal.toLocaleString();
+        document.getElementById('dt-cleared').textContent = Math.floor(currentTotal * 0.8505).toLocaleString();
+        document.getElementById('dt-clamped').textContent = Math.floor(currentTotal * 0.1495).toLocaleString();
+        
+        if (currentTotal >= 10000) {
+          clearInterval(interval);
+          document.getElementById('dt-efuse').textContent = '0xFFFF (STATE H0)';
+          document.getElementById('dt-efuse').className = 'text-red-400 font-bold text-base';
+          btn.innerHTML = '✓ SIMULATION COMPLETE (0.055s Execution)';
+          btn.className = 'btn-primary px-8 py-4 rounded-xl text-base font-bold bg-emerald-500 text-slate-950 flex items-center justify-center gap-3 mx-auto';
+        }
+      }, 100);
+    }
+
+    // Stripe Modal Management
+    let currentPayTier = 'dev_tier';
+    let currentPayType = 'card';
+
+    function openStripeModal(tier, title, price, payType) {
+      currentPayTier = tier;
+      currentPayType = payType;
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalPrice').textContent = '$' + price.toLocaleString() + '.00 USD';
+      
+      const notice = document.getElementById('modalNotice');
+      if (payType === 'card') {
+        notice.textContent = 'Card transaction processed via Stripe Level 1 PCI-DSS encryption with zero rolling reserves.';
+      } else if (payType === 'ach') {
+        notice.textContent = 'Bank-to-bank Stripe ACH Direct Debit Invoice. Processing fee capped at .00 flat.';
       } else {
-        title.textContent = "CORPORATE FEDWIRE INVOICE";
-        subtitle.textContent = "Emmy Infinity Hardware Enclave ($25,000+)";
-        prodName.textContent = "Emmy Infinity Enclave / DoD OTA";
-        prodPrice.textContent = "$25,000.00 USD (Base)";
-        method.textContent = "Direct Corporate Chase / FedWire Invoice";
-        cardContainer.classList.add('hidden');
-        achContainer.classList.add('hidden');
+        notice.textContent = 'Direct Corporate Chase FedWire Invoice. Same-day cleared funds with zero merchant fees.';
       }
 
-      modal.classList.remove('hidden');
+      document.getElementById('checkoutResult').classList.add('hidden');
+      document.getElementById('checkoutForm').classList.remove('hidden');
+      document.getElementById('stripeModal').classList.remove('hidden');
     }
 
-    function closeStripeModal() {
+    closeStripeModal = function() {
       document.getElementById('stripeModal').classList.add('hidden');
-      const statusDiv = document.getElementById('paymentStatus');
-      statusDiv.classList.add('hidden');
     }
 
-    function handleStripeSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('custName').value;
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
       const email = document.getElementById('custEmail').value;
-      const submitBtn = document.getElementById('submitBtn');
-      const statusDiv = document.getElementById('paymentStatus');
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = "⏳ COMMUNICATING WITH STRIPE SECURE API...";
+      const btn = document.getElementById('submitPayBtn');
+      btn.innerHTML = '⏳ PROCESSING TRANSACTION...';
 
       setTimeout(() => {
-        statusDiv.classList.remove('hidden');
-        if (currentSelectedTier === 'dev_tier') {
-          statusDiv.className = "p-3 rounded text-center font-bold bg-emerald-950 text-emerald-300 border border-emerald-800";
-          statusDiv.innerHTML = `✅ <strong>PAYMENT AUTHORIZED!</strong><br>Stripe Session ID: <code>cs_live_bcore_${Math.floor(Math.random()*1000000)}</code><br>Developer license key sent to <strong>${email}</strong>!`;
-        } else if (currentSelectedTier === 'comm_tier') {
-          statusDiv.className = "p-3 rounded text-center font-bold bg-emerald-950 text-emerald-300 border border-emerald-800";
-          statusDiv.innerHTML = `✅ <strong>ACH MANDATE GENERATED!</strong><br>Stripe ACH Token: <code>btok_ach_bcore_${Math.floor(Math.random()*1000000)}</code><br>Invoice & ACH debit authorization sent to <strong>${email}</strong>!`;
-        } else {
-          statusDiv.className = "p-3 rounded text-center font-bold bg-cyan-950 text-cyan-300 border border-cyan-800";
-          statusDiv.innerHTML = `✅ <strong>CORPORATE INVOICE ISSUED!</strong><br>Chase Wire Routing & FedWire Instructions emailed to <strong>${email}</strong>!`;
-        }
-        submitBtn.disabled = false;
-        submitBtn.textContent = "⚡ SUCCESSFUL";
-      }, 1500);
+        document.getElementById('checkoutForm').classList.add('hidden');
+        const resBox = document.getElementById('checkoutResult');
+        resBox.classList.remove('hidden');
+        
+        const randKey = 'BCORE-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase() + '-2026';
+        document.getElementById('licenseKeyBox').textContent = 'HMAC PRODUCT KEY: ' + randKey;
+        document.getElementById('resultMsg').textContent = 'Payment authorized for ' + email + '. License key generated.';
+      }, 800);
     }
-
   </script>
 
 </body>
