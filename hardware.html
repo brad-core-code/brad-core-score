@@ -3,141 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesseract Guardian Sentinel SI | SOSA/MOSA 3U OpenVPX Defense Hardware Enclave</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>SOSA/MOSA 3U OpenVPX Hardware Enclave | Brad-Core OS LLC</title>
     <style>
-        body { background-color: #030712; color: #f3f4f6; font-family: 'Courier New', Courier, monospace; }
-        .accent-yellow { color: #eab308; }
-        .border-yellow { border-color: #ca8a04; }
-        .bg-card { background-color: #0d0f17; border: 1px solid #1e293b; }
-        .glow-gold { box-shadow: 0 0 25px rgba(234, 179, 8, 0.25); }
-        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.25); }
+        :root {
+            --bg-dark: #090c10;
+            --panel-bg: #161b22;
+            --border-color: #30363d;
+            --accent-gold: #d29922;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --text-main: #c9d1d9;
+            --text-white: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+        .logo-text span { color: var(--accent-gold); }
+        .back-btn {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: #ffffff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .hero {
+            padding: 4rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+        .badge {
+            background-color: rgba(210, 153, 34, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8b949e;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+        .card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        .card h2 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+        .spec-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .spec-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+            display: flex;
+            justify-content: space-between;
+        }
+        .spec-label { color: #8b949e; font-weight: 600; }
+        .spec-val { color: var(--text-white); font-weight: 700; font-family: monospace; }
+        .media-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+        .img-box {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            background-color: #000;
+        }
+        .img-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 max-w-7xl mx-auto">
-
-    <!-- TOP NAV -->
-    <header class="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-gray-800 pb-6 gap-4">
-        <div>
-            <span class="text-xs tracking-widest text-yellow-500 uppercase font-bold">[ STANDALONE PRODUCT PAGE 02 // PHYSICAL HARDWARE ENCLAVE ]</span>
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mt-1">TESSERACT <span class="text-yellow-400">GUARDIAN SENTINEL SI</span></h1>
-            <p class="text-gray-400 text-sm mt-1">SOSA/MOSA 3U OpenVPX Defense Hardware • VITA 62 Power Rails • Physical Shear Pin Enclave</p>
-        </div>
-        <div class="flex gap-3">
-            <a href="bradcoreos_software_twin_page.html" class="px-5 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded uppercase tracking-wider transition">
-                <i class="fas fa-laptop-code mr-2"></i> Switch to C11 Digital Twin Page
-            </a>
-            <a href="index.html" class="px-5 py-3 bg-gray-800 hover:bg-gray-700 text-yellow-400 font-bold text-xs rounded uppercase tracking-wider border border-yellow-500/30 transition">
-                <i class="fas fa-layer-group mr-2"></i> Main Gateway
-            </a>
-        </div>
+<body>
+    <header>
+        <div class="logo-text">BRAD-CORE OS <span>| HARDWARE ENCLAVE</span></div>
+        <a href="index.html" class="back-btn">← RETURN TO MASTER PORTAL</a>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="bg-card p-8 rounded-xl glow-gold mb-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-                <span class="px-3 py-1 bg-yellow-950 text-yellow-400 border border-yellow-500 text-xs rounded-full font-bold uppercase">Tactical Physical Hardware Enclave</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mt-4 mb-4">THE HARDWARE SHEAR PIN FOR PHYSICAL AI SAFETY</h2>
-                <p class="text-gray-300 text-base leading-relaxed mb-6">
-                    When probabilistic AI models fail, software wrappers crash with them. The <strong>Tesseract Guardian Sentinel SI</strong> provides physical hardware sovereignty. Built on SOSA/MOSA 3U OpenVPX architecture with a physical <strong>Register 0x44 eFuse array</strong> and <strong>VITA 62 supercap hold-up rails</strong>, it guarantees an un-hackable, hardware-enforced fail-closed state (<span class="text-yellow-400 font-bold">State H0: 0.00V DC</span>) regardless of software degradation.
-                </p>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
-                        <div class="text-2xl font-black text-yellow-400">3U OpenVPX</div>
-                        <div class="text-xs text-gray-400">SOSA Standard</div>
-                    </div>
-                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
-                        <div class="text-2xl font-black text-red-400">+2.5V Pulse</div>
-                        <div class="text-xs text-gray-400">Physical eFuse</div>
-                    </div>
-                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
-                        <div class="text-2xl font-black text-green-400">120 sec</div>
-                        <div class="text-xs text-gray-400">VITA 62 Hold-Up</div>
-                    </div>
-                    <div class="p-3 bg-gray-950 rounded border border-gray-800">
-                        <div class="text-2xl font-black text-cyan-400">1,000 ft</div>
-                        <div class="text-xs text-gray-400">Navy Submergence</div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <img src="sosa_mosa_hardware_enclave_master.jpg" alt="Tesseract Guardian Sentinel SOSA Hardware Chassis" class="rounded-lg border border-yellow-500/40 w-full shadow-2xl">
-            </div>
+    <div class="hero">
+        <span class="badge">SOSA/MOSA ALIGNED 3U OPENVPX CHASSIS</span>
+        <h1>Physical Hardware Sovereignty</h1>
+        <p class="subtitle">Fail-closed eFuse hardware shear pins, VITA 62 supercapacitor power backup, and dual-blade OpenVPX architectural protection for kinetic AI platforms.</p>
+    </div>
+
+    <div class="media-container">
+        <div class="img-box">
+            <img src="sosa_mosa_hardware_enclave_master.jpg" alt="SOSA MOSA 3U OpenVPX Hardware Enclave">
         </div>
-    </section>
+    </div>
 
-    <!-- DUAL-BLADE HARDWARE ARCHITECTURE -->
-    <section class="mb-12">
-        <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-3"><i class="fas fa-server text-yellow-400 mr-2"></i> Dual-Blade Physical Hardware Enclave Breakdown</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <!-- BLADE 01 -->
-            <div class="bg-card p-6 rounded-xl border-t-4 border-cyan-500">
-                <span class="text-xs text-cyan-400 font-bold uppercase tracking-widest">[ SLOT 01 // MAIN MISSION COMPUTER ]</span>
-                <h4 class="text-xl font-bold text-white mt-1 mb-3">BLADE 01: Infinium OS & Tesseract Quad-Core</h4>
-                <p class="text-gray-300 text-xs leading-relaxed mb-4">
-                    Houses the main mission processor running Infinium OS and the Tesseract Quad-Core compute blade. Manages autonomous sensor fusion, radar array inputs, tactical communications, and high-level AI neural planning.
-                </p>
-                <ul class="text-xs text-gray-400 space-y-2">
-                    <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-2"></i> 3U OpenVPX SOSA Conduction-Cooled Profile</li>
-                    <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-2"></i> High-Bandwidth VITA 65 Coaxial/Optical Backplane</li>
-                    <li class="flex items-center"><i class="fas fa-check text-cyan-400 mr-2"></i> PGM Mission Tolerance Triad Integration</li>
-                </ul>
-            </div>
-
-            <!-- BLADE 02 -->
-            <div class="bg-card p-6 rounded-xl border-t-4 border-yellow-500 glow-gold">
-                <span class="text-xs text-yellow-400 font-bold uppercase tracking-widest">[ SLOT 02 // SURVIVAL ENCLAVE ]</span>
-                <h4 class="text-xl font-bold text-white mt-1 mb-3">BLADE 02: Emmy Infinity Survival Enclave</h4>
-                <p class="text-gray-300 text-xs leading-relaxed mb-4">
-                    Physical out-of-band hardware safety blade isolated from Blade 01. Contains physical Register 0x44 eFuse silicon, VITA 62 supercapacitor power rail, and hardware WORM ROM shadow registers.
-                </p>
-                <ul class="text-xs text-gray-400 space-y-2">
-                    <li class="flex items-center"><i class="fas fa-shield-alt text-yellow-400 mr-2"></i> Register 0x44 Physical eFuse Array (+2.5V pulse)</li>
-                    <li class="flex items-center"><i class="fas fa-shield-alt text-yellow-400 mr-2"></i> State H0 (0.00V DC) Fail-Closed Actuator Clamp</li>
-                    <li class="flex items-center"><i class="fas fa-shield-alt text-yellow-400 mr-2"></i> 120-Second VITA 62 Supercap Emergency Hold-Up</li>
-                </ul>
-            </div>
-
+    <div class="grid">
+        <div class="card">
+            <h2>Blade 01: Main Mission Computer</h2>
+            <ul class="spec-list">
+                <li><span class="spec-label">Form Factor</span><span class="spec-val">3U OpenVPX (VITA 65)</span></li>
+                <li><span class="spec-label">OS Kernel</span><span class="spec-val">Infinium OS / Tesseract</span></li>
+                <li><span class="spec-label">CPU Cores</span><span class="spec-val">Quad-Core Deterministic</span></li>
+                <li><span class="spec-label">Primary Role</span><span class="spec-val">Radar & Sensor Fusion</span></li>
+                <li><span class="spec-label">RAM Boundary</span><span class="spec-val">Isolated Memory Bus</span></li>
+            </ul>
         </div>
-    </section>
-
-    <!-- MILITARY CERTIFICATIONS & DEFENSE RECEPTION -->
-    <section class="bg-card p-8 rounded-xl border-l-4 border-green-500 mb-12">
-        <h3 class="text-2xl font-bold text-white mb-4"><i class="fas fa-certificate text-green-400 mr-2"></i> Defense Acquisition & Regulatory Compliance Receipts</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-300">
-            <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                <h5 class="font-bold text-green-400 mb-1">Navy PAE Pilot P-1863</h5>
-                <p class="text-xs text-gray-400">1,000-ft UUV deep submergence hardware interlock pilot submission verified in PEO Digital repository.</p>
-            </div>
-            <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                <h5 class="font-bold text-cyan-400 mb-1">DIU #PROJ00716</h5>
-                <p class="text-xs text-gray-400">Defense Innovation Unit Phase I CSO space and unmanned threat hardware evaluation alignment.</p>
-            </div>
-            <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                <h5 class="font-bold text-yellow-400 mb-1">DoDD 3000.09 & DO-178C</h5>
-                <p class="text-xs text-gray-400">Hardware-enforced Mode B kinetic interlocks meeting DO-178C DAL-A flight determinism standards.</p>
-            </div>
+        <div class="card">
+            <h2>Blade 02: Emmy Survival Enclave</h2>
+            <ul class="spec-list">
+                <li><span class="spec-label">Safety Latch</span><span class="spec-val">Register 0x44 eFuse Array</span></li>
+                <li><span class="spec-label">Hold-Up Power</span><span class="spec-val">VITA 62 Supercap (120s)</span></li>
+                <li><span class="spec-label">Interdiction Time</span><span class="spec-val">&lt;86 Microseconds</span></li>
+                <li><span class="spec-label">Fail-Closed Voltage</span><span class="spec-val">State H0 (0.00V DC)</span></li>
+                <li><span class="spec-label">Physical Shear Pin</span><span class="spec-val">+2.5V Program Pulse</span></li>
+            </ul>
         </div>
-    </section>
-
-    <!-- FOOTER CTA -->
-    <footer class="bg-card p-8 rounded-xl text-center border-t border-yellow-500/30">
-        <h3 class="text-2xl font-bold text-white mb-2">Physical Hardware Sovereignty for Warfighters & Industry</h3>
-        <p class="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
-            Review the hardware blueprints or switch over to inspect the C11 software microkernel twin.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="bradcoreos_software_twin_page.html" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-extrabold text-sm rounded uppercase tracking-widest transition">
-                Inspect C11 Software Digital Twin <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-            <a href="index.html" class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-yellow-400 font-extrabold text-sm rounded uppercase tracking-widest border border-yellow-500/40 transition">
-                Return to Master Portal
-            </a>
+        <div class="card">
+            <h2>Pentagon Procurement Alignment</h2>
+            <ul class="spec-list">
+                <li><span class="spec-label">Navy PAE Pilot</span><span class="spec-val">Record ID P-1863</span></li>
+                <li><span class="spec-label">DIU Engagement</span><span class="spec-val">Project #PROJ00716</span></li>
+                <li><span class="spec-label">SAM.gov Status</span><span class="spec-val">Ticket INC-GSAFSD21847608</span></li>
+                <li><span class="spec-label">DoDD Compliance</span><span class="spec-val">DoDD 3000.09 Mode B</span></li>
+                <li><span class="spec-label">Standard Parity</span><span class="spec-val">DO-178C DAL-A</span></li>
+            </ul>
         </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Brad-Core OS LLC | Bradley W. Holmes | 620 W. Route 66, Williams, AZ 86046 | bholmes@bradcoreos.com</p>
     </footer>
-
 </body>
 </html>

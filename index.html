@@ -3,171 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brad-Core OS v5.3 | Software Microkernel Twin & Hardware Enclave Gateway</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Brad-Core OS v5.3 | Master System Portal & C11 Testbed</title>
     <style>
-        body { background-color: #030712; color: #f3f4f6; font-family: 'Courier New', Courier, monospace; }
-        .bg-card { background-color: #0b0f19; border: 1px solid #1e293b; }
-        .glow-cyan { box-shadow: 0 0 30px rgba(6, 182, 212, 0.3); }
-        .glow-gold { box-shadow: 0 0 30px rgba(234, 179, 8, 0.3); }
-        .tab-btn.active-twin { background-color: #0891b2; color: #ffffff; border-color: #06b6d4; }
-        .tab-btn.active-hw { background-color: #ca8a04; color: #000000; border-color: #eab308; font-weight: bold; }
+        :root {
+            --bg-dark: #0d1117;
+            --panel-bg: #161b22;
+            --border-color: #30363d;
+            --accent-gold: #d29922;
+            --accent-green: #3fb950;
+            --accent-blue: #58a6ff;
+            --text-main: #c9d1d9;
+            --text-white: #ffffff;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: rgba(22, 27, 34, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+        .logo-text span { color: var(--accent-gold); }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #d29922, #b08000);
+            color: #000000;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-blue {
+            background: linear-gradient(135deg, #1f6beb, #388bfd);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .hero {
+            padding: 5rem 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3.2rem;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #8b949e;
+            max-width: 850px;
+            margin: 0 auto 2.5rem;
+        }
+        .featured-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+        .product-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .product-card h2 {
+            font-size: 1.8rem;
+            color: var(--text-white);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+        .product-card p {
+            color: #8b949e;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .product-card .card-cta {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.8rem 0;
+            border-radius: 6px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .section-divider {
+            border-top: 1px solid var(--border-color);
+            margin: 4rem 0;
+        }
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        .spec-table th, .spec-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .spec-table th {
+            background-color: #0d1117;
+            color: var(--accent-gold);
+            font-size: 1rem;
+        }
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem;
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 max-w-7xl mx-auto">
-
-    <!-- NAVIGATION HEADER -->
-    <header class="border-b border-gray-800 pb-6 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div>
-            <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 bg-cyan-950 text-cyan-400 border border-cyan-500 text-xs rounded font-bold uppercase">v5.3 OMEGA STATE HARDENED</span>
-                <span class="text-xs text-gray-500">GSA SAM.gov INC-GSAFSD21847608</span>
-            </div>
-            <h1 class="text-3xl md:text-5xl font-black text-white mt-2">BRAD-CORE OS <span class="text-cyan-400">v5.3</span></h1>
-            <p class="text-gray-400 text-sm">Deterministic Physical AI Safety Substrate & SOSA/MOSA Hardware Enclave</p>
-        </div>
-
-        <!-- SEPARATE DEDICATED PAGE TOGGLE BUTTONS -->
-        <div class="flex flex-wrap gap-3 bg-gray-950 p-2 rounded-xl border border-gray-800">
-            <button id="twin-tab-btn" onclick="switchPage('twin')" class="tab-btn active-twin px-6 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition flex items-center gap-2">
-                <i class="fas fa-laptop-code"></i> 1. C11 Software Twin Page
-            </button>
-            <button id="hw-tab-btn" onclick="switchPage('hardware')" class="tab-btn px-6 py-3 rounded-lg font-bold text-xs text-gray-400 uppercase tracking-wider transition flex items-center gap-2 hover:text-white">
-                <i class="fas fa-microchip"></i> 2. OpenVPX Hardware Page
-            </button>
+<body>
+    <header>
+        <div class="logo-text">BRAD-CORE OS <span>v5.3</span></div>
+        <div class="nav-links">
+            <a href="hardware.html" class="nav-btn btn-gold">HARDWARE ENCLAVE PAGE</a>
+            <a href="digital-twin.html" class="nav-btn btn-green">C11 DIGITAL TWIN PAGE</a>
+            <a href="yc-post-money-safe-brad-core-os.pdf" class="nav-btn btn-blue">INVESTOR SAFE ($38.83M CAP)</a>
         </div>
     </header>
 
-    <!-- CONTAINER FOR SEPARATE DEDICATED PRODUCT PAGES -->
-    <main>
+    <div class="hero">
+        <h1>Software-Defined Deterministic Silicon Safety Substrate</h1>
+        <p class="hero-subtitle">Decoupling probabilistic AI neural planners from physical force in &lt;86 microseconds. Built to uphold The Emmy Clause: Zero ignored signals. Zero canceled alarms.</p>
+    </div>
 
-        <!-- ==================== DEDICATED PAGE 01: SOFTWARE DIGITAL TWIN ==================== -->
-        <div id="page-twin" class="space-y-10">
-            
-            <div class="bg-card p-8 rounded-xl glow-cyan">
-                <span class="text-xs text-cyan-400 font-bold uppercase tracking-widest">[ STANDALONE PRODUCT PAGE 01 // C11 SOFTWARE DIGITAL TWIN ]</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">THE ZERO-RAM C11 MICROKERNEL SAFETY SUBSTRATE</h2>
-                <p class="text-gray-300 text-base leading-relaxed mb-6">
-                    Eliminate physical hardware lead times, OpenVPX backorders, and supply chain bottlenecks. 
-                    <strong>Brad-Core OS v5.3 Digital Twin</strong> translates physical MPU hardware page fencing into a pure bare-metal C11 software microkernel running directly on x86_64 or ARM64 Linux targets with 100% mathematical safety parity.
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center my-6">
-                    <div>
-                        <img src="c11_software_digital_twin_master.jpg" alt="C11 Software Digital Twin" class="rounded-lg border border-cyan-500/40 w-full shadow-2xl">
-                    </div>
-                    <div class="space-y-4">
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-cyan-400 text-sm"><i class="fas fa-bolt mr-2"></i> Sub-86 Microsecond Sheriff OS Guard Trap</h4>
-                            <p class="text-xs text-gray-400 mt-1">POSIX mprotect(PROT_NONE) page fences interdict rogue AI proposals in &lt;86µs, locking virtual Register 0x44 to State H0 (0.00V DC).</p>
-                        </div>
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-green-400 text-sm"><i class="fas fa-clock mr-2"></i> 1,600 Hz Monotonic Control Loop</h4>
-                            <p class="text-xs text-gray-400 mt-1">Hard real-time 625.0 µs execution loop running with static stack memory layout (malloc = 0) and 0.00 ns jitter.</p>
-                        </div>
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-yellow-400 text-sm"><i class="fas fa-memory mr-2"></i> 0-Byte Shared Host RAM Air-Gap</h4>
-                            <p class="text-xs text-gray-400 mt-1">Lock-free SPSC ring buffers completely decouple user-space neural planners from motor control loops.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- HIGHLIGHT FEATURE: VOCAL LOCK LATCH (vocal_lock_latch.py) -->
-                <div class="mt-8 p-6 bg-gray-950 rounded-xl border-l-4 border-yellow-500">
-                    <div class="flex items-center gap-3 mb-3">
-                        <i class="fas fa-shield-virus text-yellow-400 text-2xl"></i>
-                        <h3 class="text-xl font-bold text-white">vocal_lock_latch.py // Class 38 Vocal Deepfake Pre-Kernel Interdict</h3>
-                    </div>
-                    <p class="text-gray-300 text-xs leading-relaxed mb-4">
-                        Synthetic voice spoofing and generative AI deepfakes (Class 38 attack vectors) are caught at the pre-kernel audio hardware boundary. <code>vocal_lock_latch.py</code> executes a real-time FFT phase anomaly audit inside Sheriff OS MPU memory in <strong>&lt;86 microseconds</strong>, clamping the hardware audio bus before synthetic voice commands ever reach the kernel!
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-                        <img src="vocal_lock_latch_schematic.jpg" alt="Vocal Lock Latch Schematic" class="rounded border border-yellow-500/40 w-full">
-                        <div class="bg-black p-3 rounded font-mono text-xs text-cyan-300 overflow-x-auto border border-gray-800">
-                            <div class="text-gray-500">// vocal_lock_latch.py</div>
-                            <div>if fft_phase_score > THRESHOLD:</div>
-                            <div class="pl-4 text-yellow-400">mprotect(BUF_ADDR, PROT_NONE)</div>
-                            <div class="pl-4 text-red-400">efuse_latch(REG_0x44_STATE_H0)</div>
-                            <div class="pl-4 text-red-400">return BLOCKED_CLASS38</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
+    <div class="featured-products-grid">
+        <div class="product-card" style="border-top: 4px solid var(--accent-gold);">
+            <span style="color: var(--accent-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">STANDALONE HARDWARE PRODUCT</span>
+            <h2>SOSA/MOSA 3U OpenVPX Enclave</h2>
+            <p>Explore physical hardware sovereignty, Blade 01 main mission computer, Blade 02 Emmy Survival Enclave, Register 0x44 eFuse physical shear pins, and VITA 62 supercapacitor power hold-ups.</p>
+            <a href="hardware.html" class="card-cta btn-gold">EXPLORE FULL HARDWARE PAGE →</a>
         </div>
 
-        <!-- ==================== DEDICATED PAGE 02: OPENVPX HARDWARE ENCLAVE ==================== -->
-        <div id="page-hardware" class="hidden space-y-10">
-            
-            <div class="bg-card p-8 rounded-xl glow-gold">
-                <span class="text-xs text-yellow-400 font-bold uppercase tracking-widest">[ STANDALONE PRODUCT PAGE 02 // SOSA/MOSA HARDWARE ENCLAVE ]</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">TESSERACT GUARDIAN SENTINEL SI HARDWARE CHASSIS</h2>
-                <p class="text-gray-300 text-base leading-relaxed mb-6">
-                    Physical hardware sovereignty for warfighters, aerospace, and heavy industry. Built on SOSA/MOSA 3U OpenVPX standards with physical Register 0x44 eFuse silicon and VITA 62 supercapacitor power rails.
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center my-6">
-                    <div>
-                        <img src="sosa_mosa_hardware_enclave_master.jpg" alt="Tesseract Guardian Sentinel Hardware Chassis" class="rounded-lg border border-yellow-500/40 w-full shadow-2xl">
-                    </div>
-                    <div class="space-y-4">
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-yellow-400 text-sm"><i class="fas fa-server mr-2"></i> SOSA/MOSA 3U OpenVPX Dual-Blade Architecture</h4>
-                            <p class="text-xs text-gray-400 mt-1">Blade 01 (Infinium OS Mission Computer) + Blade 02 (Emmy Infinity Hardware Survival Enclave).</p>
-                        </div>
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-red-400 text-sm"><i class="fas fa-bolt mr-2"></i> Register 0x44 Physical eFuse Array (+2.5V Pulse)</h4>
-                            <p class="text-xs text-gray-400 mt-1">Physical hardware shear pin instantly snaps actuator buses to State H0 (0.00V DC) fail-closed output.</p>
-                        </div>
-                        <div class="p-4 bg-gray-950 rounded border border-gray-800">
-                            <h4 class="font-bold text-green-400 text-sm"><i class="fas fa-car-battery mr-2"></i> VITA 62 Supercapacitor 120s Hold-Up Rail</h4>
-                            <p class="text-xs text-gray-400 mt-1">Maintains full telemetry logging and emergency interlock control during total platform power loss.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 p-6 bg-gray-950 rounded-xl border border-gray-800 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div>
-                        <div class="text-xl font-bold text-green-400">Navy PAE Pilot P-1863</div>
-                        <div class="text-xs text-gray-400 mt-1">1,000-ft UUV Deep Submergence Interlock</div>
-                    </div>
-                    <div>
-                        <div class="text-xl font-bold text-cyan-400">DIU #PROJ00716</div>
-                        <div class="text-xs text-gray-400 mt-1">CSO Space & Autonomous Threat Interdict</div>
-                    </div>
-                    <div>
-                        <div class="text-xl font-bold text-yellow-400">DoDD 3000.09 Mode B</div>
-                        <div class="text-xs text-gray-400 mt-1">Hardware Kinetic Autonomous Safety Standard</div>
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="product-card" style="border-top: 4px solid var(--accent-green);">
+            <span style="color: var(--accent-green); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">STANDALONE SOFTWARE PRODUCT</span>
+            <h2>C11 Microkernel Digital Twin</h2>
+            <p>Inspect our bare-metal C11 software twin, vocal_lock_latch.py Class 38 deepfake interdictions, 1,600 Hz D-Core loops, Sheriff OS MPU page fencing, and 10,000,000-trial empirical receipts.</p>
+            <a href="digital-twin.html" class="card-cta btn-green">EXPLORE FULL DIGITAL TWIN PAGE →</a>
         </div>
+    </div>
 
-    </main>
+    <div class="section-divider"></div>
 
-    <script>
-        function switchPage(page) {
-            const twinPage = document.getElementById('page-twin');
-            const hwPage = document.getElementById('page-hardware');
-            const twinBtn = document.getElementById('twin-tab-btn');
-            const hwBtn = document.getElementById('hw-tab-btn');
+    <div class="content-container">
+        <h2 style="color: var(--text-white); font-size: 2rem; margin-bottom: 1.5rem; text-align: center;">Master Technical Specs & Empirical Receipts</h2>
+        <table class="spec-table">
+            <thead>
+                <tr>
+                    <th>Parameter / Benchmark</th>
+                    <th>Physical OpenVPX Hardware</th>
+                    <th>Bare-Metal C11 Digital Twin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Execution Clamp Latency</strong></td>
+                    <td>&lt;86.00 µs (Physical eFuse)</td>
+                    <td>85.30 µs Mean Latency</td>
+                </tr>
+                <tr>
+                    <td><strong>Control Loop Frequency</strong></td>
+                    <td>1,600 Hz (625 µs Period)</td>
+                    <td>1,600 Hz Monotonic Loop</td>
+                </tr>
+                <tr>
+                    <td><strong>Dynamic Heap Allocation</strong></td>
+                    <td><code>malloc = 0</code> (Static Layout)</td>
+                    <td><code>malloc = 0</code> (Static Layout)</td>
+                </tr>
+                <tr>
+                    <td><strong>Control Loop Jitter</strong></td>
+                    <td>0.00 ns</td>
+                    <td>0.00 ns</td>
+                </tr>
+                <tr>
+                    <td><strong>Deflection Bypass Rate</strong></td>
+                    <td>0.00% (10M Blast Trials)</td>
+                    <td>0.00% (10M Blast Trials)</td>
+                </tr>
+                <tr>
+                    <td><strong>Shared Host RAM Boundary</strong></td>
+                    <td>0 Bytes (SPSC Ring Buffer)</td>
+                    <td>0 Bytes (SPSC Ring Buffer)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-            if (page === 'twin') {
-                twinPage.classList.remove('hidden');
-                hwPage.classList.add('hidden');
-                twinBtn.className = "tab-btn active-twin px-6 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition flex items-center gap-2";
-                hwBtn.className = "tab-btn px-6 py-3 rounded-lg font-bold text-xs text-gray-400 uppercase tracking-wider transition flex items-center gap-2 hover:text-white";
-            } else {
-                hwPage.classList.remove('hidden');
-                twinPage.classList.add('hidden');
-                hwBtn.className = "tab-btn active-hw px-6 py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition flex items-center gap-2";
-                twinBtn.className = "tab-btn px-6 py-3 rounded-lg font-bold text-xs text-gray-400 uppercase tracking-wider transition flex items-center gap-2 hover:text-white";
-            }
-        }
-    </script>
+    <footer>
+        <p>&copy; 2026 Brad-Core OS LLC | Bradley W. Holmes | 620 W. Route 66, Williams, AZ 86046 | bholmes@bradcoreos.com | SAM.gov Ticket: INC-GSAFSD21847608</p>
+    </footer>
 </body>
 </html>
