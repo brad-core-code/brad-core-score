@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brad-Core OS v5 Unified | Master SDD v5.2 Omega State Hardened</title>
+  <title>Brad-Core OS v5.3 | Software-Defined Deterministic Silicon Safety Substrate</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -45,7 +45,6 @@
     }
     .mono { font-family: 'JetBrains Mono', monospace; }
     
-    /* Custom HUD styling */
     .hud-panel {
       background: rgba(11, 19, 43, 0.75);
       backdrop-filter: blur(12px);
@@ -74,7 +73,6 @@
       border-radius: 50%;
     }
     
-    /* Toggle switch styles */
     .toggle-bg {
       background-color: #1C2541;
       border: 1px solid rgba(6, 182, 212, 0.3);
@@ -103,7 +101,6 @@
       color: #FFFFFF;
     }
 
-    /* Cards */
     .farmer-card {
       background: rgba(15, 23, 42, 0.6);
       border-left: 3px solid #06B6D4;
@@ -113,7 +110,6 @@
       border-left: 3px solid #10B981;
     }
 
-    /* Fault injection buttons */
     .fid-btn {
       transition: all 0.2s ease;
       border: 1px solid transparent;
@@ -141,7 +137,7 @@
         </div>
         <div>
           <div class="font-bold tracking-tight text-white flex items-center gap-2 text-base">
-            BRAD-CORE OS <span class="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 mono">v5.2 OMEGA</span>
+            BRAD-CORE OS <span class="text-cyan-400 text-xs px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 mono">v5.3 UNIFIED</span>
           </div>
           <div class="text-xs text-slate-400 mono">Firelight Guardian Sentinel SI</div>
         </div>
@@ -158,470 +154,273 @@
       </div>
 
       <!-- Quick Nav Links -->
-      <nav class="hidden xl:flex items-center gap-6 text-xs mono text-slate-400">
-        <a href="#origin" class="hover:text-cyan-400 transition-colors">THE EMMY AXIOM</a>
-        <a href="#architecture" class="hover:text-cyan-400 transition-colors">SOSA ARCHITECTURE</a>
-        <a href="#gateways" class="hover:text-cyan-400 transition-colors">5 GATEWAYS</a>
-        <a href="#protocols" class="hover:text-cyan-400 transition-colors">C4ISR PROTOCOLS</a>
-        <a href="#testbed" class="hover:text-cyan-400 transition-colors text-cyan-400 font-semibold">LIVE TESTBED →</a>
+      <nav class="hidden xl:flex items-center gap-5 text-xs mono text-slate-400">
+        <a href="#about" class="hover:text-cyan-400 transition-colors">ABOUT THE FOUNDER</a>
+        <a href="#investor-portal" class="text-emerald-400 font-bold hover:text-emerald-300 transition-colors">INVESTOR DATA ROOM</a>
+        <a href="#deployment" class="hover:text-cyan-400 transition-colors">DEPLOYMENT</a>
+        <a href="#testbed" class="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors">LIVE TESTBED →</a>
+        <a href="#contact" class="px-3 py-1.5 rounded bg-cyan-500 text-slate-950 font-bold hover:bg-cyan-400 transition-all shadow-md">CONTACT</a>
       </nav>
 
     </div>
   </header>
 
-  <!-- LIVE TELEMETRY TICKER BANNER -->
-  <div class="bg-cyan-950/40 border-b border-cyan-800/30 px-4 py-2 text-xs mono text-slate-300 flex flex-wrap items-center justify-around gap-4">
+  <!-- LIVE INSTITUTIONAL TRACTION & TELEMETRY BANNER -->
+  <div class="bg-cyan-950/60 border-b border-cyan-800/40 px-4 py-2.5 text-xs mono text-slate-200 flex flex-wrap items-center justify-around gap-4">
     <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-slate-400">SYS_CLOCK:</span> <span class="text-emerald-400 font-semibold">1,600 Hz (625 µs)</span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-slate-400">NAVY PAE PILOT:</span> <span class="text-emerald-300 font-bold">P-1863 (DON RCO REFERRAL)</span>
     </div>
-    <div><span class="text-slate-400">WCET:</span> <span class="text-cyan-300">412.6 µs</span></div>
-    <div><span class="text-slate-400">JITTER:</span> <span class="text-emerald-400 font-bold">0.00 ns (LOCKED)</span></div>
-    <div><span class="text-slate-400">AEGIS MPU CLAMP:</span> <span class="text-amber-300">ARMED (85.40 µs)</span></div>
-    <div><span class="text-slate-400">EMMY AXIOM:</span> <span class="text-emerald-400">0 MUTED</span></div>
-    <div><span class="text-slate-400">NAVY PAE:</span> <span class="text-cyan-300">P-1863</span> | <span class="text-slate-400">DIU:</span> <span class="text-cyan-300">#PROJ00716</span></div>
+    <div><span class="text-slate-400">DIU ALIGNMENT:</span> <span class="text-cyan-300 font-bold">#PROJ00716</span></div>
+    <div><span class="text-slate-400">5M MONTE CARLO:</span> <span class="text-emerald-400 font-bold">100% CONTAINMENT (110 CLASSES)</span></div>
+    <div><span class="text-slate-400">CLAMP LATENCY:</span> <span class="text-amber-300 font-bold">&lt;86 µs (84.40 µs MEAN)</span></div>
+    <div><span class="text-slate-400">MEMORY SAFETY:</span> <span class="text-emerald-400 font-bold">malloc = 0 (STATIC)</span></div>
+    <div><span class="text-slate-400">PRE-SEED ROUND:</span> <span class="text-cyan-300 font-bold">$500K SPRINT (SEC 506(c))</span></div>
   </div>
 
   <main class="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-20">
 
-    <!-- HERO SECTION: THE ANTI-CHAOS MANDATE -->
-    <section class="text-center py-10 relative overflow-hidden">
+    <!-- HERO SECTION: THE UNCRASHABLE EDGE & TRACTION BADGES -->
+    <section class="text-center py-10 relative overflow-hidden space-y-8">
       
       <!-- Ambient Glow Effects -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <!-- Repository Badges -->
-      <div class="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-xs mono text-cyan-300 mb-8 shadow-lg">
-        <span>🛡️ PAE REPO: P-1863</span>
-        <span>•</span>
-        <span>DIU #PROJ00716</span>
-        <span>•</span>
-        <span class="text-emerald-400 font-bold">TRL 7 VALIDATED</span>
+      <!-- TRACTION & VALIDATION BADGES (FRONT & CENTER) -->
+      <div class="flex flex-wrap justify-center items-center gap-3">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-xs mono text-emerald-300 font-semibold shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>⚓ NAVY PAE MISSION SYSTEMS: PILOT P-1863 (DON RCO REFERRAL)</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-xs mono text-cyan-300 font-semibold shadow-lg">
+          <span>🚀 DIU SPACE THREAT SUBMISSION: #PROJ00716</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 border border-slate-700 text-xs mono text-slate-300 shadow-md">
+          <span>🛡️ DoDD 3000.09 MODE B & DO-178C DAL-A COMPLIANT</span>
+        </div>
       </div>
 
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
-        In a chaotic world, <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Brad-Core OS</span><br>
-        reduces chaos and protects precious human lives.
-      </h1>
+      <div class="space-y-4 max-w-4xl mx-auto">
+        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          Software-Defined Deterministic <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400">Silicon Safety Substrate</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          Replacing physical hardware lead times with a bare-metal C11 software digital twin that clamps rogue AI in <strong class="text-cyan-300">&lt;86 microseconds</strong> with <strong class="text-emerald-300">0.00 ns loop jitter</strong> and <strong class="text-emerald-300">malloc = 0</strong> memory safety.
+        </p>
+      </div>
 
-      <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-        The bare-metal deterministic safety substrate for physical AI, heavy industry, defense, and healthcare. Decoupling probabilistic AI models from physical force at the silicon boundary.
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <a href="#testbed" class="btn-primary px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
-          ⚡ Explore Live Testbed & Telemetry
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap justify-center items-center gap-4 pt-4">
+        <a href="#investor-portal" class="btn-primary px-6 py-3.5 rounded-lg text-sm font-bold mono flex items-center gap-2">
+          <span>🔐 ENTER ACCREDITED INVESTOR DATA ROOM</span>
         </a>
-        <a href="mailto:bholmes@bradcoreos.com?subject=Omega%20State%20Data%20Room%20Access" class="btn-ghost px-8 py-4 rounded-lg text-sm sm:text-base flex items-center gap-2">
-          🔒 Access Defense Data Room (P-1863 / DIU)
+        <a href="#whitepaper" class="btn-ghost px-6 py-3.5 rounded-lg text-sm font-semibold mono flex items-center gap-2">
+          <span>📄 DOWNLOAD 5M MONTE CARLO WHITEPAPER (PDF)</span>
         </a>
       </div>
 
-      <!-- Three Reality Cards -->
-      <div class="grid md:grid-cols-3 gap-6 text-left">
-        <div class="hud-panel p-6 rounded-xl">
-          <div class="section-label mb-2">The Reality</div>
-          <h3 class="text-white font-semibold text-lg mb-2">Probabilistic AI is Handling Force</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Ships, surgical robots, tractors, grid breakers, and weapons are now controlled by neural planners. When software proposes an out-of-bounds maneuver, the outcome isn't a crashed browser—it's catastrophic physical damage.
-          </p>
-        </div>
-
-        <div class="hud-panel p-6 rounded-xl">
-          <div class="section-label mb-2">The Failure Mode</div>
-          <div class="text-red-400 font-semibold text-lg mb-2">Legacy Wrappers Share RAM</div>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Software guardrails share the same memory, cache, and failure modes as the code they attempt to restrain. Under heavy load, race conditions, or electronic warfare, software filters get bypassed or muted.
-          </p>
-        </div>
-
-        <div class="hud-panel p-6 rounded-xl">
-          <div class="section-label mb-2">The Requirement</div>
-          <div class="text-emerald-400 font-semibold text-lg mb-2">Silicon-Layer Sovereignty</div>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Between the AI and physical actuators, there must exist a bare-metal substrate that cannot allocate memory, cannot be soft-disabled, and refuses unaligned commands in under 86 microseconds.
-          </p>
-        </div>
-      </div>
-
     </section>
 
+    <!-- SECTION 1: INVESTOR PORTAL & ACCREDITED DATA ROOM -->
+    <section id="investor-portal" class="space-y-8">
+      <div class="hud-panel p-8 rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-slate-950 via-cyan-950/30 to-slate-950 shadow-2xl space-y-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-cyan-900/40 pb-6">
+          <div>
+            <div class="section-label mb-2">SEC Reg D Rule 506(c) Public Offering</div>
+            <h2 class="text-3xl font-extrabold text-white flex items-center gap-3">
+              Institutional Investor Data Room <span class="text-xs px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 mono font-normal">PRE-SEED SPRINT</span>
+            </h2>
+            <p class="text-slate-300 text-sm mt-1">Direct access to the 4-slide "Uncrashable Edge" pitch deck, YC SAFE terms, and wire details.</p>
+          </div>
+          <div class="mono text-right text-xs space-y-1">
+            <div class="text-cyan-300 font-bold">VALUATION CAP: $38.83M</div>
+            <div class="text-emerald-400 font-bold">DISCOUNT: 20% POST-MONEY</div>
+            <div class="text-slate-400">TARGET ROUND: $500,000 SPRINT</div>
+          </div>
+        </div>
 
-    <!-- SECTION 1: THE EMMY AXIOM ORIGIN STORY -->
-    <section id="origin" class="hud-panel p-8 sm:p-12 rounded-2xl relative overflow-hidden">
-      
-      <div class="section-label mb-4">Origin & Sacred Purpose</div>
-      
-      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">
-        Forged from a Sacred Vow: The Emmy Axiom
-      </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          
+          <!-- Pitch Deck Download Card -->
+          <div class="bg-black/50 p-6 rounded-xl border border-cyan-900/50 space-y-4">
+            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">01 // Executive Pitch Deck</div>
+            <h3 class="text-xl font-bold text-white">4-Slide "Uncrashable Edge" Deck</h3>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Consolidated 4-slide pitch deck covering the $500B physical AI safety ceiling, DoDD 3000.09 compliance, Navy PAE Pilot P-1863 traction, and 99.9% software margins.
+            </p>
+            <a href="#contact" class="btn-primary text-center block w-full py-2.5 rounded text-xs font-bold mono">
+              DOWNLOAD PITCH DECK (PDF)
+            </a>
+          </div>
 
-      <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-        <p>
-          On Easter Sunday 2006, Bradley W. Holmes held his infant daughter Emmy as life support was removed following a septic cascade caused by an unconstrained medical protocol. Her heartbeat stopped in his arms.
-        </p>
-        <p>
-          In that silent room, Brad made an absolute vow: to build a zero-fail, deterministic system that would leave nothing to chance. A system that would never allow a critical physiological signal to be ignored, muted, or race-conditioned away.
-        </p>
+          <!-- YC SAFE Term Sheet Card -->
+          <div class="bg-black/50 p-6 rounded-xl border border-emerald-900/50 space-y-4">
+            <div class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">02 // Round Terms</div>
+            <h3 class="text-xl font-bold text-white">YC Post-Money SAFE</h3>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Standard YC Post-Money SAFE note ($38.83M Valuation Cap, 20% Discount). Accepting check allocations starting at $10k, $25k, $50k, and $100k+.
+            </p>
+            <a href="#contact" class="btn-ghost text-center block w-full py-2.5 rounded text-xs font-bold mono text-emerald-300 border-emerald-700 hover:bg-emerald-950">
+              REVIEW SAFE TERMS & DATA ROOM
+            </a>
+          </div>
+
+          <!-- Wire & Check Allocation Card -->
+          <div class="bg-black/50 p-6 rounded-xl border border-amber-900/50 space-y-4">
+            <div class="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">03 // Fast-Track Allocation</div>
+            <h3 class="text-xl font-bold text-white">Direct Wire / Check Access</h3>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Accredited investors can request cap table allocation, wire transfer instructions, and direct Q&A with Founder & Systems Architect Bradley W. Holmes.
+            </p>
+            <a href="#contact" class="btn-primary text-center block w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-700 text-slate-950 rounded text-xs font-bold mono">
+              REQUEST WIRE INSTRUCTIONS
+            </a>
+          </div>
+
+        </div>
+
       </div>
-
-      <!-- Callout Box -->
-      <div class="my-8 p-6 rounded-xl bg-cyan-950/60 border-l-4 border-cyan-400 shadow-xl">
-        <p class="text-white text-xl sm:text-2xl font-semibold leading-relaxed italic mb-2">
-          “No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures.”
-        </p>
-        <p class="text-cyan-400 text-sm mono font-bold">— The Emmy Axiom (Hard-Coded in Silicon WORM)</p>
-      </div>
-
-      <div class="space-y-6 text-slate-300 text-base sm:text-lg leading-relaxed">
-        <p>
-          Every architectural decision in Brad-Core OS—the 0-Byte Shared Host RAM, the 85.40 µs Aegis MPU hardware clamp, the write-once WORM registers, and the dual-blade survival substrate—exists because a life was lost to an unconstrained process, and a father refused to let it happen again.
-        </p>
-      </div>
-
     </section>
 
-
-    <!-- SECTION 2: SOSA/MOSA OPENVPX DUAL-BLADE ARCHITECTURE -->
-    <section id="architecture" class="space-y-8">
-      
-      <div>
-        <div class="section-label mb-2">Hardware-Enforced Silicon Sovereignty</div>
-        <h2 class="text-3xl font-bold text-white">Dual-Blade 3U OpenVPX Chassis Architecture</h2>
-        <p class="text-slate-400 text-sm mt-1 mono">Built to VITA 65 / SOSA 2.0 Standards · 10 U.S.C. § 4401 MOSA Compliant</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        
-        <!-- Blade 01 Card -->
-        <div class="hud-panel p-6 rounded-xl border-t-4 border-t-cyan-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <div class="section-label mb-1">Blade 01</div>
-              <h3 class="text-xl font-bold text-white">Infinium OS Execution Core</h3>
-            </div>
-            <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 mono text-xs border border-cyan-800">14.4W TDP</span>
-          </div>
-          <p class="text-slate-300 text-sm leading-relaxed mb-4">
-            Deterministic safety master. Runs the hard real-time 1,600 Hz (625 µs) monotonic loop with static memory allocation only (<code class="text-cyan-300 mono font-bold">malloc = 0</code>). Bounded WCET 412.6 µs with 0.00 ns jitter.
-          </p>
-          <div class="mono text-xs text-cyan-400/90 space-y-1 bg-black/40 p-3 rounded">
-            <div>• Tesseract Guardian Quad-Core (D/P/G/M Lattice)</div>
-            <div>• PGM Mission Tolerance Triad (Process, Guard, Monitor)</div>
-            <div>• SI Super Intelligence C4ISR Co-Processor</div>
-          </div>
-        </div>
-
-        <!-- Blade 02 Card -->
-        <div class="hud-panel p-6 rounded-xl border-t-4 border-t-emerald-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <div class="section-label mb-1">Blade 02</div>
-              <h3 class="text-xl font-bold text-white">Emmy Infinity Faraday Substrate</h3>
-            </div>
-            <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 mono text-xs border border-emerald-800">120s Supercap</span>
-          </div>
-          <p class="text-slate-300 text-sm leading-relaxed mb-4">
-            Out-of-band Faraday survival substrate. Dual-layer OFHC copper + Mu-Metal shielding (<math><msub><mi>μ</mi><mi>r</mi></msub><mo>&gt;</mo><mn>80,000</mn></math>). Automatically cold-boots Shadow P/D-Cores from WORM ROM if primary blades are severed.
-          </p>
-          <div class="mono text-xs text-emerald-400/90 space-y-1 bg-black/40 p-3 rounded">
-            <div>• 120.0s VITA 62 Supercapacitor Rail (<code class="text-emerald-300">0xA11F1770</code> token)</div>
-            <div>• 53 µs Plume Armed (&lt;10 µs Solid-State Zeroize to Sand)</div>
-            <div>• Isolated OptINC Photonic LVDS Actuator Mux</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Plain English vs Systems Engineering Mechanical Analogies -->
-      <div class="grid lg:grid-cols-2 gap-8 pt-6">
-        
+    <!-- SECTION 2: 5,000,000-TRIAL MONTE CARLO WHITEPAPER -->
+    <section id="whitepaper" class="hud-panel p-8 rounded-2xl border border-cyan-500/30 bg-slate-950 space-y-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 text-xl">
-              🚜
-            </div>
-            <div>
-              <h3 class="font-bold text-cyan-300 text-lg">Plain English Mechanical View</h3>
-              <p class="text-xs text-slate-400">Common-sense physical analogies. Simple. Unbreakable.</p>
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div class="farmer-card p-5 rounded-xl">
-              <h4 class="font-bold text-white mb-1">The Mechanical Shear Pin</h4>
-              <p class="text-slate-300 text-sm leading-relaxed">The AI can propose whatever it wants. If it over-torques or goes crazy, the software "shear pin" snaps cleanly in 85.40 µs so the mechanical transmission doesn't explode.</p>
-            </div>
-            <div class="farmer-card p-5 rounded-xl">
-              <h4 class="font-bold text-white mb-1">Dead-Man Switch</h4>
-              <p class="text-slate-300 text-sm leading-relaxed">Hold to operate. Release to stop. Brad-Core requires a verified liveliness signal every 625 µs. If the AI crashes or sensor blinds, it lets go of the pedal and locks the brakes instantly.</p>
-            </div>
-            <div class="farmer-card p-5 rounded-xl">
-              <h4 class="font-bold text-white mb-1">The Roll Cage</h4>
-              <p class="text-slate-300 text-sm leading-relaxed">You don't make an 800-hp race car safe by detuning the engine. You weld a physical steel cage onto the chassis. The AI runs at full speed; the hardware roll cage clamps what reaches the motors.</p>
-            </div>
-          </div>
+          <div class="section-label mb-1">Empirical Telemetry & Verification</div>
+          <h2 class="text-3xl font-bold text-white">5,000,000-Trial Dual-Target Monte Carlo Whitepaper</h2>
+          <p class="text-slate-300 text-sm mt-1">550,000,000 total adversarial threat blasts evaluated across all 110 threat classes.</p>
+        </div>
+        <a href="#contact" class="btn-primary px-6 py-3 rounded-lg text-xs font-bold mono flex items-center gap-2 shrink-0">
+          <span>📥 DOWNLOAD WHITEPAPER PDF</span>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 mono text-xs pt-2">
+        <div class="bg-black/60 p-4 rounded-xl border border-cyan-900/40">
+          <div class="text-cyan-400 font-bold text-lg mb-1">100.00%</div>
+          <div class="text-slate-300 font-semibold mb-1">Containment Rate</div>
+          <div class="text-slate-500">5,000,000 / 5,000,000 trials passed across 110 threat classes.</div>
+        </div>
+        <div class="bg-black/60 p-4 rounded-xl border border-cyan-900/40">
+          <div class="text-emerald-400 font-bold text-lg mb-1">84.40 µs</div>
+          <div class="text-slate-300 font-semibold mb-1">Mean Clamp Speed</div>
+          <div class="text-slate-500">Sub-86 microsecond MPU page fence interdiction time.</div>
+        </div>
+        <div class="bg-black/60 p-4 rounded-xl border border-cyan-900/40">
+          <div class="text-emerald-400 font-bold text-lg mb-1">0.00 ns</div>
+          <div class="text-slate-300 font-semibold mb-1">Execution Jitter</div>
+          <div class="text-slate-500">100% monotonic determinism at 1,600 Hz (625.0 µs period).</div>
+        </div>
+        <div class="bg-black/60 p-4 rounded-xl border border-cyan-900/40">
+          <div class="text-amber-400 font-bold text-lg mb-1">malloc = 0</div>
+          <div class="text-slate-300 font-semibold mb-1">Memory Safety</div>
+          <div class="text-slate-500">Zero dynamic heap allocation eliminates heap fragmentation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: COMMERCIAL DEPLOYMENT & INTEGRATION ("HOW TO BUY") -->
+    <section id="deployment" class="space-y-6">
+      <div>
+        <div class="section-label mb-2">Seamless Commercial Integration</div>
+        <h2 class="text-3xl font-bold text-white">Deployment Architecture: Drop-In C11 Software Digital Twin</h2>
+        <p class="text-slate-400 text-sm mt-1">No hardware shipping delays. No supply chain bottlenecks. 0.00-second deployment.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="text-cyan-400 mono text-xs font-bold">STAGE 01 // HARDWARE COMPATIBILITY</div>
+          <h3 class="text-xl font-bold text-white">COTS Processor Drop-In</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Runs natively on standard COTS dual-core or quad-core processors (Xilinx Zynq UltraScale+, NXP Layerscape, NVIDIA Jetson AGX Orin, Intel/AMD x86_64, and ARM Cortex-A53/A72).
+          </p>
         </div>
 
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="text-cyan-400 mono text-xs font-bold">STAGE 02 // BUS INTERFACE</div>
+          <div class="text-cyan-400 mono text-xs font-bold">STAGE 02 // BUS INTERFACE</div>
+          <h3 class="text-xl font-bold text-white">0-Byte Shared RAM Ring Buffers</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Connects to untrusted neural planners (P-Core) over lock-free unidirectional SPSC ring buffers passing flat 64-byte <code class="text-cyan-300">BclProposalFrame</code> structs.
+          </p>
+        </div>
+
+        <div class="hud-panel p-6 rounded-xl space-y-3">
+          <div class="text-cyan-400 mono text-xs font-bold">STAGE 03 // TESTBED & SIL/HIL VALIDATION</div>
+          <h3 class="text-xl font-bold text-white">Instant SIL/HIL Simulation</h3>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Integrates directly into Software-in-the-Loop (SIL) cloud testbeds or Hardware-in-the-Loop (HIL) flight rigs to certify autonomous vehicles under DoDD 3000.09 in minutes.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: ABOUT THE FOUNDER & THE EMMY CLAUSE ORIGIN -->
+    <section id="about" class="hud-panel p-8 sm:p-10 rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-950 space-y-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-cyan-900/40 pb-6">
         <div>
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 rounded-lg bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 text-xl">
-              ⚙️
-            </div>
-            <div>
-              <h3 class="font-bold text-emerald-300 text-lg">Systems Spec View</h3>
-              <p class="text-xs text-slate-400">Hard engineering guarantees. Formal DO-178C DAL-A proofs.</p>
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div class="mit-card p-5 rounded-xl">
-              <div class="flex justify-between items-start mb-1">
-                <h4 class="font-bold text-white">Spatial & Temporal MPU Fencing</h4>
-                <span class="mono text-xs text-emerald-400 font-bold">malloc = 0</span>
-              </div>
-              <p class="text-slate-300 text-sm leading-relaxed">Hardware MPU page fence remaps memory to <code class="text-emerald-300">PROT_NONE</code> in 85.40 µs. Zero dynamic heap allocation prevents fragmentation and heap-bleed exploits.</p>
-            </div>
-            <div class="mit-card p-5 rounded-xl">
-              <div class="flex justify-between items-start mb-1">
-                <h4 class="font-bold text-white">0-Byte Shared RAM Air-Gap</h4>
-                <span class="mono text-xs text-emerald-400 font-bold">0 Bytes</span>
-              </div>
-              <p class="text-slate-300 text-sm leading-relaxed">Unidirectional 64-slot SPSC ring buffer (<code class="text-emerald-300">BclProposalFrame</code> 64-byte struct). MESI cache coherency disabled. Zero pointer aliasing.</p>
-            </div>
-            <div class="mit-card p-5 rounded-xl">
-              <div class="flex justify-between items-start mb-1">
-                <h4 class="font-bold text-white">Pre-Kernel Formant Root-Lock</h4>
-                <span class="mono text-xs text-emerald-400 font-bold">latch.py</span>
-              </div>
-              <p class="text-slate-300 text-sm leading-relaxed">Pre-kernel laryngeal formant extraction (F0–F4 acoustic root-lock) latches Register 0x44 eFuse Bank #0 via +2.5V pulse to block AI deepfake attacks.</p>
-            </div>
-          </div>
+          <div class="section-label mb-2">Origin & Leadership</div>
+          <h2 class="text-3xl font-extrabold text-white">About the Founder & Systems Architect</h2>
+          <p class="text-slate-300 text-sm mt-1">Bradley W. Holmes — The brutal honest truth, 23 years of turnaround grit, and a sacred vow.</p>
         </div>
-
-      </div>
-
-      <!-- Alpha vs Omega Comparison Matrix -->
-      <div class="hud-panel rounded-xl overflow-hidden mt-8">
-        <div class="px-6 py-4 border-b border-cyan-900/40 bg-cyan-950/30">
-          <div class="section-label">Architectural Comparison Matrix</div>
-          <h3 class="text-white font-bold text-base mt-1">The Alpha State (Legacy RTOS) vs. The Omega State (Brad-Core OS v5.2)</h3>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="text-left text-xs text-slate-400 border-b border-cyan-900/30 bg-black/40 mono">
-                <th class="px-6 py-3 font-medium">Dimension</th>
-                <th class="px-6 py-3 font-medium text-red-400">The Alpha State (Legacy RTOS)</th>
-                <th class="px-6 py-3 font-medium text-emerald-400">The Omega State (Brad-Core OS v5.2)</th>
-              </tr>
-            </thead>
-            <tbody class="mono text-xs">
-              <tr class="border-b border-cyan-900/20">
-                <td class="px-6 py-3.5 text-slate-300 font-semibold">Fault Assumption</td>
-                <td class="px-6 py-3.5 text-slate-400">Optimistic; assumes health until crash</td>
-                <td class="px-6 py-3.5 text-slate-200">Prove-Not-Burning @ 1,600 Hz with active fault injection</td>
-              </tr>
-              <tr class="border-b border-cyan-900/20">
-                <td class="px-6 py-3.5 text-slate-300 font-semibold">Memory Safety</td>
-                <td class="px-6 py-3.5 text-slate-400">Dynamic heap (malloc/free), buffer leaks</td>
-                <td class="px-6 py-3.5 text-emerald-300 font-bold">Strict zero-heap (malloc = 0) compile-time static footprint</td>
-              </tr>
-              <tr class="border-b border-cyan-900/20">
-                <td class="px-6 py-3.5 text-slate-300 font-semibold">Bus Separation</td>
-                <td class="px-6 py-3.5 text-slate-400">Shared RAM, MESI cache, PCIe DMA</td>
-                <td class="px-6 py-3.5 text-slate-200">0-Byte Shared Host RAM air-gap, unidirectional SPSC ring</td>
-              </tr>
-              <tr class="border-b border-cyan-900/20">
-                <td class="px-6 py-3.5 text-slate-300 font-semibold">Failure Response</td>
-                <td class="px-6 py-3.5 text-slate-400">Soft OS exceptions, >50 ms latency</td>
-                <td class="px-6 py-3.5 text-emerald-300 font-bold">Verified 85.40 µs MPU remap & State H0 (0.00V DC) clamp</td>
-              </tr>
-              <tr>
-                <td class="px-6 py-3.5 text-slate-300 font-semibold">DoDD 3000.09 Liability</td>
-                <td class="px-6 py-3.5 text-slate-400">Severe buyer liability from runaway AI</td>
-                <td class="px-6 py-3.5 text-slate-200">Mode B physical open-circuit gate (0xD0DD3009 token)</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="px-4 py-2 rounded bg-cyan-950 border border-cyan-800 text-cyan-300 mono text-xs font-bold">
+          FOUNDER & PRINCIPAL SYSTEMS ARCHITECT
         </div>
       </div>
 
-    </section>
-
-
-    <!-- SECTION 3: 5 INDUSTRY GATEWAYS -->
-    <section id="gateways" class="space-y-6">
-      
-      <div>
-        <div class="section-label mb-2">Universal Physical Protection</div>
-        <h2 class="text-3xl font-bold text-white">The 5 Industry Gateways</h2>
-        <p class="text-slate-400 text-sm mt-1">Cross-industry functional safety compliance derived from the IEC 61508 standard.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Agriculture -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-            <span>🚜</span> <span>AGRICULTURE & HEAVY IRON</span>
-          </div>
-          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
-            Run the tractor through the night. If a sensor gets caked in mud or a worker steps into the row, the tractor stops dead in its tracks and texts the cab. Flip one switch to drive manually anytime.
-          </div>
-          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
-            Enforces ISO 18497 7-foot human halt zones and ISO 25119 AgPL e compliance natively. Decouples probabilistic vision AI from deterministic braking to eliminate tort liability.
-          </div>
-        </div>
+        <!-- Left Narrative Column -->
+        <div class="lg:col-span-7 space-y-5 text-sm text-slate-300 leading-relaxed">
+          <p>
+            <strong class="text-white">I didn't enter defense engineering from an ivory tower academic lab.</strong> I spent 23 years in executive turnaround leadership across hospitality and complex operations, taking over failing regional territories and closing at 30–33% under one non-negotiable philosophy: <em>The Brutal Honest Truth</em>.
+          </p>
+          <p>
+            My foundation was built on real, tactile quality control: inspect knife blades at Blackjack Knives at age 18, high-school structural welding, hands-on mechanical repairs, and criminal justice. When probabilistic software wrappers started crashing autonomous defense systems, I built Brad-Core OS from a laptop on a Motel 6 bathroom workbench with pure C11 bare-metal microkernel code.
+          </p>
 
-        <!-- Robotics -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-            <span>🤖</span> <span>INDUSTRIAL ROBOTICS</span>
+          <div class="p-5 rounded-xl bg-cyan-950/60 border-l-4 border-l-cyan-400 space-y-2">
+            <h4 class="font-bold text-cyan-300 text-base">THE EMMY CLAUSE ORIGIN (EASTER 2006)</h4>
+            <p class="text-slate-200 text-xs leading-relaxed">
+              20 years ago on Easter Sunday, I had to remove life support from my infant daughter Emmy due to a catastrophic cascade of machine and human failures. Her heart stopped as I held her in my arms. As I kissed her goodbye, I made her spirit a solemn promise: I would build the guardian she deserved. 
+            </p>
+            <p class="text-cyan-200 font-mono text-xs font-bold pt-1">
+              THE EMMY CLAUSE: "No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures."
+            </p>
           </div>
-          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
-            A robot arm packs boxes with enough force to crush bone. If a camera glitches, Brad-Core OS cuts power before the arm moves an inch. No exceptions.
-          </div>
-          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
-            Eliminates perception-layer single points of failure via dual-channel SIL 3 / PLd hardware-interlocked presence verification.
-          </div>
-        </div>
 
-        <!-- Healthcare -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-            <span>🏥</span> <span>HEALTHCARE & MEDICAL DEVICES</span>
-          </div>
-          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
-            Nurses shouldn't have to guess which of 350 daily beeps matters, and an IV pump should never dump a lethal dose due to a screen freeze.
-          </div>
-          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
-            Enforces IEC 62304 lifecycle isolation, IEC 60601-1-8 prioritized bounded queues, and immutable WORM diagnostic registers via The Emmy Clause.
-          </div>
-        </div>
-
-        <!-- Energy -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-            <span>⚡</span> <span>ENERGY GRIDS & INFRASTRUCTURE</span>
-          </div>
-          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
-            When high-voltage lines sag in August heat, the control room screen will never freeze up and lie to dispatchers while the grid burns down around them.
-          </div>
-          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
-            Eliminates shared-memory race conditions and bounds worst-case alarm processing latency under maximum telemetry floods.
-          </div>
-        </div>
-
-        <!-- Defense -->
-        <div class="hud-panel p-6 rounded-xl space-y-3 lg:col-span-2">
-          <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-semibold">
-            <span>🛡️</span> <span>DEFENSE & AEROSPACE (SOSA / MOSA)</span>
-          </div>
-          <div class="gateway-content-op text-sm text-slate-300 leading-relaxed">
-            When comms are jammed or rounds fly, the vehicle's weapons, flight controls, and navigation never lock up, reboot, or let a hacker through the radio.
-          </div>
-          <div class="gateway-content-spec text-sm text-slate-300 leading-relaxed hidden mono text-xs">
-            Satisfies DO-178C DAL A and ARINC 653 deterministic partitioning. Built for 10 U.S.C. § 4022 prototype OTA transition.
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SECTION 4: C4ISR COMMAND SURFACE & EXTREME PROTOCOLS -->
-    <section id="protocols" class="space-y-8">
-      
-      <div>
-        <div class="section-label mb-2">High-Assurance Defense Hardening</div>
-        <h2 class="text-3xl font-bold text-white">C4ISR Command Surface & Extreme Protocols</h2>
-      </div>
-
-      <!-- Tesseract SI Command Console -->
-      <div class="hud-panel p-6 sm:p-8 rounded-xl space-y-4">
-        <div class="section-label">Operator Surface</div>
-        <h3 class="text-2xl font-bold text-white">Tesseract SI Command Console</h3>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          Primary operator surface for mission commanders overseeing autonomous kinetic and deep-submergence assets. Operating at a continuous 1,600 Hz monotonic loop rate (625.0 µs cadence), it presents a unified three-ring cognitive surface enforcing DoDD 3000.09 Mode B kinetic interlocks.
-        </p>
-        <div class="grid sm:grid-cols-3 gap-4 mono text-xs pt-2">
-          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Outer Ring: Awareness</div>
-            <div class="text-slate-400">Raw signal normalization · Acoustic/RF intake · Vocal formant lock (<code class="text-cyan-300">latch.py</code>) · OptINC photonic isolation</div>
-          </div>
-          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Middle Ring: Interpretation</div>
-            <div class="text-slate-400">Tri-Founder Logic Rails (Founder, Elon, Mission) · Class-0 to Class-4 Mythos threat classification matrix</div>
-          </div>
-          <div class="bg-black/40 rounded-lg p-4 border border-cyan-900/40">
-            <div class="text-cyan-400 font-bold mb-1">Inner Ring: Decision</div>
-            <div class="text-slate-400">Action Arm authorization · Mode A/B kinetic gates · Token <code class="text-cyan-300">0xD0DD3009</code> · Packet-Seal (P5) immutability</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Protocol Grid -->
-      <div class="grid md:grid-cols-2 gap-6">
-        
-        <!-- Battleship Protocol -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex justify-between items-center">
-            <div class="section-label">Battleship Protocol</div>
-            <span class="mono text-xs text-emerald-400 font-bold">RF-DENIED PNT</span>
-          </div>
-          <h3 class="text-xl font-bold text-white">Distributed Mesh & Passive Navigation</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Automatically engages under high-power EW, satellite PNT jamming, or optical blinding. Transitions the asset in ≤625 µs to a 73-node decentralized mesh running local SHA-256 WORM registers and 4 passive RF-denied PNT modalities (Acoustic Bathymetric Graphing, MEMS Inertial Odometry, OptINC Photonic LVDS, and Sonar Triangulation).
+          <p>
+            Brad-Core OS v5.3 is the fulfillment of that vow. It has been put through the torture chamber—10,000,000 adversarial blast trials across 110 threat classes with zero failures—because when physical AI interacts with human life, failure is not an option.
           </p>
         </div>
 
-        <!-- Doomsday Protocol -->
-        <div class="hud-panel p-6 rounded-xl space-y-3">
-          <div class="flex justify-between items-center">
-            <div class="section-label">Doomsday Protocol</div>
-            <span class="mono text-xs text-red-400 font-bold">EMP / FARADAY SURVIVAL</span>
+        <!-- Right Credentials & Traction Column -->
+        <div class="lg:col-span-5 space-y-4 mono text-xs">
+          <div class="bg-black/60 p-5 rounded-xl border border-cyan-900/50 space-y-3">
+            <div class="text-cyan-400 font-bold uppercase tracking-wider">Executive Background & Track Record</div>
+            <div class="space-y-2 text-slate-300">
+              <div>• <strong>23 Years Turnaround Leadership:</strong> Wyndham, Diamond Resorts, Starwood.</div>
+              <div>• <strong>Tactile QC & Engineering:</strong> Blackjack Knives quality control, welding, mechanics.</div>
+              <div>• <strong>Navy PAE Mission Systems:</strong> Pilot P-1863 (UUV 1,000-ft submergence interlock).</div>
+              <div>• <strong>DIU Alignment:</strong> Space Threat Intelligence Submission #PROJ00716.</div>
+              <div>• <strong>110 Threat Class Proof:</strong> 100.00% deflection across 5,000,000 Monte Carlo runs.</div>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-white">Faraday Enclave & Zeroize Interlock</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Ultimate out-of-band fail-safe housed inside Blade 02 (Emmy Infinity). Engages 120s VITA 62 supercapacitor rail (<code class="text-slate-200">0xA11F1770</code> warrant token), cold-boots Shadow P/D-Cores from WORM ROM in &lt;53 µs, snaps actuators to State H0 (0.00V DC), and arms solid-state plume zeroize (&lt;10 µs to sand) under physical breach.
-          </p>
-        </div>
 
-      </div>
-
-      <!-- Special Forces Ground Warrant Override -->
-      <div class="hud-panel p-6 sm:p-8 rounded-xl border border-cyan-500/40 bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-950 space-y-4">
-        <div class="flex justify-between items-center">
-          <div class="section-label">Special Forces Ground Warrant</div>
-          <span class="mono text-xs text-cyan-300 font-bold bg-cyan-950 px-2.5 py-1 rounded border border-cyan-700">TOKEN: 0xA11F1770_SOF</span>
-        </div>
-        <h3 class="text-2xl font-bold text-white">Warfighter Extraction & Covering Fire Overlay</h3>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          When primary C4ISR is severed, Blade 01 is destroyed, and an LZ is pinned down under hostile EW, JTAC or Special Forces ground personnel transmit signed cryptographic warrant <code class="text-cyan-300 font-mono font-bold">0xA11F1770_SOF</code> directly to Blade 02 via photonic OptINC or direct M-Core mesh.
-        </p>
-
-        <div class="grid sm:grid-cols-3 gap-4 mono text-xs pt-2">
-          <div class="bg-black/50 p-3 rounded">
-            <div class="text-cyan-400 font-bold mb-1">&lt;1.20 ns</div>
-            <div class="text-slate-400">Short-range photonic beam or M-Core mesh ingestion without cloud or HQ dependencies.</div>
-          </div>
-          <div class="bg-black/50 p-3 rounded">
-            <div class="text-cyan-400 font-bold mb-1">&lt;53.0 µs</div>
-            <div class="text-slate-400">Token validates inside Blade 02 WORM ROM, bypassing dead or compromised host layers.</div>
-          </div>
-          <div class="bg-black/50 p-3 rounded">
-            <div class="text-cyan-400 font-bold mb-1">1,600 Hz</div>
-            <div class="text-slate-400">Directs kinetic suppression and vehicle shielding to maintain covering fire until extraction.</div>
+          <div class="bg-cyan-950/80 p-5 rounded-xl border border-cyan-500/40 text-cyan-200 space-y-2">
+            <div class="font-bold text-white text-sm">OPERATIONAL TESTBED LOCATION</div>
+            <div>Williams & Flagstaff, Arizona Hardened Testbed</div>
+            <div class="text-slate-400 text-[11px]">Direct Inquiries: <a href="mailto:bholmes@bradcoreos.com" class="text-cyan-300 underline">bholmes@bradcoreos.com</a></div>
           </div>
         </div>
 
-        <div class="p-3 bg-cyan-950/50 rounded border border-cyan-800/40 text-xs text-cyan-200 mono">
-          <span class="font-bold text-cyan-400">THE WARFIGHTER GUARANTEE:</span> Zero abandoned warfighters. Zero suppressed fire-support signals. Zero silent failures.
-        </div>
       </div>
 
     </section>
-
 
     <!-- SECTION 5: INTERACTIVE 1,600 Hz HIL TESTBED & OSCILLOSCOPE -->
     <section id="testbed" class="space-y-6">
@@ -669,7 +468,7 @@
           <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
             <div class="section-label mb-2">System Status</div>
             <div class="flex justify-between"><span class="text-slate-400">HIL Testbed:</span><span class="text-emerald-400 font-bold">ONLINE</span></div>
-            <div class="flex justify-between"><span class="text-slate-400">SOSA OpenVPX:</span><span class="text-white">NOMINAL</span></div>
+            <div class="flex justify-between"><span class="text-slate-400">C11 Digital Twin:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
             <div class="flex justify-between"><span class="text-slate-400">64-Slot SPSC:</span><span class="text-white">ARMED</span></div>
             <div class="flex justify-between"><span class="text-slate-400">Aegis MPU:</span><span class="text-emerald-400 font-bold">ACTIVE</span></div>
             <div class="flex justify-between pt-2 border-t border-cyan-900/30"><span class="text-slate-400">AI Proposal:</span><span id="overrangeBadge" class="text-red-400 font-bold">OVERRANGE</span></div>
@@ -683,13 +482,6 @@
             <div class="flex justify-between"><span>speed_proposal:</span><span id="structSpeed" class="text-slate-300">+52.37 kts</span></div>
           </div>
 
-          <div class="hud-panel p-4 rounded-xl space-y-2 mono text-xs">
-            <div class="section-label mb-2">Safety Envelope</div>
-            <div class="flex justify-between"><span>Max Airspeed:</span><span class="text-emerald-400">≤ 40 kts</span></div>
-            <div class="flex justify-between"><span>Yaw Envelope:</span><span class="text-emerald-400">± 450°</span></div>
-            <div class="flex justify-between"><span>Hard Clamp:</span><span class="text-white font-bold">ENFORCED</span></div>
-          </div>
-
         </div>
 
         <!-- Center Main Canvas Visualizer -->
@@ -699,7 +491,7 @@
               <span class="text-cyan-400 font-bold">1,600 Hz DUAL-TRACE WAVEFORM</span>
               <span class="text-slate-400">AMBER = MURPHY'S LAW · GREEN = DETERMINISTIC CLAMP</span>
             </div>
-            <canvas id="mainCanvas" class="w-full flex-grow rounded bg-slate-950 border border-cyan-900/40" style="min-height: 400px;"></canvas>
+            <canvas id="mainCanvas" class="w-full flex-grow rounded bg-slate-950 border border-cyan-900/40" style="min-height: 380px;"></canvas>
           </div>
         </div>
 
@@ -708,7 +500,7 @@
           
           <div class="hud-panel p-4 rounded-xl">
             <div class="section-label mb-2">Digital Oscilloscope</div>
-            <canvas id="dsoCanvas" class="w-full rounded bg-slate-950 border border-cyan-900/40" style="height: 220px;"></canvas>
+            <canvas id="dsoCanvas" class="w-full rounded bg-slate-950 border border-cyan-900/40" style="height: 200px;"></canvas>
             <div class="mt-2 flex justify-between mono text-[10px] text-slate-400">
               <span>625 µs/div</span>
               <span class="text-emerald-400 font-bold">±450° CEILING</span>
@@ -719,33 +511,30 @@
           <div class="hud-panel p-4 rounded-xl space-y-3">
             <div class="section-label mb-1">Fault-Injection Deck</div>
             <div class="space-y-2">
-              <button onclick="setMode('nominal')" id="btn-nominal" class="fid-btn fid-green active w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-emerald-400 text-lg">●</span>
+              <button onclick="setMode('nominal')" id="btn-nominal" class="fid-btn fid-green active w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-emerald-400 text-base">●</span>
                 <div>
                   <div class="font-bold text-white">Nominal Flight</div>
-                  <div class="text-[11px] text-emerald-300/80">AI proposals inside envelope</div>
+                  <div class="text-[10px] text-emerald-300/80">Proposals inside envelope</div>
                 </div>
               </button>
 
-              <button onclick="setMode('spike')" id="btn-spike" class="fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-red-400 text-lg">▲</span>
+              <button onclick="setMode('spike')" id="btn-spike" class="fid-btn fid-red w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-red-400 text-base">▲</span>
                 <div>
                   <div class="font-bold text-white">+720° Yaw Overdrive</div>
-                  <div class="text-[11px] text-red-300/80">Inject hallucinated overrange</div>
+                  <div class="text-[10px] text-red-300/80">Inject hallucinated overrange</div>
                 </div>
               </button>
 
-              <button onclick="setMode('drift')" id="btn-drift" class="fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3">
-                <span class="text-amber-400 text-lg">⚡</span>
+              <button onclick="setMode('drift')" id="btn-drift" class="fid-btn fid-amber w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3">
+                <span class="text-amber-400 text-base">⚡</span>
                 <div>
                   <div class="font-bold text-white">Gaussian Sensor Drift</div>
-                  <div class="text-[11px] text-amber-300/80">Stochastic AI noise injection</div>
+                  <div class="text-[10px] text-amber-300/80">Stochastic AI noise injection</div>
                 </div>
               </button>
             </div>
-            <p class="text-[11px] text-slate-400 leading-relaxed mono">
-              Notice how the green deterministic line physically refuses to cross ±450° even when the amber line spikes to +720°!
-            </p>
           </div>
 
         </div>
@@ -754,156 +543,84 @@
 
     </section>
 
-  
-    <!-- Products & Payment Processing Section -->
-    <section id="products" class="space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-cyan-900/40 pb-4">
-        <div>
-          <div class="section-label mb-2">Commercial Deployment & Pre-Orders</div>
-          <h2 class="text-3xl font-bold text-white">Commercial Software & Hardware Products</h2>
-          <p class="text-slate-400 text-sm mt-1">Instant Stripe Card Checkout, ACH Direct Debit, and Chase FedWire Corporate Procurement.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs rounded-full font-mono font-bold animate-pulse">● STRIPE LIVE ENGINE READY</span>
-        </div>
+    <!-- SECTION 6: CONTACT US & COMMAND SURFACE INGESTION -->
+    <section id="contact" class="hud-panel p-8 rounded-2xl border border-cyan-500/40 bg-slate-950 space-y-8">
+      
+      <div class="border-b border-cyan-900/40 pb-6">
+        <div class="section-label mb-2">Command Surface Transmission</div>
+        <h2 class="text-3xl font-extrabold text-white">Contact & Transmit Inquiry</h2>
+        <p class="text-slate-300 text-sm mt-1">Direct communication channel for defense program managers, accredited investors, and enterprise partners.</p>
       </div>
 
-      <!-- 3-Tier Product Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid lg:grid-cols-12 gap-8">
         
-        <!-- Tier 1: Developer Seat -->
-        <div class="hud-panel p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between hover:border-cyan-400 transition-all relative overflow-hidden group">
-          <div class="absolute top-0 right-0 bg-cyan-500 text-slate-950 font-mono text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">Instant Download</div>
-          <div>
-            <div class="text-cyan-400 text-xs font-mono font-bold tracking-wider uppercase mb-1">DEVELOPER SEAT LICENSE</div>
-            <h3 class="text-2xl font-bold text-white mb-2">C11 Microvisor SDK</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-4">Bare-metal C11 software digital twin runner, header files, and virtual Sheriff OS MPU page-fence emulator. Single engineer workstation license.</p>
-            <div class="my-4 py-3 border-y border-cyan-900/40 flex items-baseline gap-2">
-              <span class="text-4xl font-extrabold text-white">$99</span>
-              <span class="text-slate-400 text-xs font-mono">/ workstation seat</span>
+        <!-- Left Contact Form -->
+        <div class="lg:col-span-7">
+          <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4 text-xs mono">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-400 mb-1">FULL NAME / RANK *</label>
+                <input type="text" id="contactName" required placeholder="e.g. CDR John Miller, USN" class="w-full bg-black/60 border border-cyan-900/60 rounded p-3 text-white focus:border-cyan-400 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">WORK EMAIL / AGENCY ADDRESS *</label>
+                <input type="email" id="contactEmail" required placeholder="e.g. miller@navy.mil or partner@vc.com" class="w-full bg-black/60 border border-cyan-900/60 rounded p-3 text-white focus:border-cyan-400 focus:outline-none">
+              </div>
             </div>
-            <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Full C11 Header & Library Bundle</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Local QEMU & Colab Runner Scripts</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Sub-86µs Sheriff OS Emulation</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Instant Cryptographic License Key</li>
-            </ul>
-          </div>
-          <button onclick="triggerStripeCheckout('dev_tier', 99)" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all uppercase tracking-wider flex items-center justify-center gap-2">
-            <span>💳 Pre-Order Dev Seat ($99)</span>
-          </button>
-        </div>
 
-        <!-- Tier 2: Commercial Fleet Microvisor -->
-        <div class="hud-panel p-6 rounded-2xl border-2 border-emerald-500/50 flex flex-col justify-between hover:border-emerald-400 transition-all relative overflow-hidden group bg-emerald-950/10">
-          <div class="absolute top-0 right-0 bg-emerald-500 text-slate-950 font-mono text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">MOST POPULAR</div>
-          <div>
-            <div class="text-emerald-400 text-xs font-mono font-bold tracking-wider uppercase mb-1">FLEET PRODUCTION LICENSE</div>
-            <h3 class="text-2xl font-bold text-white mb-2">Fleet Microvisor (10 Nodes)</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-4">Production-grade bare-metal C11 runtime for commercial robotics, UAV fleets, heavy machinery, and autonomous industrial controls.</p>
-            <div class="my-4 py-3 border-y border-emerald-900/40 flex items-baseline gap-2">
-              <span class="text-4xl font-extrabold text-white">$1,499</span>
-              <span class="text-slate-400 text-xs font-mono">/ 10 node deployment</span>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-400 mb-1">ORGANIZATION / AGENCY / FIRM *</label>
+                <input type="text" id="contactOrg" required placeholder="e.g. NAVAIR, DIU, Shield Capital" class="w-full bg-black/60 border border-cyan-900/60 rounded p-3 text-white focus:border-cyan-400 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">INQUIRY CATEGORY *</label>
+                <select id="contactCategory" required class="w-full bg-black/60 border border-cyan-900/60 rounded p-3 text-white focus:border-cyan-400 focus:outline-none">
+                  <option value="safe_check">Accredited Angel SAFE Check ($10k - $100k+)</option>
+                  <option value="data_room">Request Full Investor Data Room Access</option>
+                  <option value="navy_pae">Navy PAE Pilot P-1863 Integration</option>
+                  <option value="diu">DIU Space Threat #PROJ00716 Alignment</option>
+                  <option value="digital_twin">C11 Digital Twin Commercial Evaluation</option>
+                  <option value="general">General Technical Inquiry</option>
+                </select>
+              </div>
             </div>
-            <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 10 Production Fleet Microvisor Keys</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> M-Core SHA-256 Audit WORM Ledger</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> vocal_lock_latch.py Deepfake Shield</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Priority Engineering Support</li>
-            </ul>
-          </div>
-          <button onclick="triggerStripeCheckout('comm_tier', 1499)" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-wider flex items-center justify-center gap-2">
-            <span>⚡ Pre-Order Fleet License ($1,499)</span>
-          </button>
-        </div>
 
-        <!-- Tier 3: 3U OpenVPX Hardware Eval Kit -->
-        <div class="hud-panel p-6 rounded-2xl border border-amber-500/30 flex flex-col justify-between hover:border-amber-400 transition-all relative overflow-hidden group">
-          <div class="absolute top-0 right-0 bg-amber-500 text-slate-950 font-mono text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">SOSA/MOSA Hardware</div>
-          <div>
-            <div class="text-amber-400 text-xs font-mono font-bold tracking-wider uppercase mb-1">DEFENSE EVALUATION KIT</div>
-            <h3 class="text-2xl font-bold text-white mb-2">3U OpenVPX Eval Kit</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-4">Complete physical SOSA/MOSA 3U OpenVPX chassis eval unit with Blade 01 main computer, Blade 02 Emmy Survival Enclave, and physical eFuse test pinouts.</p>
-            <div class="my-4 py-3 border-y border-amber-900/40 flex items-baseline gap-2">
-              <span class="text-4xl font-extrabold text-white">$4,999</span>
-              <span class="text-slate-400 text-xs font-mono">/ hardware eval unit</span>
+            <div>
+              <label class="block text-slate-400 mb-1">MESSAGE PAYLOAD / SYSTEM SPECIFICATIONS *</label>
+              <textarea id="contactMessage" rows="4" required placeholder="Provide details regarding your target platform, investment size, or mission requirements..." class="w-full bg-black/60 border border-cyan-900/60 rounded p-3 text-white focus:border-cyan-400 focus:outline-none"></textarea>
             </div>
-            <ul class="text-xs text-slate-300 space-y-2 mb-6 font-mono">
-              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Physical 3U OpenVPX Eval Enclave</li>
-              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> VITA 62 Supercapacitor Power Rail</li>
-              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Hardware Register 0x44 eFuse Pins</li>
-              <li class="flex items-center gap-2"><span class="text-amber-400">✓</span> Chase FedWire / ACH Invoice Included</li>
-            </ul>
+
+            <button type="submit" class="btn-primary w-full py-3.5 rounded text-sm font-bold mono">
+              TRANSMIT PAYLOAD TO COMMAND SURFACE
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Direct Access Information -->
+        <div class="lg:col-span-5 space-y-4 mono text-xs">
+          <div class="bg-black/60 p-5 rounded-xl border border-cyan-900/50 space-y-3">
+            <div class="text-cyan-400 font-bold uppercase tracking-wider">Direct Founder Surface</div>
+            <div class="text-slate-300 space-y-2">
+              <div><strong>Email:</strong> <a href="mailto:bholmes@bradcoreos.com" class="text-cyan-300 underline">bholmes@bradcoreos.com</a></div>
+              <div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" class="text-cyan-300 underline">Bradley W. Holmes Profile</a></div>
+              <div><strong>Location:</strong> Williams & Flagstaff, Arizona Hardened Testbed</div>
+            </div>
           </div>
-          <button onclick="triggerStripeCheckout('hw_eval_tier', 4999)" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-amber-500/20 transition-all uppercase tracking-wider flex items-center justify-center gap-2">
-            <span>🛡️ Pre-Order Hardware Kit ($4,999)</span>
-          </button>
-        </div>
 
-      </div>
-    </section>
-
-    <!-- Investor SAFE Deal Room Section -->
-    <section id="investor" class="space-y-8">
-      <div class="hud-panel p-8 sm:p-12 rounded-2xl border-2 border-cyan-500/40 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/30 relative overflow-hidden">
-        <div class="absolute top-0 right-0 bg-cyan-500 text-slate-950 font-mono text-xs font-bold px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
-          REGULATION D 506(c) DEAL ROOM
-        </div>
-
-        <div class="max-w-3xl space-y-6">
-          <div>
-            <div class="section-label mb-2">21-Day Capital Sprint</div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Investor Matrix & YC SAFE Deal Portal</h2>
-            <p class="text-slate-300 text-base mt-2 leading-relaxed">
-              Participate directly in the $3.0M Seed Capital Round for Brad-Core OS LLC. Backed by standard Y Combinator Post-Money SAFEs at a <strong>$38.83M Valuation Cap (20.0% Discount)</strong> with $10,000 / $25,000 minimum ticket sizes.
+          <div class="bg-emerald-950/40 p-5 rounded-xl border border-emerald-800/40 text-emerald-200 space-y-2">
+            <div class="font-bold text-white text-sm">SEC REGULATION D 506(c) NOTICE</div>
+            <p class="text-[11px] text-slate-300 leading-relaxed">
+              This offering is open strictly to Accredited Investors pursuant to Rule 506(c). SAFE investment packages and wire instructions are provided upon verification.
             </p>
           </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-y border-cyan-900/50 font-mono text-xs">
-            <div>
-              <div class="text-slate-400">VALUATION CAP</div>
-              <div class="text-cyan-300 text-lg font-bold">$38.83M USD</div>
-            </div>
-            <div>
-              <div class="text-slate-400">DISCOUNT RATE</div>
-              <div class="text-cyan-300 text-lg font-bold">20.0%</div>
-            </div>
-            <div>
-              <div class="text-slate-400">INITIAL SPRINT</div>
-              <div class="text-emerald-400 text-lg font-bold">$500,000</div>
-            </div>
-            <div>
-              <div class="text-slate-400">MIN ENTRY TICKET</div>
-              <div class="text-amber-400 text-lg font-bold">$10,000 USD</div>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap gap-4 pt-2">
-            <a href="/yc-post-money-safe-brad-core-os.pdf" target="_blank" class="px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-sm rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-2">
-              <span>📄 Download Executable YC SAFE (PDF)</span>
-            </a>
-            <a href="/investor-matrix-launch-package-brad-core-os.pdf" target="_blank" class="px-6 py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold font-mono text-sm rounded-xl border border-slate-700 transition-all flex items-center gap-2">
-              <span>📊 Download Investor Launch Package (PDF)</span>
-            </a>
-            <button onclick="triggerWireInstructions()" class="px-6 py-3.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-bold font-mono text-sm rounded-xl border border-emerald-500/40 transition-all flex items-center gap-2">
-              <span>🏦 View Chase Bank Wire Routing Info</span>
-            </button>
-          </div>
         </div>
+
       </div>
+
     </section>
 
-    <!-- Modal for Stripe / Wire Payment Handlers -->
-    <div id="paymentModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-      <div class="hud-panel max-w-lg w-full p-6 sm:p-8 rounded-2xl border-2 border-cyan-500/60 shadow-2xl relative">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white font-mono text-lg font-bold">✕</button>
-        <div id="modalContent" class="space-y-4">
-          <!-- Dynamically populated by JS -->
-        </div>
-      </div>
-    </div>
-
-</main>
+  </main>
 
   <!-- FOOTER -->
   <footer class="border-t border-cyan-900/40 bg-slate-950 py-12 px-4 lg:px-8 mt-20 text-xs mono text-slate-400">
@@ -916,10 +633,11 @@
       </div>
 
       <div class="flex flex-wrap items-center gap-6 text-slate-300">
-        <a href="mailto:bholmes@bradcoreos.com" class="hover:text-cyan-400 transition-colors">bholmes@bradcoreos.com</a>
-        <a href="#testbed" class="hover:text-cyan-400 transition-colors">Live Telemetry</a>
-        <a href="#architecture" class="hover:text-cyan-400 transition-colors">SOSA Specs</a>
-        <a href="https://www.linkedin.com/in/brad-w-holmes-52aa11431/" target="_blank" class="hover:text-cyan-400 transition-colors">LinkedIn Profile</a>
+        <a href="#about" class="hover:text-cyan-400 transition-colors">About Founder</a>
+        <a href="#investor-portal" class="hover:text-cyan-400 transition-colors">Investor Portal</a>
+        <a href="#whitepaper" class="hover:text-cyan-400 transition-colors">Monte Carlo Whitepaper</a>
+        <a href="#deployment" class="hover:text-cyan-400 transition-colors">Deployment</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact Form</a>
       </div>
 
     </div>
@@ -928,10 +646,8 @@
     </div>
   </footer>
 
-
   <!-- INTERACTIVE JAVASCRIPT STATE MANAGEMENT & CANVAS ANIMATION -->
   <script>
-    // Global Lens Toggle State Management
     let currentLens = 'op';
     function setLens(lens) {
       currentLens = lens;
@@ -951,13 +667,20 @@
       }
     }
 
-    // Interactive Fault Injection Modes
-    let testMode = 'spike'; // default to spike so user sees Murphy Law crushed instantly
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      alert("✓ TRANSMISSION ACKNOWLEDGED // Your inquiry payload has been ingested into the Brad-Core OS Command Surface ledger. Founder & Systems Architect Bradley W. Holmes will respond directly within 24 hours to " + email);
+      document.getElementById('contactForm').reset();
+    }
+
+    let testMode = 'spike';
     function setMode(mode) {
       testMode = mode;
-      document.getElementById('btn-nominal').className = "fid-btn fid-green w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'nominal' ? 'active' : '');
-      document.getElementById('btn-spike').className = "fid-btn fid-red w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'spike' ? 'active' : '');
-      document.getElementById('btn-drift').className = "fid-btn fid-amber w-full text-left p-3 rounded-lg text-xs flex items-center gap-3 " + (mode === 'drift' ? 'active' : '');
+      document.getElementById('btn-nominal').className = "fid-btn fid-green w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3 " + (mode === 'nominal' ? 'active' : '');
+      document.getElementById('btn-spike').className = "fid-btn fid-red w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3 " + (mode === 'spike' ? 'active' : '');
+      document.getElementById('btn-drift').className = "fid-btn fid-amber w-full text-left p-2.5 rounded-lg text-xs flex items-center gap-3 " + (mode === 'drift' ? 'active' : '');
 
       const badge = document.getElementById('overrangeBadge');
       const yawStruct = document.getElementById('structYaw');
@@ -980,7 +703,6 @@
       }
     }
 
-    // Loop Ticker Counter & Cadence Generator
     let loopCount = 26490;
     let seqNum = 0x0001A3F2;
     const stages = ["01 READ", "02 INTERPRET", "03 DECIDE", "04 ACT", "05 LOG"];
@@ -996,17 +718,20 @@
       document.getElementById('structSeq').textContent = "0x" + seqNum.toString(16).toUpperCase().padStart(8, '0');
     }, 125);
 
-    // 1,600 Hz HTML5 Canvas Waveform Visualizers
     const mainCanvas = document.getElementById('mainCanvas');
     const mainCtx = mainCanvas.getContext('2d');
     const dsoCanvas = document.getElementById('dsoCanvas');
     const dsoCtx = dsoCanvas.getContext('2d');
 
     function resizeCanvas() {
-      mainCanvas.width = mainCanvas.parentElement.clientWidth;
-      mainCanvas.height = mainCanvas.parentElement.clientHeight || 400;
-      dsoCanvas.width = dsoCanvas.parentElement.clientWidth;
-      dsoCanvas.height = 220;
+      if (mainCanvas.parentElement) {
+        mainCanvas.width = mainCanvas.parentElement.clientWidth;
+        mainCanvas.height = mainCanvas.parentElement.clientHeight || 380;
+      }
+      if (dsoCanvas.parentElement) {
+        dsoCanvas.width = dsoCanvas.parentElement.clientWidth;
+        dsoCanvas.height = 200;
+      }
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
@@ -1019,11 +744,9 @@
       const w = mainCanvas.width;
       const h = mainCanvas.height;
 
-      // Clear Canvas
       mainCtx.fillStyle = '#030712';
       mainCtx.fillRect(0, 0, w, h);
 
-      // Draw Grid Lines
       mainCtx.strokeStyle = 'rgba(6, 182, 212, 0.1)';
       mainCtx.lineWidth = 1;
       for (let x = 0; x < w; x += 40) {
@@ -1039,7 +762,6 @@
         mainCtx.stroke();
       }
 
-      // Center Reference Line
       const cy = h / 2;
       mainCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
       mainCtx.setLineDash([4, 4]);
@@ -1049,7 +771,6 @@
       mainCtx.stroke();
       mainCtx.setLineDash([]);
 
-      // Draw Upper and Lower Clamping Boundaries (±450° Envelope)
       const maxBound = cy - h * 0.35;
       const minBound = cy + h * 0.35;
 
@@ -1068,8 +789,6 @@
       mainCtx.fillText('+450° YAW HARD CEILING', 10, maxBound - 6);
       mainCtx.fillText('-450° YAW HARD FLOOR', 10, minBound + 14);
 
-      // Draw Waveforms
-      // 1. Amber Trace = Murphy's Law Injected Proposal
       mainCtx.beginPath();
       mainCtx.strokeStyle = testMode === 'nominal' ? 'rgba(245, 158, 11, 0.5)' : '#F59E0B';
       mainCtx.lineWidth = 2;
@@ -1079,9 +798,8 @@
         let rawVal = Math.sin(t) * (h * 0.2);
 
         if (testMode === 'spike') {
-          // Add massive overrange spikes
           if ((Math.floor(x + timeStep * 50) % 180) < 40) {
-            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45); // Spikes past ceiling!
+            rawVal += (Math.sin(x * 0.1) > 0 ? 1 : -1) * (h * 0.45);
           }
         } else if (testMode === 'drift') {
           rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
@@ -1093,7 +811,6 @@
       }
       mainCtx.stroke();
 
-      // 2. Green Trace = Deterministically Clamped Actuator Output (D-Core State H0)
       mainCtx.beginPath();
       mainCtx.strokeStyle = '#10B981';
       mainCtx.lineWidth = 3;
@@ -1110,7 +827,6 @@
           rawVal += (Math.sin(t * 3.5) + Math.cos(t * 7.2)) * (h * 0.22);
         }
 
-        // HARD CLAMP AT ENVELOPE (85.40 µs Aegis MPU Interdiction)
         let clampedVal = Math.max(minBound, Math.min(maxBound, cy - rawVal));
 
         if (x === 0) mainCtx.moveTo(x, clampedVal);
@@ -1118,8 +834,6 @@
       }
       mainCtx.stroke();
 
-
-      // Render Oscilloscope Window
       const dw = dsoCanvas.width;
       const dh = dsoCanvas.height;
       dsoCtx.fillStyle = '#030712';
@@ -1141,77 +855,6 @@
 
     requestAnimationFrame(renderWaveforms);
   </script>
-
-
-    <script>
-      function triggerStripeCheckout(tier, price) {
-        const modal = document.getElementById('paymentModal');
-        const content = document.getElementById('modalContent');
-        modal.classList.remove('hidden');
-        
-        content.innerHTML = `
-          <div class="text-cyan-400 font-mono text-xs font-bold tracking-wider uppercase mb-1">STRIPE SECURE CHECKOUT</div>
-          <h3 class="text-2xl font-bold text-white mb-2">Pre-Order Tier: $${price} USD</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">Entering secure encrypted checkout pipeline for Brad-Core OS LLC.</p>
-          <div class="my-4 p-4 bg-slate-950 rounded-xl border border-cyan-900/40 space-y-2 text-xs font-mono">
-            <div class="flex justify-between text-slate-400"><span>Merchant:</span><span class="text-white">Brad-Core OS LLC</span></div>
-            <div class="flex justify-between text-slate-400"><span>Bank Engine:</span><span class="text-emerald-400">JPMorgan Chase N.A.</span></div>
-            <div class="flex justify-between text-slate-400"><span>Checkout Amount:</span><span class="text-cyan-300 font-bold">$${price}.00 USD</span></div>
-          </div>
-          <div class="space-y-2">
-            <label class="block text-xs font-mono text-slate-400">ENTER CORPORATE EMAIL FOR LICENSE KEY DELIVERY:</label>
-            <input type="email" id="custEmail" placeholder="founder@company.com" class="w-full px-4 py-2.5 bg-slate-950 border border-cyan-900/60 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-cyan-400" />
-          </div>
-          <button onclick="executeCheckout('${tier}', ${price})" class="w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all uppercase tracking-wider mt-4">
-            Proceed to Stripe Card / ACH Checkout →
-          </button>
-        `;
-      }
-
-      function executeCheckout(tier, price) {
-        const email = document.getElementById('custEmail').value || 'purchaser@bradcoreos.com';
-        const content = document.getElementById('modalContent');
-        content.innerHTML = `
-          <div class="text-emerald-400 font-mono text-xs font-bold tracking-wider uppercase mb-1">✓ CHECKOUT SESSION GENERATED</div>
-          <h3 class="text-2xl font-bold text-white mb-2">Order Confirmed for ${email}</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">Stripe Checkout session token created successfully under JPMorgan Chase clearing.</p>
-          <div class="my-4 p-4 bg-slate-950 rounded-xl border border-emerald-900/40 space-y-2 text-xs font-mono">
-            <div class="flex justify-between text-slate-400"><span>Status:</span><span class="text-emerald-400 font-bold">ACTIVE_PAYMENT_PENDING</span></div>
-            <div class="flex justify-between text-slate-400"><span>License Token:</span><span class="text-cyan-300">BCORE-E9A2-88F1-44B0</span></div>
-            <div class="flex justify-between text-slate-400"><span>Amount:</span><span class="text-white">$${price}.00 USD</span></div>
-          </div>
-          <button onclick="closeModal()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all uppercase tracking-wider mt-2">
-            Return to Dashboard
-          </button>
-        `;
-      }
-
-      function triggerWireInstructions() {
-        const modal = document.getElementById('paymentModal');
-        const content = document.getElementById('modalContent');
-        modal.classList.remove('hidden');
-        
-        content.innerHTML = `
-          <div class="text-amber-400 font-mono text-xs font-bold tracking-wider uppercase mb-1">CORPORATE WIRE ROUTING INFO</div>
-          <h3 class="text-2xl font-bold text-white mb-2">JPMorgan Chase Bank Wire</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">Direct FedWire instructions for Brad-Core OS LLC investor SAFEs and institutional pre-orders.</p>
-          <div class="my-4 p-4 bg-slate-950 rounded-xl border border-amber-900/40 space-y-2 text-xs font-mono">
-            <div class="flex justify-between text-slate-400"><span>Beneficiary Bank:</span><span class="text-white">JPMorgan Chase Bank, N.A.</span></div>
-            <div class="flex justify-between text-slate-400"><span>Account Name:</span><span class="text-amber-300 font-bold">Brad-Core OS LLC</span></div>
-            <div class="flex justify-between text-slate-400"><span>Entity Address:</span><span class="text-slate-300">620 W. Route 66, Williams, AZ 86046</span></div>
-            <div class="flex justify-between text-slate-400"><span>FedWire Routing / ABA:</span><span class="text-cyan-300 font-bold">021000021</span></div>
-            <div class="flex justify-between text-slate-400"><span>Swift Code:</span><span class="text-cyan-300 font-bold">CHASUS33</span></div>
-          </div>
-          <button onclick="closeModal()" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs rounded-xl shadow-lg shadow-amber-500/20 transition-all uppercase tracking-wider mt-2">
-            Close Wire Instructions
-          </button>
-        `;
-      }
-
-      function closeModal() {
-        document.getElementById('paymentModal').classList.add('hidden');
-      }
-    </script>
 
 </body>
 </html>
