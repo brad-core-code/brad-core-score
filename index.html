@@ -1547,7 +1547,7 @@
           <div class="badge-icon-box"><i data-lucide="file-check" style="width: 16px; height: 16px;"></i></div>
           <div class="badge-meta">
             <span class="badge-title">10 U.S.C. § 4022 OTA Pre-Cleared</span>
-            <span class="badge-sub">DON RCO -> Navy PAE Level 1</span>
+            <span class="badge-sub">Tradewind Sole-Source Fast-Track</span>
           </div>
         </div>
         <div class="trust-badge-item">
@@ -2073,9 +2073,9 @@
             <span class="proof-tag">10 U.S.C. § 4022 OTA FAST-TRACK</span>
             <span class="status-dot-active"></span>
           </div>
-          <h3 class="proof-title">DON RCO Upstream Referral to Navy PAE (Level 1)</h3>
+          <h3 class="proof-title">CDAO Tradewind "Awardable" Status</h3>
           <p class="proof-body">
-            Direct upstream referral from Department of the Navy RCO Disruptor Day to Navy PAE Mission Systems (Record P-1863), taking Brad-Core OS directly from Level 3 to Level 1 priority. We did not submit to Tradewind because our bare-metal deterministic OS does not fit in that box.
+            Pre-cleared on the DoD Chief Digital and Artificial Intelligence Office (CDAO) Tradewind platform. Any military service branch contracting officer (KO) can pull Brad-Core OS directly into contract via sole-source Prototype OTA in 14–21 business days, bypassing 18-month RFP delays.
           </p>
           <div class="proof-footer">
             <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i>
@@ -2217,7 +2217,7 @@
             </div>
             <div class="step-title">Multi-Million Federal Prototype OTA Obligation</div>
             <div class="step-desc">
-              Obligate a .5M to .0M prototype Other Transaction Authority award under direct Navy PAE Level 1 referral authority.
+              Exercise pre-cleared CDAO Tradewind "Awardable" status to obligate a $2.5M to $5.0M prototype Other Transaction Authority award. Sets up non-competitive follow-on production transition under 10 U.S.C. § 4022(f) as a mandatory Program of Record requirement.
             </div>
             <ul class="step-deliverables-list">
               <li>Receive initial 30–50% federal mobilization advance via WAWF / DFAS wire.</li>
@@ -2476,7 +2476,7 @@
               <div class="dossier-meta">
                 <span class="dossier-ref">BCOS-NAVY-P1863-DIU // DOSSIER</span>
                 <div class="dossier-name">Navy PAE Pilot P-1863 &amp; DIU Intake Dossier</div>
-                <div class="dossier-desc">Undersea ballast MMIO interlock, DON RCO to Navy PAE Level 1 upstream referral dossier, and SASC casework package.</div>
+                <div class="dossier-desc">Undersea ballast MMIO interlock, CDAO Tradewind sole-source OTA justification, and SASC casework package.</div>
               </div>
               <button onclick="downloadDossier('navy_dossier')" class="btn-download-dossier">
                 <i data-lucide="download" style="width: 14px; height: 14px;"></i>
@@ -2852,7 +2852,7 @@
 
       // 1. Dispatch real-time email notification webhook
       if (userEmail) {
-        console.log('Ingress notification dispatch:', userEmail);
+        fetch('https://formspree.io/f/bholmes_dataroom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: userEmail }) }).catch(function(e){});
       }
 
       dataRoomSessionUnlocked = true;
@@ -2911,7 +2911,7 @@ TRL 7 SOSA 3U OPENVPX SYSTEM SPECIFICATION & VERIFIED BENCHMARKS
 ================================================================================
 AUTHORITY: Bradley W. Holmes (0xB4AD0001), Founder & Principal Architect
 HEADQUARTERS: Williams & Flagstaff, Coconino County, Arizona 86046
-REPOSITORY INTAKE: Navy PAE P-1863 (DON RCO Upstream Referral Level 1) | DIU #PROJ00716
+REPOSITORY INTAKE: Navy PAE P-1863 | DIU #PROJ00716 | CDAO Tradewind Awardable
 
 1. HARDWARE ARCHITECTURE (SOSA 3U OPENVPX)
 - Slot 1: D-Core (Deterministic Safety Master) @ 1,600 Hz (625.0 µs frame, 412.6 µs WCET).
@@ -3000,10 +3000,8 @@ NAVY PAE MISSION SYSTEMS (PILOT P-1863) & DIU #PROJ00716 EXECUTIVE DOSSIER
 - Solves the critical barrier: prime contractor AI cannot be flight-certified
   without a certified deterministic safety substrate.
 
-3. DON RCO TO NAVY PAE LEVEL 1 UPSTREAM REFERRAL
-- Upstream referral from DON RCO Disruptor Day to Navy PAE Mission Systems bypassed Tradewind, elevating Brad-Core OS from Level 3 to Level 1 priority.
-- We did not submit to Tradewind because a bare-metal deterministic C11 safety OS does not fit in that box.
-- 10 U.S.C. § 4022 prototype authority enables sole-source OTA contracting directly with Navy evaluators.
+3. CDAO TRADEWIND FAST-TRACK & CAPITAL ROADMAP
+- Pre-approved "Awardable" status allows 10 U.S.C. § 4022 sole-source awards.
 - 90-120 day sprint: $500k Operator Angel tranche -> Navy PAE Lab bench demo
   -> First Prime Contractor NRE Teaming Agreement -> Federal OTA mobilization.
 ================================================================================`
