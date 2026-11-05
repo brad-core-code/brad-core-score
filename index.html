@@ -2850,9 +2850,24 @@
       const emailInput = document.getElementById('investorEmailInput');
       const userEmail = emailInput ? emailInput.value : '';
 
-      // 1. Dispatch real-time email notification webhook
+      // 1. Dispatch real-time email notification webhook via Formspree AJAX
       if (userEmail) {
-        fetch('https://formspree.io/f/bholmes_dataroom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: userEmail }) }).catch(function(e){});
+        fetch('https://formspree.io/f/mpppbbdk', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: userEmail,
+            form_source: 'Brad-Core OS Data Room Gate Modal',
+            submitted_at: new Date().toISOString()
+          })
+        }).then(res => {
+          console.log('Formspree dispatch success:', res.status);
+        }).catch(err => {
+          console.error('Formspree dispatch error:', err);
+        });
       }
 
       dataRoomSessionUnlocked = true;
@@ -3027,10 +3042,32 @@ NAVY PAE MISSION SYSTEMS (PILOT P-1863) & DIU #PROJ00716 EXECUTIVE DOSSIER
     // --- Intake Form Submission Handler ---
     function handleIntakeSubmit(e) {
       e.preventDefault();
-      const name = document.getElementById('intakeName').value;
-      const org = document.getElementById('intakeOrg').value;
-      const email = document.getElementById('intakeEmail').value;
-      const type = document.getElementById('intakeType').value;
+      const name = document.getElementById('intakeName') ? document.getElementById('intakeName').value : '';
+      const org = document.getElementById('intakeOrg') ? document.getElementById('intakeOrg').value : '';
+      const email = document.getElementById('intakeEmail') ? document.getElementById('intakeEmail').value : '';
+      const type = document.getElementById('intakeType') ? document.getElementById('intakeType').value : '';
+      const notes = document.getElementById('intakeNotes') ? document.getElementById('intakeNotes').value : '';
+
+      fetch('https://formspree.io/f/mpppbbdk', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          organization: org,
+          email: email,
+          intake_type: type,
+          operational_notes: notes,
+          form_source: 'Brad-Core OS Operational Trust Intake Form',
+          submitted_at: new Date().toISOString()
+        })
+      }).then(res => {
+        console.log('Formspree intake submission success:', res.status);
+      }).catch(err => {
+        console.error('Formspree intake submission error:', err);
+      });
 
       showToast('Credentials registered for ' + name + ' (' + org + '). Unlocking dossier...');
       setTimeout(() => {
