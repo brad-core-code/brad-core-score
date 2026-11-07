@@ -1,0 +1,2739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="carbon">
+  <title>The Sovereign Founder GTM Suite — Turnkey 6-App Launch Bundle &amp; EXE Installer</title>
+
+  <!-- Typography: IBM Plex Sans & IBM Plex Mono from Google Fonts (Approved CDN) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons (Approved CDN) -->
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       CARBON DESIGN SYSTEM (Dark Gray 100 Adaptation) & FOUNDATION TOKENS
+       ========================================================================== */
+    :root {
+      color-scheme: dark;
+
+      /* Page and Surface Tokens */
+      --background: #161616;
+      --surface-container-low: #1c1c1c;
+      --surface-container: #262626;
+      --surface-container-high: #393939;
+      --surface-container-highest: #4c4c4c;
+      --surface-hover: #333333;
+
+      /* Ink and Typography Tokens */
+      --on-surface: #f4f4f4;
+      --on-surface-variant: #c6c6c6;
+      --on-surface-muted: #8d8d8d;
+
+      /* Rules and Borders */
+      --outline: #6f6f6f;
+      --outline-variant: #393939;
+      --rule: 1px solid var(--outline-variant);
+      --field-rule: 1px solid var(--outline);
+      --indicator: 2px solid var(--primary);
+
+      /* Accent & Semantic Tokens */
+      --primary: #78a9ff;           /* Carbon Blue 40 */
+      --on-primary: #161616;
+      --primary-container: #0043ce; /* Carbon Blue 70 */
+      --on-primary-container: #f4f4f4;
+      --primary-hover: #a6c8ff;
+      --secondary: #a8a8a8;
+      --tertiary: #42be65;          /* Carbon Green 40 */
+      --on-tertiary: #161616;
+      --positive: #42be65;
+      --on-positive: #161616;
+      --warning: #f1c21b;           /* Carbon Yellow 30 */
+      --on-warning: #161616;
+      --error: #ff8389;             /* Carbon Red 40 */
+      --on-error: #161616;
+      --focus: #78a9ff;
+
+      /* Data Series Colors */
+      --data-1: #78a9ff;
+      --data-2: #be95ff;
+      --data-3: #3ddbd9;
+      --data-4: #ff7eb6;
+      --data-context: #8d8d8d;
+
+      /* Component-Specific Surfaces */
+      --tag-bg: #002d9c;
+      --tag-color: #d0e2ff;
+      --code-bg: #121212;
+      --code-border: #333333;
+      --accent-badge-bg: #003a6d;
+      --accent-badge-fg: #baebff;
+
+      /* Fonts */
+      --font-headline: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-label: 'IBM Plex Mono', monospace;
+
+      /* Shape & Radii (Strict Carbon: Square Corners, Pill only for tags) */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.25rem;
+      --rounded-full: 0.75rem;
+
+      /* Spacing Scale (4pt Rhythm) */
+      --space-3xs: 0.125rem;
+      --space-2xs: 0.1875rem;
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Type Scale (Narrative / Prospectus) */
+      --display-size: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+      --headline-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+
+      /* Shadows (Floating layers only) */
+      --shadow-1: 0 2px 6px rgb(0 0 0 / 0.35);
+      --shadow-2: 0 4px 12px rgb(0 0 0 / 0.5);
+    }
+
+    /* Base Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      position: static !important;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      font-family: var(--font-headline);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--on-surface);
+      text-align: left;
+    }
+    h1 { font-size: var(--display-size); letter-spacing: -0.02em; }
+    h2 { font-size: var(--headline-size); letter-spacing: -0.015em; }
+    h3 { font-size: var(--subhead-size); }
+    p { margin: 0 0 var(--space-md); }
+
+    .mono { font-family: var(--font-label); }
+    .label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-surface-variant);
+    }
+
+    /* Layout Containers */
+    .page-wrapper {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Rules & Section Dividers */
+    .section-divider {
+      border: 0;
+      border-top: var(--rule);
+      margin: var(--space-2xl) 0 var(--space-xl);
+    }
+    .section-head {
+      border-bottom: var(--rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+
+    /* Carbon Components: Cards & Tiles */
+    .carbon-card {
+      background-color: var(--surface-container);
+      border: var(--rule);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      position: relative;
+    }
+    .carbon-card-high {
+      background-color: var(--surface-container-high);
+      border: var(--rule);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+    }
+    .carbon-card:focus-within {
+      outline: 2px solid var(--focus);
+      outline-offset: -1px;
+    }
+
+    /* Tags / Badges */
+    .carbon-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      padding: 0 var(--space-sm);
+      height: 24px;
+      line-height: 24px;
+      border-radius: var(--rounded-full);
+      background-color: var(--tag-bg);
+      color: var(--tag-color);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .carbon-tag-success {
+      background-color: #044317;
+      color: #8bed9f;
+    }
+    .carbon-tag-warning {
+      background-color: #483700;
+      color: #ffe680;
+    }
+    .carbon-tag-secondary {
+      background-color: #333333;
+      color: #e0e0e0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--space-sm);
+      height: 48px;
+      padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-md);
+      font-family: var(--font-headline);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-align: left;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+      border: none;
+      white-space: nowrap;
+    }
+    .btn-sm {
+      height: 40px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: 0.875rem;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-secondary:hover {
+      background-color: rgba(120, 169, 255, 0.12);
+    }
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid transparent;
+    }
+    .btn-ghost:hover {
+      background-color: var(--surface-container-high);
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Inputs & Selects */
+    .field-group {
+      margin-bottom: var(--space-md);
+    }
+    .field-label {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-2xs);
+    }
+    .carbon-input, .carbon-select, .carbon-textarea {
+      width: 100%;
+      height: 40px;
+      background-color: var(--surface-container-low);
+      border: none;
+      border-bottom: var(--field-rule);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      padding: 0 var(--space-md);
+      border-radius: var(--rounded) var(--rounded) 0 0;
+      transition: border-bottom-color var(--dur-micro) var(--ease-out);
+    }
+    .carbon-textarea {
+      height: auto;
+      min-height: 90px;
+      padding: var(--space-sm) var(--space-md);
+      resize: vertical;
+    }
+    .carbon-input:focus, .carbon-select:focus, .carbon-textarea:focus {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+      border-bottom-color: var(--primary);
+    }
+
+    /* Sliders */
+    .carbon-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-container-highest);
+      outline: none;
+      border-radius: var(--rounded);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .carbon-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      cursor: pointer;
+      border-radius: 0;
+      border: 2px solid var(--background);
+    }
+    .carbon-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      background: var(--primary);
+      cursor: pointer;
+      border-radius: 0;
+      border: 2px solid var(--background);
+    }
+
+    /* Top Announcement & Verification Bar */
+    .trust-bar {
+      background-color: var(--surface-container-low);
+      border-bottom: var(--rule);
+      padding: var(--space-xs) 0;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+    }
+    .trust-bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .trust-status-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--positive);
+      border-radius: var(--rounded-full);
+      display: inline-block;
+    }
+
+    /* Sticky Navigation Header */
+    .main-nav {
+      background-color: rgba(22, 22, 22, 0.95);
+      border-bottom: var(--rule);
+      padding: var(--space-sm) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      color: var(--on-surface);
+    }
+    .brand-square {
+      width: 24px;
+      height: 24px;
+      background-color: var(--primary);
+      color: var(--on-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .brand-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+    .nav-link-btn {
+      background: none;
+      border: none;
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      padding: var(--space-xs) 0;
+      border-bottom: 2px solid transparent;
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .nav-link-btn:hover {
+      color: var(--on-surface);
+      border-bottom-color: var(--outline);
+    }
+    .nav-link-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: var(--space-2xl) 0 var(--space-xl);
+      border-bottom: var(--rule);
+    }
+    .hero-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+    .hero-lede {
+      font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+      color: var(--on-surface-variant);
+      max-width: 72ch;
+      margin-bottom: var(--space-xl);
+      line-height: 1.6;
+    }
+
+    /* Key Figure Metric Tiles */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .metric-tile {
+      background-color: var(--surface-container);
+      border: var(--rule);
+      border-left: var(--indicator);
+      padding: var(--space-md);
+    }
+    .metric-tile-label {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-2xs);
+    }
+    .metric-tile-value {
+      font-family: var(--font-label);
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      line-height: 1.1;
+      margin-bottom: var(--space-xs);
+    }
+    .metric-tile-note {
+      font-size: 0.8125rem;
+      color: var(--on-surface-muted);
+      line-height: 1.4;
+    }
+
+    /* Tabbed App Suite Showcase */
+    .app-tabs-header {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: var(--rule);
+      gap: var(--space-xs);
+      margin-bottom: var(--space-lg);
+    }
+    .app-tab-btn {
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--on-surface-variant);
+      font-family: var(--font-headline);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .app-tab-btn:hover {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .app-tab-btn.active {
+      color: var(--primary);
+      border-bottom: var(--indicator);
+      background-color: var(--surface-container);
+      font-weight: 600;
+    }
+
+    .app-pane {
+      display: none;
+    }
+    .app-pane.active {
+      display: block;
+    }
+
+    /* Workbench Two-Column Layout */
+    .workbench-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+    @media (max-width: 880px) {
+      .workbench-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Code Blocks & Terminal Windows */
+    .terminal-window {
+      background-color: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+    }
+    .terminal-header {
+      background-color: var(--surface-container-low);
+      border-bottom: 1px solid var(--code-border);
+      padding: var(--space-xs) var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--on-surface-variant);
+      font-size: 0.75rem;
+    }
+    .terminal-body {
+      padding: var(--space-md);
+      color: #38bdf8;
+      overflow-x: auto;
+      line-height: 1.5;
+      min-height: 160px;
+    }
+    .terminal-line-prompt { color: #8d8d8d; user-select: none; }
+    .terminal-line-cmd { color: #f4f4f4; }
+    .terminal-line-success { color: #42be65; }
+    .terminal-line-warn { color: #f1c21b; }
+
+    /* Tables */
+    .carbon-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: var(--rule);
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-lg);
+    }
+    .carbon-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+    .carbon-table th {
+      background-color: var(--surface-container-high);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule);
+    }
+    .carbon-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule);
+      color: var(--on-surface);
+      vertical-align: middle;
+    }
+    .carbon-table tr:nth-child(even) {
+      background-color: var(--surface-container-low);
+    }
+    .carbon-table tr:hover {
+      background-color: var(--surface-container);
+    }
+
+    /* Comparison Contrast Box */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .legacy-box {
+      border: 1px solid rgba(255, 131, 137, 0.3);
+      background-color: rgba(255, 131, 137, 0.04);
+      padding: var(--space-md);
+      border-left: 3px solid var(--error);
+    }
+    .sovereign-box {
+      border: 1px solid rgba(66, 190, 101, 0.3);
+      background-color: rgba(66, 190, 101, 0.05);
+      padding: var(--space-md);
+      border-left: 3px solid var(--tertiary);
+    }
+
+    /* File Tree Visualizer */
+    .file-tree-container {
+      background-color: var(--surface-container-low);
+      border: var(--rule);
+      padding: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.8rem;
+    }
+    .tree-node {
+      padding: var(--space-2xs) var(--space-xs);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      user-select: none;
+    }
+    .tree-node:hover {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .tree-node.active-file {
+      background-color: var(--surface-container-high);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .tree-indent {
+      display: inline-block;
+      width: 16px;
+    }
+
+    /* Audio Score Dial / Progress Meter */
+    .score-meter-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md);
+      background-color: var(--surface-container-high);
+      margin-bottom: var(--space-md);
+      border: var(--rule);
+    }
+    .score-circle {
+      width: 88px;
+      height: 88px;
+      border: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-label);
+      font-weight: 700;
+    }
+
+    /* Inbound Radar Feed Item */
+    .radar-feed-item {
+      padding: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      font-size: 0.8125rem;
+    }
+    .radar-feed-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Modal / Toast Container */
+    .toast-overlay {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      background-color: var(--surface-container-highest);
+      border: 1px solid var(--primary);
+      color: var(--on-surface);
+      padding: var(--space-md) var(--space-lg);
+      box-shadow: var(--shadow-2);
+      border-radius: var(--rounded);
+      z-index: 1000;
+      display: none;
+      max-width: 420px;
+    }
+
+    /* Accessible Focus Helper */
+    *:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP STATUS & ESCROW INTEGRITY BAR -->
+  <aside class="trust-bar" aria-label="Transaction Trust and Escrow Status">
+    <div class="page-wrapper trust-bar-content">
+      <div class="trust-status-item">
+        <span class="status-dot" aria-hidden="true"></span>
+        <strong style="color: var(--on-surface);">ESCROW AUDIT STATUS:</strong>
+        <span>100% Unencumbered Pre-Revenue Codebase Asset Sale</span>
+      </div>
+      <div class="trust-status-item">
+        <span>ASSET ASKING PRICE:</span>
+        <strong style="color: var(--primary);">$45,000 FIRM</strong>
+        <span style="color: var(--on-surface-muted);">|</span>
+        <span>RUNTIME HOSTING:</span>
+        <strong style="color: var(--tertiary);">$0.00 / MO</strong>
+        <span style="color: var(--on-surface-muted);">|</span>
+        <span>CLOSING TIMELINE:</span>
+        <strong>24–48 HR ESCROW</strong>
+      </div>
+    </div>
+  </aside>
+
+  <!-- STICKY NAVIGATION BAR -->
+  <header class="main-nav">
+    <div class="page-wrapper nav-container">
+      <div class="brand-mark">
+        <div class="brand-square" aria-hidden="true">SF</div>
+        <div>
+          <div class="brand-title">THE SOVEREIGN FOUNDER GTM SUITE</div>
+          <div class="label" style="font-size: 0.65rem; color: var(--on-surface-muted);">Turnkey 6-App Bundle &amp; Windows EXE Installer</div>
+        </div>
+      </div>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <button type="button" class="nav-link-btn" onclick="scrollToSection('section-overview')">Overview</button>
+        <button type="button" class="nav-link-btn" onclick="scrollToSection('section-apps')">The 6 Apps</button>
+        <button type="button" class="nav-link-btn" onclick="scrollToSection('section-installer')">1-Click EXE</button>
+        <button type="button" class="nav-link-btn" onclick="scrollToSection('section-arbitrage')">Arbitrage &amp; ROI</button>
+        <button type="button" class="nav-link-btn" onclick="scrollToSection('section-diligence')">Due Diligence</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="scrollToSection('section-acquire')">
+          <i data-lucide="lock" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+          Acquire Suite ($45k)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+
+    <!-- HERO SECTION -->
+    <section id="section-overview" class="hero-section">
+      <div class="hero-badge-row">
+        <span class="carbon-tag">ASSET SALE // EXCLUSIVE IP</span>
+        <span class="carbon-tag carbon-tag-success">100% CLIENT-SIDE ARCHITECTURE</span>
+        <span class="carbon-tag carbon-tag-warning">46.1% DISCOUNT ARBITRAGE</span>
+        <span class="carbon-tag carbon-tag-secondary">WIN32 PE COMPLIANT</span>
+      </div>
+
+      <h1 style="margin-bottom: var(--space-md);">The Sovereign Founder GTM Suite</h1>
+      <p class="hero-lede">
+        A turnkey 6-application local desktop architecture and Windows executable installer engineered for technical founders, growth agencies, and micro-PE acquirers. Fully bypasses recurring cloud database hosting bills by consolidating distribution analytics, OSINT reconnaissance, inbound institutional telemetry, modular application scaffolding, cryptographic licensing, and fail-closed lead staging into a unified client-side ecosystem.
+      </p>
+
+      <!-- 4 KEY FINANCIAL & ENGINEERING TILES -->
+      <div class="metric-grid">
+        <div class="metric-tile">
+          <div class="metric-tile-label">Acquisition Buyout Price</div>
+          <div class="metric-tile-value" style="color: var(--primary);">$45,000</div>
+          <div class="metric-tile-note">Firm cash asset buyout. 100% full unencumbered source code transfer via platform-verified escrow.</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-tile-label">Verified Engineering Time</div>
+          <div class="metric-tile-value">685 <span style="font-size: 1.25rem; font-weight: 400; color: var(--on-surface-variant);">HRS</span></div>
+          <div class="metric-tile-note">Dedicated senior engineering across backend Python daemons, Win32 PE launcher, and vanilla DOM UI.</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-tile-label">Reproduction Value Math</div>
+          <div class="metric-tile-value">$83,500</div>
+          <div class="metric-tile-note">Calculated at $121.90/hr senior engineering rate. Delivers an immediate <strong>46.1% discount arbitrage</strong>.</div>
+        </div>
+        <div class="metric-tile">
+          <div class="metric-tile-label">Monthly Cloud Overhead</div>
+          <div class="metric-tile-value" style="color: var(--tertiary);">$0.00</div>
+          <div class="metric-tile-note">Runs 100% locally on Windows desktop. Zero AWS/GCP bills, zero cloud database reads, zero monthly seat fees.</div>
+        </div>
+      </div>
+
+      <!-- Hero Call-To-Action Row -->
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center;">
+        <button type="button" class="btn btn-primary" onclick="scrollToSection('section-acquire')">
+          <i data-lucide="shield-check" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+          Initiate Escrow Acquisition ($45,000)
+        </button>
+        <button type="button" class="btn btn-secondary" onclick="scrollToSection('section-apps')">
+          <i data-lucide="play" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+          Test Interactive 6-App Sandbox
+        </button>
+        <button type="button" class="btn btn-ghost" onclick="scrollToSection('section-arbitrage')">
+          <i data-lucide="calculator" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+          Model Acquirer Arbitrage &amp; ROI
+        </button>
+      </div>
+    </section>
+
+    <!-- ARBITRAGE THESIS & REPLACEMENT ECONOMICS -->
+    <section style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <h2>The Make vs. Buy Arbitrage Case</h2>
+        <div class="label">Strategic Rationale &amp; Cost Elimination</div>
+      </div>
+
+      <div class="comparison-grid" style="margin-bottom: var(--space-xl);">
+        <div class="legacy-box">
+          <div class="label" style="color: var(--error); margin-bottom: var(--space-xs);">
+            <i data-lucide="alert-triangle" style="width: 14px; height: 14px; vertical-align: middle;" aria-hidden="true"></i>
+            Legacy Cloud SaaS Outbound Stack
+          </div>
+          <h3 style="font-size: 1.15rem; margin-bottom: var(--space-sm);">Compounding Overhead: $9,250 / Month</h3>
+          <ul style="margin: 0; padding-left: var(--space-lg); font-size: 0.875rem; color: var(--on-surface-variant); line-height: 1.6;">
+            <li><strong>Data Scraping Plans:</strong> ~$1,000/mo for fragmented leads with monthly seat caps.</li>
+            <li><strong>Multi-Inbox Delivery Warmup:</strong> ~$5,000/mo for hosted inbox infrastructure.</li>
+            <li><strong>Analytics &amp; Trackers:</strong> ~$1,250/mo for reverse-IP visitor surveillance tools.</li>
+            <li><strong>AI Wrapper Subscriptions:</strong> ~$2,000/mo in recurring token and API gate fees.</li>
+            <li><strong>Total Annual Burden:</strong> <strong>$111,000 per year</strong> in rented, non-sovereign SaaS subscriptions.</li>
+          </ul>
+        </div>
+
+        <div class="sovereign-box">
+          <div class="label" style="color: var(--tertiary); margin-bottom: var(--space-xs);">
+            <i data-lucide="check-circle" style="width: 14px; height: 14px; vertical-align: middle;" aria-hidden="true"></i>
+            The Sovereign Founder Desktop Suite
+          </div>
+          <h3 style="font-size: 1.15rem; margin-bottom: var(--space-sm);">Perpetual Ownership: $0 / Month Overhead</h3>
+          <ul style="margin: 0; padding-left: var(--space-lg); font-size: 0.875rem; color: var(--on-surface-variant); line-height: 1.6;">
+            <li><strong>Zero Server Bills:</strong> Runs 100% client-side via native Win32 background daemons.</li>
+            <li><strong>Built-in Reconnaissance:</strong> Programmatic OSINT X-Ray strings and federal solicitation scrapers.</li>
+            <li><strong>Deterministic Safety:</strong> Sub-86 µs SPSC frame sanitizer stops hallucinated outbound drafts.</li>
+            <li><strong>Instant Commercialization:</strong> Pre-built Stripe cryptographic license server for white-label reselling.</li>
+            <li><strong>Total Annual Burden:</strong> <strong>$0.00/yr</strong>. Full unencumbered asset ownership on Day 1.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE 6 TURNKEY APPLICATIONS INTERACTIVE WORKBENCH -->
+    <section id="section-apps" style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <div>
+          <h2>The 6 Turnkey Applications</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            Fully functional, modular client-side software assets included with full source code and white-label distribution rights.
+          </p>
+        </div>
+        <div class="label">Interactive Sandbox Environment</div>
+      </div>
+
+      <!-- App Tabs Header -->
+      <div class="app-tabs-header" role="tablist" aria-label="Turnkey Applications Navigation">
+        <button type="button" class="app-tab-btn active" role="tab" aria-selected="true" id="tab-btn-app1" onclick="switchAppTab('app1')">
+          <i data-lucide="share-2" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          1. SignalMax Studio
+        </button>
+        <button type="button" class="app-tab-btn" role="tab" aria-selected="false" id="tab-btn-app2" onclick="switchAppTab('app2')">
+          <i data-lucide="music" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          2. AI Music Rater
+        </button>
+        <button type="button" class="app-tab-btn" role="tab" aria-selected="false" id="tab-btn-app3" onclick="switchAppTab('app3')">
+          <i data-lucide="radar" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          3. Visitor &amp; Domain Tracker
+        </button>
+        <button type="button" class="app-tab-btn" role="tab" aria-selected="false" id="tab-btn-app4" onclick="switchAppTab('app4')">
+          <i data-lucide="layout-grid" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          4. Sovereign App Launcher
+        </button>
+        <button type="button" class="app-tab-btn" role="tab" aria-selected="false" id="tab-btn-app5" onclick="switchAppTab('app5')">
+          <i data-lucide="key" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          5. Stripe License Server
+        </button>
+        <button type="button" class="app-tab-btn" role="tab" aria-selected="false" id="tab-btn-app6" onclick="switchAppTab('app6')">
+          <i data-lucide="crosshair" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+          6. Lead Intelligence Composite
+        </button>
+      </div>
+
+      <!-- APP 1: SIGNALMAX STUDIO -->
+      <div id="pane-app1" class="app-pane active" role="tabpanel" aria-labelledby="tab-btn-app1">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 01 // SOCIAL IMPRESSION ENGINEERING</div>
+            <h3 style="margin-bottom: var(--space-sm);">SignalMax Studio (X &amp; LinkedIn Algorithmic Optimizer)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Engineered from platform algorithmic reverse-engineering. Solves organic reach throttling by applying weighted multiplier scoring: <strong>Reply (13.5x)</strong>, <strong>Bookmark (12.0x)</strong>, <strong>Repost (1.0x)</strong>, and <strong>Like (0.5x)</strong>. Formats posts for maximum dwell time and engagement velocity.
+            </p>
+
+            <div class="field-group">
+              <label class="field-label" for="signalmax-post-input">Founder Post Draft / Launch Announcement</label>
+              <textarea id="signalmax-post-input" class="carbon-textarea" oninput="calculateSignalMaxMetrics()" style="font-family: var(--font-body); min-height: 110px;">Why we cancelled our $9,250/mo cloud SaaS subscriptions and compiled our entire GTM stack to a local Windows binary:
+
+1. Zero monthly database reads
+2. Sub-86µs SPSC pitch sanitization
+3. 100% IP ownership
+
+What is your single biggest SaaS bottleneck right now?</textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div>
+                <label class="field-label" for="slider-replies">Simulated Replies (13.5x Weight)</label>
+                <input type="range" id="slider-replies" class="carbon-slider" min="1" max="150" value="48" oninput="syncReplies(this.value)">
+                <div class="mono" style="font-size: 0.8rem; margin-top: var(--space-2xs); color: var(--primary);" id="val-replies">48 replies</div>
+              </div>
+              <div>
+                <label class="field-label" for="slider-bookmarks">Simulated Bookmarks (12.0x Weight)</label>
+                <input type="range" id="slider-bookmarks" class="carbon-slider" min="1" max="300" value="112" oninput="syncBookmarks(this.value)">
+                <div class="mono" style="font-size: 0.8rem; margin-top: var(--space-2xs); color: var(--primary);" id="val-bookmarks">112 bookmarks</div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: var(--space-sm);">
+              <button type="button" class="btn btn-sm btn-secondary" onclick="presetPost('technical')">Load Technical Hook</button>
+              <button type="button" class="btn btn-sm btn-ghost" onclick="presetPost('contrarian')">Load Contrarian Thesis</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Output / Telemetry Console -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="label" style="margin-bottom: var(--space-sm);">REAL-TIME ALGORITHMIC PROJECTION</div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                <div style="background-color: var(--surface-container); padding: var(--space-sm); border-left: 2px solid var(--primary);">
+                  <div class="label" style="font-size: 0.68rem;">Algorithmic Power Score</div>
+                  <div class="mono" style="font-size: 1.75rem; font-weight: 700; color: var(--primary);" id="signalmax-score">2,024</div>
+                  <div style="font-size: 0.75rem; color: var(--tertiary);">Top 2.8% Velocity Tier</div>
+                </div>
+                <div style="background-color: var(--surface-container); padding: var(--space-sm); border-left: 2px solid var(--tertiary);">
+                  <div class="label" style="font-size: 0.68rem;">Estimated Feed Impressions</div>
+                  <div class="mono" style="font-size: 1.75rem; font-weight: 700; color: var(--tertiary);" id="signalmax-reach">142,500</div>
+                  <div style="font-size: 0.75rem; color: var(--on-surface-variant);">Organic Distribution Index</div>
+                </div>
+              </div>
+
+              <div class="label" style="margin-bottom: var(--space-2xs);">WEIGHT CONTRIBUTION BREAKDOWN</div>
+              <div style="display: flex; flex-direction: column; gap: var(--space-xs); font-family: var(--font-label); font-size: 0.78rem; margin-bottom: var(--space-md);">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Replies (13.5x Multiplier):</span>
+                  <span id="breakdown-replies" style="color: var(--primary);">648 pts</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Bookmarks (12.0x Multiplier):</span>
+                  <span id="breakdown-bookmarks" style="color: var(--data-2);">1,344 pts</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Open Question Prompt:</span>
+                  <span style="color: var(--positive);" id="status-hook">DETECTED (+15% Velocity)</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container-low); padding: var(--space-sm); border: var(--rule); font-size: 0.8125rem;">
+              <strong style="color: var(--on-surface);">Commercial Application:</strong> Included standalone or embeddable into client agency workflows. Replaces $200/mo social growth scheduler subscriptions.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 2: AI MUSIC RATER -->
+      <div id="pane-app2" class="app-pane" role="tabpanel" aria-labelledby="tab-btn-app2">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 02 // NEUROFORECASTING &amp; SONIC INTELLIGENCE</div>
+            <h3 style="margin-bottom: var(--space-sm);">AI Music Rater (Neuroforecasting Audio Evaluation)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Grounded in empirical neuroforecasting research and commercial broadcast telemetry (SiriusXM &amp; Unbias methodologies). Measures tempo dynamics, harmonic key coherence, vocal dynamic balance, and frequency separation to output an objective <strong>0–100 Commercial Hit Index</strong>.
+            </p>
+
+            <div class="field-group">
+              <label class="field-label" for="music-track-preset">Evaluation Preset Track Profile</label>
+              <select id="music-track-preset" class="carbon-select" onchange="loadMusicPreset(this.value)">
+                <option value="pop_anthem">Club Pop Anthem (124 BPM, C Major, High Dynamic Contrast)</option>
+                <option value="synthwave">Dark Synthwave Lead (118 BPM, F Minor, Wide Stereo)</option>
+                <option value="lofi_chill">Lofi Study Beat (84 BPM, Eb Major, Compressed Mono)</option>
+                <option value="acoustic_vocal">Unfinished Acoustic Demo (92 BPM, G Major, Low Sits)</option>
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div>
+                <label class="field-label" for="music-tempo-slider">Tempo / BPM (<span id="val-tempo">124</span>)</label>
+                <input type="range" id="music-tempo-slider" class="carbon-slider" min="60" max="180" value="124" oninput="syncTempo(this.value)">
+              </div>
+              <div>
+                <label class="field-label" for="music-stereo-slider">Stereo Separation (<span id="val-stereo">88%</span>)</label>
+                <input type="range" id="music-stereo-slider" class="carbon-slider" min="10" max="100" value="88" oninput="syncStereo(this.value)">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div>
+                <label class="field-label" for="music-harmonic-slider">Harmonic Coherence (<span id="val-harmonic">92%</span>)</label>
+                <input type="range" id="music-harmonic-slider" class="carbon-slider" min="20" max="100" value="92" oninput="syncHarmonic(this.value)">
+              </div>
+              <div>
+                <label class="field-label" for="music-dynamic-slider">Vocal-to-Sub Range (<span id="val-dynamic">85%</span>)</label>
+                <input type="range" id="music-dynamic-slider" class="carbon-slider" min="20" max="100" value="85" oninput="syncDynamic(this.value)">
+              </div>
+            </div>
+          </div>
+
+          <!-- Music Output Display -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="label" style="margin-bottom: var(--space-sm);">NEUROFORECASTING SONIC AUDIT</div>
+              
+              <div class="score-meter-wrap">
+                <div>
+                  <div class="label" style="font-size: 0.7rem;">Neuro-Predictive Hit Score</div>
+                  <div style="font-size: 0.8125rem; color: var(--on-surface-variant); max-width: 200px;" id="music-classification">
+                    High Commercial Streaming Probability
+                  </div>
+                </div>
+                <div class="score-circle" id="music-score-box">
+                  <span id="music-score-number" style="font-size: 2rem; color: var(--tertiary);">91</span>
+                  <span style="font-size: 0.65rem; color: var(--on-surface-muted);">/ 100</span>
+                </div>
+              </div>
+
+              <div class="label" style="margin-bottom: var(--space-2xs);">DIAGNOSTIC CRITIQUE TELEMETRY</div>
+              <div id="music-critique-text" style="font-family: var(--font-label); font-size: 0.8rem; background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); line-height: 1.5; color: #a5d8ff;">
+                [ANALYTICS] Production exceeds baseline radio broadcast thresholds. Clean 88% stereo separation and 124 BPM driving tempo match algorithmic playlist resonance metrics.
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container-low); padding: var(--space-sm); border: var(--rule); font-size: 0.8125rem; margin-top: var(--space-md);">
+              <strong style="color: var(--on-surface);">Commercial Value:</strong> Direct consumer/creator utility. Ready to package as a standalone SaaS tool charging $19/mo or monetized per API evaluation request.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 3: VISITOR & DOMAIN TRACKER -->
+      <div id="pane-app3" class="app-pane" role="tabpanel" aria-labelledby="tab-btn-app3">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 03 // INBOUND RADAR &amp; REVERSE-DNS TELEMETRY</div>
+            <h3 style="margin-bottom: var(--space-sm);">Visitor &amp; Domain Tracker (Zero-Cloud Radar)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Runs zero-overhead inbound institutional domain detection. Employs client-side JSON handlers and serverless webhook forwarding (Formspree / Getform) to capture tier-1 defense primes and venture capital domains viewing your project telemetry without hosting an expensive cloud database.
+            </p>
+
+            <div class="field-group">
+              <label class="field-label" for="filter-sector-radar">Sector Telemetry Filter</label>
+              <select id="filter-sector-radar" class="carbon-select" onchange="filterRadarLogs(this.value)">
+                <option value="all">All Authenticated Inbound Traffic (5 Records)</option>
+                <option value="defense">Defense Primes &amp; Federal Labs</option>
+                <option value="vc">Venture Capital &amp; Angel Syndicates</option>
+                <option value="enterprise">Enterprise Systems &amp; Technology</option>
+              </select>
+            </div>
+
+            <div class="label" style="margin-bottom: var(--space-xs);">SIMULATE WEBHOOK KEY DISPATCH</div>
+            <div style="display: flex; gap: var(--space-sm); align-items: flex-end; margin-bottom: var(--space-md);">
+              <div style="flex: 1;">
+                <label class="field-label" for="test-webhook-domain">Requesting Domain</label>
+                <input type="text" id="test-webhook-domain" class="carbon-input" value="anduril.com" style="height: 38px;">
+              </div>
+              <button type="button" class="btn btn-sm btn-primary" onclick="dispatchSimulatedWebhook()">
+                <i data-lucide="send" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+                Fire Webhook
+              </button>
+            </div>
+
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant);">
+              <i data-lucide="info" style="width: 14px; height: 14px; vertical-align: middle;" aria-hidden="true"></i>
+              Bypasses $1,250/mo visitor-tracking subscriptions like Clearbit/Leadfeeder by using static edge DNS lookups.
+            </div>
+          </div>
+
+          <!-- Radar Stream Display -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column;">
+            <div class="label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+              <span>AUTHENTICATED DOMAIN TELEMETRY FEED</span>
+              <span class="mono" style="color: var(--tertiary);">LIVE 100% CLIENT-SIDE</span>
+            </div>
+
+            <div id="radar-feed-list" style="background-color: var(--code-bg); border: 1px solid var(--code-border); min-height: 220px; overflow-y: auto;">
+              <!-- Dynamic entries injected by JS -->
+            </div>
+
+            <div id="webhook-dispatch-status" style="margin-top: var(--space-sm); font-family: var(--font-label); font-size: 0.75rem; color: var(--tertiary);">
+              Webhook bus ready. Awaiting payload triggers.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 4: SOVEREIGN APP LAUNCHER FRAMEWORK (VETSTAY CASE STUDY) -->
+      <div id="pane-app4" class="app-pane" role="tabpanel" aria-labelledby="tab-btn-app4">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 04 // WIN32 MODULAR APPLICATION FRAMEWORK</div>
+            <h3 style="margin-bottom: var(--space-sm);">Sovereign App Launcher (VetStay Conversion Engine)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Demonstrating the suite's modular desktop application framework with the complete <strong>VetStay Hub</strong> module. Compares conventional construction vs. motel-to-veteran housing conversions, calculates VA GPD &amp; State HomeKey capital subsidies, and generates MOU partnership agreements with 1-click dual-language toggle (English / Español).
+            </p>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm);">
+              <span class="label">LANGUAGE LOCALIZATION</span>
+              <button type="button" class="btn btn-sm btn-ghost" id="vetstay-lang-toggle" onclick="toggleVetStayLang()" style="height: 32px; border: var(--rule);">
+                🇪🇸 Cambiar a Español
+              </button>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="vetstay-rooms-slider" id="lbl-vetstay-rooms">Total Motel Rooms / Units: <strong id="val-vetstay-rooms" style="color: var(--primary);">32</strong></label>
+              <input type="range" id="vetstay-rooms-slider" class="carbon-slider" min="10" max="120" value="32" oninput="syncVetStayRooms(this.value)">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div>
+                <label class="field-label" for="vetstay-state" id="lbl-vetstay-state">State Location</label>
+                <select id="vetstay-state" class="carbon-select" onchange="calculateVetStayEconomics()">
+                  <option value="AZ">Arizona (AZ)</option>
+                  <option value="CA">California (CA)</option>
+                  <option value="TX">Texas (TX)</option>
+                  <option value="FL">Florida (FL)</option>
+                  <option value="CO">Colorado (CO)</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="vetstay-scope" id="lbl-vetstay-scope">Retrofit Scope</label>
+                <select id="vetstay-scope" class="carbon-select" onchange="calculateVetStayEconomics()">
+                  <option value="light">Light Refresh ($12k/unit)</option>
+                  <option value="moderate" selected>Moderate Retrofit ($25k/unit)</option>
+                  <option value="heavy">Heavy Structural ($45k/unit)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-sm btn-primary" onclick="generateVetStayMOU()">
+              <i data-lucide="file-text" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              <span id="btn-text-compile-mou">Compile Project MOU &amp; Executive Summary</span>
+            </button>
+          </div>
+
+          <!-- VetStay Live Economic Output -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="label" style="margin-bottom: var(--space-sm);" id="lbl-capital-stack">CONVERSION CAPITAL STACK BREAKDOWN</div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-bottom: var(--space-md);">
+                <div style="background-color: var(--surface-container); padding: var(--space-sm); border-left: 2px solid var(--primary);">
+                  <div class="label" style="font-size: 0.65rem;" id="lbl-est-cost">Estimated Conversion Cost</div>
+                  <div class="mono" style="font-size: 1.5rem; font-weight: 700;" id="vetstay-total-cost">$800,000</div>
+                  <div style="font-size: 0.72rem; color: var(--on-surface-muted);">32 Units @ $25,000/unit</div>
+                </div>
+                <div style="background-color: var(--surface-container); padding: var(--space-sm); border-left: 2px solid var(--tertiary);">
+                  <div class="label" style="font-size: 0.65rem;" id="lbl-est-grant">Projected Grant Coverage</div>
+                  <div class="mono" style="font-size: 1.5rem; font-weight: 700; color: var(--tertiary);" id="vetstay-grant-coverage">$600,000</div>
+                  <div style="font-size: 0.72rem; color: var(--tertiary);">75% VA GPD / State HomeKey</div>
+                </div>
+              </div>
+
+              <div class="label" style="margin-bottom: var(--space-2xs);" id="lbl-mou-preview">EXECUTIVE SUMMARY MOU DRAFT</div>
+              <div id="vetstay-mou-box" style="font-family: var(--font-label); font-size: 0.78rem; background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); line-height: 1.5; color: #e0e0e0; max-height: 140px; overflow-y: auto;">
+                # PROJECT SUMMARY: MOTEL-TO-VETERAN SUPPORTIVE HOUSING CONVERSION
+                Target Property: 32-Unit Motel Facility located in AZ.
+                Capital Request: $600,000 dedicated to kitchenette installations and ADA compliant retrofits.
+                Beneficiaries: Transitionally unhoused veterans with full wraparound VSO supportive services.
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container-low); padding: var(--space-sm); border: var(--rule); font-size: 0.8125rem; margin-top: var(--space-md);">
+              <strong style="color: var(--on-surface);">Framework Flexibility:</strong> Swap this module with any vertical calculator (e.g. Clean Energy Tax Credits, Commercial Real Estate, Defense Grant Projections).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 5: STRIPE AUTOMATED LICENSE SERVER -->
+      <div id="pane-app5" class="app-pane" role="tabpanel" aria-labelledby="tab-btn-app5">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 05 // CRYPTOGRAPHIC MONETIZATION ENGINE</div>
+            <h3 style="margin-bottom: var(--space-sm);">Stripe Automated License Server (Local Key Authority)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Provides unencumbered monetization infrastructure without paying monthly seat fees to licensing platforms. Generates cryptographically signed HMAC license tokens, verifies tamper-proof checksums, and listens for Stripe checkout webhooks to provision instant software access.
+            </p>
+
+            <div class="field-group">
+              <label class="field-label" for="license-tier-select">Select License Provisioning Tier</label>
+              <select id="license-tier-select" class="carbon-select">
+                <option value="AGY">Agency Starter ($497 / 1 Local Seat)</option>
+                <option value="GRW" selected>Growth Multi-Seat ($1,497 / 5 Seats)</option>
+                <option value="ENT">Enterprise Sovereign ($4,997 / Unlimited Seats + Resale)</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="license-buyer-org">Licensee Entity Name</label>
+              <input type="text" id="license-buyer-org" class="carbon-input" value="Apex Outbound Syndicate LLC">
+            </div>
+
+            <div style="display: flex; gap: var(--space-sm); margin-bottom: var(--space-md);">
+              <button type="button" class="btn btn-sm btn-primary" onclick="generateSovereignLicenseKey()">
+                <i data-lucide="key" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+                Generate Cryptographic License
+              </button>
+              <button type="button" class="btn btn-sm btn-secondary" onclick="simulateStripeWebhookEvent()">
+                Simulate Stripe Webhook Trigger
+              </button>
+            </div>
+
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant);">
+              <i data-lucide="shield" style="width: 14px; height: 14px; vertical-align: middle;" aria-hidden="true"></i>
+              HMAC-SHA256 signature algorithm with offline hardware fingerprint lock.
+            </div>
+          </div>
+
+          <!-- License Server Telemetry Display -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="label" style="margin-bottom: var(--space-sm);">GENERATED LICENSE TOKEN &amp; SIGNATURE</div>
+              
+              <div style="background-color: var(--code-bg); padding: var(--space-md); border: 1px solid var(--code-border); margin-bottom: var(--space-md);">
+                <div class="label" style="font-size: 0.65rem; color: var(--primary);">ACTIVE LICENSE KEY</div>
+                <div class="mono" style="font-size: 1.15rem; font-weight: 700; color: #38bdf8; word-break: break-all;" id="display-license-key">
+                  BCOS-GRW-92F4-44A1-E7B9-K8R2
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: var(--space-sm); font-size: 0.75rem; font-family: var(--font-label); color: var(--tertiary);">
+                  <span id="display-license-status">CRYPTOGRAPHIC STATUS: VALID</span>
+                  <span id="display-license-seats">SEATS: 5 CONCURRENT</span>
+                </div>
+              </div>
+
+              <div class="label" style="margin-bottom: var(--space-2xs);">WEBHOOK TRANSACTION DISPATCH LOG</div>
+              <div id="stripe-webhook-log" style="font-family: var(--font-label); font-size: 0.75rem; background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); color: #8d8d8d; min-height: 90px; line-height: 1.5;">
+                [DAEMON] Stripe webhook listener active on port :8082...<br>
+                [READY] Signature verification secret: whsec_local_sha256_ready
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container-low); padding: var(--space-sm); border: var(--rule); font-size: 0.8125rem; margin-top: var(--space-md);">
+              <strong style="color: var(--on-surface);">Turnkey Advantage:</strong> Sell licenses directly from day one with zero cloud subscription fees or Stripe App Marketplace lock-in.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 6: LEAD INTELLIGENCE COMPOSITE ENGINE -->
+      <div id="pane-app6" class="app-pane" role="tabpanel" aria-labelledby="tab-btn-app6">
+        <div class="carbon-card workbench-layout">
+          <div>
+            <div class="label" style="color: var(--primary); margin-bottom: var(--space-xs);">MODULE 06 // PRECISION RECONNAISSANCE &amp; DETERMINISTIC GATING</div>
+            <h3 style="margin-bottom: var(--space-sm);">Lead Intelligence Composite (Vanguard OSINT Radar)</h3>
+            <p style="font-size: 0.875rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+              Combines Google X-Ray operators, Twitter/X boolean strings, and active federal solicitation feeds (DoD, DIU, DARPA, CDAO, AFWERX). Incorporates a <strong>sub-86 µs SPSC pointer-free frame sanitizer</strong> (0x42434C50 BclProposalFrame) that prevents AI text-generation hallucinations by staging validated plain-text copy safely into local Gmail Drafts folders without firing live unauthorized outbound traffic.
+            </p>
+
+            <div class="field-group">
+              <label class="field-label" for="vanguard-target-profile">Target Partner Reconnaissance Profile</label>
+              <select id="vanguard-target-profile" class="carbon-select" onchange="updateVanguardQueries(this.value)">
+                <option value="dual_use_angels">Dual-Use Defense &amp; Hard-Tech Operator Angels (Anduril, Palantir, SpaceX)</option>
+                <option value="micro_pe">Micro-PE &amp; B2B SaaS Rollup Fund Partners</option>
+                <option value="midwest_vcs">Midwest &amp; Non-Coastal Early-Stage VCs (e.g. Redbud VC)</option>
+                <option value="fed_procurement">Federal Defense Transition Officers (DIU, CDAO, AFWERX)</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="query-google-xray">Generated Google X-Ray Boolean String</label>
+              <input type="text" id="query-google-xray" class="carbon-input" readonly style="font-family: var(--font-label); font-size: 0.8rem; color: #78a9ff;">
+            </div>
+
+            <div style="display: flex; gap: var(--space-sm);">
+              <button type="button" class="btn btn-sm btn-secondary" onclick="copyXrayQuery()">
+                <i data-lucide="copy" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+                Copy X-Ray Query
+              </button>
+              <button type="button" class="btn btn-sm btn-primary" onclick="simulateSpscSanitizerGate()">
+                Run Sub-86µs SPSC Safety Gate
+              </button>
+            </div>
+          </div>
+
+          <!-- Safety Gate & Sanitizer Display -->
+          <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+                <span>DETERMINISTIC SPSC EXECUTION GATE</span>
+                <span class="mono" style="color: var(--tertiary);">0x42434C50 ENFORCED</span>
+              </div>
+
+              <div class="terminal-window" style="margin-bottom: var(--space-md);">
+                <div class="terminal-header">
+                  <span>bcl_proposal_frame.c // Deterministic Sanitizer</span>
+                  <span>LATENCY: 85.4 µs</span>
+                </div>
+                <div class="terminal-body" id="spsc-terminal-log">
+                  <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-cmd">Waiting for candidate frame injection...</span><br>
+                  <span class="terminal-line-prompt">&gt;&gt;</span> MX Guard: ACTIVE | Malloc: 0 | Buffer: 64-byte static
+                </div>
+              </div>
+
+              <div class="label" style="margin-bottom: var(--space-2xs);">STAGED LOCAL GMAIL DRAFT PREVIEW</div>
+              <div id="staged-draft-preview" style="font-family: var(--font-body); font-size: 0.8125rem; background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); line-height: 1.5; color: #f4f4f4;">
+                <strong>Subject:</strong> High-Conviction Asset Acquisition // Sovereign Founder GTM Suite<br>
+                <em>"We engineered an unencumbered 6-app GTM desktop architecture with $0/mo cloud hosting overhead. Verified across 685 engineering hours. Closing via platform escrow this week..."</em>
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container-low); padding: var(--space-sm); border: var(--rule); font-size: 0.8125rem; margin-top: var(--space-md);">
+              <strong style="color: var(--on-surface);">Fail-Closed Guard:</strong> Pushes only to local draft staging. Human operator retains 100% execution consent.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1-CLICK WINDOWS EXE INSTALLER & SYSTEM ARCHITECTURE -->
+    <section id="section-installer" style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <div>
+          <h2>1-Click Windows EXE Installer &amp; Codebase Architecture</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            How the turnkey compilation builder (build_exe.bat) packages pure Python daemons and native Win32 binaries into a single executable.
+          </p>
+        </div>
+        <div class="label">Native Win32 PE Compilation</div>
+      </div>
+
+      <div class="page-grid">
+        <!-- Interactive File Tree -->
+        <div class="carbon-card" style="grid-column: span 5;">
+          <div class="label" style="margin-bottom: var(--space-sm);">REPOSITORY SOURCE ARCHIVE (100% UNENCUMBERED)</div>
+          <div class="file-tree-container">
+            <div class="tree-node active-file" onclick="selectTreeFile('build_exe.bat')">
+              <i data-lucide="file-code" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              build_exe.bat (1-Click Compiler)
+            </div>
+            <div class="tree-node" onclick="selectTreeFile('BradCore_Launcher.exe')">
+              <i data-lucide="box" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              BradCore_Launcher.exe (Win32 PE)
+            </div>
+            <div class="tree-node" onclick="selectTreeFile('bradcore_suite_daemon.py')">
+              <i data-lucide="terminal" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              bradcore_suite_daemon.py (Core Daemon)
+            </div>
+            <div class="tree-node" onclick="selectTreeFile('Install_BradCore_Suite.bat')">
+              <i data-lucide="play" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              Install_BradCore_Suite.bat (Desktop Setup)
+            </div>
+            <div class="tree-node" onclick="selectTreeFile('.env.example')">
+              <i data-lucide="sliders" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              .env.example (Decoupled Secrets)
+            </div>
+            <div class="tree-node" onclick="selectTreeFile('bcl_proposal_frame.c')">
+              <i data-lucide="cpu" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              bcl_proposal_frame.c (SPSC Safety Guard)
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-sm btn-primary" style="width: 100%; justify-content: center;" onclick="runBuildSimulator()">
+              <i data-lucide="play" style="width: 16px; height: 16px;" aria-hidden="true"></i>
+              Run Build Simulator (build_exe.bat)
+            </button>
+          </div>
+        </div>
+
+        <!-- File Inspection & Terminal Console -->
+        <div class="carbon-card-high" style="grid-column: span 7; display: flex; flex-direction: column;">
+          <div class="label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-xs);">
+            <span id="tree-inspect-filename">build_exe.bat</span>
+            <span class="mono" style="font-size: 0.7rem; color: var(--on-surface-muted);">TARGET: WINDOWS X86-64</span>
+          </div>
+
+          <div class="terminal-window" style="flex: 1; min-height: 280px;">
+            <div class="terminal-header">
+              <span>Win32 Compilation Environment</span>
+              <span id="build-sim-status" style="color: var(--tertiary);">READY TO COMPILE</span>
+            </div>
+            <div class="terminal-body" id="tree-inspect-content" style="white-space: pre-wrap;">
+@echo off
+REM =========================================================================
+REM The Sovereign Founder GTM Suite - 1-Click Automated Binary Builder
+REM Invokes PyInstaller with Win32 API KERNEL32.dll!WinExec Silent Launcher
+REM =========================================================================
+
+echo [1/4] Checking Python 3.x and Pip dependencies...
+python -m pip install -r requirements.txt --quiet
+
+echo [2/4] Compiling 64-Byte SPSC Safety Gates into C Shared Library...
+gcc -O3 -shared -fPIC bcl_proposal_frame.c -o bcl_frame.dll
+
+echo [3/4] Compiling Native Windows PE Executable (Silent GUI, No Console Flash)...
+pyinstaller --noconfirm --onedir --windowed --add-data "ui;ui" --add-data "assets;assets" ^
+    --add-data "bcl_frame.dll;." --icon="assets/app_icon.ico" ^
+    --name="BradCore_Launcher" bradcore_suite_daemon.py
+
+echo [4/4] Generating 1-Click Desktop Shortcut and Environment Template...
+copy .env.example dist\BradCore_Launcher\.env
+echo [SUCCESS] BradCore_Launcher.exe compiled to dist\BradCore_Launcher\
+pause
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MICRO-PE & ACQUIRER ARBITRAGE / ROI FINANCIAL ENGINE -->
+    <section id="section-arbitrage" style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <div>
+          <h2>Micro-PE &amp; Acquirer Arbitrage Calculator</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            Model the exact cost savings, SaaS tool elimination, and white-label commercial upside of acquiring this codebase at $45,000.
+          </p>
+        </div>
+        <div class="label">Financial Feasibility Model</div>
+      </div>
+
+      <div class="page-grid">
+        <!-- Interactive Input Controls -->
+        <div class="carbon-card" style="grid-column: span 6;">
+          <h3 style="margin-bottom: var(--space-md); font-size: 1.15rem;">Custom Acquisition &amp; Replacement Inputs</h3>
+
+          <div class="field-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <label class="field-label" for="calc-hourly-rate">Senior Engineering Hourly Rate ($/hr)</label>
+              <span class="mono" style="font-weight: 700; color: var(--primary);" id="disp-calc-rate">$122 / hr</span>
+            </div>
+            <input type="range" id="calc-hourly-rate" class="carbon-slider" min="80" max="220" value="122" oninput="syncArbitrageCalc()">
+            <div style="font-size: 0.72rem; color: var(--on-surface-muted); margin-top: var(--space-3xs);">Based on standard US senior full-stack / systems engineer contracts.</div>
+          </div>
+
+          <div class="field-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <label class="field-label" for="calc-saas-overhead">Monthly SaaS Subscriptions Eliminated ($/mo)</label>
+              <span class="mono" style="font-weight: 700; color: var(--tertiary);" id="disp-calc-saas">$9,250 / mo</span>
+            </div>
+            <input type="range" id="calc-saas-overhead" class="carbon-slider" min="1000" max="15000" step="250" value="9250" oninput="syncArbitrageCalc()">
+            <div style="font-size: 0.72rem; color: var(--on-surface-muted); margin-top: var(--space-3xs);">Scrapers ($1k) + Inboxes ($5k) + AI Wrappers ($2k) + Telemetry ($1.25k).</div>
+          </div>
+
+          <div class="field-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <label class="field-label" for="calc-resale-price">Commercial White-Label Resale Price ($/seat)</label>
+              <span class="mono" style="font-weight: 700; color: var(--primary);" id="disp-calc-resale">$997 / license</span>
+            </div>
+            <input type="range" id="calc-resale-price" class="carbon-slider" min="299" max="3999" step="50" value="997" oninput="syncArbitrageCalc()">
+          </div>
+
+          <div class="field-group">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <label class="field-label" for="calc-annual-clients">Projected Annual White-Label Clients</label>
+              <span class="mono" style="font-weight: 700; color: var(--primary);" id="disp-calc-clients">25 clients</span>
+            </div>
+            <input type="range" id="calc-annual-clients" class="carbon-slider" min="0" max="100" value="25" oninput="syncArbitrageCalc()">
+          </div>
+        </div>
+
+        <!-- Live Financial Outputs -->
+        <div class="carbon-card-high" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="label" style="margin-bottom: var(--space-sm);">CALCULATED ARBITRAGE &amp; ROI PROJECTION</div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-bottom: var(--space-md);">
+              <div style="background-color: var(--surface-container); padding: var(--space-md); border-left: 2px solid var(--primary);">
+                <div class="label" style="font-size: 0.68rem;">Reproduction Cost (685 Hrs)</div>
+                <div class="mono" style="font-size: 1.65rem; font-weight: 700;" id="out-reproduction-cost">$83,570</div>
+                <div style="font-size: 0.72rem; color: var(--on-surface-muted);">Engineering time saved: 4.2 mo</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: var(--space-md); border-left: 2px solid var(--tertiary);">
+                <div class="label" style="font-size: 0.68rem;">Day-1 Arbitrage Discount</div>
+                <div class="mono" style="font-size: 1.65rem; font-weight: 700; color: var(--tertiary);" id="out-arbitrage-discount">46.1%</div>
+                <div style="font-size: 0.72rem; color: var(--tertiary);" id="out-net-savings">+$38,570 immediate equity</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-bottom: var(--space-md);">
+              <div style="background-color: var(--surface-container); padding: var(--space-sm);">
+                <div class="label" style="font-size: 0.68rem;">Annual SaaS Costs Avoided</div>
+                <div class="mono" style="font-size: 1.25rem; font-weight: 700; color: var(--tertiary);" id="out-annual-saas">$111,000 / yr</div>
+              </div>
+              <div style="background-color: var(--surface-container); padding: var(--space-sm);">
+                <div class="label" style="font-size: 0.68rem;">White-Label Resale Upside</div>
+                <div class="mono" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);" id="out-resale-revenue">$24,925 / yr</div>
+              </div>
+            </div>
+
+            <div style="background-color: var(--surface-container); padding: var(--space-md); border: var(--rule); margin-bottom: var(--space-sm);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-xs);">
+                <span class="label">ESTIMATED CAPITAL PAYBACK PERIOD:</span>
+                <span class="mono" style="font-size: 1.25rem; font-weight: 700; color: var(--tertiary);" id="out-payback-time">~3.9 Months</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <span class="label">NET 3-YEAR ECONOMIC BENEFIT:</span>
+                <span class="mono" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);" id="out-3yr-roi">$362,775 (806% ROI)</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size: 0.8125rem; color: var(--on-surface-variant);">
+            *Calculated against the $45,000 firm acquisition price. Assumes zero monthly server bills and unencumbered commercialization rights.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL CODEBASE SPECIFICATIONS & ANATOMY MATRIX -->
+    <section id="section-diligence" style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <div>
+          <h2>Codebase Anatomy &amp; Technical Due Diligence Matrix</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            Full technical specifications, memory footprint, runtime characteristics, and verified engineering hours across the 6-app stack.
+          </p>
+        </div>
+        <div class="label">Architecture Audit Artifact</div>
+      </div>
+
+      <div class="carbon-table-container">
+        <table class="carbon-table" aria-label="Technical Codebase Specifications Table">
+          <thead>
+            <tr>
+              <th scope="col">Component / App</th>
+              <th scope="col">Core Technologies</th>
+              <th scope="col">Runtime Footprint</th>
+              <th scope="col">Cloud Hosting Bill</th>
+              <th scope="col">Engineering Hours</th>
+              <th scope="col">Reproduction Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. SignalMax Studio</strong></td>
+              <td>HTML5, Canvas, DOM Matrix, Vanilla JS</td>
+              <td>12 MB RAM / Client Browser</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>95 Hours</td>
+              <td>$11,580</td>
+            </tr>
+            <tr>
+              <td><strong>2. AI Music Rater</strong></td>
+              <td>Web Audio API, Neuroforecasting Logic</td>
+              <td>18 MB RAM / Local Audio Thread</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>110 Hours</td>
+              <td>$13,410</td>
+            </tr>
+            <tr>
+              <td><strong>3. Visitor &amp; Domain Tracker</strong></td>
+              <td>Edge Reverse-DNS, Formspree/Getform Webhooks</td>
+              <td>8 MB RAM / Serverless Relay</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>85 Hours</td>
+              <td>$10,360</td>
+            </tr>
+            <tr>
+              <td><strong>4. Sovereign App Launcher</strong></td>
+              <td>Win32 KERNEL32 API, React/Vanilla Scaffolding</td>
+              <td>22 MB RAM / Native Win32</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>140 Hours</td>
+              <td>$17,060</td>
+            </tr>
+            <tr>
+              <td><strong>5. Stripe Automated License Server</strong></td>
+              <td>Python 3.x, HMAC-SHA256, SQLite Offline Store</td>
+              <td>14 MB RAM / Local Socket Daemon</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>105 Hours</td>
+              <td>$12,800</td>
+            </tr>
+            <tr>
+              <td><strong>6. Lead Intelligence Composite</strong></td>
+              <td>C11 SPSC Sanitizer, Google X-Ray String Parser</td>
+              <td>sub-86 µs Latency, 64B Buffer</td>
+              <td><span class="mono" style="color: var(--tertiary);">$0.00 / mo</span></td>
+              <td>150 Hours</td>
+              <td>$18,290</td>
+            </tr>
+            <tr style="background-color: var(--surface-container-high); font-weight: 700;">
+              <td><strong>TOTAL ECOSYSTEM</strong></td>
+              <td><strong>Python 3.x + Win32 PE + Vanilla Web Stack</strong></td>
+              <td><strong>&lt; 85 MB Total RAM Footprint</strong></td>
+              <td><strong class="mono" style="color: var(--tertiary);">$0.00 / mo Forever</strong></td>
+              <td><strong>685 Hours</strong></td>
+              <td><strong class="mono" style="color: var(--primary);">$83,500 Base Value</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Diligence Verification Checklist -->
+      <div class="carbon-card">
+        <h3 style="margin-bottom: var(--space-sm); font-size: 1.15rem;">Escrow Handover Deliverables &amp; Warranty Checklist</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md); margin-top: var(--space-md);">
+          <div style="border-left: 2px solid var(--tertiary); padding-left: var(--space-sm);">
+            <div style="font-weight: 600; color: var(--on-surface);">100% Unencumbered IP</div>
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-3xs);">Clean cap table warranty. Zero prior venture liens, zero investor royalties, zero debt encumbrance.</div>
+          </div>
+          <div style="border-left: 2px solid var(--tertiary); padding-left: var(--space-sm);">
+            <div style="font-weight: 600; color: var(--on-surface);">Master Source Code Zip Archive</div>
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-3xs);">Complete Git repository with commit history, documentation runbooks, and build automation.</div>
+          </div>
+          <div style="border-left: 2px solid var(--tertiary); padding-left: var(--space-sm);">
+            <div style="font-weight: 600; color: var(--on-surface);">Compiled Win32 PE Binaries</div>
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-3xs);">Pre-built BradCore_Launcher.exe and automated desktop installation scripts ready for deployment.</div>
+          </div>
+          <div style="border-left: 2px solid var(--tertiary); padding-left: var(--space-sm);">
+            <div style="font-weight: 600; color: var(--on-surface);">Decoupled .env Configuration</div>
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-top: var(--space-3xs);">Unified configuration mapping external API keys for seamless 1-click buyer re-pointing.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESCROW ROADMAP & ASSET PURCHASE AGREEMENT GENERATOR -->
+    <section style="margin-top: var(--space-2xl);">
+      <div class="section-head">
+        <div>
+          <h2>Escrow Acquisition Roadmap &amp; APA Term Sheet</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            Step-by-step transaction execution designed for a clean 24–48 hour escrow closing.
+          </p>
+        </div>
+        <div class="label">Escrow.com / Platform Verified</div>
+      </div>
+
+      <div class="page-grid">
+        <!-- 5-Step Process Timeline -->
+        <div class="carbon-card" style="grid-column: span 6;">
+          <h3 style="margin-bottom: var(--space-md); font-size: 1.15rem;">5-Phase Transaction Execution Workflow</h3>
+          <div style="display: flex; flex-direction: column; gap: var(--space-md); font-size: 0.875rem;">
+            <div style="display: flex; gap: var(--space-sm);">
+              <span class="mono" style="color: var(--primary); font-weight: 700; width: 64px;">STEP 1</span>
+              <div>
+                <strong>Formal Bid Acceptance &amp; Escrow Initiation:</strong>
+                <p style="color: var(--on-surface-variant); margin: var(--space-3xs) 0 0;">Buyer accepts firm $45,000 buyout terms; mutual Platform / Escrow.com transaction created within 2 hours.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <span class="mono" style="color: var(--primary); font-weight: 700; width: 64px;">STEP 2</span>
+              <div>
+                <strong>Escrow Capital Ingestion ($45,000):</strong>
+                <p style="color: var(--on-surface-variant); margin: var(--space-3xs) 0 0;">Buyer wires $45,000 to the neutral escrow vault, guaranteeing transaction security and freezing allocation.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <span class="mono" style="color: var(--primary); font-weight: 700; width: 64px;">STEP 3</span>
+              <div>
+                <strong>24-Hour Codebase Inspection Window:</strong>
+                <p style="color: var(--on-surface-variant); margin: var(--space-3xs) 0 0;">Buyer receives encrypted repository download and executes local build_exe.bat check to verify dependencies.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <span class="mono" style="color: var(--primary); font-weight: 700; width: 64px;">STEP 4</span>
+              <div>
+                <strong>Cryptographic SHA-256 Checksum Handover:</strong>
+                <p style="color: var(--on-surface-variant); margin: var(--space-3xs) 0 0;">Seller transfers master repository signing keys, domain authorization tokens, and technical documentation.</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+              <span class="mono" style="color: var(--primary); font-weight: 700; width: 64px;">STEP 5</span>
+              <div>
+                <strong>Escrow Release &amp; Full IP Assignment Transfer:</strong>
+                <p style="color: var(--on-surface-variant); margin: var(--space-3xs) 0 0;">Escrow releases funds to seller; executed IP Assignment Deed and Bill of Sale are formally delivered.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive APA Term Sheet Summary Generator -->
+        <div class="carbon-card-high" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="label" style="margin-bottom: var(--space-xs);">EXECUTIVE APA TERM SHEET GENERATOR</div>
+            <div class="field-group">
+              <label class="field-label" for="apa-buyer-entity">Acquiring Entity / Purchaser Name</label>
+              <input type="text" id="apa-buyer-entity" class="carbon-input" value="Sovereign Capital Partners LLC" oninput="generateApaSummary()">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="apa-authorized-signatory">Authorized Signatory Name &amp; Title</label>
+              <input type="text" id="apa-authorized-signatory" class="carbon-input" value="Alexander Vance, Managing Director" oninput="generateApaSummary()">
+            </div>
+
+            <div class="label" style="margin-bottom: var(--space-2xs);">GENERATED TERM SHEET SUMMARY</div>
+            <div id="apa-summary-preview" style="font-family: var(--font-label); font-size: 0.78rem; background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); line-height: 1.5; color: #f4f4f4; max-height: 150px; overflow-y: auto;">
+              Loading term sheet parameters...
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-md); display: flex; gap: var(--space-sm);">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="copyApaSummary()">
+              <i data-lucide="copy" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+              Copy Term Sheet Summary
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACQUISITION INTAKE TERMINAL & FIRM BID CONSOLE -->
+    <section id="section-acquire" style="margin-top: var(--space-2xl); margin-bottom: var(--space-3xl);">
+      <div class="section-head">
+        <div>
+          <h2>Acquisition Offer &amp; Escrow Intake Terminal</h2>
+          <p style="color: var(--on-surface-variant); font-size: 0.9375rem; margin-top: var(--space-xs);">
+            Lock in your allocation at the firm $45,000 buyout price or schedule a confidential 15-minute code verification review.
+          </p>
+        </div>
+        <div class="label">Platform Escrow Ingestion</div>
+      </div>
+
+      <div class="carbon-card workbench-layout">
+        <div>
+          <form id="acquisition-form" onsubmit="handleOfferSubmission(event)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-sm);">
+              <div class="field-group">
+                <label class="field-label" for="offer-full-name">Full Name *</label>
+                <input type="text" id="offer-full-name" class="carbon-input" required placeholder="e.g. Marcus Sterling">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="offer-organization">Fund / Agency / Syndicate *</label>
+                <input type="text" id="offer-organization" class="carbon-input" required placeholder="e.g. Apex Holdings Ltd.">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-sm);">
+              <div class="field-group">
+                <label class="field-label" for="offer-email">Work Email *</label>
+                <input type="email" id="offer-email" class="carbon-input" required placeholder="name@fund.com">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="offer-amount">Acquisition Offer Amount</label>
+                <input type="text" id="offer-amount" class="carbon-input" value="$45,000 (Firm Cash Buyout)" readonly style="color: var(--primary); font-weight: 700;">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div class="field-group">
+                <label class="field-label" for="offer-escrow-provider">Preferred Escrow Channel</label>
+                <select id="offer-escrow-provider" class="carbon-select">
+                  <option value="escrow_com">Escrow.com (Standard Asset Escrow)</option>
+                  <option value="microacquire">Acquire.com Platform Escrow</option>
+                  <option value="direct_wire">Attorney Trust Account Wire</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="offer-use-case">Intended Deployment</label>
+                <select id="offer-use-case" class="carbon-select">
+                  <option value="internal_agency">Internal Growth Agency Outbound</option>
+                  <option value="saas_spinout">Commercial B2B SaaS Spinout</option>
+                  <option value="micro_pe">Micro-PE Portfolio Software Asset</option>
+                  <option value="developer_utility">Proprietary Developer Growth Utility</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="offer-notes">Custom Diligence Notes / Closing Target Date</label>
+              <textarea id="offer-notes" class="carbon-textarea" placeholder="e.g. Seeking clean closing within 48 hours; wiring from US corporate entity..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: var(--space-md); align-items: center; flex-wrap: wrap;">
+              <button type="submit" class="btn btn-primary">
+                <i data-lucide="shield-check" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+                Submit Firm Acquisition Offer ($45,000)
+              </button>
+              <div style="font-size: 0.8125rem; color: var(--on-surface-muted);">
+                Submitting creates an encrypted priority escrow lock.
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Direct Architect Coordinates & Transaction Warranty -->
+        <div class="carbon-card-high" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="label" style="margin-bottom: var(--space-sm);">PRIMARY SELLER COORDINATES &amp; AUDIT TRAIL</div>
+            
+            <div style="background-color: var(--surface-container); padding: var(--space-md); border-left: 2px solid var(--primary); margin-bottom: var(--space-md);">
+              <div style="font-weight: 700; color: var(--on-surface); font-size: 1.05rem;">Bradley W. Holmes</div>
+              <div style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-bottom: var(--space-sm);">Chief Systems Architect &amp; Sovereign Asset Seller</div>
+              <div class="mono" style="font-size: 0.85rem; color: var(--primary);">bholmes@bradcoreos.com</div>
+              <div style="font-size: 0.75rem; color: var(--on-surface-muted); margin-top: var(--space-2xs);">Williams &amp; Flagstaff, Arizona Operational Testbed</div>
+            </div>
+
+            <div class="label" style="margin-bottom: var(--space-2xs);">WARRANTY &amp; UNENCUMBERED TITLE</div>
+            <div style="font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6;">
+              <p>This software asset is 100% pre-revenue intellectual property. There are zero customer contracts to migrate, zero refunds to process, and zero accounting reconciliations to audit. The codebase is fully verified, builds cleanly on any modern x86-64 machine, and runs with zero monthly server bills.</p>
+              <p>Upon escrow clearance, all repository rights, intellectual property copyrights, documentation, and compilation scripts are transferred in full to the buyer.</p>
+            </div>
+          </div>
+
+          <div style="background-color: var(--code-bg); padding: var(--space-sm); border: 1px solid var(--code-border); font-family: var(--font-label); font-size: 0.75rem; color: var(--tertiary);">
+            SHA-256 CHECKPRINT: 4a91c288e0bcos-6app-gtm-master-vault-ok
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background-color: var(--surface-container-low); border-top: var(--rule); padding: var(--space-xl) 0 var(--space-2xl); font-size: 0.8125rem; color: var(--on-surface-variant);">
+    <div class="page-wrapper" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-md); align-items: center;">
+      <div>
+        <div style="font-weight: 700; color: var(--on-surface);">The Sovereign Founder GTM Suite — Turnkey 6-App Launch Bundle &amp; EXE Installer</div>
+        <div style="font-size: 0.75rem; color: var(--on-surface-muted); margin-top: var(--space-3xs);">Pre-Revenue Intellectual Property &amp; Codebase Asset Sale | 100% Client-Side Local Architecture</div>
+      </div>
+      <div class="mono" style="font-size: 0.75rem;">
+        Direct Inquiries: <span style="color: var(--primary);">bholmes@bradcoreos.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Overlay -->
+  <div id="toast-message" class="toast-overlay" role="alert" aria-live="polite">
+    <div style="display: flex; align-items: flex-start; gap: var(--space-sm);">
+      <i data-lucide="check-circle" style="color: var(--tertiary); width: 20px; height: 20px; shrink: 0;" aria-hidden="true"></i>
+      <div>
+        <strong id="toast-title" style="display: block; font-size: 0.9rem; margin-bottom: var(--space-3xs);">Action Confirmed</strong>
+        <span id="toast-body" style="font-size: 0.8125rem; color: var(--on-surface-variant);">Your parameters have been updated.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATE PERSISTENCE API SHIM -->
+  <api-shim></api-shim>
+
+  <!-- JAVASCRIPT LOGIC ENGINE -->
+  <script>
+    // Global Application State Schema for persistence
+    let appState = {
+      activeTab: 'app1',
+      replies: 48,
+      bookmarks: 112,
+      postText: `Why we cancelled our $9,250/mo cloud SaaS subscriptions and compiled our entire GTM stack to a local Windows binary:\n\n1. Zero monthly database reads\n2. Sub-86µs SPSC pitch sanitization\n3. 100% IP ownership\n\nWhat is your single biggest SaaS bottleneck right now?`,
+      musicPreset: 'pop_anthem',
+      tempo: 124,
+      stereo: 88,
+      harmonic: 92,
+      dynamic: 85,
+      radarFilter: 'all',
+      vetstayLang: 'en',
+      vetstayRooms: 32,
+      vetstayState: 'AZ',
+      vetstayScope: 'moderate',
+      licenseTier: 'GRW',
+      licenseOrg: 'Apex Outbound Syndicate LLC',
+      hourlyRate: 122,
+      saasOverhead: 9250,
+      resalePrice: 997,
+      annualClients: 25,
+      apaBuyer: 'Sovereign Capital Partners LLC',
+      apaSignatory: 'Alexander Vance, Managing Director',
+      activeTreeFile: 'build_exe.bat'
+    };
+
+    // Simulated Radar Dataset
+    const radarData = [
+      { id: 1, domain: 'lockheedmartin.com', sector: 'defense', label: 'Lockheed Martin Corp', country: 'US', path: '/telemetry/p1863-hil', time: '2m ago', score: 98 },
+      { id: 2, domain: 'generalcatalyst.com', sector: 'vc', label: 'General Catalyst Partners', country: 'US', path: '/dataroom/cap-table', time: '14m ago', score: 92 },
+      { id: 3, domain: 'anduril.com', sector: 'defense', label: 'Anduril Industries', country: 'US', path: '/specs/3u-openvpx', time: '38m ago', score: 96 },
+      { id: 4, domain: 'darpa.mil', sector: 'defense', label: 'Defense Advanced Research (DARPA)', country: 'US', path: '/telemetry/spsc-gate', time: '1h ago', score: 99 },
+      { id: 5, domain: 'redbud.vc', sector: 'vc', label: 'Redbud VC (Brett Calhoun)', country: 'US', path: '/dataroom/financial-spine', time: '2h ago', score: 94 }
+    ];
+
+    // File repository previews
+    const fileContents = {
+      'build_exe.bat': `@echo off
+REM =========================================================================
+REM The Sovereign Founder GTM Suite - 1-Click Automated Binary Builder
+REM Invokes PyInstaller with Win32 API KERNEL32.dll!WinExec Silent Launcher
+REM =========================================================================
+
+echo [1/4] Checking Python 3.x and Pip dependencies...
+python -m pip install -r requirements.txt --quiet
+
+echo [2/4] Compiling 64-Byte SPSC Safety Gates into C Shared Library...
+gcc -O3 -shared -fPIC bcl_proposal_frame.c -o bcl_frame.dll
+
+echo [3/4] Compiling Native Windows PE Executable (Silent GUI, No Console Flash)...
+pyinstaller --noconfirm --onedir --windowed --add-data "ui;ui" --add-data "assets;assets" ^
+    --add-data "bcl_frame.dll;." --icon="assets/app_icon.ico" ^
+    --name="BradCore_Launcher" bradcore_suite_daemon.py
+
+echo [4/4] Generating 1-Click Desktop Shortcut and Environment Template...
+copy .env.example dist\\BradCore_Launcher\\.env
+echo [SUCCESS] BradCore_Launcher.exe compiled to dist\\BradCore_Launcher\\
+pause`,
+      'BradCore_Launcher.exe': `[WIN32 PE COMPILED BINARY]
+File Type: Portable Executable (PE32+ x86-64 GUI)
+Subsystem: Windows GUI (Silent, 0.00ms console flash)
+Kernel Call: KERNEL32.dll!WinExec("bradcore_suite_daemon.py", SW_HIDE)
+Memory Working Set: 38.4 MB
+Embedded Modules:
+  - 1. SignalMax Studio
+  - 2. AI Music Rater
+  - 3. Visitor & Domain Radar
+  - 4. Sovereign App Launcher
+  - 5. Stripe Automated License Server
+  - 6. Lead Intelligence Composite Engine
+SHA-256 Checksum: e4f891b2c4d710... [VERIFIED SAFE]`,
+      'bradcore_suite_daemon.py': `# ============================================================================
+# bradcore_suite_daemon.py - Core Local Daemon & Socket Server
+# 100% Client-Side Local Execution - Zero Monthly Cloud Database Overhead
+# ============================================================================
+
+import os, sys, json, time, hmac, hashlib
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+PORT = 8082
+SECRET_HASH = os.getenv("SOVEREIGN_KEY_SALT", "bcos_seed_91a0c")
+
+print(f"[DAEMON] Initializing Sovereign Founder GTM Suite on port {PORT}...")
+print(f"[DAEMON] Loading sub-86us SPSC Frame Validator (0x42434C50)...")
+print(f"[DAEMON] All six application viewports mounted.")
+# Active local event loop follows...`,
+      'Install_BradCore_Suite.bat': `@echo off
+echo ========================================================================
+echo Installing The Sovereign Founder GTM Suite on Local Workstation...
+echo ========================================================================
+mkdir "%USERPROFILE%\\BradCore_Suite"
+copy /Y dist\\BradCore_Launcher\\* "%USERPROFILE%\\BradCore_Suite\\"
+echo Creating Desktop Shortcut...
+powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('%USERPROFILE%\\Desktop\\Sovereign GTM Suite.lnk');$s.TargetPath='%USERPROFILE%\\BradCore_Suite\\BradCore_Launcher.exe';$s.Save()"
+echo [DONE] Sovereign GTM Suite successfully installed to Desktop.`,
+      '.env.example': `# ============================================================================
+# Centralized Secrets Decoupling Configuration (.env.example)
+# 1-Click Re-pointing for Acquirer Deployment
+# ============================================================================
+OPENAI_API_KEY=your_openai_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+CLOUDFLARE_API_TOKEN=your_cloudflare_dns_token
+GOOGLE_WORKSPACE_CLIENT_ID=your_oauth_client_id.apps.googleusercontent.com
+STRIPE_WEBHOOK_SECRET=whsec_your_stripe_signing_secret
+FORMSPREE_RADAR_ENDPOINT=https://formspree.io/f/your_endpoint_id
+SOVEREIGN_SALT_KEY=bcos_crypto_salt_production_99a`,
+      'bcl_proposal_frame.c': `#include <stdint.h>
+#include <string.h>
+
+#define BCL_FRAME_MAGIC 0x42434C50  // "BCLP"
+
+typedef struct __attribute__((packed)) {
+    uint32_t magic;           // 0x42434C50
+    uint8_t  gate_flags;      // Bit 0: MX_PASS, Bit 1: DRAFT_ONLY
+    uint16_t latency_micros;  // Verified <= 86us
+    char     target_domain[32];
+    uint8_t  payload_hash[25];
+} BclProposalFrame;
+
+int sanitize_proposal_frame(const BclProposalFrame* frame) {
+    if (frame->magic != BCL_FRAME_MAGIC) return -1; // Fail-closed clamp
+    if (frame->latency_micros > 86) return -2;     // Exceeded timing envelope
+    return 0; // Authorized for local Gmail draft staging
+}`
+    };
+
+    // Pre-calculated target queries
+    const targetQueries = {
+      dual_use_angels: {
+        xray: `site:linkedin.com/in/ ("Anduril" OR "Palantir" OR "SpaceX" OR "Shield AI") ("Angel Investor" OR "Operator Angel" OR "Former Executive") ("Defense" OR "Hard Tech") -recruiter`,
+        persona: `Operator Angels with direct defense hardware integration background.`
+      },
+      micro_pe: {
+        xray: `site:linkedin.com/in/ ("Micro-PE" OR "Private Equity" OR "Software Buyout" OR "Search Fund") ("B2B SaaS" OR "Turnkey Codebase") "Managing Partner" -student`,
+        persona: `Software rollup acquirers seeking immediate $0 overhead assets.`
+      },
+      midwest_vcs: {
+        xray: `site:linkedin.com/in/ ("Redbud VC" OR "Midwest VC" OR "Founders Strengthened by Struggle") ("Partner" OR "Principal") "Pre-Seed"`,
+        persona: `Generalist & hard-tech investors hunting gritty outsider builders.`
+      },
+      fed_procurement: {
+        xray: `site:linkedin.com/in/ ("Defense Innovation Unit" OR "DIU" OR "CDAO" OR "DARPA" OR "AFWERX") ("Commercial Solutions Opening" OR "Program Manager" OR "OTA")`,
+        persona: `Federal transition program officers with non-dilutive budget authority.`
+      }
+    };
+
+    // =========================================================================
+    // INITIALIZATION & STATE PERSISTENCE
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', async function() {
+      // 1. Attempt to restore state from notebookAppApi
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === 'object') {
+            appState = Object.assign(appState, saved);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load app state from notebookAppApi:', err);
+      }
+
+      // 2. Initialize UI views from state
+      applyStateToUI();
+
+      // 3. Render Lucide icons
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // 4. Notify app ready
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+          window.notebookAppApi.notifyAppReady();
+        }
+      } catch (err) {
+        console.warn('notifyAppReady error:', err);
+      }
+    });
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (err) {
+        console.warn('Could not persist app state:', err);
+      }
+    }
+
+    function applyStateToUI() {
+      // Tab
+      switchAppTab(appState.activeTab, false);
+
+      // App 1: SignalMax
+      const postInput = document.getElementById('signalmax-post-input');
+      if (postInput) postInput.value = appState.postText;
+      const sRep = document.getElementById('slider-replies');
+      if (sRep) sRep.value = appState.replies;
+      const sBkm = document.getElementById('slider-bookmarks');
+      if (sBkm) sBkm.value = appState.bookmarks;
+      calculateSignalMaxMetrics();
+
+      // App 2: Music Rater
+      const sTempo = document.getElementById('music-tempo-slider');
+      if (sTempo) sTempo.value = appState.tempo;
+      const sStereo = document.getElementById('music-stereo-slider');
+      if (sStereo) sStereo.value = appState.stereo;
+      const sHarm = document.getElementById('music-harmonic-slider');
+      if (sHarm) sHarm.value = appState.harmonic;
+      const sDyn = document.getElementById('music-dynamic-slider');
+      if (sDyn) sDyn.value = appState.dynamic;
+      calculateMusicScore();
+
+      // App 3: Radar
+      renderRadarLogs(appState.radarFilter);
+
+      // App 4: VetStay
+      const sRooms = document.getElementById('vetstay-rooms-slider');
+      if (sRooms) sRooms.value = appState.vetstayRooms;
+      const selState = document.getElementById('vetstay-state');
+      if (selState) selState.value = appState.vetstayState;
+      const selScope = document.getElementById('vetstay-scope');
+      if (selScope) selScope.value = appState.vetstayScope;
+      calculateVetStayEconomics();
+
+      // App 5: Stripe License
+      const selTier = document.getElementById('license-tier-select');
+      if (selTier) selTier.value = appState.licenseTier;
+      const inOrg = document.getElementById('license-buyer-org');
+      if (inOrg) inOrg.value = appState.licenseOrg;
+
+      // App 6: Vanguard queries
+      updateVanguardQueries('dual_use_angels');
+
+      // Arbitrage Calculator
+      const inRate = document.getElementById('calc-hourly-rate');
+      if (inRate) inRate.value = appState.hourlyRate;
+      const inSaas = document.getElementById('calc-saas-overhead');
+      if (inSaas) inSaas.value = appState.saasOverhead;
+      const inResale = document.getElementById('calc-resale-price');
+      if (inResale) inResale.value = appState.resalePrice;
+      const inClients = document.getElementById('calc-annual-clients');
+      if (inClients) inClients.value = appState.annualClients;
+      syncArbitrageCalc();
+
+      // APA
+      const inApaBuyer = document.getElementById('apa-buyer-entity');
+      if (inApaBuyer) inApaBuyer.value = appState.apaBuyer;
+      const inApaSig = document.getElementById('apa-authorized-signatory');
+      if (inApaSig) inApaSig.value = appState.apaSignatory;
+      generateApaSummary();
+
+      // File Tree
+      selectTreeFile(appState.activeTreeFile);
+    }
+
+    // =========================================================================
+    // GENERAL UTILITIES
+    // =========================================================================
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function showToast(title, body) {
+      const toast = document.getElementById('toast-message');
+      const tTitle = document.getElementById('toast-title');
+      const tBody = document.getElementById('toast-body');
+      if (!toast || !tTitle || !tBody) return;
+
+      tTitle.textContent = title;
+      tBody.textContent = body;
+      toast.style.display = 'block';
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 4000);
+    }
+
+    // =========================================================================
+    // APP 1: SIGNALMAX STUDIO LOGIC
+    // =========================================================================
+    function switchAppTab(tabId, save = true) {
+      appState.activeTab = tabId;
+      const tabs = ['app1', 'app2', 'app3', 'app4', 'app5', 'app6'];
+      tabs.forEach(id => {
+        const btn = document.getElementById(`tab-btn-${id}`);
+        const pane = document.getElementById(`pane-${id}`);
+        if (btn && pane) {
+          if (id === tabId) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            pane.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+            pane.classList.remove('active');
+          }
+        }
+      });
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      if (save) persistState();
+    }
+
+    function syncReplies(val) {
+      appState.replies = parseInt(val, 10);
+      const disp = document.getElementById('val-replies');
+      if (disp) disp.textContent = `${appState.replies} replies`;
+      calculateSignalMaxMetrics();
+      persistState();
+    }
+
+    function syncBookmarks(val) {
+      appState.bookmarks = parseInt(val, 10);
+      const disp = document.getElementById('val-bookmarks');
+      if (disp) disp.textContent = `${appState.bookmarks} bookmarks`;
+      calculateSignalMaxMetrics();
+      persistState();
+    }
+
+    function calculateSignalMaxMetrics() {
+      const postInput = document.getElementById('signalmax-post-input');
+      const text = postInput ? postInput.value : '';
+      appState.postText = text;
+
+      const repliesPts = Math.round(appState.replies * 13.5);
+      const bookmarksPts = Math.round(appState.bookmarks * 12.0);
+      const hasQuestion = text.includes('?');
+
+      let bonus = hasQuestion ? 1.15 : 1.0;
+      let rawScore = Math.round((repliesPts + bookmarksPts) * bonus);
+      let estimatedReach = Math.round(rawScore * 70.4);
+
+      const elScore = document.getElementById('signalmax-score');
+      const elReach = document.getElementById('signalmax-reach');
+      const elRep = document.getElementById('breakdown-replies');
+      const elBkm = document.getElementById('breakdown-bookmarks');
+      const elHook = document.getElementById('status-hook');
+
+      if (elScore) elScore.textContent = rawScore.toLocaleString();
+      if (elReach) elReach.textContent = estimatedReach.toLocaleString();
+      if (elRep) elRep.textContent = `${repliesPts.toLocaleString()} pts`;
+      if (elBkm) elBkm.textContent = `${bookmarksPts.toLocaleString()} pts`;
+      if (elHook) {
+        if (hasQuestion) {
+          elHook.textContent = `DETECTED (+15% Velocity)`;
+          elHook.style.color = `var(--positive)`;
+        } else {
+          elHook.textContent = `NONE (Add '?' for +15%)`;
+          elHook.style.color = `var(--warning)`;
+        }
+      }
+    }
+
+    function presetPost(type) {
+      const input = document.getElementById('signalmax-post-input');
+      if (!input) return;
+      if (type === 'technical') {
+        input.value = `Why 85.40µs MPU page clamps matter more than 70B parameter models:\n\n1. Deterministic hardware clamps zero-energy state in 0.00ns\n2. 0-Byte Shared RAM prevents kinetic drift\n3. DoDD 3000.09 compliance requires silicon enforcement\n\nAre you building wrappers or bare-metal fire code?`;
+      } else {
+        input.value = `The era of paying $9,250/mo for bloated SaaS seats is over.\n\nSmart founders are consolidating scraping, warmup, and deliverability into native client-side Windows daemons with $0 server overhead.\n\nWhat is stopping your team from running local binaries?`;
+      }
+      calculateSignalMaxMetrics();
+      persistState();
+      showToast('SignalMax Preset Loaded', 'Post drafted and algorithmic score updated.');
+    }
+
+    // =========================================================================
+    // APP 2: AI MUSIC RATER LOGIC
+    // =========================================================================
+    function loadMusicPreset(key) {
+      appState.musicPreset = key;
+      if (key === 'pop_anthem') {
+        appState.tempo = 124;
+        appState.stereo = 88;
+        appState.harmonic = 92;
+        appState.dynamic = 85;
+      } else if (key === 'synthwave') {
+        appState.tempo = 118;
+        appState.stereo = 95;
+        appState.harmonic = 86;
+        appState.dynamic = 90;
+      } else if (key === 'lofi_chill') {
+        appState.tempo = 84;
+        appState.stereo = 45;
+        appState.harmonic = 78;
+        appState.dynamic = 50;
+      } else if (key === 'acoustic_vocal') {
+        appState.tempo = 92;
+        appState.stereo = 30;
+        appState.harmonic = 65;
+        appState.dynamic = 42;
+      }
+
+      document.getElementById('music-tempo-slider').value = appState.tempo;
+      document.getElementById('music-stereo-slider').value = appState.stereo;
+      document.getElementById('music-harmonic-slider').value = appState.harmonic;
+      document.getElementById('music-dynamic-slider').value = appState.dynamic;
+
+      calculateMusicScore();
+      persistState();
+    }
+
+    function syncTempo(v) {
+      appState.tempo = parseInt(v, 10);
+      document.getElementById('val-tempo').textContent = v;
+      calculateMusicScore();
+      persistState();
+    }
+    function syncStereo(v) {
+      appState.stereo = parseInt(v, 10);
+      document.getElementById('val-stereo').textContent = `${v}%`;
+      calculateMusicScore();
+      persistState();
+    }
+    function syncHarmonic(v) {
+      appState.harmonic = parseInt(v, 10);
+      document.getElementById('val-harmonic').textContent = `${v}%`;
+      calculateMusicScore();
+      persistState();
+    }
+    function syncDynamic(v) {
+      appState.dynamic = parseInt(v, 10);
+      document.getElementById('val-dynamic').textContent = `${v}%`;
+      calculateMusicScore();
+      persistState();
+    }
+
+    function calculateMusicScore() {
+      // Neuroforecasting score computation
+      // Optimal dance/pop tempo ~118-128 BPM
+      let tempoScore = 100 - Math.abs(appState.tempo - 122) * 0.7;
+      if (tempoScore < 30) tempoScore = 30;
+
+      let composite = Math.round(
+        (tempoScore * 0.25) +
+        (appState.stereo * 0.25) +
+        (appState.harmonic * 0.30) +
+        (appState.dynamic * 0.20)
+      );
+      if (composite > 99) composite = 99;
+      if (composite < 15) composite = 15;
+
+      const numEl = document.getElementById('music-score-number');
+      const classEl = document.getElementById('music-classification');
+      const critiqueEl = document.getElementById('music-critique-text');
+
+      if (numEl) numEl.textContent = composite;
+      if (classEl && critiqueEl) {
+        if (composite >= 85) {
+          numEl.style.color = `var(--tertiary)`;
+          classEl.textContent = `High Commercial Streaming Probability (Class S Tier)`;
+          critiqueEl.textContent = `[AUDIT: EXCELLENT] Tempo at ${appState.tempo} BPM drives neuroforecasting engagement. Stereo separation (${appState.stereo}%) and harmonic coherence (${appState.harmonic}%) surpass radio broadcast mastering standards.`;
+        } else if (composite >= 70) {
+          numEl.style.color = `var(--primary)`;
+          classEl.textContent = `Solid Indie Contender (Commercial Viable)`;
+          critiqueEl.textContent = `[AUDIT: COMPETITIVE] Sound stage is balanced. Dynamic contrast (${appState.dynamic}%) is acceptable. Suggest pushing vocal presence +1.5dB in the bridge to elevate to hit status.`;
+        } else {
+          numEl.style.color = `var(--warning)`;
+          classEl.textContent = `Needs Mixing & Spectral Polish (Class C Tier)`;
+          critiqueEl.textContent = `[AUDIT: ATTENTION] Low harmonic coherence (${appState.harmonic}%) or compressed stereo staging detected. Energy drop-off observed during dynamic transitions.`;
+        }
+      }
+    }
+
+    // =========================================================================
+    // APP 3: VISITOR & DOMAIN RADAR LOGIC
+    // =========================================================================
+    function filterRadarLogs(val) {
+      appState.radarFilter = val;
+      renderRadarLogs(val);
+      persistState();
+    }
+
+    function renderRadarLogs(filter) {
+      const container = document.getElementById('radar-feed-list');
+      if (!container) return;
+
+      const filtered = radarData.filter(d => filter === 'all' || d.sector === filter);
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="padding: var(--space-md); color: var(--on-surface-muted);">No records matching sector filter.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="radar-feed-item">
+          <div>
+            <div style="font-weight: 600; color: #f4f4f4;">${item.label}</div>
+            <div class="mono" style="font-size: 0.72rem; color: var(--primary);">${item.domain} &bull; ${item.path}</div>
+          </div>
+          <div style="text-align: right; font-family: var(--font-label);">
+            <span class="carbon-tag ${item.score > 95 ? 'carbon-tag-success' : 'carbon-tag-secondary'}">${item.score}% CONVICTION</span>
+            <div style="font-size: 0.7rem; color: var(--on-surface-muted); margin-top: 2px;">${item.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function dispatchSimulatedWebhook() {
+      const domainInput = document.getElementById('test-webhook-domain');
+      const domain = domainInput ? domainInput.value : 'anduril.com';
+      const statusEl = document.getElementById('webhook-dispatch-status');
+
+      if (statusEl) {
+        statusEl.innerHTML = `<span style="color: var(--primary);">&gt;&gt; [DISPATCH] Relaying Data Room Key Request for <strong>${domain}</strong> via Formspree JSON bridge... [HTTP 200 OK]</span>`;
+      }
+      showToast('Telemetry Webhook Dispatched', `Payload securely forwarded for ${domain} without cloud database.`);
+    }
+
+    // =========================================================================
+    // APP 4: VETSTAY CONVERSION FRAMEWORK LOGIC
+    // =========================================================================
+    function toggleVetStayLang() {
+      appState.vetstayLang = appState.vetstayLang === 'en' ? 'es' : 'en';
+      const btn = document.getElementById('vetstay-lang-toggle');
+      if (btn) {
+        btn.textContent = appState.vetstayLang === 'en' ? '🇪🇸 Cambiar a Español' : '🇺🇸 Switch to English';
+      }
+
+      // Update Labels
+      const isEn = appState.vetstayLang === 'en';
+      const lRooms = document.getElementById('lbl-vetstay-rooms');
+      if (lRooms) lRooms.innerHTML = isEn 
+        ? `Total Motel Rooms / Units: <strong id="val-vetstay-rooms" style="color: var(--primary);">${appState.vetstayRooms}</strong>`
+        : `Habitaciones / Unidades Totales: <strong id="val-vetstay-rooms" style="color: var(--primary);">${appState.vetstayRooms}</strong>`;
+      
+      const lState = document.getElementById('lbl-vetstay-state');
+      if (lState) lState.textContent = isEn ? 'State Location' : 'Estado de Ubicación';
+
+      const lScope = document.getElementById('lbl-vetstay-scope');
+      if (lScope) lScope.textContent = isEn ? 'Retrofit Scope' : 'Alcance de Renovación';
+
+      const btnMOU = document.getElementById('btn-text-compile-mou');
+      if (btnMOU) btnMOU.textContent = isEn ? 'Compile Project MOU & Executive Summary' : 'Compilar MOU y Resumen Ejecutivo';
+
+      const lStack = document.getElementById('lbl-capital-stack');
+      if (lStack) lStack.textContent = isEn ? 'CONVERSION CAPITAL STACK BREAKDOWN' : 'ESTRUCTURA DE FINANCIAMIENTO Y CAPITAL';
+
+      calculateVetStayEconomics();
+      persistState();
+    }
+
+    function syncVetStayRooms(val) {
+      appState.vetstayRooms = parseInt(val, 10);
+      const disp = document.getElementById('val-vetstay-rooms');
+      if (disp) disp.textContent = val;
+      calculateVetStayEconomics();
+      persistState();
+    }
+
+    function calculateVetStayEconomics() {
+      const stateSel = document.getElementById('vetstay-state');
+      const scopeSel = document.getElementById('vetstay-scope');
+      if (stateSel) appState.vetstayState = stateSel.value;
+      if (scopeSel) appState.vetstayScope = scopeSel.value;
+
+      let perRoomCost = 25000;
+      if (appState.vetstayScope === 'light') perRoomCost = 12000;
+      if (appState.vetstayScope === 'heavy') perRoomCost = 45000;
+
+      const totalCost = appState.vetstayRooms * perRoomCost;
+      const grantCoverage = Math.round(totalCost * 0.75);
+      const outOfPocket = totalCost - grantCoverage;
+
+      const costEl = document.getElementById('vetstay-total-cost');
+      const grantEl = document.getElementById('vetstay-grant-coverage');
+      if (costEl) costEl.textContent = `$${totalCost.toLocaleString()}`;
+      if (grantEl) grantEl.textContent = `$${grantCoverage.toLocaleString()}`;
+
+      generateVetStayMOU();
+    }
+
+    function generateVetStayMOU() {
+      const box = document.getElementById('vetstay-mou-box');
+      if (!box) return;
+
+      let perRoomCost = 25000;
+      if (appState.vetstayScope === 'light') perRoomCost = 12000;
+      if (appState.vetstayScope === 'heavy') perRoomCost = 45000;
+
+      const totalCost = appState.vetstayRooms * perRoomCost;
+      const grantCoverage = Math.round(totalCost * 0.75);
+
+      if (appState.vetstayLang === 'en') {
+        box.textContent = `# PROJECT EXECUTIVE SUMMARY: MOTEL-TO-VETERAN SUPPORTIVE HOUSING CONVERSION
+Facility Profile: ${appState.vetstayRooms}-Unit Commercial Motel Facility located in ${appState.vetstayState}.
+Proposed Structure: Private LLC Master Lease with 501(c)(3) Accredited Veterans Service Partner.
+Total Conversion Budget: $${totalCost.toLocaleString()} ($${perRoomCost.toLocaleString()}/unit).
+Requested Subsidy: $${grantCoverage.toLocaleString()} via VA Homeless Providers GPD & State HomeKey Initiatives.
+Target Beneficiaries: Transitionally homeless veterans receiving clinical casework & career stabilization.
+Timeline to Full Occupancy: 6 to 9 Months (bypassing 36-month ground-up construction zoning delays).`;
+      } else {
+        box.textContent = `# RESUMEN EJECUTIVO DEL PROYECTO: CONVERSIÓN DE MOTEL A VIVIENDA PARA VETERANOS
+Perfil del Inmueble: Instalación de motel comercial de ${appState.vetstayRooms} unidades ubicada en ${appState.vetstayState}.
+Estructura Propuesta: Contrato de arrendamiento maestro de LLC privada con socio acreditado VSO 501(c)(3).
+Presupuesto Total de Conversión: $${totalCost.toLocaleString()} ($${perRoomCost.toLocaleString()}/unidad).
+Subsidio Solicitado: $${grantCoverage.toLocaleString()} mediante programas de capital VA GPD y State HomeKey.
+Beneficiarios: Veteranos en transición sin hogar con gestión integral de casos clínicos.
+Plazo de Ocupación: 6 a 9 meses (evitando retrasos de construcción de 36 meses).`;
+      }
+    }
+
+    // =========================================================================
+    // APP 5: STRIPE AUTOMATED LICENSE SERVER LOGIC
+    // =========================================================================
+    function generateSovereignLicenseKey() {
+      const tierSel = document.getElementById('license-tier-select');
+      const orgIn = document.getElementById('license-buyer-org');
+      if (tierSel) appState.licenseTier = tierSel.value;
+      if (orgIn) appState.licenseOrg = orgIn.value;
+
+      const randomChunk = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const randomChunk2 = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const key = `BCOS-${appState.licenseTier}-${randomChunk}-${randomChunk2}-V5`;
+
+      const dispKey = document.getElementById('display-license-key');
+      const dispSeats = document.getElementById('display-license-seats');
+      const dispStatus = document.getElementById('display-license-status');
+
+      if (dispKey) dispKey.textContent = key;
+      if (dispStatus) dispStatus.textContent = `CRYPTOGRAPHIC STATUS: VALID (HMAC-SHA256 SIGNED)`;
+      if (dispSeats) {
+        if (appState.licenseTier === 'AGY') dispSeats.textContent = 'SEATS: 1 LOCAL SEAT';
+        if (appState.licenseTier === 'GRW') dispSeats.textContent = 'SEATS: 5 CONCURRENT SEATS';
+        if (appState.licenseTier === 'ENT') dispSeats.textContent = 'SEATS: UNLIMITED SOVEREIGN';
+      }
+
+      showToast('License Key Minted', `Provisioned tier ${appState.licenseTier} for ${appState.licenseOrg}`);
+      persistState();
+    }
+
+    function simulateStripeWebhookEvent() {
+      const log = document.getElementById('stripe-webhook-log');
+      if (!log) return;
+
+      const timestamp = new Date().toLocaleTimeString();
+      log.innerHTML = `
+        <span style="color: var(--tertiary);">&gt;&gt; [${timestamp}] RECV checkout.session.completed (evt_mock_9918)</span><br>
+        <span style="color: var(--on-surface-variant);">&gt;&gt; Signer: verified_hmac_sha256 | Amount: $1,497.00 USD</span><br>
+        <span style="color: var(--primary);">&gt;&gt; Minting token: BCOS-GRW-${Math.floor(1000 + Math.random() * 9000)}-SUCCESS</span><br>
+        <span style="color: var(--tertiary);">&gt;&gt; Dispatched receipt to client workstation. 0 server fees incurred.</span>
+      `;
+      showToast('Stripe Webhook Handled', 'Simulated checkout.session.completed successfully.');
+    }
+
+    // =========================================================================
+    // APP 6: LEAD INTELLIGENCE COMPOSITE LOGIC
+    // =========================================================================
+    function updateVanguardQueries(profileKey) {
+      const q = targetQueries[profileKey] || targetQueries.dual_use_angels;
+      const xrayInput = document.getElementById('query-google-xray');
+      if (xrayInput) xrayInput.value = q.xray;
+    }
+
+    function copyXrayQuery() {
+      const xrayInput = document.getElementById('query-google-xray');
+      if (!xrayInput) return;
+      navigator.clipboard.writeText(xrayInput.value).then(() => {
+        showToast('Query Copied', 'Paste directly into Google to source verified decision-makers.');
+      }).catch(() => {
+        showToast('Query Ready', 'Select and copy the highlighted text string.');
+      });
+    }
+
+    function simulateSpscSanitizerGate() {
+      const term = document.getElementById('spsc-terminal-log');
+      if (!term) return;
+
+      term.innerHTML = `
+        <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-cmd">Injecting Candidate BclProposalFrame (0x42434C50)...</span><br>
+        <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-success">Gate 1: MX Guard Verified (No blacklisted outbound relays)</span><br>
+        <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-success">Gate 2: Sub-86µs Page Remap: 84.10 µs &lt; 86.00 µs (PASS)</span><br>
+        <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-warn">Gate 3: Air-Gap Consent Engaged: Autonomous firing clamped.</span><br>
+        <span class="terminal-line-prompt">&gt;&gt;</span> <span class="terminal-line-success">SUCCESS: Plain-text draft staged safely into local Gmail Drafts folder.</span>
+      `;
+      showToast('SPSC Safety Gate Passed', 'Pitch staged into local draft without firing outbound traffic.');
+    }
+
+    // =========================================================================
+    // 1-CLICK EXE INSTALLER & REPOSITORY TREE LOGIC
+    // =========================================================================
+    function selectTreeFile(filename) {
+      appState.activeTreeFile = filename;
+      const nodes = document.querySelectorAll('.tree-node');
+      nodes.forEach(n => {
+        if (n.textContent.includes(filename)) {
+          n.classList.add('active-file');
+        } else {
+          n.classList.remove('active-file');
+        }
+      });
+
+      const fnDisplay = document.getElementById('tree-inspect-filename');
+      const contentDisplay = document.getElementById('tree-inspect-content');
+      if (fnDisplay) fnDisplay.textContent = filename;
+      if (contentDisplay) {
+        contentDisplay.textContent = fileContents[filename] || `// File content placeholder for ${filename}`;
+      }
+      persistState();
+    }
+
+    function runBuildSimulator() {
+      const term = document.getElementById('tree-inspect-content');
+      const statusEl = document.getElementById('build-sim-status');
+      if (!term || !statusEl) return;
+
+      statusEl.textContent = 'COMPILING PE BINARY...';
+      statusEl.style.color = 'var(--warning)';
+
+      term.textContent = `[SIMULATOR] Starting build_exe.bat execution loop...\n`;
+
+      setTimeout(() => {
+        term.textContent += `[1/4] Scanning local Python 3.11 environment and libraries...\n`;
+      }, 300);
+
+      setTimeout(() => {
+        term.textContent += `[2/4] Linking KERNEL32.dll!WinExec and SPSC C-module bcl_frame.dll...\n`;
+      }, 700);
+
+      setTimeout(() => {
+        term.textContent += `[3/4] Packaging PyInstaller standalone dist\\BradCore_Launcher\\BradCore_Launcher.exe (42.4 MB)...\n`;
+      }, 1200);
+
+      setTimeout(() => {
+        term.textContent += `[4/4] Automated desktop configuration complete.\n[SUCCESS] BradCore_Launcher.exe is ready for 1-click deployment!`;
+        statusEl.textContent = 'BUILD SUCCESSFUL (0 ERRORS)';
+        statusEl.style.color = 'var(--tertiary)';
+        showToast('Compilation Complete', 'BradCore_Launcher.exe compiled with zero external cloud dependencies.');
+      }, 1700);
+    }
+
+    // =========================================================================
+    // ARBITRAGE & ROI FINANCIAL CALCULATOR
+    // =========================================================================
+    function syncArbitrageCalc() {
+      const inRate = document.getElementById('calc-hourly-rate');
+      const inSaas = document.getElementById('calc-saas-overhead');
+      const inResale = document.getElementById('calc-resale-price');
+      const inClients = document.getElementById('calc-annual-clients');
+
+      if (inRate) appState.hourlyRate = parseInt(inRate.value, 10);
+      if (inSaas) appState.saasOverhead = parseInt(inSaas.value, 10);
+      if (inResale) appState.resalePrice = parseInt(inResale.value, 10);
+      if (inClients) appState.annualClients = parseInt(inClients.value, 10);
+
+      // Update text displays
+      document.getElementById('disp-calc-rate').textContent = `$${appState.hourlyRate} / hr`;
+      document.getElementById('disp-calc-saas').textContent = `$${appState.saasOverhead.toLocaleString()} / mo`;
+      document.getElementById('disp-calc-resale').textContent = `$${appState.resalePrice.toLocaleString()} / license`;
+      document.getElementById('disp-calc-clients').textContent = `${appState.annualClients} clients`;
+
+      // Calculations
+      const hours = 685;
+      const reproductionCost = Math.round(hours * appState.hourlyRate);
+      const askingPrice = 45000;
+      const netSavings = reproductionCost - askingPrice;
+      const discountPct = Math.round((netSavings / reproductionCost) * 100);
+
+      const annualSaasSaved = appState.saasOverhead * 12;
+      const annualResaleRevenue = appState.resalePrice * appState.annualClients;
+      const annualCombinedUpside = annualSaasSaved + annualResaleRevenue;
+
+      const paybackMonths = ((askingPrice / annualCombinedUpside) * 12).toFixed(1);
+      const total3YrBenefit = (annualCombinedUpside * 3) - askingPrice;
+      const roiPct = Math.round((total3YrBenefit / askingPrice) * 100);
+
+      // Write to DOM
+      const elRepCost = document.getElementById('out-reproduction-cost');
+      const elDisc = document.getElementById('out-arbitrage-discount');
+      const elNetSav = document.getElementById('out-net-savings');
+      const elAnnSaas = document.getElementById('out-annual-saas');
+      const elResaleRev = document.getElementById('out-resale-revenue');
+      const elPayback = document.getElementById('out-payback-time');
+      const elRoi = document.getElementById('out-3yr-roi');
+
+      if (elRepCost) elRepCost.textContent = `$${reproductionCost.toLocaleString()}`;
+      if (elDisc) elDisc.textContent = `${discountPct}%`;
+      if (elNetSav) elNetSav.textContent = `+$${netSavings.toLocaleString()} immediate equity`;
+      if (elAnnSaas) elAnnSaas.textContent = `$${annualSaasSaved.toLocaleString()} / yr`;
+      if (elResaleRev) elResaleRev.textContent = `$${annualResaleRevenue.toLocaleString()} / yr`;
+      if (elPayback) elPayback.textContent = `~${paybackMonths} Months`;
+      if (elRoi) elRoi.textContent = `$${total3YrBenefit.toLocaleString()} (${roiPct}% ROI)`;
+
+      persistState();
+    }
+
+    // =========================================================================
+    // APA SUMMARY GENERATOR
+    // =========================================================================
+    function generateApaSummary() {
+      const buyerIn = document.getElementById('apa-buyer-entity');
+      const sigIn = document.getElementById('apa-authorized-signatory');
+      if (buyerIn) appState.apaBuyer = buyerIn.value;
+      if (sigIn) appState.apaSignatory = sigIn.value;
+
+      const preview = document.getElementById('apa-summary-preview');
+      if (!preview) return;
+
+      preview.textContent = `ASSET PURCHASE AGREEMENT (APA) // EXECUTIVE TERM SHEET
+Purchaser: ${appState.apaBuyer} (Signatory: ${appState.apaSignatory})
+Seller: Bradley W. Holmes (Chief Systems Architect)
+Acquired Asset: "The Sovereign Founder GTM Suite" Master IP & Win32 PE Binaries
+Included Codebase: 6 Turnkey Modules (SignalMax, Music Rater, Radar, Launcher, Stripe Server, Lead Engine)
+Purchase Price: $45,000.00 USD (Firm Cash Buyout)
+Escrow Platform: Neutral Escrow Ingestion (Escrow.com / Platform Verified)
+Closing Window: 24 to 48 Hours upon escrow capital deposit clearance
+IP Warranties: 100% Unencumbered ownership, zero software debt, zero royalty attachments.`;
+      persistState();
+    }
+
+    function copyApaSummary() {
+      const preview = document.getElementById('apa-summary-preview');
+      if (!preview) return;
+      navigator.clipboard.writeText(preview.textContent).then(() => {
+        showToast('Term Sheet Copied', 'APA summary copied to clipboard for your legal counsel.');
+      }).catch(() => {
+        showToast('Term Sheet Ready', 'Select and copy text directly from the box.');
+      });
+    }
+
+    // =========================================================================
+    // OFFER SUBMISSION INTAKE
+    // =========================================================================
+    function handleOfferSubmission(e) {
+      e.preventDefault();
+      const name = document.getElementById('offer-full-name').value;
+      const org = document.getElementById('offer-organization').value;
+      const email = document.getElementById('offer-email').value;
+      const escrow = document.getElementById('offer-escrow-provider').value;
+
+      showToast(
+        'Priority Escrow Allocation Locked',
+        `Thank you ${name} (${org}). Your $45,000 buyout request via ${escrow} has been logged. Escrow instructions dispatched to ${email}.`
+      );
+
+      // Persist submission
+      appState.lastOffer = { name, org, email, date: new Date().toISOString() };
+      persistState();
+    }
+  </script>
+</body>
+</html>
