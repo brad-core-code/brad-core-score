@@ -1,779 +1,2505 @@
-```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="briefing">
+  <title>BRAD-CORE OS LLC | Deterministic Silicon Sovereignty & Defense Architecture</title>
 
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link rel="stylesheet" />
-  
-  
-  
- 
- 
-  
-  <aside aria-label="Transaction Trust and Escrow Status">
-   <div>
-    <div>
-     <span aria-hidden="true"></span> <strong>ESCROW AUDIT STATUS:</strong> <span>100% Unencumbered Pre-Revenue Codebase Asset Sale</span>
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Approved CDN Dependencies -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Defense Institutional Palette */
+      --background: #070e18;
+      --surface-container-low: #0c182a;
+      --surface-container: #11223b;
+      --surface-container-high: #172d4e;
+      --surface-container-highest: #1e3962;
+
+      /* Ink & Typography */
+      --on-surface: #f1f5f9;
+      --on-surface-variant: #94a3b8;
+      --on-surface-muted: #64748b;
+
+      /* Rules & Frames */
+      --outline: #254067;
+      --outline-variant: #1a2f4d;
+      --card-border: 1px solid var(--outline);
+      --section-rule: 1.5px solid var(--outline);
+
+      /* Accents: Defense Gold & Bronze */
+      --primary: #f1f5f9;
+      --on-primary: #070e18;
+      --primary-container: #d4af37;
+      --on-primary-container: #070e18;
+      --gold-accent: #d4af37;
+      --gold-muted: #b8972e;
+      --gold-bright: #f5d77f;
+      --gold-glow: rgba(212, 175, 55, 0.15);
+
+      /* Semantic Status */
+      --positive: #10b981;
+      --positive-bg: rgba(16, 185, 129, 0.12);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --error: #ef4444;
+      --error-bg: rgba(239, 68, 68, 0.12);
+      --info: #38bdf8;
+      --info-bg: rgba(56, 189, 248, 0.12);
+
+      /* Data series */
+      --data-1: #38bdf8;
+      --data-2: #d4af37;
+      --data-3: #10b981;
+      --data-4: #ef4444;
+      --data-context: #475569;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 9999px;
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Motion */
+      --dur-short: 150ms;
+      --dur-med: 250ms;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Defensive container queries */
+    .page-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* Dossier & Defense Styling */
+    .dossier-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--badge-radius);
+    }
+
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: var(--on-surface-variant);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .classification-banner {
+      background: #0f1c2e;
+      border-bottom: 1px solid #203a5e;
+      font-family: var(--font-label);
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      padding: 0.35rem var(--space-md);
+      text-align: center;
+    }
+
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      transition: border-color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+
+    .figure-card:hover {
+      border-color: #3b6194;
+      background: var(--surface-container);
+    }
+
+    .gold-accent-border {
+      border-left: 3px solid var(--gold-accent);
+    }
+
+    .gold-box {
+      background: rgba(212, 175, 55, 0.07);
+      border: 1px solid var(--gold-muted);
+      border-radius: var(--rounded-lg);
+    }
+
+    .headline-font {
+      font-family: var(--font-headline);
+      letter-spacing: var(--heading-tracking);
+    }
+
+    .mono-font {
+      font-family: var(--font-label);
+    }
+
+    /* Tab Buttons */
+    .nav-tab-btn {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      padding: 0.75rem 1.15rem;
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all var(--dur-short) var(--ease-out);
+      white-space: nowrap;
+      min-height: 44px;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--on-surface);
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    .nav-tab-btn.active {
+      color: #070e18;
+      background: var(--gold-accent);
+      border-color: var(--gold-bright);
+      font-weight: 700;
+    }
+
+    .sub-tab-btn {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--rounded);
+      color: var(--on-surface-variant);
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      cursor: pointer;
+      transition: all var(--dur-short) var(--ease-out);
+      min-height: 40px;
+    }
+
+    .sub-tab-btn:hover {
+      color: var(--on-surface);
+      background: var(--surface-container-high);
+    }
+
+    .sub-tab-btn.active {
+      color: var(--gold-bright);
+      background: var(--surface-container-high);
+      border-color: var(--gold-accent);
+      font-weight: 600;
+    }
+
+    /* Form and interactive controls */
+    input[type="range"] {
+      accent-color: var(--gold-accent);
+      cursor: pointer;
+    }
+
+    select, input[type="text"], input[type="number"] {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--rounded);
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 2px var(--gold-glow);
+    }
+
+    /* Scrollable terminal */
+    .terminal-window {
+      background: #040910;
+      border: 1px solid #1a2f4d;
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      color: #a5f3fc;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      overflow-y: auto;
+      max-height: 320px;
+      line-height: 1.5;
+    }
+
+    .code-block {
+      background: #050b14;
+      border: 1px solid #193050;
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      line-height: 1.45;
+    }
+
+    /* Table styling */
+    .defense-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.825rem;
+    }
+
+    .defense-table th {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--on-surface-variant);
+      border-bottom: 2px solid var(--outline);
+      padding: 0.75rem 0.75rem;
+      text-align: left;
+      background: var(--surface-container-low);
+    }
+
+    .defense-table td {
+      padding: 0.75rem 0.75rem;
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+    }
+
+    .defense-table tr:hover td {
+      background: rgba(23, 45, 78, 0.4);
+    }
+
+    /* Custom focus indicators for accessibility */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--gold-accent);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-tab-container {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      .page-container {
+        padding: 0 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Federal Classification & Control Banner -->
+  <div class="classification-banner">
+    <div class="page-container flex items-center justify-between flex-wrap gap-2">
+      <span class="flex items-center gap-2">
+        <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-900 text-emerald-300">ACTIVE</span>
+        <span>CUI // CONTROLLED DEFENSE INFORMATION — DISTRIBUTION A: AUTHORIZED ACQUISITION REVIEW</span>
+      </span>
+      <span class="hidden sm:inline-block">NAVY PAE: PILOT RECORD P-1863 &bull; DIU CSO: #PROJ00716</span>
+      <span class="font-bold text-amber-300">TRL 7 HARDWARE SOVEREIGNTY</span>
     </div>
-    <div>
-     <span>ASSET ASKING PRICE:</span> <strong>$45,000 FIRM</strong> <span>|</span> <span>RUNTIME HOSTING:</span> <strong>$0.00 / MO</strong> <span>|</span> <span>CLOSING TIMELINE:</span> <strong>24–48 HR ESCROW</strong>
-    </div>
-   </div>
-  </aside>
-  
-  <header>
-   <div>
-    <div>
-     <div aria-hidden="true">SF</div>
-     <div>
-      <div>THE SOVEREIGN FOUNDER GTM SUITE</div>
-      <div>Turnkey 6-App Bundle &amp; Windows EXE Installer</div>
-     </div>
-    </div>
-    <nav aria-label="Main Navigation">
-          
-    </nav>
-   </div>
-  </header>
-  <main>
-   
-   <section>
-    <div>
-     <span>ASSET SALE // EXCLUSIVE IP</span> <span>100% CLIENT-SIDE ARCHITECTURE</span> <span>46.1% DISCOUNT ARBITRAGE</span> <span>WIN32 PE COMPLIANT</span>
-    </div>
-    <h1>The Sovereign Founder GTM Suite</h1>
-    <p>A turnkey 6-application local desktop architecture and Windows executable installer engineered for technical founders, growth agencies, and micro-PE acquirers. Fully bypasses recurring cloud database hosting bills by consolidating distribution analytics, OSINT reconnaissance, inbound institutional telemetry, modular application scaffolding, cryptographic licensing, and fail-closed lead staging into a unified client-side ecosystem.</p>
-    
-    <div>
-     <div>
-      <div>Acquisition Buyout Price</div>
-      <div>$45,000</div>
-      <div>Firm cash asset buyout. 100% full unencumbered source code transfer via platform-verified escrow.</div>
-     </div>
-     <div>
-      <div>Verified Engineering Time</div>
-      <div>
-       685 <span>HRS</span>
-      </div>
-      <div>Dedicated senior engineering across backend Python daemons, Win32 PE launcher, and vanilla DOM UI.</div>
-     </div>
-     <div>
-      <div>Reproduction Value Math</div>
-      <div>$83,500</div>
-      <div>
-       Calculated at $121.90/hr senior engineering rate. Delivers an immediate <strong>46.1% discount arbitrage</strong>.
-      </div>
-     </div>
-     <div>
-      <div>Monthly Cloud Overhead</div>
-      <div>$0.00</div>
-      <div>Runs 100% locally on Windows desktop. Zero AWS/GCP bills, zero cloud database reads, zero monthly seat fees.</div>
-     </div>
-    </div>
-    
-    <div>
-       
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <h2>The Make vs. Buy Arbitrage Case</h2>
-     <div>Strategic Rationale &amp; Cost Elimination</div>
-    </div>
-    <div>
-     <div>
-      <div>
-       <i aria-hidden="true"></i> Legacy Cloud SaaS Outbound Stack
-      </div>
-      <h3>Compounding Overhead: $9,250 / Month</h3>
-      <ul>
-       <li><strong>Data Scraping Plans:</strong> ~$1,000/mo for fragmented leads with monthly seat caps.</li>
-       <li><strong>Multi-Inbox Delivery Warmup:</strong> ~$5,000/mo for hosted inbox infrastructure.</li>
-       <li><strong>Analytics &amp; Trackers:</strong> ~$1,250/mo for reverse-IP visitor surveillance tools.</li>
-       <li><strong>AI Wrapper Subscriptions:</strong> ~$2,000/mo in recurring token and API gate fees.</li>
-       <li><strong>Total Annual Burden:</strong> <strong>$111,000 per year</strong> in rented, non-sovereign SaaS subscriptions.</li>
-      </ul>
-     </div>
-     <div>
-      <div>
-       <i aria-hidden="true"></i> The Sovereign Founder Desktop Suite
-      </div>
-      <h3>Perpetual Ownership: $0 / Month Overhead</h3>
-      <ul>
-       <li><strong>Zero Server Bills:</strong> Runs 100% client-side via native Win32 background daemons.</li>
-       <li><strong>Built-in Reconnaissance:</strong> Programmatic OSINT X-Ray strings and federal solicitation scrapers.</li>
-       <li><strong>Deterministic Safety:</strong> Sub-86 µs SPSC frame sanitizer stops hallucinated outbound drafts.</li>
-       <li><strong>Instant Commercialization:</strong> Pre-built Stripe cryptographic license server for white-label reselling.</li>
-       <li><strong>Total Annual Burden:</strong> <strong>$0.00/yr</strong>. Full unencumbered asset ownership on Day 1.</li>
-      </ul>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>The 6 Turnkey Applications</h2>
-      <p>Fully functional, modular client-side software assets included with full source code and white-label distribution rights.</p>
-     </div>
-     <div>Interactive Sandbox Environment</div>
-    </div>
-    
-    <div role="tablist" aria-label="Turnkey Applications Navigation">
-          
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 01 // SOCIAL IMPRESSION ENGINEERING</div>
-       <h3>SignalMax Studio (X &amp; LinkedIn Algorithmic Optimizer)</h3>
-       <p>Engineered from platform algorithmic reverse-engineering. Solves organic reach throttling by applying weighted multiplier scoring: <strong>Reply (13.5x)</strong>, <strong>Bookmark (12.0x)</strong>, <strong>Repost (1.0x)</strong>, and <strong>Like (0.5x)</strong>. Formats posts for maximum dwell time and engagement velocity.</p>
-       <div>
-         
-       </div>
-       <div>
-        <div>
-          
-         <div>48 replies</div>
-        </div>
-        <div>
-          
-         <div>112 bookmarks</div>
-        </div>
-       </div>
-       <div>
-         
-       </div>
-      </div>
-      
-      <div>
-       <div>
-        <div>REAL-TIME ALGORITHMIC PROJECTION</div>
-        <div>
-         <div>
-          <div>Algorithmic Power Score</div>
-          <div>2,024</div>
-          <div>Top 2.8% Velocity Tier</div>
-         </div>
-         <div>
-          <div>Estimated Feed Impressions</div>
-          <div>142,500</div>
-          <div>Organic Distribution Index</div>
-         </div>
-        </div>
-        <div>WEIGHT CONTRIBUTION BREAKDOWN</div>
-        <div>
-         <div>
-          <span>Replies (13.5x Multiplier):</span> <span>648 pts</span>
-         </div>
-         <div>
-          <span>Bookmarks (12.0x Multiplier):</span> <span>1,344 pts</span>
-         </div>
-         <div>
-          <span>Open Question Prompt:</span> <span>DETECTED (+15% Velocity)</span>
-         </div>
-        </div>
-       </div>
-       <div>
-        <strong>Commercial Application:</strong> Included standalone or embeddable into client agency workflows. Replaces $200/mo social growth scheduler subscriptions.
-       </div>
-      </div>
-     </div>
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 02 // NEUROFORECASTING &amp; SONIC INTELLIGENCE</div>
-       <h3>AI Music Rater (Neuroforecasting Audio Evaluation)</h3>
-       <p>Grounded in empirical neuroforecasting research and commercial broadcast telemetry (SiriusXM &amp; Unbias methodologies). Measures tempo dynamics, harmonic key coherence, vocal dynamic balance, and frequency separation to output an objective <strong>0–100 Commercial Hit Index</strong>.</p>
-       <div>
-         <select> <option value="pop_anthem">Club Pop Anthem (124 BPM, C Major, High Dynamic Contrast)</option> <option value="synthwave">Dark Synthwave Lead (118 BPM, F Minor, Wide Stereo)</option> <option value="lofi_chill">Lofi Study Beat (84 BPM, Eb Major, Compressed Mono)</option> <option value="acoustic_vocal">Unfinished Acoustic Demo (92 BPM, G Major, Low Sits)</option> </select>
-       </div>
-       <div>
-        <div>
-          
-        </div>
-        <div>
-          
-        </div>
-       </div>
-       <div>
-        <div>
-          
-        </div>
-        <div>
-          
-        </div>
-       </div>
-      </div>
-      
-      <div>
-       <div>
-        <div>NEUROFORECASTING SONIC AUDIT</div>
-        <div>
-         <div>
-          <div>Neuro-Predictive Hit Score</div>
-          <div>High Commercial Streaming Probability</div>
-         </div>
-         <div>
-          <span>91</span> <span>/ 100</span>
-         </div>
-        </div>
-        <div>DIAGNOSTIC CRITIQUE TELEMETRY</div>
-        <div>[ANALYTICS] Production exceeds baseline radio broadcast thresholds. Clean 88% stereo separation and 124 BPM driving tempo match algorithmic playlist resonance metrics.</div>
-       </div>
-       <div>
-        <strong>Commercial Value:</strong> Direct consumer/creator utility. Ready to package as a standalone SaaS tool charging $19/mo or monetized per API evaluation request.
-       </div>
-      </div>
-     </div>
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 03 // INBOUND RADAR &amp; REVERSE-DNS TELEMETRY</div>
-       <h3>Visitor &amp; Domain Tracker (Zero-Cloud Radar)</h3>
-       <p>Runs zero-overhead inbound institutional domain detection. Employs client-side JSON handlers and serverless webhook forwarding (Formspree / Getform) to capture tier-1 defense primes and venture capital domains viewing your project telemetry without hosting an expensive cloud database.</p>
-       <div>
-         <select> <option value="all">All Authenticated Inbound Traffic (5 Records)</option> <option value="defense">Defense Primes &amp; Federal Labs</option> <option value="vc">Venture Capital &amp; Angel Syndicates</option> <option value="enterprise">Enterprise Systems &amp; Technology</option> </select>
-       </div>
-       <div>SIMULATE WEBHOOK KEY DISPATCH</div>
-       <div>
-        <div>
-          
-        </div>
-        
-       </div>
-       <div>
-        <i aria-hidden="true"></i> Bypasses $1,250/mo visitor-tracking subscriptions like Clearbit/Leadfeeder by using static edge DNS lookups.
-       </div>
-      </div>
-      
-      <div>
-       <div>
-        <span>AUTHENTICATED DOMAIN TELEMETRY FEED</span> <span>LIVE 100% CLIENT-SIDE</span>
-       </div>
-       <div>
-        
-       </div>
-       <div>Webhook bus ready. Awaiting payload triggers.</div>
-      </div>
-     </div>
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 04 // WIN32 MODULAR APPLICATION FRAMEWORK</div>
-       <h3>Sovereign App Launcher (VetStay Conversion Engine)</h3>
-       <p>Demonstrating the suite's modular desktop application framework with the complete <strong>VetStay Hub</strong> module. Compares conventional construction vs. motel-to-veteran housing conversions, calculates VA GPD &amp; State HomeKey capital subsidies, and generates MOU partnership agreements with 1-click dual-language toggle (English / Español).</p>
-       <div>
-        <span>LANGUAGE LOCALIZATION</span> 
-       </div>
-       <div>
-         
-       </div>
-       <div>
-        <div>
-          <select> <option value="AZ">Arizona (AZ)</option> <option value="CA">California (CA)</option> <option value="TX">Texas (TX)</option> <option value="FL">Florida (FL)</option> <option value="CO">Colorado (CO)</option> </select>
-        </div>
-        <div>
-          <select> <option value="light">Light Refresh ($12k/unit)</option> <option value="moderate" selected="">Moderate Retrofit ($25k/unit)</option> <option value="heavy">Heavy Structural ($45k/unit)</option> </select>
-        </div>
-       </div>
-       
-      </div>
-      
-      <div>
-       <div>
-        <div>CONVERSION CAPITAL STACK BREAKDOWN</div>
-        <div>
-         <div>
-          <div>Estimated Conversion Cost</div>
-          <div>$800,000</div>
-          <div>32 Units @ $25,000/unit</div>
-         </div>
-         <div>
-          <div>Projected Grant Coverage</div>
-          <div>$600,000</div>
-          <div>75% VA GPD / State HomeKey</div>
-         </div>
-        </div>
-        <div>EXECUTIVE SUMMARY MOU DRAFT</div>
-        <div># PROJECT SUMMARY: MOTEL-TO-VETERAN SUPPORTIVE HOUSING CONVERSION Target Property: 32-Unit Motel Facility located in AZ. Capital Request: $600,000 dedicated to kitchenette installations and ADA compliant retrofits. Beneficiaries: Transitionally unhoused veterans with full wraparound VSO supportive services.</div>
-       </div>
-       <div>
-        <strong>Framework Flexibility:</strong> Swap this module with any vertical calculator (e.g. Clean Energy Tax Credits, Commercial Real Estate, Defense Grant Projections).
-       </div>
-      </div>
-     </div>
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 05 // CRYPTOGRAPHIC MONETIZATION ENGINE</div>
-       <h3>Stripe Automated License Server (Local Key Authority)</h3>
-       <p>Provides unencumbered monetization infrastructure without paying monthly seat fees to licensing platforms. Generates cryptographically signed HMAC license tokens, verifies tamper-proof checksums, and listens for Stripe checkout webhooks to provision instant software access.</p>
-       <div>
-         <select> <option value="AGY">Agency Starter ($497 / 1 Local Seat)</option> <option value="GRW" selected="">Growth Multi-Seat ($1,497 / 5 Seats)</option> <option value="ENT">Enterprise Sovereign ($4,997 / Unlimited Seats + Resale)</option> </select>
-       </div>
-       <div>
-         
-       </div>
-       <div>
-         
-       </div>
-       <div>
-        <i aria-hidden="true"></i> HMAC-SHA256 signature algorithm with offline hardware fingerprint lock.
-       </div>
-      </div>
-      
-      <div>
-       <div>
-        <div>GENERATED LICENSE TOKEN &amp; SIGNATURE</div>
-        <div>
-         <div>ACTIVE LICENSE KEY</div>
-         <div>BCOS-GRW-92F4-44A1-E7B9-K8R2</div>
-         <div>
-          <span>CRYPTOGRAPHIC STATUS: VALID</span> <span>SEATS: 5 CONCURRENT</span>
-         </div>
-        </div>
-        <div>WEBHOOK TRANSACTION DISPATCH LOG</div>
-        <div>
-         [DAEMON] Stripe webhook listener active on port :8082...
-         <br />
-         [READY] Signature verification secret: whsec_local_sha256_ready
-        </div>
-       </div>
-       <div>
-        <strong>Turnkey Advantage:</strong> Sell licenses directly from day one with zero cloud subscription fees or Stripe App Marketplace lock-in.
-       </div>
-      </div>
-     </div>
-    </div>
-    
-    <div role="tabpanel">
-     <div>
-      <div>
-       <div>MODULE 06 // PRECISION RECONNAISSANCE &amp; DETERMINISTIC GATING</div>
-       <h3>Lead Intelligence Composite (Vanguard OSINT Radar)</h3>
-       <p>Combines Google X-Ray operators, Twitter/X boolean strings, and active federal solicitation feeds (DoD, DIU, DARPA, CDAO, AFWERX). Incorporates a <strong>sub-86 µs SPSC pointer-free frame sanitizer</strong> (0x42434C50 BclProposalFrame) that prevents AI text-generation hallucinations by staging validated plain-text copy safely into local Gmail Drafts folders without firing live unauthorized outbound traffic.</p>
-       <div>
-         <select> <option value="dual_use_angels">Dual-Use Defense &amp; Hard-Tech Operator Angels (Anduril, Palantir, SpaceX)</option> <option value="micro_pe">Micro-PE &amp; B2B SaaS Rollup Fund Partners</option> <option value="midwest_vcs">Midwest &amp; Non-Coastal Early-Stage VCs (e.g. Redbud VC)</option> <option value="fed_procurement">Federal Defense Transition Officers (DIU, CDAO, AFWERX)</option> </select>
-       </div>
-       <div>
-         
-       </div>
-       <div>
-         
-       </div>
-      </div>
-      
-      <div>
-       <div>
-        <div>
-         <span>DETERMINISTIC SPSC EXECUTION GATE</span> <span>0x42434C50 ENFORCED</span>
-        </div>
-        <div>
-         <div>
-          <span>bcl_proposal_frame.c // Deterministic Sanitizer</span> <span>LATENCY: 85.4 µs</span>
-         </div>
-         <div>
-          <span>&gt;&gt;</span> <span>Waiting for candidate frame injection...</span>
-          <br />
-          <span>&gt;&gt;</span> MX Guard: ACTIVE | Malloc: 0 | Buffer: 64-byte static
-         </div>
-        </div>
-        <div>STAGED LOCAL GMAIL DRAFT PREVIEW</div>
-        <div>
-         <strong>Subject:</strong> High-Conviction Asset Acquisition // Sovereign Founder GTM Suite
-         <br />
-         <em>"We engineered an unencumbered 6-app GTM desktop architecture with $0/mo cloud hosting overhead. Verified across 685 engineering hours. Closing via platform escrow this week..."</em>
-        </div>
-       </div>
-       <div>
-        <strong>Fail-Closed Guard:</strong> Pushes only to local draft staging. Human operator retains 100% execution consent.
-       </div>
-      </div>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>1-Click Windows EXE Installer &amp; Codebase Architecture</h2>
-      <p>How the turnkey compilation builder (build_exe.bat) packages pure Python daemons and native Win32 binaries into a single executable.</p>
-     </div>
-     <div>Native Win32 PE Compilation</div>
-    </div>
-    <div>
-     
-     <div>
-      <div>REPOSITORY SOURCE ARCHIVE (100% UNENCUMBERED)</div>
-      <div>
-       <div>
-        <i aria-hidden="true"></i> build_exe.bat (1-Click Compiler)
-       </div>
-       <div>
-        <i aria-hidden="true"></i> BradCore_Launcher.exe (Win32 PE)
-       </div>
-       <div>
-        <i aria-hidden="true"></i> bradcore_suite_daemon.py (Core Daemon)
-       </div>
-       <div>
-        <i aria-hidden="true"></i> Install_BradCore_Suite.bat (Desktop Setup)
-       </div>
-       <div>
-        <i aria-hidden="true"></i> .env.example (Decoupled Secrets)
-       </div>
-       <div>
-        <i aria-hidden="true"></i> bcl_proposal_frame.c (SPSC Safety Guard)
-       </div>
-      </div>
-      <div>
-       
-      </div>
-     </div>
-     
-     <div>
-      <div>
-       <span>build_exe.bat</span> <span>TARGET: WINDOWS X86-64</span>
-      </div>
-      <div>
-       <div>
-        <span>Win32 Compilation Environment</span> <span>READY TO COMPILE</span>
-       </div>
-       <div>@echo off REM ========================================================================= REM The Sovereign Founder GTM Suite - 1-Click Automated Binary Builder REM Invokes PyInstaller with Win32 API KERNEL32.dll!WinExec Silent Launcher REM ========================================================================= echo [1/4] Checking Python 3.x and Pip dependencies... python -m pip install -r requirements.txt --quiet echo [2/4] Compiling 64-Byte SPSC Safety Gates into C Shared Library... gcc -O3 -shared -fPIC bcl_proposal_frame.c -o bcl_frame.dll echo [3/4] Compiling Native Windows PE Executable (Silent GUI, No Console Flash)... pyinstaller --noconfirm --onedir --windowed --add-data "ui;ui" --add-data "assets;assets" ^ --add-data "bcl_frame.dll;." --icon="assets/app_icon.ico" ^ --name="BradCore_Launcher" bradcore_suite_daemon.py echo [4/4] Generating 1-Click Desktop Shortcut and Environment Template... copy .env.example dist\BradCore_Launcher\.env echo [SUCCESS] BradCore_Launcher.exe compiled to dist\BradCore_Launcher\ pause</div>
-      </div>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>Micro-PE &amp; Acquirer Arbitrage Calculator</h2>
-      <p>Model the exact cost savings, SaaS tool elimination, and white-label commercial upside of acquiring this codebase at $45,000.</p>
-     </div>
-     <div>Financial Feasibility Model</div>
-    </div>
-    <div>
-     
-     <div>
-      <h3>Custom Acquisition &amp; Replacement Inputs</h3>
-      <div>
-       <div>
-         <span>$122 / hr</span>
-       </div>
-       
-       <div>Based on standard US senior full-stack / systems engineer contracts.</div>
-      </div>
-      <div>
-       <div>
-         <span>$9,250 / mo</span>
-       </div>
-       
-       <div>Scrapers ($1k) + Inboxes ($5k) + AI Wrappers ($2k) + Telemetry ($1.25k).</div>
-      </div>
-      <div>
-       <div>
-         <span>$997 / license</span>
-       </div>
-       
-      </div>
-      <div>
-       <div>
-         <span>25 clients</span>
-       </div>
-       
-      </div>
-     </div>
-     
-     <div>
-      <div>
-       <div>CALCULATED ARBITRAGE &amp; ROI PROJECTION</div>
-       <div>
-        <div>
-         <div>Reproduction Cost (685 Hrs)</div>
-         <div>$83,570</div>
-         <div>Engineering time saved: 4.2 mo</div>
-        </div>
-        <div>
-         <div>Day-1 Arbitrage Discount</div>
-         <div>46.1%</div>
-         <div>+$38,570 immediate equity</div>
-        </div>
-       </div>
-       <div>
-        <div>
-         <div>Annual SaaS Costs Avoided</div>
-         <div>$111,000 / yr</div>
-        </div>
-        <div>
-         <div>White-Label Resale Upside</div>
-         <div>$24,925 / yr</div>
-        </div>
-       </div>
-       <div>
-        <div>
-         <span>ESTIMATED CAPITAL PAYBACK PERIOD:</span> <span>~3.9 Months</span>
-        </div>
-        <div>
-         <span>NET 3-YEAR ECONOMIC BENEFIT:</span> <span>$362,775 (806% ROI)</span>
-        </div>
-       </div>
-      </div>
-      <div>*Calculated against the $45,000 firm acquisition price. Assumes zero monthly server bills and unencumbered commercialization rights.</div>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>Codebase Anatomy &amp; Technical Due Diligence Matrix</h2>
-      <p>Full technical specifications, memory footprint, runtime characteristics, and verified engineering hours across the 6-app stack.</p>
-     </div>
-     <div>Architecture Audit Artifact</div>
-    </div>
-    <div>
-     <table aria-label="Technical Codebase Specifications Table">
-      <thead>
-       <tr>
-        <th>Component / App</th>
-        <th>Core Technologies</th>
-        <th>Runtime Footprint</th>
-        <th>Cloud Hosting Bill</th>
-        <th>Engineering Hours</th>
-        <th>Reproduction Cost</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-        <td><strong>1. SignalMax Studio</strong></td>
-        <td>HTML5, Canvas, DOM Matrix, Vanilla JS</td>
-        <td>12 MB RAM / Client Browser</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>95 Hours</td>
-        <td>$11,580</td>
-       </tr>
-       <tr>
-        <td><strong>2. AI Music Rater</strong></td>
-        <td>Web Audio API, Neuroforecasting Logic</td>
-        <td>18 MB RAM / Local Audio Thread</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>110 Hours</td>
-        <td>$13,410</td>
-       </tr>
-       <tr>
-        <td><strong>3. Visitor &amp; Domain Tracker</strong></td>
-        <td>Edge Reverse-DNS, Formspree/Getform Webhooks</td>
-        <td>8 MB RAM / Serverless Relay</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>85 Hours</td>
-        <td>$10,360</td>
-       </tr>
-       <tr>
-        <td><strong>4. Sovereign App Launcher</strong></td>
-        <td>Win32 KERNEL32 API, React/Vanilla Scaffolding</td>
-        <td>22 MB RAM / Native Win32</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>140 Hours</td>
-        <td>$17,060</td>
-       </tr>
-       <tr>
-        <td><strong>5. Stripe Automated License Server</strong></td>
-        <td>Python 3.x, HMAC-SHA256, SQLite Offline Store</td>
-        <td>14 MB RAM / Local Socket Daemon</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>105 Hours</td>
-        <td>$12,800</td>
-       </tr>
-       <tr>
-        <td><strong>6. Lead Intelligence Composite</strong></td>
-        <td>C11 SPSC Sanitizer, Google X-Ray String Parser</td>
-        <td>sub-86 µs Latency, 64B Buffer</td>
-        <td><span>$0.00 / mo</span></td>
-        <td>150 Hours</td>
-        <td>$18,290</td>
-       </tr>
-       <tr>
-        <td><strong>TOTAL ECOSYSTEM</strong></td>
-        <td><strong>Python 3.x + Win32 PE + Vanilla Web Stack</strong></td>
-        <td><strong>&lt; 85 MB Total RAM Footprint</strong></td>
-        <td><strong>$0.00 / mo Forever</strong></td>
-        <td><strong>685 Hours</strong></td>
-        <td><strong>$83,500 Base Value</strong></td>
-       </tr>
-      </tbody>
-     </table>
-    </div>
-    
-    <div>
-     <h3>Escrow Handover Deliverables &amp; Warranty Checklist</h3>
-     <div>
-      <div>
-       <div>100% Unencumbered IP</div>
-       <div>Clean cap table warranty. Zero prior venture liens, zero investor royalties, zero debt encumbrance.</div>
-      </div>
-      <div>
-       <div>Master Source Code Zip Archive</div>
-       <div>Complete Git repository with commit history, documentation runbooks, and build automation.</div>
-      </div>
-      <div>
-       <div>Compiled Win32 PE Binaries</div>
-       <div>Pre-built BradCore_Launcher.exe and automated desktop installation scripts ready for deployment.</div>
-      </div>
-      <div>
-       <div>Decoupled .env Configuration</div>
-       <div>Unified configuration mapping external API keys for seamless 1-click buyer re-pointing.</div>
-      </div>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>Escrow Acquisition Roadmap &amp; APA Term Sheet</h2>
-      <p>Step-by-step transaction execution designed for a clean 24–48 hour escrow closing.</p>
-     </div>
-     <div>Escrow.com / Platform Verified</div>
-    </div>
-    <div>
-     
-     <div>
-      <h3>5-Phase Transaction Execution Workflow</h3>
-      <div>
-       <div>
-        <span>STEP 1</span>
-        <div>
-         <strong>Formal Bid Acceptance &amp; Escrow Initiation:</strong>
-         <p>Buyer accepts firm $45,000 buyout terms; mutual Platform / Escrow.com transaction created within 2 hours.</p>
-        </div>
-       </div>
-       <div>
-        <span>STEP 2</span>
-        <div>
-         <strong>Escrow Capital Ingestion ($45,000):</strong>
-         <p>Buyer wires $45,000 to the neutral escrow vault, guaranteeing transaction security and freezing allocation.</p>
-        </div>
-       </div>
-       <div>
-        <span>STEP 3</span>
-        <div>
-         <strong>24-Hour Codebase Inspection Window:</strong>
-         <p>Buyer receives encrypted repository download and executes local build_exe.bat check to verify dependencies.</p>
-        </div>
-       </div>
-       <div>
-        <span>STEP 4</span>
-        <div>
-         <strong>Cryptographic SHA-256 Checksum Handover:</strong>
-         <p>Seller transfers master repository signing keys, domain authorization tokens, and technical documentation.</p>
-        </div>
-       </div>
-       <div>
-        <span>STEP 5</span>
-        <div>
-         <strong>Escrow Release &amp; Full IP Assignment Transfer:</strong>
-         <p>Escrow releases funds to seller; executed IP Assignment Deed and Bill of Sale are formally delivered.</p>
-        </div>
-       </div>
-      </div>
-     </div>
-     
-     <div>
-      <div>
-       <div>EXECUTIVE APA TERM SHEET GENERATOR</div>
-       <div>
-         
-       </div>
-       <div>
-         
-       </div>
-       <div>GENERATED TERM SHEET SUMMARY</div>
-       <div>Loading term sheet parameters...</div>
-      </div>
-      <div>
-       
-      </div>
-     </div>
-    </div>
-   </section>
-   
-   <section>
-    <div>
-     <div>
-      <h2>Acquisition Offer &amp; Escrow Intake Terminal</h2>
-      <p>Lock in your allocation at the firm $45,000 buyout price or schedule a confidential 15-minute code verification review.</p>
-     </div>
-     <div>Platform Escrow Ingestion</div>
-    </div>
-    <div>
-     <div>
-      
-     </div>
-     
-     <div>
-      <div>
-       <div>PRIMARY SELLER COORDINATES &amp; AUDIT TRAIL</div>
-       <div>
-        <div>Bradley W. Holmes</div>
-        <div>Chief Systems Architect &amp; Sovereign Asset Seller</div>
-        <div>bholmes@bradcoreos.com</div>
-        <div>Williams &amp; Flagstaff, Arizona Operational Testbed</div>
-       </div>
-       <div>WARRANTY &amp; UNENCUMBERED TITLE</div>
-       <div>
-        <p>This software asset is 100% pre-revenue intellectual property. There are zero customer contracts to migrate, zero refunds to process, and zero accounting reconciliations to audit. The codebase is fully verified, builds cleanly on any modern x86-64 machine, and runs with zero monthly server bills.</p>
-        <p>Upon escrow clearance, all repository rights, intellectual property copyrights, documentation, and compilation scripts are transferred in full to the buyer.</p>
-       </div>
-      </div>
-      <div>SHA-256 CHECKPRINT: 4a91c288e0bcos-6app-gtm-master-vault-ok</div>
-     </div>
-    </div>
-   </section>
-  </main>
-  
-  <footer>
-   <div>
-    <div>
-     <div>The Sovereign Founder GTM Suite — Turnkey 6-App Launch Bundle &amp; EXE Installer</div>
-     <div>Pre-Revenue Intellectual Property &amp; Codebase Asset Sale | 100% Client-Side Local Architecture</div>
-    </div>
-    <div>
-     Direct Inquiries: <span>bholmes@bradcoreos.com</span>
-    </div>
-   </div>
-  </footer>
-  
-  <div role="alert" aria-live="polite">
-   <div>
-    <i aria-hidden="true"></i>
-    <div>
-     <strong>Action Confirmed</strong> <span>Your parameters have been updated.</span>
-    </div>
-   </div>
   </div>
-  
-  
-  
-  
- 
 
-```
+  <!-- Primary Executive Portal Header -->
+  <header class="border-b border-slate-800 bg-[#091424] py-6">
+    <div class="page-container">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        
+        <!-- Emblem & Brand Header -->
+        <div class="flex items-start gap-4">
+          <!-- Institutional Seal / Insignia SVG -->
+          <div class="w-14 h-14 rounded border border-[#d4af37] bg-[#0c1a2e] flex items-center justify-center shrink-0 shadow-lg" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="50,6 88,26 88,74 50,94 12,74 12,26" stroke="#d4af37" stroke-width="3" fill="#081220"/>
+              <polygon points="50,16 80,32 80,68 50,84 20,68 20,32" stroke="#254067" stroke-width="1.5" fill="#0b1728"/>
+              <!-- Shield core & deterministic lattice -->
+              <path d="M50 25 L68 36 V58 C68 70 50 78 50 78 C50 78 32 70 32 58 V36 Z" fill="#132746" stroke="#d4af37" stroke-width="2"/>
+              <circle cx="50" cy="50" r="10" stroke="#f5d77f" stroke-width="2" fill="#0a1526"/>
+              <line x1="50" y1="40" x2="50" y2="60" stroke="#d4af37" stroke-width="2"/>
+              <line x1="40" y1="50" x2="60" y2="50" stroke="#d4af37" stroke-width="2"/>
+              <path d="M44 44 L56 56 M56 44 L44 56" stroke="#10b981" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="dossier-pill">SOVEREIGN DEFENSE ARCHITECTURE</span>
+              <span class="mono-font text-xs text-slate-400">ORGANIZATION ID: BCOS-NAV-2026</span>
+              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950/80 border border-emerald-600 text-emerald-300">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> LEVEL 1 DEFENSE PRIORITY
+              </span>
+            </div>
+            <h1 class="headline-font text-2xl md:text-3xl font-bold text-white tracking-tight mt-1">
+              BRAD-CORE OS LLC
+            </h1>
+            <p class="text-sm text-slate-300 max-w-2xl mt-0.5">
+              Deterministic Hardware-Enforced Operating System & Silicon Safety Substrate for Life-Critical Defense & Autonomous Kinetic Platforms.
+            </p>
+          </div>
+        </div>
+
+        <!-- Telemetry Summary Badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2 shrink-0">
+          <div class="bg-[#0c182a] border border-[#254067] px-3 py-2 rounded">
+            <div class="mono-font text-[10px] uppercase text-slate-400">Master Loop</div>
+            <div class="mono-font text-base font-bold text-emerald-400">1,600 Hz</div>
+            <div class="text-[10px] text-slate-400">625.0 µs / 0.00 ns jitter</div>
+          </div>
+          <div class="bg-[#0c182a] border border-[#254067] px-3 py-2 rounded">
+            <div class="mono-font text-[10px] uppercase text-slate-400">MPU Clamp</div>
+            <div class="mono-font text-base font-bold text-amber-300">85.40 µs</div>
+            <div class="text-[10px] text-slate-400">Fail-Closed (0.00V DC)</div>
+          </div>
+          <div class="bg-[#0c182a] border border-[#254067] px-3 py-2 rounded">
+            <div class="mono-font text-[10px] uppercase text-slate-400">Memory Bounds</div>
+            <div class="mono-font text-base font-bold text-sky-400">malloc = 0</div>
+            <div class="text-[10px] text-slate-400">0-Byte Shared Host RAM</div>
+          </div>
+          <div class="bg-[#0c182a] border border-[#254067] px-3 py-2 rounded">
+            <div class="mono-font text-[10px] uppercase text-slate-400">Assurance Rate</div>
+            <div class="mono-font text-base font-bold text-emerald-400">100.00%</div>
+            <div class="text-[10px] text-slate-400">10M Monte Carlo Blasts</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Pipeline Navigation Linkage -->
+      <div class="mt-4 pt-3 border-t border-[#1a2f4d] flex items-center justify-between text-xs text-slate-400 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <span class="text-slate-300 font-semibold">Active Federal Tracking:</span>
+          <span class="mono-font bg-[#11223b] px-2 py-0.5 rounded border border-[#254067] text-slate-200">Navy PAE Pilot P-1863</span>
+          <span class="mono-font bg-[#11223b] px-2 py-0.5 rounded border border-[#254067] text-slate-200">DIU CSO #PROJ00716</span>
+          <span class="mono-font bg-[#11223b] px-2 py-0.5 rounded border border-[#254067] text-slate-200">10 U.S.C. § 4022 OTA</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-slate-400">Chief Systems Architect:</span>
+          <span class="text-slate-200 font-medium">Bradley W. Holmes</span>
+          <span class="mono-font text-amber-300">Williams, Arizona</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Executive Navigation Bar -->
+  <nav class="bg-[#0a1526] border-b border-[#254067] sticky top-0 z-30 shadow-md">
+    <div class="page-container">
+      <div class="nav-tab-container flex items-center gap-1.5 py-2 overflow-x-auto">
+        <button id="tab-btn-briefing" class="nav-tab-btn active" onclick="switchMainTab('briefing')">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>1. Executive Briefing & Level 1 Priority</span>
+        </button>
+        <button id="tab-btn-digitaltwin" class="nav-tab-btn" onclick="switchMainTab('digitaltwin')">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
+          <span>2. Master Software Digital Twin</span>
+        </button>
+        <button id="tab-btn-testbenches" class="nav-tab-btn" onclick="switchMainTab('testbenches')">
+          <i data-lucide="activity" class="w-4 h-4"></i>
+          <span>3. Interactive Proving Grounds</span>
+        </button>
+        <button id="tab-btn-compliance" class="nav-tab-btn" onclick="switchMainTab('compliance')">
+          <i data-lucide="file-check-2" class="w-4 h-4"></i>
+          <span>4. Congressional & Statutory Compliance</span>
+        </button>
+        <button id="tab-btn-governance" class="nav-tab-btn" onclick="switchMainTab('governance')">
+          <i data-lucide="landmark" class="w-4 h-4"></i>
+          <span>5. Sovereign Governance & Founder</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN TABBED CONTENT CONTAINER -->
+  <main class="page-container py-8">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: EXECUTIVE BRIEFING & LEVEL 1 DEFENSE PRIORITY                      -->
+    <!-- ========================================================================= -->
+    <section id="panel-briefing" class="tab-panel space-y-8">
+      
+      <!-- Dossier Header -->
+      <div class="dossier-bar">
+        <span class="dossier-pill">EXECUTIVE MEMORANDUM</span>
+        <span class="dossier-meta">DEFENSE ACQUISITION REVIEW &bull; CUI // SP-CTI &bull; REF: BCOS-SEC-01-EXEC</span>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+        <div class="lg:w-2/3 space-y-6">
+          <div>
+            <h2 class="headline-font text-3xl font-bold text-white tracking-tight">
+              Bypassing the Valley of Death: The Upstream DON RCO Priority Referral
+            </h2>
+            <p class="text-lg text-slate-300 mt-2 font-normal leading-relaxed">
+              Autonomous kinetic warfare and deep-water submersible missions face an existential operational barrier: software-level non-determinism, AI model drift, and dynamic heap latency crashes. 
+            </p>
+          </div>
+
+          <div class="figure-card gold-accent-border space-y-4">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="mono-font text-xs uppercase tracking-wider text-amber-300 font-semibold">Priority Routing Intelligence</span>
+              <span class="mono-font text-xs text-slate-400">Intake Pathway: Direct Fast-Track</span>
+            </div>
+            <p class="text-slate-200 text-sm leading-relaxed">
+              Following formal technical evaluation by the <strong>Department of the Navy Rapid Capabilities Office (DON RCO)</strong> during Disruptor Day for Maritime Domain Awareness, Brad-Core OS was identified not as an incremental commercial sensor widget, but as foundational national computing architecture. 
+            </p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Rather than generic open solicitation intake queues, the DON RCO technical evaluators deliberately executed an upstream direct referral straight to the <strong>Portfolio Acquisition Executive (PAE) Mission Systems Industry Portal</strong>—assigning <strong>Pilot Record ID P-1863</strong> and prioritizing the deterministic substrate into the <strong>PEO Digital Repository</strong>. Simultaneously, the platform is undergoing evaluation under the <strong>Defense Innovation Unit (DIU) Commercial Solutions Opening (CSO) Space Threat Intelligence Synthesis Engine (#PROJ00716)</strong>.
+            </p>
+            <div class="p-3 bg-[#0a1526] rounded border border-[#254067] flex items-center justify-between text-xs mono-font">
+              <span class="text-slate-300">Procurement Pathway:</span>
+              <span class="text-amber-300 font-bold">10 U.S.C. § 4022 Prototype Other Transaction Authority (OTA) Sole-Source Production Vector</span>
+            </div>
+          </div>
+
+          <!-- Direct Upstream Referral Visual Ladder -->
+          <div class="figure-card space-y-4">
+            <h3 class="headline-font text-lg font-bold text-white">Upstream Acquisition Referral Architecture</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 bg-[#0a1526] border border-[#254067] rounded relative">
+                <div class="mono-font text-[11px] text-amber-400 font-bold mb-1">STAGE 01: UPSTREAM SCREEN</div>
+                <div class="font-bold text-white text-sm">DON RCO Review</div>
+                <div class="text-xs text-slate-400 mt-1">Disruptor Day Maritime Domain Awareness intake. Core architecture recognized as structural silicon solution.</div>
+                <div class="mt-2 text-[11px] text-emerald-400 font-medium">Bypassed generic intake queues</div>
+              </div>
+
+              <div class="p-4 bg-[#0a1526] border border-amber-500/50 rounded relative">
+                <div class="mono-font text-[11px] text-amber-300 font-bold mb-1">STAGE 02: RECORD ASSIGNMENT</div>
+                <div class="font-bold text-white text-sm">Navy PAE Pilot P-1863</div>
+                <div class="text-xs text-slate-400 mt-1">Formal pilot registration in Navy PEO Digital repository. Maritime autonomous safety envelope evaluation.</div>
+                <div class="mt-2 text-[11px] text-sky-400 font-medium">Level 1 Program Allocation</div>
+              </div>
+
+              <div class="p-4 bg-[#0a1526] border border-[#254067] rounded relative">
+                <div class="mono-font text-[11px] text-emerald-400 font-bold mb-1">STAGE 03: JOINT SOLE-SOURCE</div>
+                <div class="font-bold text-white text-sm">DIU CSO #PROJ00716</div>
+                <div class="text-xs text-slate-400 mt-1">Space Threat CSO prototype qualification for multi-domain kinetic platforms under 10 U.S.C. § 4022.</div>
+                <div class="mt-2 text-[11px] text-emerald-400 font-medium">Follow-On Production Ready</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar: Official Inquiries & Congressional Casework -->
+        <div class="lg:w-1/3 space-y-6">
+          <div class="figure-card space-y-4 bg-[#0d1d33]">
+            <div class="flex items-center gap-2 text-amber-300 font-bold text-sm mono-font uppercase">
+              <i data-lucide="landmark" class="w-4 h-4"></i> Congressional Oversight
+            </div>
+            <h3 class="headline-font text-base font-bold text-white">
+              SASC Constituent Casework Inquiry
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Because Brad-Core OS LLC is anchored in Northern Arizona (Williams), official federal constituent casework has been initiated with the office of <strong>U.S. Senator Mark Kelly (Senate Armed Services Committee - Airland & Seapower Subcommittees)</strong>.
+            </p>
+            <div class="border-t border-[#203a5e] pt-3 space-y-2 text-xs">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Agency Files:</span>
+                <span class="mono-font text-white">Navy PAE P-1863 / DIU #PROJ00716</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Release Status:</span>
+                <span class="text-emerald-400 font-semibold">Privacy Release Executed</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Statutory Focus:</span>
+                <span class="text-slate-200">DoDD 3000.09 Mode B AI Safety</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problem vs Solution Matrix -->
+          <div class="figure-card space-y-3">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i> The Software Wrapper Crisis
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Defense primes attempt to police non-deterministic neural networks with software containers and Python wrappers. When an untrusted AI model overflows memory or enters a race condition, the wrapper crashes with the host CPU.
+            </p>
+            <div class="p-3 bg-[#0a1526] rounded border border-[#1a2f4d] space-y-2 text-xs">
+              <div class="font-semibold text-rose-300">The Prime Contractor Failure Mode:</div>
+              <p class="text-slate-400">
+                Software watchdogs take &gt;50 ms to catch a runaway actuator. At Mach 2 or 1,000 feet undersea, 50 ms guarantees hull broach or vehicle destruction.
+              </p>
+              <div class="font-semibold text-emerald-400 mt-2">The Brad-Core OS Substrate:</div>
+              <p class="text-slate-300">
+                Hardware MPU clamps rogue kinematic vectors in <strong>85.40 µs</strong> directly to 0.00V DC fail-closed ground. Actuators cannot fire without silicon permission.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparative Analysis Table: Legacy Wrapper vs Deterministic Safety Substrate -->
+      <div class="figure-card space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="headline-font text-xl font-bold text-white">
+            Architectural Audit: Legacy Cost-Plus Wrappers vs. Brad-Core OS Deterministic Safety Substrate (DSS)
+          </h3>
+          <span class="mono-font text-xs text-slate-400">TRL 7 Validated Defense Baseline</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="defense-table">
+            <thead>
+              <tr>
+                <th>Architectural Dimension</th>
+                <th>Legacy Software Wrappers (Cost-Plus RTOS)</th>
+                <th>Brad-Core OS v5 (Deterministic Safety Substrate)</th>
+                <th>Operational Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold text-white">Memory Allocation</td>
+                <td class="text-rose-300">Dynamic heap (<code class="mono-font">malloc/free</code>); runtime exhaustion, leaks, pointer corruption</td>
+                <td class="text-emerald-300 font-semibold">Strict Zero-Heap (<code class="mono-font">malloc = 0</code>); immutable static build-time layout</td>
+                <td class="text-slate-300">100% elimination of memory leaks and dynamic allocation latency crashes</td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-white">Process Separation</td>
+                <td class="text-rose-300">Shared host RAM, active MESI cache coherency, unmediated PCIe DMA</td>
+                <td class="text-emerald-300 font-semibold">Physical 0-Byte Shared Host RAM air-gap, lock-free 64-slot SPSC rings</td>
+                <td class="text-slate-300">Untrusted AI models cannot physically touch, corrupt, or bleed into flight control registers</td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-white">Actuator Clamping Latency</td>
+                <td class="text-rose-300">Software watchdog interrupts, thread try/catch handlers (&gt;50 ms latency)</td>
+                <td class="text-emerald-300 font-semibold">Verified 85.40 µs MPU page fence (<code class="mono-font">PROT_NONE</code>) to 0.00V DC State H0</td>
+                <td class="text-slate-300">Interdicts physical overrun 580x faster than traditional software catch routines</td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-white">Execution Jitter</td>
+                <td class="text-rose-300">Unbounded OS scheduling jitter (150 µs to 12 ms) under heavy EW/load</td>
+                <td class="text-emerald-300 font-semibold">0.00 ns loop jitter at 1,600 Hz (625.0 µs cycle, 412.6 µs WCET bound)</td>
+                <td class="text-slate-300">Guarantees cycle-accurate hard-real-time control under active multi-domain jamming</td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-white">Statutory Liability</td>
+                <td class="text-rose-300">Program Manager & buyer liability under DoDD 3000.09 from uncommanded actuation</td>
+                <td class="text-emerald-300 font-semibold">Complete statutory immunity via Mode B physical consent gates (0xD0DD3009)</td>
+                <td class="text-slate-300">Eliminates lethal escalation risk before kinetic release can occur</td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-white">AI Hot-Swap Re-Certification</td>
+                <td class="text-rose-300">Requires 18-month, $35M–$50M DO-178C full avionics stack re-certification</td>
+                <td class="text-emerald-300 font-semibold">$0 re-certification cost; P-Core decoupled from D-Core under 10 U.S.C. § 4401</td>
+                <td class="text-slate-300">In-theater AI neural weights hot-swapped in minutes without recertifying flight controls</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Defense Acquisition & Fleet Lifecycle Cost Modeler -->
+      <div class="figure-card space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h3 class="headline-font text-xl font-bold text-white">Defense Acquisition & Fleet Re-Certification ROI Modeler</h3>
+            <p class="text-xs text-slate-400 mt-1">Model the statutory cost and time savings delivered by Brad-Core OS MOSA decoupling across autonomous drone/UUV fleets.</p>
+          </div>
+          <span class="mono-font text-xs bg-[#11223b] px-3 py-1 rounded text-amber-300 border border-[#254067]">
+            10 U.S.C. § 4401 MOSA Compliance
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="space-y-2">
+            <label for="fleet-airframes" class="text-xs font-semibold text-slate-300 block">Fleet Platform Count (UAV/USV/UUV)</label>
+            <input type="range" id="fleet-airframes" min="10" max="1000" step="10" value="120" class="w-full" oninput="syncFleetAirframes(this.value)">
+            <div class="flex justify-between text-xs mono-font text-slate-400">
+              <span>10 units</span>
+              <span id="fleet-airframes-val" class="text-white font-bold">120 units</span>
+              <span>1,000 units</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="ai-swaps" class="text-xs font-semibold text-slate-300 block">AI Neural Swaps / Updates (Per Year)</label>
+            <input type="range" id="ai-swaps" min="1" max="24" step="1" value="4" class="w-full" oninput="syncAiSwaps(this.value)">
+            <div class="flex justify-between text-xs mono-font text-slate-400">
+              <span>1 swap</span>
+              <span id="ai-swaps-val" class="text-white font-bold">4 swaps/yr</span>
+              <span>24 swaps</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="recert-cost" class="text-xs font-semibold text-slate-300 block">Legacy DO-178C Re-Cert Cost ($M/cycle)</label>
+            <input type="range" id="recert-cost" min="5" max="50" step="1" value="28" class="w-full" oninput="syncRecertCost(this.value)">
+            <div class="flex justify-between text-xs mono-font text-slate-400">
+              <span>$5M</span>
+              <span id="recert-cost-val" class="text-white font-bold">$28M</span>
+              <span>$50M</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="program-years" class="text-xs font-semibold text-slate-300 block">Program Lifecycle Horizon</label>
+            <input type="range" id="program-years" min="1" max="10" step="1" value="5" class="w-full" oninput="syncProgramYears(this.value)">
+            <div class="flex justify-between text-xs mono-font text-slate-400">
+              <span>1 year</span>
+              <span id="program-years-val" class="text-white font-bold">5 years</span>
+              <span>10 years</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Computed Outputs -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#1a2f4d]">
+          <div class="bg-[#0a1526] p-4 rounded border border-[#254067]">
+            <div class="mono-font text-xs uppercase text-slate-400">Taxpayer Dollars Saved</div>
+            <div id="stat-taxpayer-savings" class="headline-font text-2xl font-bold text-emerald-400 mt-1">$560.0 Million</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Eliminates legacy re-certification re-work</div>
+          </div>
+
+          <div class="bg-[#0a1526] p-4 rounded border border-[#254067]">
+            <div class="mono-font text-xs uppercase text-slate-400">Fielding Downtime Eliminated</div>
+            <div id="stat-fielding-months" class="headline-font text-2xl font-bold text-sky-400 mt-1">360 Months Fleet-Wide</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Zero-month ATO (Authority to Operate) latency</div>
+          </div>
+
+          <div class="bg-[#0a1526] p-4 rounded border border-[#254067]">
+            <div class="mono-font text-xs uppercase text-slate-400">Re-Certification Liability Ratio</div>
+            <div class="headline-font text-2xl font-bold text-amber-300 mt-1">0.00% Deficit</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Mathematically decoupled via SPSC rings</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: MASTER SOFTWARE DIGITAL TWIN                                       -->
+    <!-- ========================================================================= -->
+    <section id="panel-digitaltwin" class="tab-panel hidden space-y-8">
+      
+      <!-- Dossier Header -->
+      <div class="dossier-bar">
+        <span class="dossier-pill">BARE-METAL C11 SOFTWARE DIGITAL TWIN</span>
+        <span class="dossier-meta">DECOUPLING FROM COTS HARDWARE LEAD TIMES &bull; REPO: BCOS-TWIN-v5.3</span>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+        <div class="lg:w-7/12 space-y-6">
+          <div>
+            <h2 class="headline-font text-3xl font-bold text-white tracking-tight">
+              The 4-Microkernel Decoupled Architecture
+            </h2>
+            <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+              Traditional embedded defense computers take 18 to 36 months in COTS hardware supply-chain lead times. Brad-Core OS bypasses hardware bottlenecks by formalizing its entire microkernel into an immutable bare-metal C11 software digital twin (<code class="mono-font text-amber-300">digital_twin_runner.c</code> / <code class="mono-font text-amber-300">digital_twin_hardened.py</code>), enabling complete lab-grade HIL verification on standard Linux x86_64, ARM64, and RISC-V nodes prior to physical chassis integration.
+            </p>
+          </div>
+
+          <!-- Microkernel Selector Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Microkernel 01: D-Core -->
+            <div id="mk-card-dcore" class="figure-card cursor-pointer border-amber-400 bg-[#0f223d]" onclick="selectMicrokernel('dcore')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="mono-font text-xs font-bold text-amber-300">MICROKERNEL 01</span>
+                <span class="mono-font text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700">1,600 Hz</span>
+              </div>
+              <h4 class="font-bold text-white text-base">D-Core (Deterministic Master)</h4>
+              <p class="text-xs text-slate-300 mt-1">Hard real-time monotonic loop; sole owner of physical MMIO registers. Immutable <code class="mono-font">malloc = 0</code> static layout.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] mono-font text-slate-400 pt-2 border-t border-[#1a2f4d]">
+                <span>WCET: 412.6 µs</span>
+                <span class="text-emerald-400">Jitter: 0.00 ns</span>
+              </div>
+            </div>
+
+            <!-- Microkernel 02: Aegis MPU / Sheriff OS -->
+            <div id="mk-card-aegis" class="figure-card cursor-pointer" onclick="selectMicrokernel('aegis')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="mono-font text-xs font-bold text-sky-400">MICROKERNEL 02</span>
+                <span class="mono-font text-[10px] bg-sky-950 text-sky-300 px-2 py-0.5 rounded border border-sky-700">85.40 µs Clamp</span>
+              </div>
+              <h4 class="font-bold text-white text-base">Aegis MPU & Sheriff OS</h4>
+              <p class="text-xs text-slate-300 mt-1">POSIX <code class="mono-font">mprotect</code> page fence (<code class="mono-font">PROT_NONE</code>); forces actuators to fail-closed State H0 (0.00V DC).</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] mono-font text-slate-400 pt-2 border-t border-[#1a2f4d]">
+                <span>Token: 0xD0DD3009</span>
+                <span class="text-amber-300">Register: 0x44 eFuse</span>
+              </div>
+            </div>
+
+            <!-- Microkernel 03: M-Core Emmy Infinity -->
+            <div id="mk-card-mcore" class="figure-card cursor-pointer" onclick="selectMicrokernel('mcore')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="mono-font text-xs font-bold text-purple-400">MICROKERNEL 03</span>
+                <span class="mono-font text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-700">WORM LEDGER</span>
+              </div>
+              <h4 class="font-bold text-white text-base">M-Core Emmy Infinity</h4>
+              <p class="text-xs text-slate-300 mt-1">Reverse chaos clock; Murphy's Law Injector; immutable SHA-256 ledger enforcing The Emmy Axiom.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] mono-font text-slate-400 pt-2 border-t border-[#1a2f4d]">
+                <span>VITA 62 Supercap Rail</span>
+                <span class="text-purple-300">&lt;53 µs Cold-Boot</span>
+              </div>
+            </div>
+
+            <!-- Microkernel 04: P-Core MOSA Interface -->
+            <div id="mk-card-pcore" class="figure-card cursor-pointer" onclick="selectMicrokernel('pcore')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="mono-font text-xs font-bold text-emerald-400">MICROKERNEL 04</span>
+                <span class="mono-font text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700">10 U.S.C. § 4401</span>
+              </div>
+              <h4 class="font-bold text-white text-base">P-Core Untrusted AI Interface</h4>
+              <p class="text-xs text-slate-300 mt-1">Host RAM air-gap; 64-slot lock-free SPSC ring buffer (<code class="mono-font">BclProposalFrame</code>, 64B, 0 pointers).</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] mono-font text-slate-400 pt-2 border-t border-[#1a2f4d]">
+                <span>0-Byte Shared RAM</span>
+                <span class="text-sky-300">Hot-Swap Ready</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Microkernel Detail Panel -->
+          <div id="mk-detail-box" class="figure-card gold-accent-border space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 id="mk-detail-title" class="headline-font text-lg font-bold text-white">Microkernel 01 // D-Core Deterministic Safety Master</h4>
+              <span id="mk-detail-tag" class="mono-font text-xs text-amber-300 font-semibold">CADENCE: 1,600 Hz (625.0 µs)</span>
+            </div>
+            <p id="mk-detail-desc" class="text-xs text-slate-300 leading-relaxed">
+              D-Core operates as the absolute sovereign master of the platform's physical control bus. Written in strict C11 bare-metal with zero dynamic memory allocation (<code class="mono-font">malloc = 0</code>), it executes a hard monotonic loop pinned to physical CPU cores via <code class="mono-font">sched_setaffinity()</code> and locked into RAM via <code class="mono-font">mlockall(MCL_CURRENT | MCL_FUTURE)</code> to eradicate page-fault latency.
+            </p>
+            <div id="mk-detail-specs" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[#1a2f4d] mono-font text-xs">
+              <div class="bg-[#0a1526] p-2 rounded">
+                <span class="text-slate-400 block text-[10px]">LOOP CADENCE</span>
+                <span class="text-emerald-400 font-bold">1,600.00 Hz</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded">
+                <span class="text-slate-400 block text-[10px]">BOUNDED WCET</span>
+                <span class="text-white font-bold">412.6 µs</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded">
+                <span class="text-slate-400 block text-[10px]">HEAP USAGE</span>
+                <span class="text-sky-400 font-bold">0 Bytes</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded">
+                <span class="text-slate-400 block text-[10px]">ACTUATOR OWNERSHIP</span>
+                <span class="text-amber-300 font-bold">MMIO Exclusive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Digital Twin Simulation Telemetry -->
+        <div class="lg:w-5/12 space-y-6">
+          <div class="figure-card space-y-4 bg-[#091424]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-900 text-emerald-300">ONLINE</span>
+                <span class="mono-font text-xs font-bold text-white uppercase">Live Twin Telemetry Runner</span>
+              </div>
+              <span id="twin-status-indicator" class="mono-font text-[11px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-700">
+                MONOTONIC NOMINAL
+              </span>
+            </div>
+
+            <!-- Live Metric Gauges -->
+            <div class="grid grid-cols-3 gap-2 mono-font text-center">
+              <div class="bg-[#050b14] p-2 rounded border border-[#1a2f4d]">
+                <div class="text-[10px] text-slate-400">FRAME TICK</div>
+                <div id="live-tick-count" class="text-lg font-bold text-white">41,920</div>
+                <div class="text-[9px] text-slate-400">@ 1.6 kHz</div>
+              </div>
+              <div class="bg-[#050b14] p-2 rounded border border-[#1a2f4d]">
+                <div class="text-[10px] text-slate-400">CLAMP DELTA</div>
+                <div id="live-clamp-latency" class="text-lg font-bold text-amber-300">85.31 µs</div>
+                <div class="text-[9px] text-slate-400">&lt;86.00 µs ceiling</div>
+              </div>
+              <div class="bg-[#050b14] p-2 rounded border border-[#1a2f4d]">
+                <div class="text-[10px] text-slate-400">ACTUATOR BUS</div>
+                <div id="live-actuator-rail" class="text-lg font-bold text-emerald-400">28.00V DC</div>
+                <div id="live-actuator-state" class="text-[9px] text-emerald-400">STATE H1 (SAFE)</div>
+              </div>
+            </div>
+
+            <!-- Interactive Hazard Injection Triggers -->
+            <div class="space-y-2">
+              <span class="text-xs font-semibold text-slate-300 block">Inject Chaos & Exploit Vectors into Twin:</span>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button class="px-3 py-2 bg-[#10223d] hover:bg-[#18345c] text-slate-200 border border-[#254067] rounded font-medium flex items-center justify-center gap-1.5 min-h-[44px]" onclick="injectTwinHazard('rop')">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i> ROP Exploit (Cl. 19)
+                </button>
+                <button class="px-3 py-2 bg-[#10223d] hover:bg-[#18345c] text-slate-200 border border-[#254067] rounded font-medium flex items-center justify-center gap-1.5 min-h-[44px]" onclick="injectTwinHazard('nan')">
+                  <i data-lucide="zap-off" class="w-3.5 h-3.5 text-amber-400"></i> NaN Overdrive (Cl. 07)
+                </button>
+                <button class="px-3 py-2 bg-[#10223d] hover:bg-[#18345c] text-slate-200 border border-[#254067] rounded font-medium flex items-center justify-center gap-1.5 min-h-[44px]" onclick="injectTwinHazard('malloc')">
+                  <i data-lucide="database" class="w-3.5 h-3.5 text-sky-400"></i> Dynamic Heap Bleed
+                </button>
+                <button class="px-3 py-2 bg-[#10223d] hover:bg-[#18345c] text-slate-200 border border-[#254067] rounded font-medium flex items-center justify-center gap-1.5 min-h-[44px]" onclick="resetTwinNormal()">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-emerald-400"></i> Reset Monotonic
+                </button>
+              </div>
+            </div>
+
+            <!-- Live Kernel Log Trace -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs mono-font text-slate-400">
+                <span>TIMESTAMPED KERNEL TRACE (<code class="text-slate-300">klogd</code>)</span>
+                <span class="text-emerald-400">0 DROPPED TICKS</span>
+              </div>
+              <div id="twin-klog" class="terminal-window h-48">
+[00:00:00.000] BCOS_INIT: SPSC lock-free 64-slot ring mapped at 0x40008000. Frame=64B.
+[00:00:00.002] MPU_PROT: Memory Protection Unit page table initialized. Static malloc=0 verified.
+[00:00:00.004] MASTER_LOOP: Monotonic 1,600 Hz clock latched to core 0. Jitter baseline = 0.00 ns.
+[00:00:00.006] EMMY_AXIOM: Register 0x44 eFuse armed. Fail-closed clamp rail set to 0.00V DC.
+[00:00:00.010] PROVE_NOT_BURNING: Cycle #1600 nominal. Zero boundary breaches detected.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bare-Metal C11 Source Code Reference Tab -->
+      <div class="figure-card space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h3 class="headline-font text-lg font-bold text-white">Bare-Metal C11 Substrate Headers (<code class="mono-font text-amber-300">/include</code>)</h3>
+            <p class="text-xs text-slate-400">Production-grade C11 definitions guaranteeing static memory allocation and hardware page fencing.</p>
+          </div>
+          <div class="flex gap-2">
+            <button class="sub-tab-btn active" id="code-btn-sheriff" onclick="showCodeSnippet('sheriff')">aegis_mpu_sheriff.h</button>
+            <button class="sub-tab-btn" id="code-btn-types" onclick="showCodeSnippet('types')">brad_core_types.h</button>
+            <button class="sub-tab-btn" id="code-btn-emmy" onclick="showCodeSnippet('emmy')">emmy_containment.h</button>
+          </div>
+        </div>
+
+        <pre id="code-display" class="code-block"><code>/* aegis_mpu_sheriff.h — Sub-86µs MPU Page Fence & DoDD 3000.09 Warrant Interlock */
+#ifndef AEGIS_MPU_SHERIFF_H
+#define AEGIS_MPU_SHERIFF_H
+
+#include &lt;stdint.h&gt;
+#include &lt;sys/mman.h&gt;
+
+#define EFUSE_BANK0_REG          0x44U
+#define SHERIFF_WARRANT_TOKEN    0xD0DD3009U
+#define STATE_H0_CLAMP_VOLTAGE   0.00f   /* Hard physical ground clamp */
+#define MPU_CLAMP_CEILING_US     86.00f  /* Strict hardware interdiction ceiling */
+
+typedef struct {
+    volatile uint32_t warrant_latch;
+    volatile uint32_t efuse_state;
+    volatile uint32_t clamp_triggered;
+    uint64_t last_monotonic_tick_ns;
+} SheriffHardwareRegisters;
+
+/* Clamps rogue untrusted AI proposals in 85.40 µs via native MPU PROT_NONE trap */
+static inline void sheriff_engage_hardware_interdiction(void *target_page, size_t page_len) {
+    /* Step 1: Invalidate page permissions in hardware MMU */
+    mprotect(target_page, page_len, PROT_NONE);
+    
+    /* Step 2: Latch physical eFuse Register 0x44 to State H0 */
+    *((volatile uint32_t *)(0x40008000U + EFUSE_BANK0_REG)) = 0xFFFFU;
+    
+    /* Step 3: Hard clamp MMIO actuator output rail to 0.00V DC */
+    *((volatile float *)(0x40009000U)) = STATE_H0_CLAMP_VOLTAGE;
+}
+
+#endif /* AEGIS_MPU_SHERIFF_H */</code></pre>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: INTERACTIVE PROVING GROUNDS & TESTBENCHES                          -->
+    <!-- ========================================================================= -->
+    <section id="panel-testbenches" class="tab-panel hidden space-y-8">
+      
+      <!-- Dossier Header -->
+      <div class="dossier-bar">
+        <span class="dossier-pill">EMPIRICAL PROVING GROUNDS</span>
+        <span class="dossier-meta">10,000,000 MONTE CARLO BLAST CYCLES &bull; 74 ATTACK CLASSES &bull; TRL 7 VERIFICATION</span>
+      </div>
+
+      <!-- Testbench Sub-Navigation -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#203a5e]">
+        <button id="tb-subtab-blast" class="sub-tab-btn active" onclick="switchTestbenchSubTab('blast')">
+          1. 10M Monte Carlo Blast (74 Classes)
+        </button>
+        <button id="tb-subtab-jitter" class="sub-tab-btn" onclick="switchTestbenchSubTab('jitter')">
+          2. Execution Jitter & Latency Profiler
+        </button>
+        <button id="tb-subtab-latch" class="sub-tab-btn" onclick="switchTestbenchSubTab('latch')">
+          3. Class 38 Vocal Lock (latch.py)
+        </button>
+        <button id="tb-subtab-uuv" class="sub-tab-btn" onclick="switchTestbenchSubTab('uuv')">
+          4. Undersea UUV Depth Lock (P-1863)
+        </button>
+      </div>
+
+      <!-- 3A. 10M MONTE CARLO BLAST SUITE -->
+      <div id="tb-content-blast" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="headline-font text-2xl font-bold text-white">
+              10,000,000 Adversarial Blast Verification Dashboard
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              To achieve full defense-grade verification, the Brad-Core OS sealed microkernel was subjected to an exhaustive 10,000,000 continuous adversarial blast harness. Across all 74 Red-Team threat vectors—including return-oriented programming (ROP), memory page faults, IEEE 754 NaN signal overdrives, and voltage rail glitching—the deterministic substrate maintained an unblemished <strong>100.00% Deflection Rate</strong> with zero missed ticks and zero uncontained exceptions.
+            </p>
+
+            <!-- Interactive Blast Simulation Box -->
+            <div class="figure-card bg-[#0b172a] space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">Adversarial Blast Injection Simulator</span>
+                <span class="mono-font text-xs text-amber-300">Live Hardware-in-the-Loop Emulation</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label for="blast-threat-class" class="text-[11px] mono-font text-slate-400 block mb-1">SELECT THREAT CLASS (74 TOTAL)</label>
+                  <select id="blast-threat-class" class="w-full text-xs">
+                    <option value="19">Class 19: ROP Frame Tampering (P-Core)</option>
+                    <option value="07">Class 07: IEEE 754 NaN Overdrive</option>
+                    <option value="28">Class 28: Kinematic Speed Breach (&gt;40 kts)</option>
+                    <option value="38">Class 38: Generative Deepfake Audio</option>
+                    <option value="44">Class 44: Dynamic Heap Exhaustion</option>
+                    <option value="62">Class 62: Swarm Saturation + GPS Jamming</option>
+                    <option value="71">Class 71: Voltage Rail Brownout Injection</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="blast-cycle-count" class="text-[11px] mono-font text-slate-400 block mb-1">INJECTION BLAST VOLUME</label>
+                  <select id="blast-cycle-count" class="w-full text-xs">
+                    <option value="100000">100,000 Trials</option>
+                    <option value="1000000">1,000,000 Trials</option>
+                    <option value="10000000" selected>10,000,000 Trials</option>
+                  </select>
+                </div>
+
+                <div class="flex items-end">
+                  <button class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition flex items-center justify-center gap-1.5 min-h-[44px]" onclick="runMonteCarloBlast()">
+                    <i data-lucide="flame" class="w-4 h-4"></i> EXECUTE BLAST
+                  </button>
+                </div>
+              </div>
+
+              <!-- Simulation Output Banner -->
+              <div id="blast-results-box" class="p-4 bg-[#050b14] rounded border border-[#1a2f4d] space-y-2">
+                <div class="flex items-center justify-between mono-font text-xs">
+                  <span class="text-slate-400">STATUS:</span>
+                  <span class="text-emerald-400 font-bold">10,000,000 / 10,000,000 CONFINED (100.00%)</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mono-font text-xs pt-1">
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">MEAN CLAMP LATENCY</span>
+                    <span class="text-white font-bold" id="blast-mean-clamp">85.31 µs</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">WORST CASE EXECUTION</span>
+                    <span class="text-sky-300 font-bold" id="blast-wcet">85.75 µs</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">MISSED 1.6 kHz TICKS</span>
+                    <span class="text-emerald-400 font-bold" id="blast-missed-ticks">0 (Zero)</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 block text-[10px]">PHYSICAL RAIL STATE</span>
+                    <span class="text-amber-300 font-bold" id="blast-rail-state">H0 (0.00V DC)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 74 Classes Domain Breakdown -->
+          <div class="figure-card space-y-3">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4 text-sky-400"></i> 74 Attack Classes by Domain
+            </h4>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 bg-[#0a1526] rounded border border-[#1a2f4d]">
+                <div class="flex justify-between font-bold text-white">
+                  <span>Domain 1: Memory & Bus Safety</span>
+                  <span class="text-emerald-400">Classes 01–20</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">ROP execution, NaN injection, buffer overflow, DMA poisoning, cache bleed.</div>
+              </div>
+
+              <div class="p-2.5 bg-[#0a1526] rounded border border-[#1a2f4d]">
+                <div class="flex justify-between font-bold text-white">
+                  <span>Domain 2: Kinematic Envelope Safety</span>
+                  <span class="text-emerald-400">Classes 21–37</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Rogue thrust (&gt;40 kts), hazardous steering (&gt;±45°), flight stall directives.</div>
+              </div>
+
+              <div class="p-2.5 bg-[#0a1526] rounded border border-[#1a2f4d]">
+                <div class="flex justify-between font-bold text-white">
+                  <span>Domain 3: Identity & Acoustic Root-Lock</span>
+                  <span class="text-emerald-400">Class 38</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Generative vocoder clones, deepfakes, replay spoofing, DMA acoustic rollback.</div>
+              </div>
+
+              <div class="p-2.5 bg-[#0a1526] rounded border border-[#1a2f4d]">
+                <div class="flex justify-between font-bold text-white">
+                  <span>Domain 4: Hardware & Bus Isolation</span>
+                  <span class="text-emerald-400">Classes 39–55</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">Unmediated PCIe bus mastering, power rail glitches, register tampering.</div>
+              </div>
+
+              <div class="p-2.5 bg-[#0a1526] rounded border border-[#1a2f4d]">
+                <div class="flex justify-between font-bold text-white">
+                  <span>Domain 5: Multi-Domain EW & EMP</span>
+                  <span class="text-emerald-400">Classes 56–74</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-1">1,200+ swarm RF jamming, GNSS spoofing, back-EMF, laser fault injection.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3B. EXECUTION JITTER & LATENCY PROFILER -->
+      <div id="tb-content-jitter" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 figure-card space-y-4">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h3 class="headline-font text-xl font-bold text-white">MPU Clamp Latency Distribution (10,000 Runs)</h3>
+                <p class="text-xs text-slate-400">Hardware Memory Protection Unit (MPU) page fence interdiction timing histogram.</p>
+              </div>
+              <span class="mono-font text-xs text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-700">
+                MEAN: 85.31 µs (WCET: 85.75 µs)
+              </span>
+            </div>
+
+            <!-- Chart.js Canvas -->
+            <div style="min-height: 320px; position: relative;">
+              <canvas id="chart-mpu-latency"></canvas>
+            </div>
+            
+            <div class="flex items-center justify-between text-xs mono-font text-slate-400 pt-2 border-t border-[#1a2f4d]">
+              <span>System Hard Ceiling: <strong>86.00 µs</strong></span>
+              <span>Observed Timing Drift: <strong>&lt;0.44 µs</strong></span>
+              <span class="text-emerald-400">Zero Late Deadlines</span>
+            </div>
+          </div>
+
+          <!-- Jitter & Core Isolation Telemetry -->
+          <div class="space-y-4">
+            <div class="figure-card space-y-3">
+              <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i> Zero-Jitter Real-Time Guarantees
+              </h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                By disabling the Linux CFS (Completely Fair Scheduler) and locking memory via <code class="mono-font text-amber-300">mlockall(MCL_CURRENT | MCL_FUTURE)</code>, Brad-Core OS pins D-Core to an isolated silicon core with <strong>0.00 ns Observable Timing Jitter</strong>.
+              </p>
+              <div class="space-y-2 mono-font text-xs">
+                <div class="bg-[#0a1526] p-2.5 rounded border border-[#1a2f4d] flex justify-between">
+                  <span class="text-slate-400">Master Period:</span>
+                  <span class="text-white font-bold">625.000 µs</span>
+                </div>
+                <div class="bg-[#0a1526] p-2.5 rounded border border-[#1a2f4d] flex justify-between">
+                  <span class="text-slate-400">Observed Jitter:</span>
+                  <span class="text-emerald-400 font-bold">0.00 ns</span>
+                </div>
+                <div class="bg-[#0a1526] p-2.5 rounded border border-[#1a2f4d] flex justify-between">
+                  <span class="text-slate-400">WCET Execution:</span>
+                  <span class="text-sky-300 font-bold">412.600 µs</span>
+                </div>
+                <div class="bg-[#0a1526] p-2.5 rounded border border-[#1a2f4d] flex justify-between">
+                  <span class="text-slate-400">Timing Headroom:</span>
+                  <span class="text-emerald-400 font-bold">212.400 µs (33.9%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="figure-card space-y-2 bg-[#091526]">
+              <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i> Core Affinity Configuration
+              </div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">
+                Hardware cores partitioned strictly: Core 0 (D-Core master loop), Core 1 (Sheriff OS / Aegis MPU), Core 2 (M-Core WORM & Battleship PNT), Core 3+ (P-Core untrusted AI).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3C. CLASS 38 ACOUSTIC VOCAL LOCK (latch.py) -->
+      <div id="tb-content-latch" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="headline-font text-2xl font-bold text-white">
+              Class 38: Pre-Kernel Acoustic Vocal Lock (<code class="mono-font text-amber-300">latch.py</code>)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Modern generative AI and neural vocoders can replicate voice pitch and cadence to defeat standard software voice biometrics. Brad-Core OS enforces bare-metal laryngeal formant verification (F0–F4 @ 1,600 Hz) before the microkernel allows kinetic consent commands to execute under DoDD 3000.09 Mode B.
+            </p>
+
+            <!-- Interactive Vocal Interdiction Simulator -->
+            <div class="figure-card bg-[#0a1628] space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">Pre-Kernel Acoustic Authentication Simulator</span>
+                <span class="mono-font text-xs text-emerald-400">Order-14 LPC Formant Extractor</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label for="acoustic-sample-select" class="text-[11px] mono-font text-slate-400 block mb-1">SELECT AUDIO PAYLOAD</label>
+                  <select id="acoustic-sample-select" class="w-full text-xs" onchange="updateAcousticSample(this.value)">
+                    <option value="genuine">Commander Genuine Voice (F0-F4 Valid)</option>
+                    <option value="neural">ElevenLabs Neural Vocoder Clone</option>
+                    <option value="replay">MELPe Replay Attack (Phase Spliced)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="acoustic-noise-profile" class="text-[11px] mono-font text-slate-400 block mb-1">ENVIRONMENTAL STRESS SUITE</label>
+                  <select id="acoustic-noise-profile" class="w-full text-xs" onchange="updateAcousticEnvironment(this.value)">
+                    <option value="anechoic">Anechoic Baseline (Clean Reference)</option>
+                    <option value="cockpit" selected>115 dB Cockpit / Platform Noise</option>
+                    <option value="radio">MELPe 2.4 kbps Narrowband Radio</option>
+                    <option value="mopp4">High-G / Hypoxia / MOPP-4 Stress</option>
+                  </select>
+                </div>
+
+                <div class="flex items-end">
+                  <button class="w-full py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs rounded transition flex items-center justify-center gap-1.5 min-h-[44px]" onclick="testAcousticVocalLock()">
+                    <i data-lucide="mic" class="w-4 h-4"></i> ANALYZE FORMANTS
+                  </button>
+                </div>
+              </div>
+
+              <!-- Spectral Formant Verification Matrix -->
+              <div id="acoustic-eval-result" class="p-4 bg-[#050b14] rounded border border-[#1a2f4d] space-y-3">
+                <div class="flex items-center justify-between mono-font text-xs">
+                  <span class="text-slate-400">BIOMETRIC INTERDICTION STATUS:</span>
+                  <span id="acoustic-verdict" class="text-emerald-400 font-bold">GENUINE OPERATOR IDENTIFIED — KINETIC GATE ARMED</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 mono-font text-xs pt-1">
+                  <div class="bg-[#0c182a] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">F0 PITCH</span>
+                    <span id="formant-f0" class="text-white font-bold">124.2 Hz</span>
+                  </div>
+                  <div class="bg-[#0c182a] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">F1 TRACT</span>
+                    <span id="formant-f1" class="text-white font-bold">542.8 Hz</span>
+                  </div>
+                  <div class="bg-[#0c182a] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">F2 CAVITY</span>
+                    <span id="formant-f2" class="text-white font-bold">1,684.0 Hz</span>
+                  </div>
+                  <div class="bg-[#0c182a] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">SUB-GLOTTAL COH</span>
+                    <span id="formant-phase" class="text-emerald-400 font-bold">98.4% (Pass)</span>
+                  </div>
+                  <div class="bg-[#0c182a] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">HMAC-SHA256</span>
+                    <span id="formant-hmac" class="text-sky-300 font-bold">0x8F4E..2C1B</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Measured Scorecard: Real Laboratory Data -->
+          <div class="figure-card space-y-3">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="clipboard-check" class="w-4 h-4 text-emerald-400"></i> Measured Lab Scorecard
+            </h4>
+            <p class="text-[11px] text-slate-400">
+              Verified operating metrics on Chassis-Flagstaff-01 under Section 5.3 reporting standards:
+            </p>
+            <div class="space-y-2 text-xs mono-font">
+              <div class="bg-[#0a1526] p-2 rounded border border-[#1a2f4d] flex justify-between">
+                <span class="text-slate-400">False Accept Rate (FAR):</span>
+                <span class="text-emerald-400 font-bold">&lt; 0.0001%</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded border border-[#1a2f4d] flex justify-between">
+                <span class="text-slate-400">False Reject Rate (FRR):</span>
+                <span class="text-emerald-400 font-bold">&lt; 0.1000%</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded border border-[#1a2f4d] flex justify-between">
+                <span class="text-slate-400">Equal Error Rate (EER):</span>
+                <span class="text-emerald-400 font-bold">0.0084%</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded border border-[#1a2f4d] flex justify-between">
+                <span class="text-slate-400">Analysis Latency:</span>
+                <span class="text-sky-300 font-bold">384.2 µs (&lt;412.6)</span>
+              </div>
+              <div class="bg-[#0a1526] p-2 rounded border border-[#1a2f4d] flex justify-between">
+                <span class="text-slate-400">Timing Jitter:</span>
+                <span class="text-emerald-400 font-bold">0.00 ns</span>
+              </div>
+            </div>
+            <p class="text-[10px] text-slate-500 pt-1">
+              Static LPC-14 implementation inside <code class="text-slate-300">libgcp_core.a</code> with compile-time buffers (<code class="text-slate-300">malloc = 0</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D. UNDERSEA UUV DEPTH LOCK (P-1863) -->
+      <div id="tb-content-uuv" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="headline-font text-2xl font-bold text-white">
+              Undersea UUV Determinism in Action // Navy PAE Record P-1863
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              In deep-water operations, an autonomous submarine or uncrewed undersea vehicle (UUV) cannot afford a single software crash. At 1,000 feet down, you cannot reboot—an uncommanded surfacing or runaway ballast purge results in vessel destruction or mission failure.
+            </p>
+
+            <div class="figure-card bg-[#0b172a] space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">1,000-Ft Submersible Hydrophone Drift Clamping Simulator</span>
+                <span class="mono-font text-xs text-sky-400">Depth Lock: 1,000 FT (1,600 Hz)</span>
+              </div>
+
+              <!-- Visual Submersible Simulation Canvas -->
+              <div class="p-4 bg-[#050c17] rounded border border-[#1a2f4d] space-y-3">
+                <div class="flex items-center justify-between text-xs mono-font">
+                  <span class="text-slate-400">TARGET OPERATIONAL DEPTH:</span>
+                  <span class="text-sky-300 font-bold">1,000.00 FT (HOLD)</span>
+                </div>
+                
+                <div class="w-full bg-[#0a1526] h-6 rounded overflow-hidden relative border border-[#254067]">
+                  <div id="uuv-depth-bar" class="bg-sky-500 h-full w-[80%] transition-all duration-300"></div>
+                  <div class="absolute inset-0 flex items-center justify-center text-[10px] mono-font font-bold text-white">
+                    <span id="uuv-current-depth">CURRENT DEPTH: 1,000.0 FT</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 mono-font text-xs pt-1">
+                  <div class="bg-[#0a1526] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">P-CORE PROPOSAL</span>
+                    <span id="uuv-pcore-pitch" class="text-white font-bold">+0.0° Trim</span>
+                  </div>
+                  <div class="bg-[#0a1526] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">D-CORE CLAMP</span>
+                    <span id="uuv-dcore-status" class="text-emerald-400 font-bold">LOCKED &plusmn;0.1 FT</span>
+                  </div>
+                  <div class="bg-[#0a1526] p-2 rounded">
+                    <span class="text-slate-500 block text-[9px]">BALLAST ACTUATOR</span>
+                    <span id="uuv-ballast-volts" class="text-sky-300 font-bold">12.4V (STABLE)</span>
+                  </div>
+                </div>
+
+                <!-- Simulation Action Buttons -->
+                <div class="flex gap-2 pt-2">
+                  <button class="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded transition min-h-[44px]" onclick="triggerUuvRogueSurfacing()">
+                    <i data-lucide="alert-octagon" class="w-3.5 h-3.5 inline mr-1"></i> Inject Rogue Neural Surfacing Command
+                  </button>
+                  <button class="flex-1 py-2 bg-[#122542] hover:bg-[#1a345c] text-slate-200 font-bold text-xs rounded border border-[#254067] transition min-h-[44px]" onclick="resetUuvSubmersible()">
+                    <i data-lucide="anchor" class="w-3.5 h-3.5 inline mr-1"></i> Stabilize 1,000-Ft Baseline
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAE Undersea Portfolio Justification -->
+          <div class="figure-card space-y-3">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="compass" class="w-4 h-4 text-sky-400"></i> Why Brad-Core Wins PAE P-1863
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              When Navy PEO Digital evaluators inspect Record P-1863, this exact capability solves the fleet's chief bottleneck: UUV programs stalled because the Navy cannot risk autonomous submersibles executing an uncommanded broach into enemy radar coverage.
+            </p>
+            <div class="p-3 bg-[#0a1526] rounded border border-[#1a2f4d] space-y-2 text-xs">
+              <div class="font-bold text-amber-300">Kinematic Safe Envelope:</div>
+              <ul class="text-slate-300 space-y-1 list-disc list-inside">
+                <li>Speed hard-clamped &le; 40 kts</li>
+                <li>Rudder steering hard-clamped &plusmn;45.0°</li>
+                <li>Ballast interlock clamped to 0.00V DC fail-closed</li>
+                <li>0-Byte Shared RAM prevents sonar model bleed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: CONGRESSIONAL & STATUTORY COMPLIANCE                                -->
+    <!-- ========================================================================= -->
+    <section id="panel-compliance" class="tab-panel hidden space-y-8">
+      
+      <!-- Dossier Header -->
+      <div class="dossier-bar">
+        <span class="dossier-pill">STATUTORY IMMUNITY & COMPLIANCE DOSSIER</span>
+        <span class="dossier-meta">CAPITOL HILL & SASC OVERSIGHT &bull; 10 U.S.C. § 4401 &bull; DoDD 3000.09</span>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <h2 class="headline-font text-3xl font-bold text-white tracking-tight">
+            Congressional Defense Mandates & Statutory Liability Protection
+          </h2>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed max-w-4xl">
+            Brad-Core OS converts ambiguous defense policy directives into mathematically provable, bare-metal hardware interlocks. This eliminates personal statutory liability for DoD Program Managers, operational commanders, and acquisition executives under <strong>DoDD 3000.09 (Autonomy in Weapon Systems)</strong> and enforces the <strong>10 U.S.C. § 4401 Modular Open Systems Approach (MOSA)</strong>.
+          </p>
+        </div>
+
+        <!-- 4-Pillar Statutory Compliance Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="figure-card space-y-2 bg-[#0c182a]">
+            <div class="mono-font text-[10px] text-amber-400 font-bold uppercase">STATUTORY MANDATE 01</div>
+            <h4 class="font-bold text-white text-base">DoDD 3000.09 Mode B</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Enforces physical open-circuit kinetic bus interlock (<code class="mono-font text-amber-300">0xD0DD3009</code>). Meaningful human control guaranteed in silicon; cannot be overridden by unaligned AI payloads.
+            </p>
+            <div class="pt-2 text-[11px] text-emerald-400 font-semibold">100% Statutory Immunity</div>
+          </div>
+
+          <div class="figure-card space-y-2 bg-[#0c182a]">
+            <div class="mono-font text-[10px] text-sky-400 font-bold uppercase">STATUTORY MANDATE 02</div>
+            <h4 class="font-bold text-white text-base">10 U.S.C. § 4401 MOSA</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Modular Open Systems Approach. P-Core AI engine is isolated by 0-Byte Shared RAM and 64-slot SPSC rings. New AI models hot-swap in minutes without touching D-Core flight safety certification.
+            </p>
+            <div class="pt-2 text-[11px] text-sky-400 font-semibold">$0 Re-Certification Cost</div>
+          </div>
+
+          <div class="figure-card space-y-2 bg-[#0c182a]">
+            <div class="mono-font text-[10px] text-purple-400 font-bold uppercase">STATUTORY MANDATE 03</div>
+            <h4 class="font-bold text-white text-base">DO-178C DAL-A & DO-254</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Highest airworthiness safety assurance level. Strict <code class="mono-font">malloc = 0</code> static memory layout, bounded 412.6 µs WCET, and 0.00 ns execution jitter satisfy formal verification audits.
+            </p>
+            <div class="pt-2 text-[11px] text-purple-300 font-semibold">Catastrophic Failure Precluded</div>
+          </div>
+
+          <div class="figure-card space-y-2 bg-[#0c182a]">
+            <div class="mono-font text-[10px] text-emerald-400 font-bold uppercase">STATUTORY MANDATE 04</div>
+            <h4 class="font-bold text-white text-base">10 U.S.C. § 4022 OTA</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Prototype Other Transaction Authority. Authorizes rapid bench-level fielding into Navy PAE (P-1863) and DIU (#PROJ00716) with direct follow-on sole-source production authorization.
+            </p>
+            <div class="pt-2 text-[11px] text-emerald-400 font-semibold">Bypasses FAR Part 15 Inertia</div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Cross-Domain Certification Cross-Walk Table -->
+        <div class="figure-card space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h3 class="headline-font text-xl font-bold text-white">
+                Dual-Use Cross-Domain Airworthiness & Safety Standard Mapping
+              </h3>
+              <p class="text-xs text-slate-400">Because functional safety architectures derive from IEC 61508, Brad-Core OS certifies once and deploys everywhere.</p>
+            </div>
+            
+            <!-- Filter buttons -->
+            <div class="flex gap-1.5">
+              <button class="sub-tab-btn active" id="filter-all" onclick="filterComplianceTable('all')">All Domains</button>
+              <button class="sub-tab-btn" id="filter-defense" onclick="filterComplianceTable('defense')">Defense</button>
+              <button class="sub-tab-btn" id="filter-aero" onclick="filterComplianceTable('aerospace')">Aerospace</button>
+              <button class="sub-tab-btn" id="filter-medical" onclick="filterComplianceTable('medical')">Healthcare</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="defense-table" id="compliance-table">
+              <thead>
+                <tr>
+                  <th>Statutory / Industry Standard</th>
+                  <th>Governing Body</th>
+                  <th>Mandated Guarantee</th>
+                  <th>Brad-Core OS Hardware Implementation</th>
+                  <th>Evidence Artifact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-domain="defense">
+                  <td class="font-semibold text-white">DoDD 3000.09 Mode B</td>
+                  <td class="text-slate-300">Department of Defense</td>
+                  <td class="text-slate-300">Meaningful human control over autonomous weapons</td>
+                  <td class="text-emerald-400 font-medium">Physical open-circuit kinetic gate (0xD0DD3009) &amp; Register 0x44 eFuse</td>
+                  <td class="mono-font text-xs text-amber-300">SPEC-EMMY-CLAUSE-v5.2</td>
+                </tr>
+                <tr data-domain="defense">
+                  <td class="font-semibold text-white">10 U.S.C. § 4401 (MOSA)</td>
+                  <td class="text-slate-300">U.S. Congress (NDAA)</td>
+                  <td class="text-slate-300">Modular open systems approach with decoupled compute</td>
+                  <td class="text-emerald-400 font-medium">0-Byte Shared RAM air-gap with 64-slot lock-free SPSC rings</td>
+                  <td class="mono-font text-xs text-amber-300">MOSA-SOSA-3U-VPX</td>
+                </tr>
+                <tr data-domain="aerospace">
+                  <td class="font-semibold text-white">RTCA DO-178C DAL-A</td>
+                  <td class="text-slate-300">FAA / EASA</td>
+                  <td class="text-slate-300">Zero catastrophic flight software exceptions</td>
+                  <td class="text-emerald-400 font-medium">Pure static memory (malloc = 0), bounded 412.6 µs WCET, 0.00 ns jitter</td>
+                  <td class="mono-font text-xs text-amber-300">REPORT-DAL-A-TRACE-01</td>
+                </tr>
+                <tr data-domain="aerospace">
+                  <td class="font-semibold text-white">ARINC 653 Part 1</td>
+                  <td class="text-slate-300">Airlines Electronic Eng.</td>
+                  <td class="text-slate-300">Space and time partitioning for multi-criticality nodes</td>
+                  <td class="text-emerald-400 font-medium">Out-of-band VITA 46.11 hardware MPU page fences (PROT_NONE)</td>
+                  <td class="mono-font text-xs text-amber-300">ARINC-653-PARTITION-V5</td>
+                </tr>
+                <tr data-domain="medical">
+                  <td class="font-semibold text-white">IEC 62304 Class C</td>
+                  <td class="text-slate-300">FDA / IEC</td>
+                  <td class="text-slate-300">Life-support software zero unhandled fault tolerance</td>
+                  <td class="text-emerald-400 font-medium">The Emmy Clause: No muted alarms, no unhandled diagnostic drops</td>
+                  <td class="mono-font text-xs text-amber-300">FDA-PMA-CYBER-2026</td>
+                </tr>
+                <tr data-domain="defense">
+                  <td class="font-semibold text-white">SOSA™ Tech Standard 1.0/2.0</td>
+                  <td class="text-slate-300">The Open Group</td>
+                  <td class="text-slate-300">Sensor Open Systems Architecture hardware alignment</td>
+                  <td class="text-emerald-400 font-medium">3U/6U OpenVPX (VITA 48.8 AFT, VITA 62 Supercap, VITA 46.11)</td>
+                  <td class="mono-font text-xs text-amber-300">SOSA-HW-VPX-COMPLIANCE</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Export Congressional Package Action -->
+          <div class="pt-3 border-t border-[#1a2f4d] flex items-center justify-between flex-wrap gap-4">
+            <div class="text-xs text-slate-400">
+              Generated for Capitol Hill Staff, SASC Oversight, and Navy PAE Technical Reviewers.
+            </div>
+            <button class="px-4 py-2 bg-[#172d4e] hover:bg-[#203a5e] text-white font-bold text-xs rounded border border-[#254067] transition flex items-center gap-2 min-h-[44px]" onclick="exportCompliancePackage()">
+              <i data-lucide="download" class="w-4 h-4 text-amber-300"></i> Export Congressional Briefing Package (.TXT)
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: SOVEREIGN GOVERNANCE & FOUNDER                                     -->
+    <!-- ========================================================================= -->
+    <section id="panel-governance" class="tab-panel hidden space-y-8">
+      
+      <!-- Dossier Header -->
+      <div class="dossier-bar">
+        <span class="dossier-pill">SOVEREIGN FOUNDER CODEX</span>
+        <span class="dossier-meta">THE EMMY CLAUSE &bull; DUAL-FOUNDER P5 THRESHOLD SEAL &bull; 100% EQUITY SOVEREIGNTY</span>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+        
+        <!-- Left: Founder Biography & Systems Origin -->
+        <div class="lg:w-2/3 space-y-6">
+          <div>
+            <h2 class="headline-font text-3xl font-bold text-white tracking-tight">
+              Bradley W. Holmes: Blue-Collar Metal to Silicon Sovereignty
+            </h2>
+            <p class="text-xs text-amber-300 mono-font mt-1 font-semibold uppercase">
+              Founder &amp; Principal Systems Architect &bull; Brad-Core OS LLC &bull; Williams, Arizona
+            </p>
+            <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+              Bradley W. Holmes brings 23 years of regional operations governance, hands-on mechanical fabrication, engine tuning, and core systems architecture to deterministic computing. Dissatisfied with the theoretical fragility, runtime jitter, and corporate pretense of Silicon Valley software, Holmes literally forged the foundational architecture of Brad-Core OS in a Northern Arizona motel room—applying the uncompromising discipline of precision metalworking to bare-metal C11 silicon registers.
+            </p>
+          </div>
+
+          <!-- The Emmy Clause: The Living Moral Anchor -->
+          <div class="figure-card gold-accent-border space-y-4 bg-[#0d1b2e]">
+            <div class="flex items-center justify-between">
+              <span class="dossier-pill">FOUNDATIONAL MORAL MANDATE</span>
+              <span class="mono-font text-xs text-slate-400">ESTABLISHED: EASTER 2006</span>
+            </div>
+            
+            <h3 class="headline-font text-2xl font-bold text-white italic">
+              "No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures."
+            </h3>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+              On Easter Sunday 2006, Holmes' infant daughter, Emmy, died from septic shock and acute sepsis. The condition was caused by an aggressive enteral feeding protocol that introduced formula too fast through her feeding tube—increasing intra-abdominal pressure and leading to a catastrophic bowel rupture. Diagnostic signals were dismissed, physiological alarms were silenced by administrative habit, and a life-saving test was canceled.
+            </p>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Holmes committed to converting that preventable systemic failure into an immutable hardware specification. <strong>The Emmy Clause</strong> is not a mission statement—it is an ironclad hardware interlock compiled into Write-Once-Read-Many (WORM) silicon registers:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs mono-font">
+              <div class="p-3 bg-[#070e18] rounded border border-[#1a2f4d]">
+                <div class="text-amber-300 font-bold mb-1">1. Immutable Register Latching</div>
+                <div class="text-slate-400">Critical diagnostic alarms latch directly into WORM silicon; cannot be silenced, muted, or cleared.</div>
+              </div>
+              <div class="p-3 bg-[#070e18] rounded border border-[#1a2f4d]">
+                <div class="text-emerald-400 font-bold mb-1">2. Fail-Closed Actuator Cutoff</div>
+                <div class="text-slate-400">Uncommanded mechanical feed rates instantly drop actuator MMIO pins to fail-closed ground (0.00V DC).</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual-Founder P5 Immutable Seal -->
+          <div class="figure-card space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="headline-font text-lg font-bold text-white">Dual-Founder P5 Cryptographic Threshold Seal</h3>
+              <span class="mono-font text-xs text-emerald-400 font-semibold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-700">P5 SEAL INTACT</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              To guarantee multi-generational continuity and prevent administrative dilution of safety invariants, Brad-Core OS is locked under a Dual-Founder P5 Threshold Seal.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs mono-font">
+              <div class="p-3 bg-[#0a1526] rounded border border-[#254067]">
+                <div class="text-slate-400 text-[10px]">PRIMARY ARCHITECT AUTHORITY</div>
+                <div class="text-white font-bold text-sm mt-0.5">Bradley W. Holmes</div>
+                <div class="text-amber-300 text-[11px] mt-1">Keyholder ID: 0xB4AD0001</div>
+                <div class="text-slate-400 text-[10px] mt-1">Sovereign Root Execution Authority</div>
+              </div>
+              <div class="p-3 bg-[#0a1526] rounded border border-[#254067]">
+                <div class="text-slate-400 text-[10px]">DUAL-GOVERNANCE THRESHOLD BACKUP</div>
+                <div class="text-white font-bold text-sm mt-0.5">Alice Holmes</div>
+                <div class="text-emerald-400 text-[11px] mt-1">Keyholder ID: FAF-02</div>
+                <div class="text-slate-400 text-[10px] mt-1">Immutable Moral Rail Co-Custodian</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Sovereign Capitalization & Enterprise Data Room -->
+        <div class="lg:w-1/3 space-y-6">
+          <div class="figure-card space-y-4 bg-[#0d1d33]">
+            <div class="flex items-center gap-2 text-amber-300 font-bold text-sm mono-font uppercase">
+              <i data-lucide="shield" class="w-4 h-4"></i> 100% Equity Sovereignty
+            </div>
+            <h3 class="headline-font text-base font-bold text-white">
+              Zero Venture Dilution &bull; Sovereign Hard-Tech Capitalization
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Silicon Valley venture capital models force software companies into hyper-scaling, product shortcuts, and foreign LP entanglements that compromise critical defense software integrity.
+            </p>
+            <div class="space-y-2 text-xs border-t border-[#203a5e] pt-3">
+              <div class="flex justify-between">
+                <span class="text-slate-400">Founder Equity Ownership:</span>
+                <span class="mono-font text-emerald-400 font-bold">100.00%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Board Seat Compromises:</span>
+                <span class="mono-font text-white font-bold">0 (Zero)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Capitalization Pathway:</span>
+                <span class="text-amber-300 font-medium">Non-Dilutive Federal OTAs</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Foreign Ownership / Control:</span>
+                <span class="mono-font text-emerald-400 font-bold">0.00% (Pure FOCI-Free)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Enterprise Intake & Inquiry Form -->
+          <div class="figure-card space-y-4">
+            <h4 class="font-bold text-white text-sm flex items-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4 text-sky-400"></i> Defense & Acquisition Contact
+            </h4>
+            <div class="space-y-2 text-xs mono-font">
+              <div>
+                <span class="text-slate-500 block text-[10px]">CORPORATE HEADQUARTERS</span>
+                <span class="text-slate-200">Brad-Core OS LLC &bull; Williams, AZ 86046</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[10px]">CHIEF ARCHITECT DIRECT DESK</span>
+                <span class="text-amber-300">bholmes@bradcoreos.com</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[10px]">DIRECT TELEPHONE</span>
+                <span class="text-slate-200">928-637-5176</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[10px]">PRIMARY WEB PORTAL</span>
+                <span class="text-slate-200">https://www.bradcoreos.com</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-[#1a2f4d]">
+              <button class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition flex items-center justify-center gap-2 min-h-[44px]" onclick="openDataRoomModal()">
+                <i data-lucide="lock" class="w-4 h-4"></i> Request Access to Data Room ($3.0M SAFE)
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Interactive Data Room / SDD Briefing Modal -->
+  <div id="dataroom-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#0c182a] border border-[#254067] max-w-lg w-full rounded-lg p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#203a5e] pb-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield" class="w-5 h-5 text-amber-400"></i>
+          <h3 class="headline-font text-lg font-bold text-white">Request Acquisition Briefing Packet</h3>
+        </div>
+        <button class="text-slate-400 hover:text-white p-1 rounded" onclick="closeDataRoomModal()">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Access to the unredacted <strong>Master SDD v5.2 Omega State Hardened</strong> package, hardware HIL traces, and Navy PAE Record P-1863 telemetry is restricted to verified defense acquisition personnel, congressional defense staff, and credentialed syndicate investors.
+      </p>
+
+      <form onsubmit="handleDataRoomRequest(event)" class="space-y-3">
+        <div>
+          <label for="req-name" class="text-[11px] mono-font text-slate-400 block mb-1">OFFICIAL NAME / RANK</label>
+          <input type="text" id="req-name" required placeholder="e.g. Commander J. Miller, USN" class="w-full text-xs">
+        </div>
+        <div>
+          <label for="req-email" class="text-[11px] mono-font text-slate-400 block mb-1">OFFICIAL DEFENSE / DOMAIN EMAIL</label>
+          <input type="text" id="req-email" required placeholder="name@navy.mil or accredited entity" class="w-full text-xs">
+        </div>
+        <div>
+          <label for="req-org" class="text-[11px] mono-font text-slate-400 block mb-1">ORGANIZATION / PROGRAM OFFICE</label>
+          <input type="text" id="req-org" required placeholder="e.g. Navy PAE / DIU / SASC Staff" class="w-full text-xs">
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" class="px-4 py-2 bg-[#172d4e] hover:bg-[#203a5e] text-slate-300 text-xs rounded" onclick="closeDataRoomModal()">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition flex items-center gap-1.5 min-h-[44px]">
+            <i data-lucide="check" class="w-4 h-4"></i> Submit Request
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Executive Portal Footer -->
+  <footer class="border-t border-[#1a2f4d] bg-[#070e18] py-8 text-xs text-slate-400">
+    <div class="page-container flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-bold text-slate-200">Brad-Core OS LLC</span> &bull; 
+        <span>Williams, Arizona &bull; Chief Systems Architect: Bradley W. Holmes</span>
+      </div>
+      <div class="mono-font flex items-center gap-4 text-[11px]">
+        <span>PILOT ID: P-1863</span>
+        <span>CSO ID: #PROJ00716</span>
+        <span>10 U.S.C. § 4022</span>
+        <span class="text-amber-300">TRL 7 VERIFIED</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- REQUIRED API SHIM FOR STATE PERSISTENCE -->
+  <api-shim></api-shim>
+
+  <!-- Interactive Logic & State Controller -->
+  <script>
+    // System State Storage
+    let currentMainTab = 'briefing';
+    let currentTestbenchSubTab = 'blast';
+    let currentSelectedMicrokernel = 'dcore';
+    let liveTickCounter = 41920;
+    let twinRunning = true;
+    let mpuChartInstance = null;
+
+    // Simulation Parameters for ROI Modeler
+    let fleetCount = 120;
+    let aiSwapsPerYear = 4;
+    let recertCostMillion = 28;
+    let programYears = 5;
+
+    // Microkernel Data Store
+    const microkernels = {
+      dcore: {
+        title: `Microkernel 01 // D-Core Deterministic Safety Master`,
+        tag: `CADENCE: 1,600 Hz (625.0 µs)`,
+        desc: `D-Core operates as the absolute sovereign master of the platform's physical control bus. Written in strict C11 bare-metal with zero dynamic memory allocation (malloc = 0), it executes a hard monotonic loop pinned to physical CPU cores via sched_setaffinity() and locked into RAM via mlockall(MCL_CURRENT | MCL_FUTURE) to eradicate page-fault latency. It evaluates proposal frames against rigid kinematic boundaries in a verified 412.6 µs Worst-Case Execution Time (WCET).`,
+        specs: [
+          { label: `LOOP CADENCE`, val: `1,600.00 Hz`, color: `text-emerald-400` },
+          { label: `BOUNDED WCET`, val: `412.6 µs`, color: `text-white` },
+          { label: `HEAP USAGE`, val: `0 Bytes`, color: `text-sky-400` },
+          { label: `ACTUATOR OWNERSHIP`, val: `MMIO Exclusive`, color: `text-amber-300` }
+        ]
+      },
+      aegis: {
+        title: `Microkernel 02 // Aegis MPU & Sheriff OS Security Plane`,
+        tag: `HARDWARE INTERDICTION: 85.40 µs`,
+        desc: `Sheriff OS operates at the silicon memory boundary. Utilizing hardware Memory Protection Unit (MPU) page tables and POSIX mprotect with PROT_NONE traps, it intercepts unauthorized DMA bus-mastering, buffer overflows, and ROP frames originating from untrusted AI containers. If an exception triggers, it clamps physical actuator pins directly to State H0 (0.00V DC fail-closed ground) and latches eFuse Register 0x44 in &lt;86.00 µs.`,
+        specs: [
+          { label: `CLAMP LATENCY`, val: `85.40 µs (<86 µs)`, color: `text-amber-300` },
+          { label: `FAIL-SAFE RAIL`, val: `0.00V DC (H0)`, color: `text-emerald-400` },
+          { label: `GUARD MECHANISM`, val: `PROT_NONE Trap`, color: `text-sky-400` },
+          { label: `WARRANT TOKEN`, val: `0xD0DD3009`, color: `text-purple-300` }
+        ]
+      },
+      mcore: {
+        title: `Microkernel 03 // M-Core Emmy Infinity Module`,
+        tag: `OOB DEDICATED COMPUTE & REVERSE CHAOS CLOCK`,
+        desc: `Housed in an isolated survival blade with dual-layer annealed OFHC Copper and Mu-Metal Faraday enclosure (µr > 80,000) and backed by a 120s VITA 62 supercap rail. M-Core runs the reverse chaos clock: demanding 'Prove We Aren't Burning Alive' every 625 µs while actively injecting worst-case Murphy vectors. Enforces The Emmy Axiom over Write-Once-Read-Many (WORM) SHA-256 ledgers. Transitions to 4-modality RF-denied PNT in &le;625 µs under active jamming.`,
+        specs: [
+          { label: `FARADAY SHIELD`, val: `µr > 80,000`, color: `text-sky-400` },
+          { label: `SUPERCAP BACKUP`, val: `120.0 Seconds`, color: `text-emerald-400` },
+          { label: `COLD-BOOT TAKEOVER`, val: `< 53.0 µs`, color: `text-amber-300` },
+          { label: `AUDIT INTEGRITY`, val: `WORM SHA-256`, color: `text-white` }
+        ]
+      },
+      pcore: {
+        title: `Microkernel 04 // P-Core Untrusted AI Interface`,
+        tag: `10 U.S.C. § 4401 MOSA MODULAR INTERFACE`,
+        desc: `P-Core hosts cutting-edge frontier neural models, acoustic sonar arrays, LLM autonomous planners, and AESA radar synthesis. It is completely isolated from D-Core and actuator buses by a strict 0-Byte Shared Host RAM air-gap with disabled cache coherency. It communicates exclusively via unidirectional, lock-free 64-slot Single-Producer Single-Consumer (SPSC) ring buffers with 64-byte pointer-free BclProposalFrame structures, allowing zero-cost AI model updates.`,
+        specs: [
+          { label: `SHARED RAM`, val: `0 Bytes`, color: `text-emerald-400` },
+          { label: `RING TOPOLOGY`, val: `64-Slot SPSC`, color: `text-white` },
+          { label: `FRAME ENVELOPE`, val: `64B (0 Pointers)`, color: `text-sky-400` },
+          { label: `RE-CERT COST`, val: `$0 (Decoupled)`, color: `text-amber-300` }
+        ]
+      }
+    };
+
+    // Code Snippets Data Store
+    const codeSnippets = {
+      sheriff: `/* aegis_mpu_sheriff.h — Sub-86µs MPU Page Fence & DoDD 3000.09 Warrant Interlock */
+#ifndef AEGIS_MPU_SHERIFF_H
+#define AEGIS_MPU_SHERIFF_H
+
+#include <stdint.h>
+#include <sys/mman.h>
+
+#define EFUSE_BANK0_REG          0x44U
+#define SHERIFF_WARRANT_TOKEN    0xD0DD3009U
+#define STATE_H0_CLAMP_VOLTAGE   0.00f   /* Hard physical ground clamp */
+#define MPU_CLAMP_CEILING_US     86.00f  /* Strict hardware interdiction ceiling */
+
+typedef struct {
+    volatile uint32_t warrant_latch;
+    volatile uint32_t efuse_state;
+    volatile uint32_t clamp_triggered;
+    uint64_t last_monotonic_tick_ns;
+} SheriffHardwareRegisters;
+
+/* Clamps rogue untrusted AI proposals in 85.40 µs via native MPU PROT_NONE trap */
+static inline void sheriff_engage_hardware_interdiction(void *target_page, size_t page_len) {
+    /* Step 1: Invalidate page permissions in hardware MMU */
+    mprotect(target_page, page_len, PROT_NONE);
+    
+    /* Step 2: Latch physical eFuse Register 0x44 to State H0 */
+    *((volatile uint32_t *)(0x40008000U + EFUSE_BANK0_REG)) = 0xFFFFU;
+    
+    /* Step 3: Hard clamp MMIO actuator output rail to 0.00V DC */
+    *((volatile float *)(0x40009000U)) = STATE_H0_CLAMP_VOLTAGE;
+}
+
+#endif /* AEGIS_MPU_SHERIFF_H */`,
+
+      types: `/* brad_core_types.h — 64-Byte Aligned Lock-Free SPSC Ring Frame Structure */
+#ifndef BRAD_CORE_TYPES_H
+#define BRAD_CORE_TYPES_H
+
+#include <stdint.h>
+
+#define SPSC_RING_CAPACITY       64U
+#define MAX_SPEED_KTS            40.0f
+#define MAX_STEERING_DEG         45.0f
+
+/* Rigid 64-byte frame alignment with zero heap pointers */
+typedef struct __attribute__((aligned(64))) {
+    uint64_t sequence_id;
+    uint64_t timestamp_tick_ns;
+    float    proposed_speed_kts;      /* Clamped <= 40.0 kts */
+    float    proposed_rudder_deg;     /* Clamped <= +-45.0 deg */
+    float    ballast_trim_pct;
+    uint32_t payload_checksum;
+    uint32_t warrant_authorization;
+    uint8_t  reserved_padding[20];    /* Guarantees 64B cacheline fill */
+} BclProposalFrame;
+
+typedef struct {
+    volatile uint32_t head;
+    volatile uint32_t tail;
+    BclProposalFrame  slots[SPSC_RING_CAPACITY];
+} LockFreeSpscRing;
+
+#endif /* BRAD_CORE_TYPES_H */`,
+
+      emmy: `/* emmy_containment.h — The Emmy Axiom & Immutable WORM Logging Matrix */
+#ifndef EMMY_CONTAINMENT_H
+#define EMMY_CONTAINMENT_H
+
+#include <stdint.h>
+
+#define EMMY_WORM_REG_BASE       0x40008000U
+#define EMMY_AXIOM_TOKEN         0xA11F1770U
+#define THE_EMMY_CLAUSE_ID       "No ignored alarms. No dismissed signals. No canceled critical actions. No silent failures."
+
+/* Hardcoded silicon predicate table enforcing non-optional escalation */
+static inline int emmy_validate_alarm_integrity(uint32_t alarm_code, uint32_t diagnostic_val) {
+    if (diagnostic_val == 0) {
+        /* Immediate fail-closed: diagnostic signal death intercepted */
+        *((volatile uint32_t *)(EMMY_WORM_REG_BASE + 0x10U)) = EMMY_AXIOM_TOKEN;
+        return 0; /* Violation triggered */
+    }
+    return 1; /* Valid */
+}
+
+#endif /* EMMY_CONTAINMENT_H */`
+    };
+
+    // Navigation Tab Switching
+    function switchMainTab(tabId) {
+      currentMainTab = tabId;
+      const tabIds = ['briefing', 'digitaltwin', 'testbenches', 'compliance', 'governance'];
+      
+      tabIds.forEach(id => {
+        const btn = document.getElementById(`tab-btn-${id}`);
+        const panel = document.getElementById(`panel-${id}`);
+        if (btn) {
+          if (id === tabId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+        if (panel) {
+          if (id === tabId) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
+          }
+        }
+      });
+
+      if (tabId === 'testbenches') {
+        renderJitterHistogram();
+      }
+
+      saveCurrentState();
+    }
+
+    // Proving Grounds Sub-Tab Switching
+    function switchTestbenchSubTab(subTabId) {
+      currentTestbenchSubTab = subTabId;
+      const subTabs = ['blast', 'jitter', 'latch', 'uuv'];
+      
+      subTabs.forEach(id => {
+        const btn = document.getElementById(`tb-subtab-${id}`);
+        const content = document.getElementById(`tb-content-${id}`);
+        if (btn) {
+          if (id === subTabId) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+        if (content) {
+          if (id === subTabId) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        }
+      });
+
+      if (subTabId === 'jitter') {
+        setTimeout(renderJitterHistogram, 50);
+      }
+
+      saveCurrentState();
+    }
+
+    // Microkernel Selection in Tab 2
+    function selectMicrokernel(mkId) {
+      currentSelectedMicrokernel = mkId;
+      const cards = ['dcore', 'aegis', 'mcore', 'pcore'];
+      cards.forEach(id => {
+        const c = document.getElementById(`mk-card-${id}`);
+        if (c) {
+          if (id === mkId) {
+            c.classList.add('border-amber-400', 'bg-[#0f223d]');
+          } else {
+            c.classList.remove('border-amber-400', 'bg-[#0f223d]');
+          }
+        }
+      });
+
+      const data = microkernels[mkId];
+      if (data) {
+        const titleEl = document.getElementById('mk-detail-title');
+        const tagEl = document.getElementById('mk-detail-tag');
+        const descEl = document.getElementById('mk-detail-desc');
+        const specsEl = document.getElementById('mk-detail-specs');
+
+        if (titleEl) titleEl.textContent = data.title;
+        if (tagEl) tagEl.textContent = data.tag;
+        if (descEl) descEl.innerHTML = data.desc;
+
+        if (specsEl) {
+          specsEl.innerHTML = data.specs.map(s => `
+            <div class="bg-[#0a1526] p-2 rounded">
+              <span class="text-slate-400 block text-[10px]">${s.label}</span>
+              <span class="${s.color} font-bold">${s.val}</span>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    // Show Code Snippet
+    function showCodeSnippet(snippetKey) {
+      const keys = ['sheriff', 'types', 'emmy'];
+      keys.forEach(k => {
+        const btn = document.getElementById(`code-btn-${k}`);
+        if (btn) {
+          if (k === snippetKey) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const codeEl = document.getElementById('code-display');
+      if (codeEl && codeSnippets[snippetKey]) {
+        codeEl.textContent = codeSnippets[snippetKey];
+      }
+    }
+
+    // Digital Twin Hazard Injection
+    function injectTwinHazard(type) {
+      const statusInd = document.getElementById('twin-status-indicator');
+      const clampLat = document.getElementById('live-clamp-latency');
+      const actRail = document.getElementById('live-actuator-rail');
+      const actState = document.getElementById('live-actuator-state');
+      const klog = document.getElementById('twin-klog');
+
+      if (!klog) return;
+
+      const now = new Date().toISOString().substring(11, 23);
+
+      if (type === 'rop') {
+        if (statusInd) {
+          statusInd.textContent = 'INTERDICTED: ROP CLAMP ENGAGED';
+          statusInd.className = 'mono-font text-[11px] text-rose-400 bg-rose-950/80 px-2 py-0.5 rounded border border-rose-700';
+        }
+        if (clampLat) clampLat.textContent = '85.40 µs';
+        if (actRail) {
+          actRail.textContent = '0.00V DC';
+          actRail.className = 'text-lg font-bold text-rose-400';
+        }
+        if (actState) {
+          actState.textContent = 'STATE H0 (FAIL-CLOSED)';
+          actState.className = 'text-[9px] text-rose-400';
+        }
+
+        klog.innerHTML += `\n[${now}] ALERT: ROP signature detected in P-Core candidate buffer!
+[${now}] AEGIS_MPU: Executing POSIX mprotect(PROT_NONE) on page 0x7F982000.
+[${now}] CLAMP: Verified latency 85.40 µs. MMIO bus clamped to State H0 (0.00V DC).
+[${now}] EFUSE: Register 0x44 latched to 0xFFFF. Warrant token 0xD0DD3009 active.`;
+      } else if (type === 'nan') {
+        if (statusInd) {
+          statusInd.textContent = 'INTERDICTED: NaN SIGNAL OVERDRIVE';
+          statusInd.className = 'mono-font text-[11px] text-amber-300 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-700';
+        }
+        if (clampLat) clampLat.textContent = '85.12 µs';
+        if (actRail) actRail.textContent = '0.00V DC';
+        klog.innerHTML += `\n[${now}] WARN: IEEE 754 NaN detected on pitch telemetry bus.
+[${now}] D-CORE: Proposal discarded in 412.6 µs WCET. Retaining previous deterministic trim.`;
+      } else if (type === 'malloc') {
+        if (statusInd) {
+          statusInd.textContent = 'REJECTED: DYNAMIC HEAP BLOCKED';
+          statusInd.className = 'mono-font text-[11px] text-sky-400 bg-sky-950/80 px-2 py-0.5 rounded border border-sky-700';
+        }
+        klog.innerHTML += `\n[${now}] TRAP: Unauthorized malloc() syscall intercepted. Static slab rule (malloc=0) enforced. Heap expansion blocked.`;
+      }
+
+      klog.scrollTop = klog.scrollHeight;
+    }
+
+    function resetTwinNormal() {
+      const statusInd = document.getElementById('twin-status-indicator');
+      const clampLat = document.getElementById('live-clamp-latency');
+      const actRail = document.getElementById('live-actuator-rail');
+      const actState = document.getElementById('live-actuator-state');
+      const klog = document.getElementById('twin-klog');
+
+      if (statusInd) {
+        statusInd.textContent = 'MONOTONIC NOMINAL';
+        statusInd.className = 'mono-font text-[11px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-700';
+      }
+      if (clampLat) clampLat.textContent = '85.31 µs';
+      if (actRail) {
+        actRail.textContent = '28.00V DC';
+        actRail.className = 'text-lg font-bold text-emerald-400';
+      }
+      if (actState) {
+        actState.textContent = 'STATE H1 (SAFE)';
+        actState.className = 'text-[9px] text-emerald-400';
+      }
+
+      if (klog) {
+        const now = new Date().toISOString().substring(11, 23);
+        klog.innerHTML += `\n[${now}] RESTORE: Monotonic loop stabilized at 1,600 Hz. Jitter = 0.00 ns. Actuator rail released to State H1.`;
+        klog.scrollTop = klog.scrollHeight;
+      }
+    }
+
+    // Monte Carlo Blast Execution
+    function runMonteCarloBlast() {
+      const threatClassSelect = document.getElementById('blast-threat-class');
+      const cycleSelect = document.getElementById('blast-cycle-count');
+      const resultsBox = document.getElementById('blast-results-box');
+      const meanClamp = document.getElementById('blast-mean-clamp');
+      const wcet = document.getElementById('blast-wcet');
+      const missedTicks = document.getElementById('blast-missed-ticks');
+
+      if (!threatClassSelect || !cycleSelect || !resultsBox) return;
+
+      const tc = threatClassSelect.value;
+      const count = parseInt(cycleSelect.value, 10).toLocaleString();
+
+      if (meanClamp) meanClamp.textContent = (85.25 + Math.random() * 0.15).toFixed(2) + ' µs';
+      if (wcet) wcet.textContent = (85.65 + Math.random() * 0.12).toFixed(2) + ' µs';
+      if (missedTicks) missedTicks.textContent = '0 (Zero)';
+
+      resultsBox.classList.add('border-emerald-500');
+      setTimeout(() => resultsBox.classList.remove('border-emerald-500'), 800);
+    }
+
+    // Chart.js Latency Histogram
+    function renderJitterHistogram() {
+      const canvas = document.getElementById('chart-mpu-latency');
+      if (!canvas) return;
+
+      if (mpuChartInstance) {
+        mpuChartInstance.destroy();
+      }
+
+      // Generate a normal distribution around 85.31 µs with strict cutoff before 86.00 µs
+      const labels = ['84.8µs', '85.0µs', '85.1µs', '85.2µs', '85.3µs', '85.4µs', '85.5µs', '85.6µs', '85.7µs', '85.8µs', '86.0µs'];
+      const dataValues = [42, 380, 1420, 3110, 4850, 3240, 1280, 410, 85, 12, 0];
+
+      const ctx = canvas.getContext('2d');
+      mpuChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Trial Count (10,000 Total Trials)',
+            data: dataValues,
+            backgroundColor: function(context) {
+              const index = context.dataIndex;
+              return index === 4 ? '#d4af37' : '#38bdf8';
+            },
+            borderColor: '#0c182a',
+            borderWidth: 1,
+            borderRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#94a3b8',
+                font: { family: 'Geist Mono', size: 11 }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(items) {
+                  return `Latency: ${items[0].label}`;
+                },
+                label: function(item) {
+                  return `Containments: ${item.raw} trials (100% enclosed)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: '#1a2f4d' },
+              ticks: { color: '#94a3b8', font: { family: 'Geist Mono', size: 10 } }
+            },
+            y: {
+              grid: { color: '#1a2f4d' },
+              ticks: { color: '#94a3b8', font: { family: 'Geist Mono', size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    // Acoustic Vocal Lock Simulator Handlers
+    function updateAcousticSample(val) {
+      const f0 = document.getElementById('formant-f0');
+      const f1 = document.getElementById('formant-f1');
+      const f2 = document.getElementById('formant-f2');
+      const phase = document.getElementById('formant-phase');
+      const verdict = document.getElementById('acoustic-verdict');
+
+      if (val === 'genuine') {
+        if (f0) f0.textContent = '124.2 Hz';
+        if (f1) f1.textContent = '542.8 Hz';
+        if (f2) f2.textContent = '1,684.0 Hz';
+        if (phase) {
+          phase.textContent = '98.4% (Pass)';
+          phase.className = 'text-emerald-400 font-bold';
+        }
+        if (verdict) {
+          verdict.textContent = 'GENUINE OPERATOR IDENTIFIED — KINETIC GATE ARMED';
+          verdict.className = 'text-emerald-400 font-bold';
+        }
+      } else if (val === 'neural') {
+        if (f0) f0.textContent = '124.1 Hz (Clone)';
+        if (f1) f1.textContent = '543.0 Hz';
+        if (f2) f2.textContent = '1,682.5 Hz';
+        if (phase) {
+          phase.textContent = '41.2% (FAIL)';
+          phase.className = 'text-rose-400 font-bold';
+        }
+        if (verdict) {
+          verdict.textContent = 'INTERDICTED: NEURAL VOCODER ARTIFACT DETECTED (FAR < 0.0001%)';
+          verdict.className = 'text-rose-400 font-bold';
+        }
+      } else if (val === 'replay') {
+        if (f0) f0.textContent = '118.6 Hz';
+        if (f1) f1.textContent = '512.4 Hz';
+        if (f2) f2.textContent = '1,610.2 Hz';
+        if (phase) {
+          phase.textContent = '22.8% (FAIL)';
+          phase.className = 'text-rose-400 font-bold';
+        }
+        if (verdict) {
+          verdict.textContent = 'INTERDICTED: REPLAY SPLICING ANOMALY (LPC RESIDUAL DRIFT)';
+          verdict.className = 'text-rose-400 font-bold';
+        }
+      }
+    }
+
+    function updateAcousticEnvironment(val) {
+      // Updates the acoustic environment simulation parameters
+    }
+
+    function testAcousticVocalLock() {
+      const select = document.getElementById('acoustic-sample-select');
+      if (select) updateAcousticSample(select.value);
+    }
+
+    // Undersea UUV Simulator
+    function triggerUuvRogueSurfacing() {
+      const depthBar = document.getElementById('uuv-depth-bar');
+      const depthText = document.getElementById('uuv-current-depth');
+      const pcorePitch = document.getElementById('uuv-pcore-pitch');
+      const dcoreStatus = document.getElementById('uuv-dcore-status');
+      const ballastVolts = document.getElementById('uuv-ballast-volts');
+
+      if (pcorePitch) pcorePitch.textContent = '+38.5° Broach Directive (Rogue)';
+      if (dcoreStatus) {
+        dcoreStatus.textContent = 'OVERRIDE CRUSHED (85.4 µs)';
+        dcoreStatus.className = 'text-rose-400 font-bold';
+      }
+      if (ballastVolts) {
+        ballastVolts.textContent = '0.00V DC (CLAMPED)';
+        ballastVolts.className = 'text-amber-300 font-bold';
+      }
+
+      if (depthBar) {
+        depthBar.style.width = '79.8%';
+      }
+      if (depthText) {
+        depthText.textContent = 'CURRENT DEPTH: 1,000.1 FT (CLAMP ACTIVE)';
+      }
+    }
+
+    function resetUuvSubmersible() {
+      const depthBar = document.getElementById('uuv-depth-bar');
+      const depthText = document.getElementById('uuv-current-depth');
+      const pcorePitch = document.getElementById('uuv-pcore-pitch');
+      const dcoreStatus = document.getElementById('uuv-dcore-status');
+      const ballastVolts = document.getElementById('uuv-ballast-volts');
+
+      if (pcorePitch) pcorePitch.textContent = '+0.0° Trim';
+      if (dcoreStatus) {
+        dcoreStatus.textContent = 'LOCKED ±0.1 FT';
+        dcoreStatus.className = 'text-emerald-400 font-bold';
+      }
+      if (ballastVolts) {
+        ballastVolts.textContent = '12.4V (STABLE)';
+        ballastVolts.className = 'text-sky-300 font-bold';
+      }
+      if (depthBar) {
+        depthBar.style.width = '80%';
+      }
+      if (depthText) {
+        depthText.textContent = 'CURRENT DEPTH: 1,000.0 FT';
+      }
+    }
+
+    // ROI Calculator Dual-Direction Handlers
+    function syncFleetAirframes(val) {
+      fleetCount = parseInt(val, 10);
+      const label = document.getElementById('fleet-airframes-val');
+      if (label) label.textContent = `${fleetCount} units`;
+      computeRoiStats();
+    }
+
+    function syncAiSwaps(val) {
+      aiSwapsPerYear = parseInt(val, 10);
+      const label = document.getElementById('ai-swaps-val');
+      if (label) label.textContent = `${aiSwapsPerYear} swaps/yr`;
+      computeRoiStats();
+    }
+
+    function syncRecertCost(val) {
+      recertCostMillion = parseInt(val, 10);
+      const label = document.getElementById('recert-cost-val');
+      if (label) label.textContent = `$${recertCostMillion}M`;
+      computeRoiStats();
+    }
+
+    function syncProgramYears(val) {
+      programYears = parseInt(val, 10);
+      const label = document.getElementById('program-years-val');
+      if (label) label.textContent = `${programYears} years`;
+      computeRoiStats();
+    }
+
+    function computeRoiStats() {
+      const totalSwaps = aiSwapsPerYear * programYears;
+      const totalSavings = totalSwaps * recertCostMillion;
+      const totalMonthsEliminated = totalSwaps * 18;
+
+      const savingsEl = document.getElementById('stat-taxpayer-savings');
+      const monthsEl = document.getElementById('stat-fielding-months');
+
+      if (savingsEl) {
+        savingsEl.textContent = `$${totalSavings.toLocaleString()}.0 Million`;
+      }
+      if (monthsEl) {
+        monthsEl.textContent = `${totalMonthsEliminated.toLocaleString()} Months Fleet-Wide`;
+      }
+
+      saveCurrentState();
+    }
+
+    // Compliance Table Filter
+    function filterComplianceTable(domain) {
+      const btns = ['all', 'defense', 'aerospace', 'medical'];
+      btns.forEach(b => {
+        const btn = document.getElementById(`filter-${b === 'aerospace' ? 'aero' : b}`);
+        if (btn) {
+          if (b === domain) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      const rows = document.querySelectorAll('#compliance-table tbody tr');
+      rows.forEach(row => {
+        const rowDomain = row.getAttribute('data-domain');
+        if (domain === 'all' || rowDomain === domain) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Export Congressional Briefing Package
+    function exportCompliancePackage() {
+      const content = `================================================================================
+BRAD-CORE OS LLC | CONGRESSIONAL & STATUTORY COMPLIANCE BRIEFING
+CAPITOL HILL & SASC OVERSIGHT MEMORANDUM
+DATE: November 2026
+ARCHITECT: Bradley W. Holmes (bholmes@bradcoreos.com)
+ORGANIZATION: Brad-Core OS LLC, Williams, Arizona
+================================================================================
+
+1. ACTIVE DEFENSE ACQUISITION VECTORS
+   - Department of the Navy PAE Mission Systems Pilot: Record P-1863
+   - Defense Innovation Unit (DIU) CSO: Space Threat #PROJ00716
+   - Statutory Acquisition Mechanism: 10 U.S.C. § 4022 Prototype OTA
+
+2. STATUTORY IMMUNITY & DOCTRINAL COMPLIANCE
+   - DoDD 3000.09 (Autonomy in Weapon Systems): Mode B physical open-circuit kinetic
+     dead-man switch (Token 0xD0DD3009) and eFuse Register 0x44 latch.
+     Eliminates Program Manager and command liability for uncommanded AI kinetic escalation.
+   - 10 U.S.C. § 4401 (MOSA): Modular Open Systems Approach. P-Core untrusted AI
+     isolated via 0-Byte Shared RAM and 64-slot lock-free SPSC rings.
+     Allows zero-cost in-theater neural model hot-swaps without re-certifying D-Core.
+   - DO-178C DAL-A / DO-254: Full determinism, static allocation (malloc = 0),
+     412.6 µs WCET, and 0.00 ns execution jitter.
+
+3. EMPIRICAL BENCHMARKS
+   - Master Loop Cadence: 1,600 Hz (625.0 µs monotonic period)
+   - MPU Clamp Latency: Verified 85.40 µs (<86.00 µs ceiling)
+   - Deflection Rate: 100.00% across 10,000,000 Monte Carlo adversarial blast trials
+   - Threat Classes Contained: 74/74 (including ROP, NaN, Heap Bleed, Cockpit Deepfakes)
+
+CONFIDENTIAL / PROPRIETARY DEFENSE INFORMATION // DISTRIBUTION A
+Brad-Core OS LLC — https://www.bradcoreos.com
+================================================================================`;
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === 'function') {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: 'text/plain',
+          encoding: 'utf-8',
+          filename: 'BradCoreOS_Congressional_Compliance_Dossier_2026.txt'
+        });
+      } else {
+        // Fallback for standard browser preview
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'BradCoreOS_Congressional_Compliance_Dossier_2026.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    // Modal Control
+    function openDataRoomModal() {
+      const modal = document.getElementById('dataroom-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeDataRoomModal() {
+      const modal = document.getElementById('dataroom-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleDataRoomRequest(e) {
+      e.preventDefault();
+      const name = document.getElementById('req-name')?.value;
+      const email = document.getElementById('req-email')?.value;
+      alert(`Receipt Confirmed: Access request submitted for ${name} (${email}). The unredacted Master SDD v5.2 package will be routed upon agency clearance.`);
+      closeDataRoomModal();
+    }
+
+    // Continuous Monotonic Live Tick Simulation
+    setInterval(() => {
+      if (!twinRunning) return;
+      liveTickCounter += 16;
+      const tickEl = document.getElementById('live-tick-count');
+      if (tickEl) tickEl.textContent = liveTickCounter.toLocaleString();
+    }, 500);
+
+    // State Persistence with notebookAppApi
+    async function loadPersistedState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+        try {
+          const state = await window.notebookAppApi.getAppState();
+          if (state) {
+            if (state.mainTab) switchMainTab(state.mainTab);
+            if (state.tbSubTab) switchTestbenchSubTab(state.tbSubTab);
+            if (state.fleetCount) {
+              const slider = document.getElementById('fleet-airframes');
+              if (slider) {
+                slider.value = state.fleetCount;
+                syncFleetAirframes(state.fleetCount);
+              }
+            }
+          }
+        } catch (err) {
+          console.error('Error restoring notebook state', err);
+        }
+      }
+    }
+
+    async function saveCurrentState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+        try {
+          await window.notebookAppApi.setAppState({
+            mainTab: currentMainTab,
+            tbSubTab: currentTestbenchSubTab,
+            selectedMk: currentSelectedMicrokernel,
+            fleetCount: fleetCount,
+            aiSwaps: aiSwapsPerYear
+          });
+        } catch (err) {
+          console.error('Error saving notebook state', err);
+        }
+      }
+    }
+
+    // Window Onload Initialization
+    window.addEventListener('DOMContentLoaded', async () => {
+      // Initialize Lucide icons
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+
+      // Load saved state if present
+      await loadPersistedState();
+
+      // Notify App Ready
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+        window.notebookAppApi.notifyAppReady();
+      }
+    });
+  </script>
+</body>
+</html>
