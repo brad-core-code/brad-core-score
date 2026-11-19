@@ -1,0 +1,1 @@
+(()=>{const b=document.querySelector(".menu-btn");const nav=document.querySelector(".navlinks");if(!b||!nav)return;b.addEventListener("click",()=>{let open=nav.classList.toggle("open");b.setAttribute("aria-expanded",String(open));});nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{nav.classList.remove("open");b.setAttribute("aria-expanded","false")}))})();
